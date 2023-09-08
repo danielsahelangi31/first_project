@@ -1,0 +1,127 @@
+<div class="modal fade" tabindex="-1" id="kt_modal_export">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Export Master</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label">From</label>
+                        <input id="start_date_export" class="form-control" type="date" name="start_date_export">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">To</label>
+                        <input id="end_date_export" class="form-control" type="date" name="end_date_export">
+                    </div>
+                </div>
+                <div class="my-5">
+                    <label class="form-label">Filter By</label>
+                    <select id="filter_export" class="form-control form-select" data-control="select2" name="filter_export">
+                        <option value="">Select</option>
+                        <option value="customer_type">Customer type</option>
+                        <option value="customer_group">Customer group</option>
+                        <option value="bentuk_usaha">Bentuk Usaha</option>
+                        <option value="service_type">Service type</option>
+                        <option value="branch">Branch</option>
+                        <option value="country">Country</option>
+                        <option value="billing_location">Billing location</option>
+                    </select>
+                </div>
+                <div class="my-5">
+                    {{--  start:: customer type  --}}
+                    <div style="display:none" id="customer_type_filter">
+                        <label class="form-label">Customer Type</label>
+                        <select id="customer-type" class="customer_type form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.customer_type)
+                            <option value="{{item?.id}}">{{item?.name_type}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: customer type  --}}
+                    {{--  start:: customer group  --}}
+                    <div style="display:none" id="customer_group_filter">
+                        <label class="form-label">Customer Group</label>
+                        <select id="customer-group-id" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.customer_group)
+                            <option value="{{item?.id}}">{{item?.name}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: customer group  --}}
+                    {{--  start:: bentuk usaha  --}}
+                    <div style="display:none" id="bentuk_usaha_filter">
+                        <label class="form-label">Bentuk Usaha</label>
+                        <select id="bentuk-usaha-id" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.bentuk_usaha)
+                            <option value="{{item?.id}}">{{item?.name}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: bentuk usaha  --}}
+                    {{--  start:: service type  --}}
+                    <div style="display:none" id="service_type_filter">
+                        <label class="form-label">Service Type</label>
+                        <select id="service-type-id" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.service_type)
+                              <option value="{{item?.id}}">{{item?.name}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: service type  --}}
+                    {{--  start:: branch  --}}
+                    <div style="display:none" id="branch_filter">
+                        <label class="form-label">Branch</label>
+                        <select id="branch-id" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.branch)
+                              <option value="{{item?.id}}">{{item?.name}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: branch  --}}
+                    {{--  start:: country  --}}
+                    <div style="display:none" id="country_filter">
+                        <label class="form-label">Country</label>
+                        <select id="country-id" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.country)
+                              <option value="{{item?.id}}">{{item?.country_name}}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    {{--  end:: country  --}}
+                    {{--  start:: billing location  --}}
+                    {{--  <div style="display:none" id="billing_location_filter">
+                        <label class="form-label">Billing Location</label>
+                        <select id="billing-location" class="form-control form-select" data-control="select2">
+                            <option value="">Select</option>
+                            @each(item in dataModal?.branch)
+                              <option value="{{item?.id}}">{{item?.name}}</option>
+                            @endeach
+                        </select>
+                    </div>  --}}
+                    {{--  end:: billing location  --}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" id="filter_button" data-bs-dismiss="modal" class="btn btn-primary">Export</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/custom/customerV2/modal_export.js" type="text/javascript"></script>
+

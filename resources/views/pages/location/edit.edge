@@ -1,0 +1,178 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+
+  <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+          <div class="card-body border-top p-9">
+              <div class="d-flex align-items-center">
+                <img alt="Logo" width="38" height="38" src="/media/svg/pelindo-logo/entity-icon.svg" />
+                  <h2 class="mx-2">Entity Management</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+       
+        <div id="kt_account_settings_signin_method" class="collapse show">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                <div class="my-4">
+                  <h4 class="text-primary">Edit Entity</h4>
+                </div>
+                <form id="form-submit" class="row g-3" action="{{route('entity.edit', {id: id})}}" method="put">
+                    {{ csrfField() }}
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Entity Group<span class="text-danger">*</span></label>
+                      <select name="idLocation" class="form-select" onchange="entityId(this.value)" aria-label="Default select example">
+                        <option selected>Select</option>
+                        @each(entityGroup in data.groupCompany)
+                        <option
+                        @if(entityGroup.id === data.entity[0].id_location)
+                          selected
+                        @endif
+                        value={{entityGroup.id}}>{{entityGroup.name}}</option>
+                        @end
+                      </select>
+                      @if(flashMessages.has('errors.schema_name'))
+                      <p> {{ flashMessages.get('errors.schema_name') }} </p>
+                      @end
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Job Position<span class="text-danger">*</span></label>
+                      <select id="jobTitle" name="jobTitle" class="form-select" aria-label="Default select example">
+                        <option selected value=''>Select</option>
+                        @each(job in data.JobTitles)
+                        <option
+                        @if(job.id === data.entity[0].id_job_title)
+                        selected
+                        @endif
+                        value={{job.id}}>{{job.name}} || {{job.departement}}</option>
+                        @end
+                      </select>
+                      @if(flashMessages.has('errors.master_data'))
+                      <p> {{ flashMessages.get('errors.master_data') }} </p>
+                      @end
+                    </div>
+
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Entity Name<span class="text-danger">*</span></label>
+                      <select name="entityName" id="entityOption" data-control="select2" data-allow-clear="true" class="form-select">
+                        @each(company in data.company)
+                        <option 
+                        @if(company.id === data.entity[0].id_entity)
+                          selected
+                        @endif
+                        value={{company.id}}
+                        >{{company.company_name}}</option>
+                        @end
+                      </select>
+                      @if(flashMessages.has('errors.submitter'))
+                      <p> {{ flashMessages.get('errors.submitter') }} </p>
+                      @end
+                    </div>
+
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Add Title Alias<span class="text-danger">*</span></label>
+                      <input id="alias" type="text" value="{{data.entity[0].title_alias}}"  name="alias" class="form-control" placeholder="Title Alias">
+                      @if(flashMessages.has('errors.submitter'))
+                      <p> {{ flashMessages.get('errors.submitter') }} </p>
+                      @end
+                    </div>                                       
+                    <div class="col-12" >
+                      <button id="saving" type="button" class="btn btn-primary" style="float:right;">Edit</button>
+                      <a href="{{route('entity.index')}}" class="btn btn-light border border-primary text-primary mx-1" style="float:right;">Batal</a>
+                      <button id="trigger" type="submit" hidden></button>
+                    </div>
+                  </form>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+
+<script>
+
+var titleAlias = document.getElementById("alias")
+
+function onChangeTitle(e){
+  var title = $('#jobTitle').find('option:selected').text();
+  titleAlias.value = title
+}
+
+$(document).ready($('#form-submit').validate({
+  rules: {
+    alias: 'required',
+    idLocation: 'required',
+    entityName:  'required',
+    jobTitle: 'required',
+  },
+  messages: {
+    alias: 'lengkapi bidang ini',
+    idLocation: 'lengkapi bidang ini',
+    entityName: 'lengkapi bidang ini',
+    jobTitle: 'lengkapi bidang ini'
+  },
+  submitHandler: function(form) {
+    form.submit()
+  }
+}))
+  
+
+  $('#saving').click(function (e) {
+          Swal.fire({
+          title: `Memperbaharui`,
+          text: `Data Anda akan di perbaharui. Apakah Anda yakin?`,
+          iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M79.75 43.5C79.75 63.51 63.51 79.75 43.5 79.75C23.49 79.75 11.2737 59.595 11.2737 59.595M11.2737 59.595H27.6587M11.2737 59.595V77.72M7.25 43.5C7.25 23.49 23.345 7.25 43.5 7.25C67.6787 7.25 79.75 27.405 79.75 27.405M79.75 27.405V9.28M79.75 27.405H63.655" stroke="#045299" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>`,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Ya", 
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              icon: 'border-0',
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+              if(result.isConfirmed){
+                $('#trigger').trigger('click')
+              }
+          })
+      })
+
+  $('#form')
+  function entityId(locationId, selectedId = null) {
+    if(locationId == null || locationId == '') return;
+    let id = locationId
+    $('#entityOption') 
+        .find('option')
+        .remove()
+        .end()
+    $.ajax({
+        url: '/entity-search/' + id,
+        type: 'GET',
+        success: function(response) {
+            response.forEach(element => {
+              console.log(element.id);
+              $('#entityOption')
+              .append(`
+                    <option value='${element.id}'>${element.company_name}</option>
+              `)
+            })
+        }
+    })
+  }
+
+</script>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
+@end

@@ -1,0 +1,163 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+
+  <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+
+          <div class="card-body border-top p-9">
+            <div class="d-flex align-items-center">
+              <img alt="Logo" width="38" height="38" src="/media/svg/pelindo-logo/entity-icon.svg" />
+                <h2 class="mx-2">Entity Management</h2>
+            </div>
+          </div>
+
+      </div>
+
+  </div>
+    <!--begin::Navbar-->   
+  
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+            <div class="my-4">
+              <h4 class="text-primary">Add Entity</h4>
+            </div>
+                <form id="form-submit" class="row g-3" action="{{route('entity.store')}}" method="post">
+                    {{ csrfField() }}
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Entity Group<span class="text-danger">*</span></label>
+                      <select name="idLocation" id="location" data-placeholder="Select" data-control="select2" class="form-select" onchange="entityId(this.value)" aria-label="Default select example">
+                        <option value="">Select</option>
+                        @each(location in data.groupCompany)
+                        <option value={{location.id}}>{{location.name}}</option>
+                        @end
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Job Position<span class="text-danger">*</span></label>
+                      <select id="jobTitle" onchange="onChangeTitle()" name="jobTitle" data-placeholder="Select" data-control="select2" class="form-select" aria-label="Default select example">
+                        <option value="">Select</option>
+                        @each(data in data.JobTitles)
+                        <option value={{data.id}}>{{data.name}} || {{data.departement}}</option>
+                        @end
+                      </select>
+                      @if(flashMessages.has('errors.master_data'))
+                      <p> {{ flashMessages.get('errors.master_data') }} </p>
+                      @end
+                    </div>
+
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Entity Name<span class="text-danger">*</span></label>
+                      <select name="entityName" data-control="select2" data-placeholder="Select" data-allow-clear="true" class="form-select" id="entityOption">
+                        <option value="">Select</option>
+                      </select>
+                      @if(flashMessages.has('errors.submitter'))
+                      <p> {{ flashMessages.get('errors.submitter') }} </p>
+                      @end
+                    </div>
+  
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Add Title Alias<span class="text-danger">*</span></label>
+                      <input type="text" id="alias" name="alias" class="form-control" value="" placeholder="Title Alias">
+                      @if(flashMessages.has('errors.submitter'))
+                      <p> {{ flashMessages.get('errors.submitter') }} </p>
+                      @end
+                    </div>                                       
+                    <div class="col-12" >
+                      <button type="button" id="saving" class="btn btn-primary mx-1" style="float:right;">Kirim</button>
+                      <a href="{{route('entity.index')}}" class="btn btn-light border border-primary mx-1" style="float:right;">Batal</a>
+                      <button id="trigger" type="submit" hidden></button>
+                    </div>
+                  </form>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+<script>
+
+var titleAlias = document.getElementById("alias")
+
+function onChangeTitle(e){
+  var title = $('#jobTitle').find('option:selected').text();
+  titleAlias.value = title
+}
+
+$(document).ready($('#form-submit').validate({
+  rules: {
+    alias: 'required',
+    idLocation: 'required',
+    entityName:  'required',
+    jobTitle: 'required',
+  },
+  messages: {
+    alias: 'lengkapi bidang ini',
+    idLocation: 'lengkapi bidang ini',
+    entityName: 'lengkapi bidang ini',
+    jobTitle: 'lengkapi bidang ini'
+  },
+  submitHandler: function(form) {
+    form.submit()
+  }
+}))
+
+$('#saving').click(function (e) {
+          Swal.fire({
+          title: `Apakah kamu yakin?`,
+          text:`jika Anda melanjutkan, Anda akan menyetujui semua data yang telah Anda isi`,
+          iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M76.125 43.5C76.125 25.4883 61.5117 10.875 43.5 10.875C25.4883 10.875 10.875 25.4883 10.875 43.5C10.875 61.5117 25.4883 76.125 43.5 76.125C61.5117 76.125 76.125 61.5117 76.125 43.5Z" stroke="#8CE02C" stroke-width="5.4375" stroke-miterlimit="10"/>
+          <path d="M59.8125 29.9062L36.975 57.0938L27.1875 46.2188" stroke="#8CE02C" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          `,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya", 
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              icon: 'border-0',
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+              if(result.isConfirmed){
+                // $('#form-submit').submit()
+                $('#trigger').trigger('click')
+              }
+          })
+      }
+)
+  function entityId(locationId, selectedId = null) {
+    if(locationId == null || locationId == '') return;
+    let id = locationId
+    $('#entityOption') 
+        .find('option')
+        .remove()
+        .end()
+    $.ajax({
+        url: '/entity-search/' + id,
+        type: 'GET',
+        success: function(response) {
+            response.forEach(element => {
+              $('#entityOption')
+              .append(`
+                    <option value='${element.id}'>${element.company_name}</option>
+              `)
+            })
+        }
+    })
+  }
+  
+</script>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
+@end

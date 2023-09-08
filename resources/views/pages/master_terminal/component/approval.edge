@@ -1,0 +1,77 @@
+<div class="modal fade modal-xl" tabindex="-1" id="approval-modal">
+    <div class="modal-dialog">
+        <form method="POST"  action="{{route('admin.role.store')}}" id="form-approval">
+            {{ csrfField() }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">View Master Data Terminal</h3>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <div  id="formHeader">
+                      <div class="d-flex align-items-center">
+                        <!--begin:: Avatar -->
+                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="19" cy="19" r="19" fill="#045299"/>
+                              <path d="M19.6196 17.1307C19.1526 17.0845 18.6828 17.1839 18.2745 17.4151C17.8661 17.6463 17.5392 17.9981 17.3385 18.4223C17.1378 18.8464 17.0732 19.3223 17.1534 19.7846C17.2336 20.247 17.4547 20.6733 17.7865 21.0051C18.1183 21.3369 18.5446 21.558 19.007 21.6382C19.4693 21.7184 19.9452 21.6538 20.3693 21.4531C20.7935 21.2524 21.1453 20.9255 21.3765 20.5171C21.6077 20.1088 21.7071 19.639 21.6609 19.172C21.6084 18.6485 21.3764 18.1593 21.0044 17.7872C20.6323 17.4152 20.1431 17.1832 19.6196 17.1307V17.1307ZM25.0999 19.3957C25.0985 19.6431 25.0803 19.8901 25.0455 20.135L26.6533 21.3961C26.7233 21.4541 26.7705 21.5351 26.7864 21.6246C26.8024 21.7142 26.7861 21.8064 26.7404 21.8851L25.2194 24.5168C25.1732 24.5947 25.101 24.6537 25.0155 24.6836C24.93 24.7135 24.8367 24.7122 24.7521 24.68L23.1553 24.037C23.0673 24.002 22.9719 23.9893 22.8777 24.0002C22.7836 24.011 22.6936 24.0451 22.6158 24.0993C22.3721 24.2671 22.116 24.4161 21.8498 24.5452C21.7661 24.5859 21.6937 24.6466 21.639 24.7219C21.5843 24.7972 21.5489 24.8848 21.5361 24.977L21.2968 26.6801C21.2811 26.77 21.2346 26.8517 21.1653 26.9112C21.096 26.9707 21.0083 27.0043 20.917 27.0062H17.8749C17.7851 27.0046 17.6985 26.9725 17.6294 26.9152C17.5603 26.8579 17.5128 26.7787 17.4947 26.6907L17.2557 24.9901C17.2423 24.8969 17.2061 24.8085 17.1502 24.7327C17.0944 24.6568 17.0207 24.596 16.9357 24.5555C16.6697 24.4272 16.4145 24.2777 16.1725 24.1085C16.095 24.0546 16.0053 24.0208 15.9115 24.0102C15.8177 23.9996 15.7227 24.0124 15.6351 24.0477L14.0387 24.6903C13.9541 24.7225 13.8608 24.7239 13.7754 24.6941C13.6899 24.6643 13.6176 24.6053 13.5714 24.5274L12.0504 21.8958C12.0046 21.8171 11.9883 21.7248 12.0042 21.6353C12.0202 21.5457 12.0674 21.4648 12.1375 21.4068L13.4964 20.3399C13.5708 20.2808 13.6293 20.204 13.6666 20.1166C13.7038 20.0291 13.7187 19.9338 13.7097 19.8391C13.6969 19.6908 13.6891 19.5429 13.6891 19.3946C13.6891 19.2463 13.6966 19.1005 13.7097 18.9554C13.7177 18.8613 13.7021 18.7668 13.6645 18.6802C13.6268 18.5937 13.5681 18.5179 13.4939 18.4596L12.1357 17.3928C12.0668 17.3345 12.0206 17.2538 12.0051 17.1648C11.9897 17.0759 12.0061 16.9843 12.0514 16.9062L13.5725 14.2746C13.6187 14.1967 13.6909 14.1376 13.7763 14.1077C13.8618 14.0779 13.9551 14.0792 14.0398 14.1113L15.6366 14.7543C15.7246 14.7894 15.82 14.8021 15.9141 14.7912C16.0083 14.7803 16.0983 14.7463 16.176 14.6921C16.4197 14.5243 16.6758 14.3752 16.9421 14.2461C17.0258 14.2054 17.0982 14.1448 17.1529 14.0695C17.2076 13.9942 17.2429 13.9066 17.2557 13.8144L17.4951 12.1113C17.5108 12.0213 17.5573 11.9396 17.6265 11.8801C17.6958 11.8207 17.7836 11.7871 17.8749 11.7852H20.917C21.0068 11.7867 21.0933 11.8188 21.1624 11.8761C21.2315 11.9335 21.279 12.0126 21.2971 12.1006L21.5361 13.8012C21.5495 13.8944 21.5858 13.9829 21.6416 14.0587C21.6975 14.1345 21.7712 14.1953 21.8562 14.2358C22.1221 14.3642 22.3773 14.5137 22.6194 14.6828C22.6969 14.7368 22.7866 14.7705 22.8804 14.7812C22.9742 14.7918 23.0692 14.7789 23.1567 14.7437L24.7532 14.101C24.8378 14.0688 24.931 14.0675 25.0165 14.0973C25.102 14.1271 25.1742 14.1861 25.2205 14.2639L26.7415 16.8956C26.7872 16.9742 26.8036 17.0665 26.7876 17.1561C26.7717 17.2456 26.7244 17.3266 26.6544 17.3846L25.2955 18.4515C25.2207 18.5104 25.1619 18.587 25.1243 18.6745C25.0867 18.7619 25.0716 18.8574 25.0803 18.9522C25.0921 19.0994 25.0999 19.2474 25.0999 19.3957Z" stroke="white" stroke-width="1.13802" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!--end::Avatar-->
+                        <!--begin::User details-->
+                        <div class="d-flex flex-column">
+                            <span class="text-muted fw-bold ">Created By</span>
+                            <span class="fw-bold" id="requested_name"></span>
+                            <span class="fw-bold text-muted" id="requested_title"></span>
+                        </div>
+                        <!--begin::User details-->
+                    </div>
+                    <hr class="mt-5 mb-5"/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="flex-grow-1">
+                                <span class="text-muted fw-semibold d-block">Tanggal</span>
+                                <p id="tanggal_submit"></p>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="flex-grow-1">
+                                <span class="text-muted fw-semibold d-block">Departement</span>
+                                <p id="departement"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                    <hr class="mt-5 mb-5"/>
+                    @include('pages.master_terminal.component.detail')
+                    <div class="separator my-10"></div>
+
+                    <div id="formHistoryAproval">
+                      @include('pages.approval_history.history')
+                    </div>
+                    <div id="formAprovalLog">
+                        @include('pages.approval_history.log')
+                      </div>
+                    <div class="col-md-12">
+                      <label class="form-label fw-bold">Note<span class="text-danger">*</span></label>
+                      <textarea class="form-control" id="remark" name="remark" rows="3" required></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"   class="btn btn-danger  show_confirm reject-process"  data-url="{{route('master.terminal.reject')}}" >Reject</button>
+                    <button type="button"  class="btn btn-primary approve-process" id="submit-button"  data-url="{{route('master.terminal.approve')}}">Approve</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

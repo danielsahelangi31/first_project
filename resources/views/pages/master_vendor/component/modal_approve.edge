@@ -1,0 +1,65 @@
+<div class="modal fade modal-xl approval-modal" tabindex="-1" id="approval-modal">
+    <div class="modal-dialog">
+        <form  id="form-role">
+            {{--  {{ csrfField() }}  --}}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">View Master Data Vendor</h3>
+                    <!--begin::Close-->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <div class="d-flex">
+                        <img src="/media/peralatan/vendor-icon.svg" alt="" srcset="">
+                        <div class="mx-5">
+                          Requested By <br>
+                          <strong>Master Data Vendor</strong><br>
+                          <span class="name_request"></span>
+                        </div>
+                        <div style="border-left: 1px solid #C0C0C0;"></div>
+                        <div class="mx-3">
+                          <br>Departemen <br>
+                          <span class="dept_request"></span>
+                        </div>
+                        <div style="border-left: 1px solid #C0C0C0;"></div>
+                        <div class="mx-3">
+                          <br>Tanggal <br>
+                          <strong><span class="date_request"></span></strong>
+                        </div>
+                    </div>
+                    <hr class="mt-5 mb-5"/>
+                    <div class="card mb-5 mb-xl-10 bg-white"> 
+                        <!--begin::Card body-->
+                        <div class="card-body border-top p-md-9">
+                        @!component('pages/master_vendor/component/form_bp',{
+                            title: 'View',
+                            usable: 'disabled',
+                            isEdit: false,
+                            vendor: vendor,
+                            jn_vendor: jn_vendor
+                        })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer row">
+                    <hr>
+                    <div class="col-12">
+                      @include('pages/approval_history/history')
+                    </div>
+                    @include('pages/approval_history/log')
+                    <label for="noteApproval" class="form-label">Notes<span style="color:red;">*</span></label>
+                    <textarea class="form-control" id="noteApprovalReject" rows="3"></textarea>
+                    <input hidden id="no-request"type="text" value="{{vendor?.no_request}}" >
+                    <div>
+                        <button style="float:right" type="button" class="btn btn-primary" id="submit-approve">Approve</button>
+                        <input type="hidden" id="id-submit-approve" value="">
+                        <button style="float:right" type="button" class="btn btn-danger mx-3" id="submit-reject">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,1545 @@
+<div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselVendor" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    {{--  Begin Umum  --}}
+                    <h5 class="fw-bold my-5">Umum</h5>
+                    <div class="accordion" id="accordionUmum">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingDokumenExpired">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDokumenExpired" aria-expanded="true" aria-controls="collapseDokumenExpired">
+                                View Informasi Dokumen Expired
+                                </button>
+                            </h2>
+                            <div id="collapseDokumenExpired" class="accordion-collapse collapse show" aria-labelledby="headingDokumenExpired" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:center;">No</th>
+                                            <th style="text-align:center;">Jenis</th>
+                                            <th style="text-align:center;">No Ijin</th>
+                                            <th style="text-align:center;">Tanggal Awal</th>
+                                            <th style="text-align:center;">Tanggal Akhir</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                View Profil Perusahaan
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: nama perusahaan  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nama Perusahaan<span class="text-danger">*</span></label>
+                                                    <input disabled id="nm_perusahaan" value="{{vendor?.nm_perusahaan ? vendor?.nm_perusahaan : ""}}" name="nm_perusahaan" type="text" class="form-control" maxlength="50" placeholder="Nama Perusahaan">
+                                                </div>
+                                                {{--  end:: nama perusahaan  --}}
+
+                                                {{--  begin:: NPWP  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">NPWP</label>
+                                                    <input disabled id="no_npwp" value="{{vendor?.no_npwp ? vendor?.no_npwp : ""}}" name="no_npwp" type="text" class="form-control" placeholder="NPWP">
+                                                </div>
+                                                {{--  end:: NPWP  --}}
+
+                                                {{--  begin:: Alamat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                                    <textarea disabled id="address" name="address" class="form-control" placeholder="Alamat" rows="1" maxlength="200" style="resize: none">{{vendor?.address ? vendor?.address : ""}}</textarea>
+                                                </div>
+                                                {{--  end:: Alamat  --}}
+
+                                                {{--  begin:: Provinsi  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Provinsi<span class="text-danger">*</span></label>
+                                                    <input disabled id="province" value="{{vendor?.postalCode?.province ? vendor?.postalCode?.province : ""}}" name="province" type="text" class="form-control" maxlength="15" placeholder="Provinsi">
+                                                </div>
+                                                {{--  end:: Provinsi  --}}
+
+                                                {{--  begin:: Kota  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Kota<span class="text-danger">*</span></label>
+                                                    <input disabled id="city" value="{{vendor?.postalCode?.city ? vendor?.postalCode?.city : ""}}" name="city" type="text" class="form-control" maxlength="15" placeholder="Kota">
+                                                </div>
+                                                {{--  end:: Kota  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+
+                                                {{--  begin:: No Telepon  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">No Telepon<span class="text-danger">*</span></label>
+                                                    <input disabled id="no_telephone" value="{{vendor?.phone ? vendor?.phone : ""}}" name="no_telephone" type="text" class="form-control" maxlength="50" placeholder="No Telepon">
+                                                </div>
+                                                {{--  end:: No Telepon  --}}
+
+                                                {{--  begin:: No. Fax  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">No. Fax</label>
+                                                    <input disabled id="no_fax" value="{{vendor?.kd_vendor ? vendor?.kd_vendor : ""}}" name="no_fax" type="text" class="form-control" placeholder="No. Fax">
+                                                </div>
+                                                {{--  end:: No. Fax  --}}
+
+                                                {{--  begin:: Email  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Email<span class="text-danger">*</span></label>
+                                                    <input disabled value="{{vendor?.email ? vendor?.email : ""}}" id="email" name="email" class="form-control" placeholder="Email" rows="2" maxlength="200">
+                                                </div>
+                                                {{--  end:: Email  --}}
+
+                                                {{--  begin:: Kode Pos  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Kode Pos<span class="text-danger">*</span></label>
+                                                    <input disabled id="postal_code" value="{{vendor?.postal_code ? vendor?.postal_code : ""}}" name="postal_code" type="text" class="form-control" maxlength="15" placeholder="Kode Pos">
+                                                </div>
+                                                {{--  end:: Kode Pos  --}}
+
+                                                {{--  begin:: Kualifikasi  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Kualifikasi<span class="text-danger">*</span></label>
+                                                    <input disabled id="kualifikasi" value="{{vendor?.kualifikasi ? vendor?.kualifikasi : ""}}" name="kualifikasi" type="text" class="form-control" maxlength="15" placeholder="Kualifikasi">
+                                                </div>
+                                                {{--  end:: Kualifikasi  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button text-primary collapsed border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    View Info Pembayaran  
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse " aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Bank  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bank<span class="text-danger">*</span></label>
+                                                    <input disabled id="bank" value="{{vendor?.bankAccount[0]?.nm_bank ? vendor?.bankAccount[0]?.nm_bank : ""}}" name="bank" type="text" class="form-control" maxlength="50" placeholder="Bank">
+                                                </div>
+                                                {{--  end:: Bank  --}}
+
+                                                {{--  begin:: No Rekening  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">No. Rekening<span class="text-danger">*</span></label>
+                                                    <input disabled id="no_rekening" value="{{vendor?.bankAccount[0]?.no_rek ? vendor?.bankAccount[0]?.no_rek : ""}}" name="no_rekening" type="text" class="form-control" maxlength="50" placeholder="No Rekening">
+                                                </div>
+                                                {{--  end:: No Rekening  --}}
+
+                                                {{--  begin:: Atas Nama  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Atas Nama<span class="text-danger">*</span></label>
+                                                    <input disabled id="account_holder" value="{{vendor?.bankAccount[0]?.account_holder ? vendor?.bankAccount[0]?.account_holder : ""}}" name="account_holder" type="text" class="form-control" maxlength="50" placeholder="Atas Nama">
+                                                </div>
+                                                {{--  end:: Atas Nama  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Cara Pembayaran  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Cara Pembayaran<span class="text-danger">*</span></label>
+                                                    <input disabled id="payment_type" value="{{vendor?.payment_type ? vendor?.payment_type : ""}}" name="payment_type" type="text" class="form-control" maxlength="50" placeholder="Cara Pembayaran">
+                                                </div>
+                                                {{--  end:: Cara Pembayaran  --}}
+
+                                                {{--  begin:: Mata Uang  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Mata Uang<span class="text-danger">*</span></label>
+                                                    <input disabled id="currency" value="{{vendor?.currency ? vendor?.currency : ""}}" name="currency" type="text" class="form-control" maxlength="50" placeholder="Mata Uang">
+                                                </div>
+                                                {{--  end:: Mata Uang  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button text-primary collapsed border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    View PIC Pendaftaran  
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nama PIC  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nama PIC<span class="text-danger">*</span></label>
+                                                    <input disabled id="nm_pic" value="{{vendor?.nm_pic ? vendor?.nm_pic : ""}}" name="nm_pic" type="text" class="form-control" maxlength="50" placeholder="Nama PIC">
+                                                </div>
+                                                {{--  end:: Nama PIC  --}}
+
+                                                {{--  begin:: No Identitas PIC  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">No Identitas PIC<span class="text-danger">*</span></label>
+                                                    <input disabled id="no_identity" value="{{vendor?.no_identity ? vendor?.no_identity : ""}}" name="no_identity" type="text" class="form-control" maxlength="50" placeholder="No Identitas PIC">
+                                                </div>
+                                                {{--  end:: No Identitas PIC  --}}
+
+                                                {{--  begin:: Jabatan PIC  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Jabatan PIC<span class="text-danger">*</span></label>
+                                                    <input disabled id="position" value="{{vendor?.position ? vendor?.position : ""}}" name="position" type="text" class="form-control" maxlength="50" placeholder="Jabatan PIC">
+                                                </div>
+                                                {{--  end:: Jabatan PIC  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: E-mail PIC  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">E-mail PIC<span class="text-danger">*</span></label>
+                                                    <input disabled id="email_pic" value="{{vendor?.email_pic ? vendor?.email_pic : ""}}" name="email_pic" type="text" class="form-control" maxlength="50" placeholder="E-mail PIC">
+                                                </div>
+                                                {{--  end:: E-mail PIC  --}}
+
+                                                {{--  begin:: Nomor HP PIC  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor HP PIC<span class="text-danger">*</span></label>
+                                                    <input disabled id="no_mobile_pic" value="{{vendor?.no_mobile_pic ? vendor?.no_mobile_pic : ""}}" name="no_mobile_pic" type="text" class="form-control" maxlength="50" placeholder="Nomor HP PIC">
+                                                </div>
+                                                {{--  end:: Nomor HP PIC  --}}
+
+                                                {{--  begin:: File KTP  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File KTP<span class="text-danger">*</span></label>
+                                                    <br>
+                                                    <a href="">Preview File</a>
+                                                </div>
+                                                {{--  end:: File KTP  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button text-primary collapsed border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    View Incoterm  
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Incoterm I  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Incoterm I<span class="text-danger">*</span></label>
+                                                    <input disabled id="incoterm_1" value="{{vendor?.incoterm_1 ? vendor?.incoterm_1 : ""}}" name="incoterm_1" type="text" class="form-control" maxlength="50" placeholder="Incoterm I">
+                                                </div>
+                                                {{--  end:: Incoterm I  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Incoterm II  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Incoterm II<span class="text-danger">*</span></label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="Incoterm II">
+                                                </div>
+                                                {{--  end:: Incoterm II  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button text-primary collapsed border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    View Dokumen Pendukung Pendaftaran  
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-control">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Surat Pernyataan  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Surat Pernyataan<span class="text-danger">*</span></label>
+                                                    <br>
+                                                    <a href="">Preview File</a>
+                                                </div>
+                                                {{--  end:: Surat Pernyataan  --}}
+
+                                                {{--  begin:: Surat Kuasa  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Surat Kuasa<span class="text-danger">*</span></label>
+                                                    <br>
+                                                    <a href="">Preview File</a>
+                                                </div>
+                                                {{--  end:: Surat Kuasa  --}}
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: KTP Pemberi Kuasa  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">KTP Pemberi Kuasa<span class="text-danger">*</span></label>
+                                                    <br>
+                                                    <a href="">Preview File</a>
+                                                </div>
+                                                {{--  end:: KTP Pemberi Kuasa  --}}
+
+                                                {{--  begin:: KTP Penerima Kuasa  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">KTP Penerima Kuasa<span class="text-danger">*</span></label>
+                                                    <br>
+                                                    <a href="">Preview File</a>
+                                                </div>
+                                                {{--  end:: KTP Penerima Kuasa  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Umum  --}}
+                    {{--  Begin Ijin Usaha  --}}
+                    <h5 class="fw-bold my-5">Ijin Usaha</h5>
+                    <div class="accordion" id="accordionIjinUsaha">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNIB">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNIB" aria-expanded="true" aria-controls="collapseNIB">
+                                View Ijin NIB
+                                </button>
+                            </h2>
+                            <div id="collapseNIB" class="accordion-collapse collapse show" aria-labelledby="headingNIB" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal Ijin  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Ijin</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Ijin">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Berakhir</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal Ijin  --}}
+
+                                                {{--  begin:: Instansi Pemberi Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Instansi Pemberi Ijin</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Instansi Pemberi Ijin">
+                                                </div>
+                                                {{--  end:: Instansi Pemberi Ijin  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                    {{--    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="File">  --}}
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Bidang Usaha  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bidang Usaha</label>
+                                                    <table class="table row-border">
+                                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                                            <tr>
+                                                                <th style="text-align:center;">No</th>
+                                                                <th style="text-align:center;">Bidang Usaha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{--  end:: Bidang Usaha  --}}
+
+                                                {{--  begin:: Dokumen Pendukung  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Dokumen Pendukung</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Dokumen Pendukung  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingLainlain">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLainlain" aria-expanded="false" aria-controls="collapseLainlain">
+                                    View Ijin Lain-lain  
+                                </button>
+                            </h2>
+                            <div id="collapseLainlain" class="accordion-collapse collapse" aria-labelledby="headingLainlain" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal Ijin  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Ijin</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Ijin">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Berakhir</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal Ijin  --}}
+
+                                                {{--  begin:: Instansi Pemberi Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Instansi Pemberi Ijin</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Instansi Pemberi Ijin">
+                                                </div>
+                                                {{--  end:: Instansi Pemberi Ijin  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="File">
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Bidang Usaha  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bidang Usaha</label>
+                                                    <table class="table row-border">
+                                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                                            <tr>
+                                                                <th style="text-align:center;">No</th>
+                                                                <th style="text-align:center;">Bidang Usaha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{--  end:: Bidang Usaha  --}}
+
+                                                {{--  begin:: Dokumen Pendukung  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Dokumen Pendukung</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Dokumen Pendukung  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingLainlain2">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLainlain2" aria-expanded="false" aria-controls="collapseLainlain2">
+                                    View Ijin Lain-lain  
+                                </button>
+                            </h2>
+                            <div id="collapseLainlain2" class="accordion-collapse collapse" aria-labelledby="headingLainlain2" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal Ijin  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Ijin</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Ijin">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Berakhir</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal Ijin  --}}
+
+                                                {{--  begin:: Instansi Pemberi Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Instansi Pemberi Ijin</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Instansi Pemberi Ijin">
+                                                </div>
+                                                {{--  end:: Instansi Pemberi Ijin  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Bidang Usaha  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bidang Usaha</label>
+                                                    <table class="table row-border">
+                                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                                            <tr>
+                                                                <th style="text-align:center;">No</th>
+                                                                <th style="text-align:center;">Bidang Usaha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{--  end:: Bidang Usaha  --}}
+
+                                                {{--  begin:: Dokumen Pendukung  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Dokumen Pendukung</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Dokumen Pendukung  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Ijin Usaha  --}}
+                    {{--  Begin Sertifikat Badan Usaha  --}}
+                    <h5 class="fw-bold my-5">Sertifikat Badan Usaha</h5>
+                    <div class="accordion" id="accordionIjinSertifikat">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingBadanUsaha1">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBadanUsaha1" aria-expanded="true" aria-controls="collapseBadanUsaha1">
+                                View sertifikat Badan Usaha 29 Maret 2022 s/d 28 Maret 2025
+                                </button>
+                            </h2>
+                            <div id="collapseBadanUsaha1" class="accordion-collapse collapse show" aria-labelledby="headingBadanUsaha1" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Sertifikat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Sertifikat</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Sertifikat">
+                                                </div>
+                                                {{--  end:: Nomor Sertifikat  --}}
+
+                                                {{--  begin:: Tanggal Sertifikat  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Sertifikat</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Sertifikat">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Berakhir</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal Sertifikat  --}}
+
+                                                {{--  begin:: Penanda Tangan  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Penanda Tangan</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Penanda Tangan">
+                                                </div>
+                                                {{--  end:: Penanda Tangan  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Share Link LPJK  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Share Link LPJK</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Share Link LPJK  --}}
+
+                                                {{--  begin:: Bidang Usaha  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bidang Usaha</label>
+                                                    <table class="table row-border">
+                                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                                            <tr>
+                                                                <th style="text-align:center;">No</th>
+                                                                <th style="text-align:center;">Bidang Usaha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{--  end:: Bidang Usaha  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingBadanUsaha2">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBadanUsaha2" aria-expanded="false" aria-controls="collapseBadanUsaha2">
+                                    View sertifikat Badan Usaha 29 Maret 2022 s/d 28 Maret 2025 
+                                </button>
+                            </h2>
+                            <div id="collapseBadanUsaha2" class="accordion-collapse collapse" aria-labelledby="headingBadanUsaha2" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Sertifikat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Sertifikat</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Sertifikat">
+                                                </div>
+                                                {{--  end:: Nomor Sertifikat  --}}
+
+                                                {{--  begin:: Tanggal Sertifikat  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Sertifikat</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Sertifikat">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal Berakhir</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal Sertifikat  --}}
+
+                                                {{--  begin:: Penanda Tangan  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Penanda Tangan</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Penanda Tangan">
+                                                </div>
+                                                {{--  end:: Penanda Tangan  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Share Link LPJK  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Share Link LPJK</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Share Link LPJK  --}}
+
+                                                {{--  begin:: Bidang Usaha  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Bidang Usaha</label>
+                                                    <table class="table row-border">
+                                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                                            <tr>
+                                                                <th style="text-align:center;">No</th>
+                                                                <th style="text-align:center;">Bidang Usaha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{--  end:: Bidang Usaha  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Sertifikat Badan Usaha  --}}
+                    {{--  Begin Landasan Hukum  --}}
+                    <h5 class="fw-bold my-5">Landasan Hukum</h5>
+                    <div class="accordion" id="accordionLandasanHukum">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAktaPendirian">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAktaPendirian" aria-expanded="true" aria-controls="collapseAktaPendirian">
+                                View Akta Pendirian
+                                </button>
+                            </h2>
+                            <div id="collapseAktaPendirian" class="accordion-collapse collapse show" aria-labelledby="headingAktaPendirian" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="date" class="form-control" placeholder="Tanggal">    
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+
+                                                {{--  begin:: Nama Notaris  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nama Notaris</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Nama Notaris">
+                                                </div>
+                                                {{--  end:: Nama Notaris  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: File SK Pengesahan KEMENKUMHAM  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File SK Pengesahan KEMENKUMHAM</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File SK Pengesahan KEMENKUMHAM  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAktaPerubahan">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAktaPerubahan" aria-expanded="false" aria-controls="collapseAktaPerubahan">
+                                    View Akta Perubahan Terakhir 
+                                </button>
+                            </h2>
+                            <div id="collapseAktaPerubahan" class="accordion-collapse collapse" aria-labelledby="headingAktaPerubahan" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="date" class="form-control" placeholder="Tanggal">    
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+
+                                                {{--  begin:: Nama Notaris  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nama Notaris</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Nama Notaris">
+                                                </div>
+                                                {{--  end:: Nama Notaris  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: File SK Pengesahan KEMENKUMHAM  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File SK Pengesahan KEMENKUMHAM</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File SK Pengesahan KEMENKUMHAM  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSuratDomisili">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSuratDomisili" aria-expanded="false" aria-controls="collapseSuratDomisili">
+                                    View Surat Domisili
+                                </button>
+                            </h2>
+                            <div id="collapseSuratDomisili" class="accordion-collapse collapse" aria-labelledby="headingSuratDomisili" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Sertifikat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Sertifikat</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Sertifikat">
+                                                </div>
+                                                {{--  end:: Nomor Sertifikat  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Sertifikat">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Berlaku</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTandaDaftar">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTandaDaftar" aria-expanded="false" aria-controls="collapseTandaDaftar">
+                                    View Tanda Daftar Perusahaan 
+                                </button>
+                            </h2>
+                            <div id="collapseTandaDaftar" class="accordion-collapse collapse" aria-labelledby="headingTandaDaftar" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Sertifikat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Sertifikat</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Sertifikat">
+                                                </div>
+                                                {{--  end:: Nomor Sertifikat  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Sertifikat">    
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label">Berlaku</label>
+                                                        <input disabled id="end_date" value="{{vendor?.end_date ? vendor?.end_date : ""}}" name="end_date" type="text" class="form-control" maxlength="50" placeholder="Tanggal Berakhir">    
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSKPengesahan">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSKPengesahan" aria-expanded="false" aria-controls="collapseSKPengesahan">
+                                    View SK Pengesahaan KEMENKUMHAM
+                                </button>
+                            </h2>
+                            <div id="collapseSKPengesahan" class="accordion-collapse collapse" aria-labelledby="headingSKPengesahan" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Nomor Ijin  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor Ijin</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor Ijin">
+                                                </div>
+                                                {{--  end:: Nomor Ijin  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="date" class="form-control" placeholder="Tanggal">    
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+
+                                                {{--  begin:: Nama Notaris  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nama Notaris</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Nama Notaris">
+                                                </div>
+                                                {{--  end:: Nama Notaris  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">FILE</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: File  --}}
+
+                                                {{--  begin:: Link Scan Barcode  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Link Scan Barcode</label>
+                                                    <br>
+                                                    <a href="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}">Preview File</a>
+                                                </div>
+                                                {{--  end:: Link Scan Barcode  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Landasan Hukum  --}}
+                    {{--  Begin Pengurus Perusahaan  --}}
+                    <h5 class="fw-bold my-5">Pengurus Perusahaan</h5>
+                    <div class="accordion" id="accordionPengurusPerusahaan">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingKomisaris">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKomisaris" aria-expanded="true" aria-controls="collapseKomisaris">
+                                View Komisaris
+                                </button>
+                            </h2>
+                            <div id="collapseKomisaris" class="accordion-collapse collapse show" aria-labelledby="headingKomisaris" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:center;">No</th>
+                                            <th style="text-align:center;">Nama</th>
+                                            <th style="text-align:center;">No KTP</th>
+                                            <th style="text-align:center;">Jabatan Dalam Perusahaan</th>
+                                            <th style="text-align:center;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingDireksi">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDireksi" aria-expanded="false" aria-controls="collapseDireksi">
+                                    View Direksi 
+                                </button>
+                            </h2>
+                            <div id="collapseDireksi" class="accordion-collapse collapse" aria-labelledby="headingDireksi" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:center;">No</th>
+                                            <th style="text-align:center;">Nama</th>
+                                            <th style="text-align:center;">No KTP</th>
+                                            <th style="text-align:center;">Jabatan Dalam Perusahaan</th>
+                                            <th style="text-align:center;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Pengurus Perusahaan  --}}
+                    {{--  Begin Kepemilikan Saham  --}}
+                    <h5 class="fw-bold my-5">Kepemilikan Saham</h5>
+                    <div class="accordion" id="accordionKepemilikanSaham">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingKepemilikanSaham">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKepemilikanSaham" aria-expanded="true" aria-controls="collapseKepemilikanSaham">
+                                View Susunan Kepemilikan Saham
+                                </button>
+                            </h2>
+                            <div id="collapseKepemilikanSaham" class="accordion-collapse collapse show" aria-labelledby="headingKepemilikanSaham" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:center;">No</th>
+                                            <th style="text-align:center;">Pemegang Saham</th>
+                                            <th style="text-align:center;">No KTP/NPWP</th>
+                                            <th style="text-align:center;">Alamat</th>
+                                            <th style="text-align:center;">Presentase</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Kepemilikan saham  --}}
+                </div>
+                <div class="carousel-item">
+                    {{--  Begin PKP  --}}
+                    <h5 class="fw-bold my-5">PKP</h5>
+                    <div class="accordion" id="accordionPKP">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPKP">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePKP" aria-expanded="true" aria-controls="collapsePKP">
+                                View PKP
+                                </button>
+                            </h2>
+                            <div id="collapsePKP" class="accordion-collapse collapse show" aria-labelledby="headingPKP" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: No. Surat  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">No. Surat</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="No. Surat">
+                                                </div>
+                                                {{--  end:: No. Surat  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="date" class="form-control" placeholder="Tanggal">    
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+
+                                                {{--  begin:: NPWP  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">NPWP</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="NPWP">
+                                                </div>
+                                                {{--  end:: NPWP  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Dokumen Pendukung  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Dokumen Pendukung</label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="Dokumen Pendukung">
+                                                </div>
+                                                {{--  end:: Dokumen Pendukung  --}}
+                                                
+                                                {{--  begin:: File PKP  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File PKP</label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="File PKP">
+                                                </div>
+                                                {{--  end:: File PKP  --}}
+
+                                                {{--  begin:: File NPWP  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File NPWP</label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="File NPWP">
+                                                </div>
+                                                {{--  end:: File NPWP  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End PKP  --}}
+                    {{--  Begin SPT Tahunan  --}}
+                    <h5 class="fw-bold my-5">SPT Tahunan</h5>
+                    <div class="accordion" id="accordionSPT">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSPT">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSPT" aria-expanded="true" aria-controls="collapseSPT">
+                                View SPT Tahunan
+                                </button>
+                            </h2>
+                            <div id="collapseSPT" class="accordion-collapse collapse show" aria-labelledby="headingSPT" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">Tahun</th>
+                                            <th style="text-align:left;">Nomor</th>
+                                            <th style="text-align:left;">Tanggal</th>
+                                            <th style="text-align:left;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End SPT Tahunan  --}}
+                    {{--  Begin Neraca  --}}
+                    <h5 class="fw-bold my-5">Neraca</h5>
+                    <div class="accordion" id="accordionNeraca">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNeraca">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNeraca" aria-expanded="true" aria-controls="collapseNeraca">
+                                <div class="row">
+                                    <div class="col-5">Neraca</div>
+                                    <div class="col-7">
+                                        <select id="" class="form-control form-select form-select-sm">
+                                            <option value="">2023</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                </button>
+                            </h2>
+                            <div id="collapseNeraca" class="accordion-collapse collapse show" aria-labelledby="headingNeraca" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Modal  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Modal(Kekayaan Bersih)</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Modal(Kekayaan Bersih)">
+                                                </div>
+                                                {{--  end:: Modal  --}}
+
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAudit">
+                                <button class="accordion-button text-primary border border-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit">
+                                View Audit
+                                </button>
+                            </h2>
+                            <div id="collapseAudit" class="accordion-collapse collapse" aria-labelledby="headingAudit" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Auditor  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Auditor</label>
+                                                    <input disabled id="no_ijin" value="{{vendor?.no_ijin ? vendor?.no_ijin : ""}}" name="no_ijin" type="text" class="form-control" maxlength="50" placeholder="Auditor">
+                                                </div>
+                                                {{--  end:: Auditor  --}}
+
+                                                {{--  begin:: Nomor  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Nomor</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Nomor">
+                                                </div>
+                                                {{--  end:: Nomor  --}}
+
+                                                {{--  begin:: Tanggal  --}}
+                                                <div class="my-4 row">
+                                                    <label class="form-label">Tanggal</label>
+                                                    <input disabled id="start_date" value="{{vendor?.start_date ? vendor?.start_date : ""}}" name="start_date" type="date" class="form-control" placeholder="Tanggal">    
+                                                </div>
+                                                {{--  end:: Tanggal  --}}
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                {{--  begin:: Kesimpulan  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">Kesimpulan</label>
+                                                    <input disabled id="instansi_pemberi_ijin" value="{{vendor?.instansi_pemberi_ijin ? vendor?.instansi_pemberi_ijin : ""}}" name="instansi_pemberi_ijin" type="text" class="form-control" maxlength="50" placeholder="Kesimpulan">
+                                                </div>
+                                                {{--  end:: Kesimpulan  --}}
+
+                                                {{--  begin:: File  --}}
+                                                <div class="my-4">
+                                                    <label class="form-label">File</label>
+                                                    <input disabled id="incoterm_2" value="{{vendor?.incoterm_2 ? vendor?.incoterm_2 : ""}}" name="incoterm_2" type="text" class="form-control" maxlength="50" placeholder="File">
+                                                </div>
+                                                {{--  end:: File  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Neraca  --}}    
+                </div>
+                <div class="carousel-item">
+                    {{--  Begin Tenaga Ahli  --}}
+                    <h5 class="fw-bold my-5">Tenaga Ahli</h5>
+                    <div class="accordion" id="accordionTenagaAhli">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTenagaAhli">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTenagaAhli" aria-expanded="true" aria-controls="collapseTenagaAhli">
+                                View Tenaga Ahli
+                                </button>
+                            </h2>
+                            <div id="collapseTenagaAhli" class="accordion-collapse collapse show" aria-labelledby="headingTenagaAhli" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">Nomor</th>
+                                            <th style="text-align:left;">Nama</th>
+                                            <th style="text-align:left;">Tanggal Lahir</th>
+                                            <th style="text-align:left;">File KTP</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Tenaga Ahli  --}}
+                    {{--  Begin Pengalaman  --}}
+                    <h5 class="fw-bold my-5">Pengalaman</h5>
+                    <div class="accordion" id="accordionPengalaman">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPekerjaanSelesai">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePekerjaanSelesai" aria-expanded="true" aria-controls="collapsePekerjaanSelesai">
+                                View Pekerjaan Selesai
+                                </button>
+                            </h2>
+                            <div id="collapsePekerjaanSelesai" class="accordion-collapse collapse show" aria-labelledby="headingPekerjaanSelesai" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">Nomor</th>
+                                            <th style="text-align:left;">Nama Pekerjaan</th>
+                                            <th style="text-align:left;">Bidang Pekerjaan</th>
+                                            <th style="text-align:left;">Lokasi</th>
+                                            <th style="text-align:left;">File SPK</th>
+                                            <th style="text-align:left;">File BA</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPekerjaanProses">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePekerjaanProses" aria-expanded="true" aria-controls="collapsePekerjaanProses">
+                                View Pekerjaan Dalam Proses
+                                </button>
+                            </h2>
+                            <div id="collapsePekerjaanProses" class="accordion-collapse collapse show" aria-labelledby="headingPekerjaanProses" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">Nomor</th>
+                                            <th style="text-align:left;">Nama Pekerjaan</th>
+                                            <th style="text-align:left;">Bidang Pekerjaan</th>
+                                            <th style="text-align:left;">Proses</th>
+                                            <th style="text-align:left;">Lokasi</th>
+                                            <th style="text-align:left;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Pengalaman  --}}
+                    {{--  Begin Peralatan  --}}
+                    <h5 class="fw-bold my-5">Peralatan</h5>
+                    <div class="accordion" id="accordionPeralatan">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPeralatan">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePeralatan" aria-expanded="true" aria-controls="collapsePeralatan">
+                                View Peralatan
+                                </button>
+                            </h2>
+                            <div id="collapsePeralatan" class="accordion-collapse collapse show" aria-labelledby="headingPeralatan" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">No</th>
+                                            <th style="text-align:left;">Jenis</th>
+                                            <th style="text-align:left;">Jumlah</th>
+                                            <th style="text-align:left;">Kapasitas</th>
+                                            <th style="text-align:left;">Merk</th>
+                                            <th style="text-align:left;">Th. Pembuatan</th>
+                                            <th style="text-align:left;">Kondisi</th>
+                                            <th style="text-align:left;">Lokasi</th>
+                                            <th style="text-align:left;">Kepemilikan</th>
+                                            <th style="text-align:left;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Peralatan  --}}
+                    {{--  Begin Sertifikasi Lain  --}}
+                    <h5 class="fw-bold my-5">Sertifikasi Lain</h5>
+                    <div class="accordion" id="accordionSertifikasiLain">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSertfikasiLain">
+                                <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSertfikasiLain" aria-expanded="true" aria-controls="collapseSertfikasiLain">
+                                View Sertifikasi Lain
+                                </button>
+                            </h2>
+                            <div id="collapseSertfikasiLain" class="accordion-collapse collapse show" aria-labelledby="headingSertfikasiLain" data-bs-parent="#accordionExample">
+                                <div class="accordion-body border border-secondary">
+                                    <table id="table" class="table border row-border">
+                                        <thead style="background: rgba(182, 234, 255, 0.2);">
+                                          <tr>
+                                            <th style="text-align:left;">No</th>
+                                            <th style="text-align:left;">Nama Sertifikat</th>
+                                            <th style="text-align:left;">No Sertifikat</th>
+                                            <th style="text-align:left;">Tanggal Terbit</th>
+                                            <th style="text-align:left;">Tanggal Berakhir</th>
+                                            <th style="text-align:left;">File</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  End Sertifikasi Lain  --}}
+                </div>
+                <div class="carousel-item">
+                        {{--  Begin History Dokumen  --}}
+                        <h5 class="fw-bold my-5">History Dokumen</h5>
+                        <div class="accordion" id="accordionHistoryDokumen">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingHistoryDokumen">
+                                    <button class="accordion-button text-primary border border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryDokumen" aria-expanded="true" aria-controls="collapseHistoryDokumen">
+                                    View History Data Dokumen Rekaman
+                                    </button>
+                                </h2>
+                                <div id="collapseHistoryDokumen" class="accordion-collapse collapse show" aria-labelledby="headingHistoryDokumen" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body border border-secondary">
+                                        <table id="table" class="table border row-border">
+                                            <thead style="background: rgba(182, 234, 255, 0.2);">
+                                              <tr>
+                                                <th style="text-align:left;">No</th>
+                                                <th style="text-align:left;">Jenis</th>
+                                                <th style="text-align:left;">Deskripsi</th>
+                                                <th style="text-align:left;">File</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--  End History Dokumen  --}}
+                        @if(data?.status == "REQUEST" || data?.status =="REJECT")
+                        <hr style="margin-top:5%;">
+                        <div class="card-body">
+                            <div id="formHistoryAproval">
+                            @include('pages.approval_history.history')
+                            </div>                
+                            <div id="formAprovalLog">
+                            @include('pages.approval_history.log')
+                            </div> 
+                        </div>
+                        @endif
+
+                </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              {{--  <button type="button" id="kirim" class="btn btn-primary">Submit</button>  --}}
+              <button type="button" id="selanjutnya" class="btn btn-primary" style="float:right;">Selanjutnya</button>
+              <button type="button" id="kembali" class="btn btn-outline-primary border border-primary">Kembali</a>
+              {{--  <button type="button" id="draf" class="btn btn-warning">Save As Draft</button>  --}}
+              <button type="button" id="batal" class="btn btn-outline-primary border border-primary">Kembali Ke Hal. Utama</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>

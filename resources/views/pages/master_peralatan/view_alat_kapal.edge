@@ -1,0 +1,788 @@
+@layout('layout/index')
+@section('content')
+<style>
+	/* Timeline */
+.timeline,
+.timeline-horizontal {
+  list-style: none;
+  padding: 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 40px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -1.5px;
+}
+.timeline .timeline-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline .timeline-item:before,
+.timeline .timeline-item:after {
+  content: "";
+  display: table;
+}
+.timeline .timeline-item:after {
+  clear: both;
+}
+.timeline .timeline-item .timeline-badge {
+  color: #fff;
+  width: 54px;
+  height: 54px;
+  line-height: 52px;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #7c7c7c;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline .timeline-item .timeline-badge i,
+.timeline .timeline-item .timeline-badge .fa,
+.timeline .timeline-item .timeline-badge .glyphicon {
+  top: 2px;
+  left: 0px;
+}
+.timeline .timeline-item .timeline-badge.primary {
+  background-color: #1f9eba;
+}
+.timeline .timeline-item .timeline-badge.info {
+  background-color: #5bc0de;
+}
+.timeline .timeline-item .timeline-badge.success {
+  background-color: #59ba1f;
+}
+.timeline .timeline-item .timeline-badge.warning {
+  background-color: #d1bd10;
+}
+.timeline .timeline-item .timeline-badge.danger {
+  background-color: #ba1f1f;
+}
+.timeline .timeline-item .timeline-panel {
+  position: relative;
+  width: 46%;
+  float: left;
+  right: 16px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline-item .timeline-panel:before {
+  position: absolute;
+  top: 26px;
+  right: -16px;
+  display: inline-block;
+  border-top: 16px solid transparent;
+  border-left: 16px solid #c0c0c0;
+  border-right: 0 solid #c0c0c0;
+  border-bottom: 16px solid transparent;
+  content: " ";
+}
+.timeline .timeline-item .timeline-panel .timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p,
+.timeline .timeline-item .timeline-panel .timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p + p {
+  margin-top: 5px;
+}
+.timeline .timeline-item:last-child:nth-child(even) {
+  float: right;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel {
+  float: right;
+  left: 16px;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-horizontal {
+  list-style: none;
+  position: relative;
+  padding: 20px 0px 20px 0px;
+  display: inline-block;
+}
+.timeline-horizontal:before {
+  height: 3px;
+  top: auto;
+  bottom: 26px;
+  left: 56px;
+  right: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item {
+  display: table-cell;
+  height: 280px;
+  width: 20%;
+  min-width: 320px;
+  float: none !important;
+  padding-left: 0px;
+  padding-right: 20px;
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+.timeline-horizontal .timeline-item .timeline-panel {
+  top: auto;
+  bottom: 64px;
+  display: inline-block;
+  float: none !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item .timeline-panel:before {
+  top: auto;
+  bottom: -16px;
+  left: 28px !important;
+  right: auto;
+  border-right: 16px solid transparent !important;
+  border-top: 16px solid #c0c0c0 !important;
+  border-bottom: 0 solid #c0c0c0 !important;
+  border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline-item:before,
+.timeline-horizontal .timeline-item:after {
+  display: none;
+}
+.timeline-horizontal .timeline-item .timeline-badge {
+  top: auto;
+  bottom: 0px;
+  left: 43px;
+}
+
+</style>
+<div class="content flex-row-fluid" id="kt_content">
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="d-flex">
+              <img src="/media/peralatan/circle-gear.svg" style="margin-top:-10px;">
+              <h2 style="margin-left:30px;">Master Peralatan</h2>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <a class="float-end px-2" href="{{ route('MasterApungsController.index') }}" onmouseover="this.style.cursor='pointer'" style="border:1px solid #01C3FF;line-height:2;color:#01C3FF;background:rgba(1, 195, 255, 0.2);border-radius:5px;">Alat Apung</a>
+            <a class="float-end me-2 px-2" href="{{ route('MasterBongkarMuatsController.index') }}" style="border:1px solid #01C3FF;line-height:2;color:black;border-radius:5px;" onmouseover="this.style.background='rgba(1, 195, 255, 0.2)';this.style.cursor='pointer';this.style.color='#01C3FF';" onmouseout="this.style.background='#fff';this.style.color='black';">Alat Bongkar Muat</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+          <div class="d-flex justify-content-center mb-2">
+            <a class="btn btn-sm btn-primary rounded-pill crsl-one" data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="0" style="width:3rem;height:3rem;">1</a>
+            <div class="progress bg-transparent" style="width:75px;height:1px;margin:20px -85px 0 10px;z-index:1;">
+              <div class="progress-bar bg-primary" id="progress-page" role="progressbar" aria-label="Example with label" style="width:0%;transition:width 1s;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="bg-secondary titik-progress" id="progress-nol" style="width:5px;height:1px;margin:20px 0 0 10px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-satu" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-dua" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tiga" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-empat" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-lima" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-enam" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tujuh" style="width:5px;height:1px;margin:20px 10px 0 5px;"></div>
+            <a class="btn btn-sm btn-secondary rounded-pill crsl-two" id="btn-page-kedua" onclick="progressfull()" data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="1" style="width:3rem;height:3rem;">2</a>
+          </div>
+          <div class="row mt-2">
+            <div class="col-lg-6 text-primary fw-bold">
+              <span class="float-end" style="margin-right:43px;">Main</span>
+            </div>
+            <div class="col-lg-6 fw-bold">
+              <span id="teks-spesification" class="text-secondary" style="margin-left:20px;">Spesification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+          <div id="carouselAddBongkarMuat" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h4 style="color:#045299;padding-bottom:30px;">View Main Alat Apung</h4>
+                <div class="row g-3">
+                  @if(["AKTIF", "NONAKTIF"].includes(data.status))
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode Alat</label>
+                    <input type="text" name="kodeAlat" id="kodeAlat" class="form-control" value="{{ data.kode_alat == null || data.kode_alat == 'null' ? '' : data.kode_alat }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Klasifikasi<span style="color:red;">*</span></label>
+                    <input type="text" name="klasifikasi" id="klasifikasi" class="form-select" value="{{ data.klasifikasi == null || data.klasifikasi == 'null' ? '' : data.klasifikasi }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Entity<span style="color:red;">*</span></label>
+                    <input type="text" name="entity" id="entity" class="form-select" value="{{ data.entity == null || data.entity == 'null' ? '' : data.entity }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Country of Origin<span style="color:red;">*</span></label>
+                    <input type="text" name="countryOfOrigin" id="countryOfOrigin" class="form-select" value="{{ data.country_of_origin == null || data.country_of_origin == 'null' ? '' : data.country_of_origin }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kepemilikan Aset<span style="color:red;">*</span></label>
+                    <input type="text" name="kepemilikanAset" id="kepemilikanAset" class="form-select" value="{{ data.kepemilikan_aset == null || data.kepemilikan_aset == 'null' ? '' : data.kepemilikan_aset }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Manufacture<span style="color:red;">*</span></label>
+                    <input type="text" name="manufacturer" id="manufacturer" value="{{ data.manufacturer == null || data.manufacturer == 'null' ? '' : data.manufacturer }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Cabang/Area/Lokasi Kepemilikan Aset<span style="color:red;">*</span></label>
+                    <input type="text" name="lokasiKepemilikanAset" id="lokasiKepemilikanAset" class="form-select" value="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? '' : data.lokasi_kepemilikan }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Manufacturer Year<span style="color:red;">*</span></label>
+                    <input type="text" maxlength="4" name="manufacturerYear" id="manufacturerYear" value="{{ data.manufacturer_year == null || data.manufacturer_year == 'null' ? '' : data.manufacturer_year }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                    <input type="text" name="namaKapal" id="namaKapal" value="{{ data.nama_kapal == null || data.nama_kapal == 'null' ? '' : data.nama_kapal }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Acquisition Year<span style="color:red;">*</span></label>
+                    <input type="text" maxlength="4" name="acquisitionYear" id="acquisitionYear" value="{{ data.acquisition_year == null || data.acquisition_year == 'null' ? '' : data.acquisition_year }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode dan Jenis Kapal<span style="color:red;">*</span></label>
+                    <input type="text" name="jenisKapal" id="jenisKapal" class="form-select" value="{{ data.jenis_kapal == null || data.jenis_kapal == 'null' ? '' : data.kode_jenis + ' || ' + data.jenis_kapal }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelLocalAsset">Local Asset Number</label>
+                    <input type="text" name="localAssetNumber" id="localAssetNumber" value="{{ data.local_asset_number == null || data.local_asset_number == 'null' ? '' : data.local_asset_number }}" class="form-control" disabled>
+                  </div>
+                  @else
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Entity<span style="color:red;">*</span></label>
+                    <input type="text" name="entity" id="entity" class="form-select" value="{{ data.entity == null || data.entity == 'null' ? '' : data.entity }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Country of Origin<span style="color:red;">*</span></label>
+                    <input type="text" name="countryOfOrigin" id="countryOfOrigin" class="form-select" value="{{ data.country_of_origin == null || data.country_of_origin == 'null' ? '' : data.country_of_origin }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kepemilikan Aset<span style="color:red;">*</span></label>
+                    <input type="text" name="kepemilikanAset" id="kepemilikanAset" class="form-select" value="{{ data.kepemilikan_aset == null || data.kepemilikan_aset == 'null' ? '' : data.kepemilikan_aset }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Manufacture<span style="color:red;">*</span></label>
+                    <input type="text" name="manufacturer" id="manufacturer" value="{{ data.manufacturer == null || data.manufacturer == 'null' ? '' : data.manufacturer }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Cabang/Area/Lokasi Kepemilikan Aset<span style="color:red;">*</span></label>
+                    <input type="text" name="lokasiKepemilikanAset" id="lokasiKepemilikanAset" class="form-select" value="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? '' : data.lokasi_kepemilikan }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Manufacturer Year<span style="color:red;">*</span></label>
+                    <input type="text" maxlength="4" name="manufacturerYear" id="manufacturerYear" value="{{ data.manufacturer_year == null || data.manufacturer_year == 'null' ? '' : data.manufacturer_year }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                    <input type="text" name="namaKapal" id="namaKapal" value="{{ data.nama_kapal == null || data.nama_kapal == 'null' ? '' : data.nama_kapal }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Acquisition Year<span style="color:red;">*</span></label>
+                    <input type="text" maxlength="4" name="acquisitionYear" id="acquisitionYear" value="{{ data.acquisition_year == null || data.acquisition_year == 'null' ? '' : data.acquisition_year }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode dan Jenis Kapal<span style="color:red;">*</span></label>
+                    <input type="text" name="jenisKapal" id="jenisKapal" class="form-select" value="{{ data.jenis_kapal == null || data.jenis_kapal == 'null' ? 'Select' : data.kode_jenis + ' || ' + data.jenis_kapal }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelLocalAsset">Local Asset Number</label>
+                    <input type="text" name="localAssetNumber" id="localAssetNumber" value="{{ data.local_asset_number == null || data.local_asset_number == 'null' ? '' : data.local_asset_number }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Klasifikasi<span style="color:red;">*</span></label>
+                    <input type="text" name="klasifikasi" id="klasifikasi" class="form-select" value="{{ data.klasifikasi == null || data.klasifikasi == 'null' ? '' : data.klasifikasi }}" disabled>
+                  </div>
+                  @endif
+                  {{--  <div class="col-6">
+                    <label class="form-label fw-bold">Cabang/Area/Lokasi Fisik Aset<span style="color:red;">*</span></label>
+                    <select name="lokasiFisikAset" id="lokasiFisikAset" class="form-select" data-control="select2" data-placeholder="{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? 'Select' : data.lokasi_fisik }}">
+                      <option value=""></option>
+                      <option value="Jakarta">Jakarta</option>
+                      <option value="Bandung">Bandung</option>
+                    </select>
+                  </div>  --}}
+                </div>
+              </div>
+              <div class="carousel-item">
+                <h4 style="color:#045299;padding-bottom:30px;">View Spesification Alat Apung</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelTipeMe">Merk/Tipe ME</label>
+                    <input type="text" name="tipeMe" id="tipeMe" value="{{ data.tipe_me == null || data.tipe_me == 'null' ? '' : data.tipe_me }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelTipeAe">Merk/Tipe AE</label>
+                    <input type="text" name="tipeAe" id="tipeAe" value="{{ data.tipe_ae == null || data.tipe_ae == 'null' ? '' : data.tipe_ae }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelDayaMe">Daya ME (Horsepower)</label>
+                    <input type="text" name="dayaMe" id="dayaMe" value="{{ data.daya_me == null || data.daya_me == 'null' ? '' : data.daya_me }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelDayaAe">Daya AE (Horsepower)</label>
+                    <input type="text" name="dayaAe" id="dayaAe" value="{{ data.daya_ae == null || data.daya_ae == 'null' ? '' : data.daya_ae }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelJumlahMe">Jumlah ME</label>
+                    <input type="number" name="jumlahMe" id="jumlahMe" placeholder="Jumlah ME" class="form-control" value="{{ data.jumlah_me == null || data.jumlah_me == 'null' ? '' : data.jumlah_me }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelJumlahAe">Jumlah AE</label>
+                    <input type="number" name="jumlahAe" id="jumlahAe" placeholder="Jumlah AE" class="form-control" value="{{ data.jumlah_ae == null || data.jumlah_ae == 'null' ? '' : data.jumlah_ae }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelJenisPropulsi">Jenis propulsi</label>
+                    <input type="text" name="jenispropulsi" id="jenispropulsi" value="{{ data.jenis_propulsi == null || data.jenis_propulsi == 'null' ? '' : data.jenis_propulsi }}" class="form-select" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelMerkPropulsi">Merk propulsi</label>
+                    <input type="text" name="merkpropulsi" id="merkpropulsi" value="{{ data.merk_propulsi == null || data.merk_propulsi == 'null' ? '' : data.merk_propulsi }}" class="form-control" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">File Grosse Akta<span style="color:red">*</span></label>
+                    <div class="input-group mb-3">
+                      <button class="btn btn-primary" type="button" id="button-addon1" 
+                      @if([null, 'null', ''].includes(data.file_grosse_akta) == false) 
+                        onclick="downloadFile('{{ route('MasterApungsController.downloadUploadedFile', [data.file_grosse_akta]) }}')"
+                      @endif 
+                      >Download</button>
+                      <input type="text" class="form-control" value="{{ [null, 'null', ''].includes(data.file_grosse_akta) ? '' : data.file_grosse_akta }}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Existing Equipment Description</label>
+                    <textarea name="existingEquipmentDescription" id="existingEquipmentDescription" class="form-control" rows="2" disabled>{{ data.equipment_description == null || data.equipment_description == 'null' ? '' : data.equipment_description }}</textarea>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">File BAST<span style="color:red">*</span></label>
+                    <div class="input-group mb-3">
+                      <a class="btn btn-primary" type="button" id="button-addon1" 
+                      @if([null, 'null', ''].includes(data.file_bast) == false) 
+                        onclick="downloadFile('{{ route('MasterApungsController.downloadUploadedFile', [data.file_bast]) }}')"
+                      @endif 
+                      >Download</a>
+                      <input type="text" class="form-control" value="{{ [null, 'null', ''].includes(data.file_bast) ? '' : data.file_bast }}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" id="labelNotes">Notes</label>
+                    <textarea name="notes" id="notes" class="form-control" rows="2" disabled>{{ data.notes == null || data.notes == 'null' ? '' : data.notes }}</textarea>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">File Lampiran Teknis<span style="color:red">*</span></label>
+                    <div class="input-group mb-3">
+                      <a class="btn btn-primary" type="button" id="button-addon1" 
+                      @if([null, 'null', ''].includes(data.file_lampiran_teknis) == false) 
+                        onclick="downloadFile('{{ route('MasterApungsController.downloadUploadedFile', [data.file_lampiran_teknis]) }}')"
+                      @endif 
+                      >Download</a>
+                      <input type="text" class="form-control" value="{{ [null, 'null', ''].includes(data.file_lampiran_teknis) ? '' : data.file_lampiran_teknis }}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-6"></div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">File Spesifikasi Detail Kapal</label>
+                    <div class="input-group mb-3">
+                      <a class="btn btn-primary" type="button" id="button-addon1" 
+                      @if([null, 'null', ''].includes(data.file_spesifikasi_detail_kapal) == false) 
+                        onclick="downloadFile('{{ route('MasterApungsController.downloadUploadedFile', [data.file_spesifikasi_detail_kapal]) }}')"
+                      @endif 
+                      >Download</a>
+                      <input type="text" class="form-control" value="{{ [null, 'null', ''].includes(data.file_spesifikasi_detail_kapal) ? '' : data.file_spesifikasi_detail_kapal }}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-6"></div>                  
+                </div>
+                @if(["AKTIF", "DRAFT"].includes(data.status) == false)
+                <hr>
+                <div id="formHistoryAproval">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12" id="formApprovalPath">
+                        <div class="page-header text-center">
+                          <h4>Approval Path</h4>
+                        </div>
+                        <div style="display:inline-block;width:100%;overflow-y:auto;">
+                          <ul class="timeline timeline-horizontal">                 
+                            <div id="detailHistory">
+                              {{--  @each((data, i) in app_lists)
+                              <li class="timeline-item formdetailHistory">
+                                <div id="path-ball-{{data.approval_order}}" class="timeline-badge {{i == 0 ? 'warning' : 'primary' }}">
+                                  <i class="glyphicon glyphicon-check"></i>
+                                </div>
+                                <div class="timeline-panel">
+                                  <div class="timeline-heading">
+                                    <div class="row align-items-center">
+                                      <div class="col-4">
+                                        <img alt="Logo" src="/media/svg/approval/approved.svg" class="theme-light-show h-20px h-lg-60px">
+                                      </div>
+                                      <div class="col-8">
+                                        <span id="validation-{{data.approval_order}}">{{i == 0 ? 'Next Approve' : '' }}</span><br>
+                                        <strong>{{data.name}}</strong><br>
+                                        <span class="text-muted">{{data.mandatory == 1 ? 'Mandatory' : 'Optional'}}</span><br>
+                                        <span class="text-muted">Approval level {{data.approval_order}}</span>                                                                                                                                    
+                                      </div>                                            
+                                    </div>
+                                  </div>                                     
+                                </div>
+                              </li>
+                              @endeach  --}}
+                            </div>                
+                          </ul>
+                        </div>
+                      </div>
+                    </div>   
+                  </div>
+                </div>
+                <hr>
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color:#FF0000;">Log Approval</h4>
+                    <hr>
+                    {{--  <p>Dibuat oleh <span class="name_request">{{ name_request }}</span> pada <span class="date_request"></span></p>
+                    @if(data.status != "DRAFT")
+                    <p class="log-approval-list">{{ name_request }} - {{ date_request }} :-- <span style="background:rgba(1, 195, 255, 0.2);color:#01C3FF;padding:5px 10px;">Diajukan</span></p>
+                    @endif  --}}
+                    {{--  @each((d, i) in app_detail)
+                      @if(d.action == "APPROVE") 
+                        <p class="log-approval-list-child">{{ d.name }} - <span id="date_approval_list{{i}}"></span> : {{ [null, 'null', ''].includes(d.remark) ? '' : d.remark }} <span style="background:rgba(140, 224, 44, 0.2);color:#8CE02C;padding:5px 10px;">Disetujui</span></p>
+                      @elseif(d.action == "REJECT")
+                        <p class="log-approval-list-child">{{ d.name }} - <span id="date_approval_list{{i}}"></span> : {{ [null, 'null', ''].includes(d.remark) ? '' : d.remark }} <span style="background:rgba(255, 0, 0, 0.2);color:#FF0000;padding:5px 10px;">Ditolak</span></p>
+                      @elseif(d.action == "DIAJUKAN")
+                        <p class="log-approval-list-child">{{ d.name }} - <span id="date_approval_list{{i}}"></span> : {{ [null, 'null', ''].includes(d.remark) ? '' : d.remark }} <span style="background:rgba(1, 195, 255, 0.2);color:#01C3FF;padding:5px 10px;">Diajukan</span></p>
+                      @elseif(d.action == "UPDATE")
+                        <p class="log-approval-list-child">{{ d.name }} - <span id="date_approval_list{{i}}"></span> : {{ [null, 'null', ''].includes(d.remark) ? '' : d.remark }} <span style="background:rgba(65, 100, 223, 0.2);color:#4164DF;padding:5px 10px;">Update</span></p>
+                      @endif
+                    @endeach  --}}
+                    <div id="logApproval"></div>
+                  </div>
+                </div>
+                @endif
+              </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              <button id="next-form" data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="1" class="btn btn-primary crsl-two" style="float:right;">Next</button>
+              <button class="btn btn-outline-primary border border-primary crsl-one" data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="0" style="float:right;margin-right:10px;">Back</a>
+              {{--  <button id="draft" class="btn btn-warning" style="float:right;margin-right:20px;">Save as Draft</button>  --}}
+              <button id="backmain" class="btn btn-outline-primary border border-primary">Back to Main</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+
+      $('#backmain').click(function() {
+        window.location.href = `{{ route('MasterApungsController.index') }}`;
+      });
+
+      let strTanggal, strDay, bulan, year, jam, menit, resultDate;
+      @each((d, i) in app_detail)
+        strTanggal = `{{ d.created_at }}`.toString();
+        strDay = strTanggal.substring(8, 10);
+        bulan;
+        switch(strTanggal.substring(4,7)) {
+          case "Jan": bulan = "Januari"; break;
+          case "Feb": bulan = "Febuari"; break;
+          case "Mar": bulan = "Maret"; break;
+          case "Apr": bulan = "April"; break;
+          case "May": bulan = "Mei"; break;
+          case "Jun": bulan = "Juni"; break;
+          case "Jul": bulan = "Juli"; break;
+          case "Aug": bulan = "Agustus"; break;
+          case "Sep": bulan = "September"; break;
+          case "Oct": bulan = "Oktober"; break;
+          case "Nov": bulan = "November"; break;
+          case "Dec": bulan = "Desember"; break;
+        }
+        year = strTanggal.substring(11, 15);
+        jam = strTanggal.substring(16, 18);
+        menit = strTanggal.substring(19, 21);
+        resultDate = `${strDay} ${bulan} ${year} ${jam}.${menit}`;
+        $(`#date_request_approver{{i}}`).html(resultDate);
+        $(`#date_approval_list{{i}}`).html(resultDate);
+        $(`#notesDate{{i}}`).html(resultDate);
+        $(`.date_request`).html(resultDate);
+      @endeach
+
+      // @each(data in app_detail)
+      // @if(data.validation == "APPROVE") 
+      //   $(`#path-ball-{{data.sequence}}`).attr("class", "timeline-badge success");
+      //   $(`#validation-{{data.sequence}}`).html("Approved by");
+      //   $(`#path-ball-{{data.sequence+1}}`).attr("class", "timeline-badge warning");
+      //   $(`#validation-{{data.sequence+1}}`).html("Next Approve");
+      // @elseif(data.validation == "REJECT") 
+      //   $(`#path-ball-{{data.sequence}}`).attr("class", "timeline-badge danger");
+      //   $(`#validation-{{data.sequence}}`).html("Rejected by");
+      //   $(`#path-ball-1`).attr("class", "timeline-badge warning");
+      //   $(`#validation-1`).html("Next Approve");
+      // @endif
+      // @endeach
+
+      $.ajax({
+        url: "{{ route('MasterApungsController.modalData') }}",
+        type: "get",
+        data: {
+          request_number: `{{ data.request_number }}`
+        }, 
+        success: function(data) {
+          var element = [];
+          var element2 = [];
+
+          // generate approval path
+          for(let x = 0; x < data.app_lists.length; x++) {
+            element[x] = `<li class="timeline-item formdetailHistory">
+                  <div id="path-ball-${data.app_lists[x].approval_order}" class="timeline-badge ${x == 0 ? 'warning' : '' }">
+                    <i class="glyphicon glyphicon-check"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <div class="row align-items-center">
+                        <div class="col-4">
+                          <img alt="Logo" src="/media/svg/approval/approved.svg" class="theme-light-show h-20px h-lg-60px">
+                        </div>
+                        <div class="col-8">
+                          <span id="validation-${data.app_lists[x].approval_order}">${x == 0 ? 'Next Approve' : '' }</span><br>
+                          <strong>${data.app_lists[x].role.name}</strong><br>
+                          <span class="text-muted">${data.app_lists[x].mandatory == 1 ? 'Mandatory' : 'Optional'}</span><br>
+                          <span class="text-muted">Approval level ${data.app_lists[x].approval_order}</span>                                                                                                                                    
+                        </div>                                            
+                      </div>
+                    </div>                                     
+                  </div>
+                </li>`;
+          }
+          $("#detailHistory").first().append(element);
+
+          // color decider
+          for(let i = 0; i < data.app_detail.length; i++) {
+            const status = data.app_detail[i].action;
+            const notes = data.app_detail[i].remark;
+            if(status == "APPROVE") {
+              $.ajax({
+                url: `{{ route('MasterApungsController.approvalOrder') }}`,
+                async: false, 
+                type: "get",
+                data: {
+                  role_id: data.app_detail[i].role_id,
+                  schema_id: data.schema_id
+                }, 
+                success: function(order) {
+                  $(`#path-ball-${order}`).attr("class", "timeline-badge success");
+                  $(`#validation-${order}`).html("");
+                  $(`#path-ball-${parseInt(order)+1}`).attr("class", "timeline-badge warning");
+                  $(`#validation-${parseInt(order)+1}`).html("Next Approve");
+                }
+              });
+            } else if(status == "REJECT") {
+              $.ajax({
+                url: `{{ route('MasterApungsController.approvalOrder') }}`,
+                async: false, 
+                type: "get",
+                data: {
+                  role_id: data.app_detail[i].role_id,
+                  schema_id: data.schema_id
+                }, 
+                success: function(order) {
+                  $(`#path-ball-${order}`).attr("class", "timeline-badge danger");
+                  $(`#validation-${order}`).html("");
+                  $(`#path-ball-1`).attr("class", "timeline-badge warning");
+                  $(`#validation-1`).html("Next Approve");
+                }
+              });
+            }
+          };
+
+          // generate log approval
+          for(let i = 0; i < data.app_detail.length; i++) {
+            let strTanggal = data.app_detail[i].created_at.toString();
+            const strDay = strTanggal.substring(8, 10);
+            let bulan;
+            switch(strTanggal.substring(5,7)) {
+              case "01": bulan = "Januari"; break;
+              case "02": bulan = "Febuari"; break;
+              case "03": bulan = "Maret"; break;
+              case "04": bulan = "April"; break;
+              case "05": bulan = "Mei"; break;
+              case "06": bulan = "Juni"; break;
+              case "07": bulan = "Juli"; break;
+              case "08": bulan = "Agustus"; break;
+              case "09": bulan = "September"; break;
+              case "10": bulan = "Oktober"; break;
+              case "11": bulan = "November"; break;
+              case "12": bulan = "Desember"; break;
+            }
+            let year = strTanggal.substring(0, 4);
+            let jam = parseInt(strTanggal.substring(11, 13)) + 7;
+            let menit = strTanggal.substring(14, 16);
+            let resultDate = `${strDay} ${bulan} ${year} ${jam}.${menit}`;
+            const status = data.app_detail[i].action;
+            const notes = [null, 'null', ''].includes(data.app_detail[i].remark) ? '' : data.app_detail[i].remark;
+            if(status == "APPROVE") {
+              element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(140, 224, 44, 0.2);color:#8CE02C;padding:5px 10px;">Disetujui</span></p>`;
+              $.ajax({
+                url: `{{ route('MasterBongkarMuatsController.approvalOrder') }}`, 
+                async: false,
+                type: "get",
+                data: {
+                  role_id: data.app_detail[i].role_id,
+                  schema_id: data.schema_id
+                }, 
+                success: function(order) {
+                  $(`#path-ball-${order}`).attr("class", "timeline-badge success");
+                  $(`#validation-${order}`).html("");
+                  $(`#path-ball-${parseInt(order)+1}`).attr("class", "timeline-badge warning");
+                  $(`#validation-${parseInt(order)+1}`).html("Next Approve");
+                }
+              });
+            } else if(status == "REJECT") {
+              element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(255, 0, 0, 0.2);color:#FF0000;padding:5px 10px;">Ditolak</span></p>`;
+              $.ajax({
+                url: `{{ route('MasterBongkarMuatsController.approvalOrder') }}`, 
+                async: false,
+                type: "get",
+                data: {
+                  role_id: data.app_detail[i].role_id,
+                  schema_id: data.schema_id
+                }, 
+                success: function(order) {
+                  $(`#path-ball-${order}`).attr("class", "timeline-badge danger");
+                  $(`#validation-${order}`).html("");
+                  $(`#path-ball-${data.app_lists[0].approval_order}`).attr("class", "timeline-badge warning");
+                  $(`#validation-${data.app_lists[0].approval_order}`).html("Next Approve");
+                }
+              });
+            } else if(status == "DIAJUKAN") {
+              element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(1, 195, 255, 0.2);color:#01C3FF;padding:5px 10px;">Diajukan</span></p>`;
+            } else if(status == "UPDATE") {
+              element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(65, 100, 223, 0.2);color:#4164DF;padding:5px 10px;">Diubah</span></p>`;
+            }
+          };
+          $("#logApproval").first().append(element2);
+        }
+      })
+
+      const jenisKapal = $("#jenisKapal").val().substring(0,3);
+      if(jenisKapal == "KPD" || jenisKapal == "KTD") {
+        $("#labelLocalAsset").html("Local Asset Number");
+        $("#labelTipeMe").html("Merk/Tipe ME<span style='color:red'>*</span>");
+        $("#labelDayaAe").html("Daya AE (Horsepower)<span style='color:red'>*</span>");
+        $("#labelDayaMe").html("Daya ME (Horsepower)<span style='color:red'>*</span>");
+        $("#labelMerkPropulsi").html("Merk propulsi<span style='color:red'>*</span>");
+        $("#labelJenisPropulsi").html("Jenis Propulsi<span style='color:red'>*</span>");
+        $("#labelEquipmentDescription").html("Existing Equipment Description<span style='color:red'>*</span>");
+        $("#labelTipeAe").html("Merk/Tipe AE<span style='color:red'>*</span>");
+        $("#labelJumlahAe").html("Jumlah AE<span style='color:red'>*</span>");
+        $("#labelJumlahMe").html("Jumlah ME<span style='color:red'>*</span>");
+      } else {
+        $("#labelLocalAsset").html("Local Asset Number");
+        $("#labelTipeMe").html("Merk/Tipe ME");
+        $("#labelDayaAe").html("Daya AE (Horsepower)");
+        $("#labelDayaMe").html("Daya ME (Horsepower)");
+        $("#labelMerkPropulsi").html("Merk propulsi");
+        $("#labelJenisPropulsi").html("Jenis Propulsi");
+        $("#labelEquipmentDescription").html("Existing Equipment Description");
+        $("#labelTipeAe").html("Merk/Tipe AE");
+        $("#labelJumlahAe").html("Jumlah AE");
+        $("#labelJumlahMe").html("Jumlah ME");
+      }
+        
+      // let text = `{{ data.manufacturer_year }}`;
+      // let text1 = `{{ data.acquisition_year }}`;
+      // let tanggal = text.substring(8, 10);
+      // let tanggal1 = text1.substring(8, 10);
+      // let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+      //                 "Aug", "Sep", "Oct", "Nov", "Dec"];
+      // let bulan = '';
+      // let bulan1 = '';
+      // for(let i = 0; i < bulanChar.length; i++) {
+      //     if(text.substring(4,7) == bulanChar[i]) {
+      //         bulan = (i+1);
+      //     }
+      // }
+      // for(let i = 0; i < bulanChar.length; i++) {
+      //     if(text1.substring(4,7) == bulanChar[i]) {
+      //         bulan1 = (i+1);
+      //     }
+      // }
+      // let year = text.substring(11,15);
+      // let year1 = text1.substring(11,15);
+      // let result = `${year}-${bulan}-${tanggal}`; 
+      // let result1 = `${year1}-${bulan1}-${tanggal1}`;
+      // $('#manufacturerYear').val(result);
+      // $('#acquisitionYear').val(result1);
+      
+      $(".crsl-one").click(function() {
+        $('#btn-page-kedua').removeClass('btn-primary');
+        $('#btn-page-kedua').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#submit').css('display', 'none');
+        $('#next-form').css('display', '');
+      });
+
+      $(".crsl-two").click(function() {
+        $('#btn-page-kedua').removeClass('btn-secondary');
+        $('#btn-page-kedua').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#submit').css('display', '');
+        $('#next-form').css('display', 'none');
+      });
+
+    });
+
+    function downloadFile(route) {
+      $.ajax({
+        url : route,
+        type : "get",
+        success: function(url) {
+          window.open(url, '_blank');
+        }
+      })
+    }
+</script>
+
+
+@end

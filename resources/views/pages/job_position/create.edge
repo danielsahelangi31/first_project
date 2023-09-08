@@ -1,0 +1,165 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+
+  <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+
+          <div class="card-body border-top p-9">
+            <div class="d-flex align-items-center">
+              <img alt="Logo" width="38" height="38" src="/media/svg/pelindo-logo/job-position.svg" />
+                <h2 class="mx-2">Job Position</h2>
+            </div>
+          </div>
+
+      </div>
+
+  </div>
+    <!--begin::Navbar-->   
+  
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+            <div class="my-4">
+              <h4 class="text-primary">Add Job Position</h4>
+            </div>
+                <form id="form-submit" class="row g-3" action="{{route('JobPositionsController.store')}}" method="post">
+                    {{ csrfField() }}
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Job Position<span class="text-danger">*</span> </label>
+                      <input type="text" id="jobPosition" name="jobPosition" style="text-transform:uppercase" class="form-control" value="" placeholder="Job Position">
+                    </div>
+  
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Divisi<span class="text-danger">*</span> <small id  ="selectDivisiAction" style="display:none">Pilih Dari Master</small> <small id="createDivisiAction">Buat Baru</small></label>
+                      <div id="select-divisi">
+                        <select name="divisi" data-control="select2" data-placeholder="Select" data-allow-clear="true" class="form-select" id="divisiOption">
+                        <option value="">Select</option>
+                        @each(item in data)
+                        <option value='{{item.departement}}'>{{item.departement}}</option>
+                        @end
+                        </select>
+                      </div>
+                      <div id="create-divisi" style="display:none">
+                        <input style="text-transform:uppercase" class="form-control" placeholder="Divisi" name="divisi" id="divisiInput" type="text">
+                      </div>
+                    </div>                                       
+                    <div class="col-12" >
+                      <button type="button" id="saving" class="btn btn-primary mx-1" style="float:right;">Kirim</button>
+                      <a href="{{route('JobPositionsController.index')}}" class="btn btn-light border border-primary mx-1" style="float:right;">Batal</a>
+                      <button id="trigger" type="submit" hidden></button>
+                    </div>
+                  </form>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+<script>
+
+$(document).ready($('#form-submit').validate({
+  rules: {
+    jobPosition: 'required',
+    divisi: 'required'
+  },
+  messages: {
+    jobPosition: 'lengkapi bidang ini',
+    divisi: 'lengkapi bidang ini',
+  },
+  submitHandler: function(form) {
+    let divisi
+    let divisiOption = $('#divisiOption option:selected').val();
+    let divisiInput = $('input[name=divisi]').val();
+    let jobPosition = $('input[name=jobPosition]').val();
+
+    if (divisiOption != '') {
+      divisi = divisiOption;
+    } else if (divisiInput != '') {
+      divisi = divisiInput;
+    }
+
+    $.ajax({
+      type: "GET",
+      url: `/check-job-position?divisi=${divisi}&jobPosition=${jobPosition}&action=create`,
+      success: function(response) {
+        if(response === 'true') {
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Gagal</span>", 
+            html: `<strong>Job Position Sudah Tersedia</strong>`,
+            icon:'error',
+            confirmButtonColor: '#045299',
+            confirmButtonText: 'Oke',
+            allowOutsideClick: false
+          }).then(() => {
+          })
+        } else if(response === 'false') {
+          form.submit()
+        }
+      }
+    });
+  }
+}))
+
+$("#createDivisiAction").click(function() {
+    $("#createDivisiAction").hide();
+    $("#selectDivisiAction").show();
+
+    $("#create-divisi").show();
+    $("#select-divisi").hide();
+    $("#divisiInput").show();
+
+    $("#divisiOption").val('').trigger('change')
+})
+
+$("#selectDivisiAction").click(function() {
+    $("#createDivisiAction").show();
+    $("#selectDivisiAction").hide();
+
+    $("#divisiOption").show();
+    $("#create-divisi").hide();
+    $("#select-divisi").show();
+    $("#divisiInput").hide();
+
+    $("#divisiInput").val('');
+})
+
+$('#saving').click(function (e) {
+          Swal.fire({
+          title: `Apakah kamu yakin?`,
+          text:`jika Anda melanjutkan, Anda akan menyetujui semua data yang telah Anda isi`,
+          iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M76.125 43.5C76.125 25.4883 61.5117 10.875 43.5 10.875C25.4883 10.875 10.875 25.4883 10.875 43.5C10.875 61.5117 25.4883 76.125 43.5 76.125C61.5117 76.125 76.125 61.5117 76.125 43.5Z" stroke="#8CE02C" stroke-width="5.4375" stroke-miterlimit="10"/>
+          <path d="M59.8125 29.9062L36.975 57.0938L27.1875 46.2188" stroke="#8CE02C" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          `,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya", 
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              icon: 'border-0',
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+              if(result.isConfirmed){
+                // $('#form-submit').submit()
+                $('#trigger').trigger('click')
+              }
+          })
+      }
+)
+
+  
+</script>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
+@end

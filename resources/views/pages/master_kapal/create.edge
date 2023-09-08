@@ -1,0 +1,1677 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* css header 2 start */
+  #progress-trans {
+    width:75px;
+    height:1px;
+    margin:20px -85px 0 10px;
+    z-index:1;
+  }
+  
+  #progress-page {
+    width:0%;
+    transition:width 1s;
+  }
+
+  #progress-page1 {
+    width:0%;
+    transition:width 1s;
+  }
+
+  .ball-step {
+    width:3rem;
+    height:3rem;
+  }
+
+  .titik-progress {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 5px;
+  }
+
+  #titik-progress-awal {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 10px;
+  }
+
+  #titik-progress-akhir {
+    width:5px;
+    height:1px;
+    margin:20px 10px 0 5px;
+  }
+
+  /* css header 2 end */
+  
+  /* css form start */
+  .title-form {
+    color:#045299;
+    padding-bottom:30px;
+  }
+
+  #kirim {
+    float:right;
+    display:none;
+  }
+
+  #kembali {
+    display: none;
+  }
+
+  #kembali {
+    padding:10px 25px;
+    border-radius:7px;
+    float:right;
+    margin-right:10px;
+  }
+
+  #draf {
+    float:right;
+    margin-right:20px;
+  }
+
+  #batal {
+    padding:10px 25px;
+    border-radius:7px;
+  }
+
+  /* .datePicker {
+    position: relative;
+    width: 100vw;
+    width: 150px; height: 20px;
+    color: white;
+  }
+
+  .datePicker:before {
+    position: absolute;
+    top: 3px; left: 3px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+  }
+
+  .datePicker::-webkit-datetime-edit, .datePicker::-webkit-inner-spin-button, .datePicker::-webkit-clear-button {
+    display: none;
+  }
+
+  .datePicker::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    color: black;
+    opacity: 1;
+  } */
+  /* css form end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header 1 start -->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="d-flex">
+                <img src="/media/kapal/master-vessel.svg" style="margin-top:-10px;">
+                <h2 style="margin-left:30px;">Master Kapal</h2>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- header 1 end -->
+
+  <!-- header 2 start -->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+        <div class="d-flex justify-content-center mb-2">
+          <a id="ball-step-1" class="btn btn-md btn-primary" style="border; border-radius:100%;">1</a>
+          <div id="progress-trans" class="progress bg-transparent">
+            <div id="progress-page" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="titik-progress-awal" class="bg-secondary"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div id="titik-progress-akhir" class="bg-secondary"></div>
+          <a id="ball-step-2" class="btn btn-md btn-secondary" style="border; border-radius:100%;">2</a>
+          <div id="progress-trans" class="progress bg-transparent">
+            <div id="progress-page1" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="titik-progress-awal" class="bg-secondary"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div id="titik-progress-akhir" class="bg-secondary"></div>
+          <a id="ball-step-3" class="btn btn-md btn-secondary" style="border; border-radius:100%;">3</a>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <div class="text-primary mx-lg-5 fw-bold">
+            <span class="float-end" style="">General Information</span>
+          </div>
+          <div class="fw-bold mx-lg-5">
+            <span id="teks-spesification" class="text-secondary">Spesifikasi</span>
+          </div>
+          <div class="fw-bold mx-lg-5">
+            <span id="teks-spesification1" class="text-secondary">Dokumen Pendukung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- header 2 end -->
+
+  <!-- form start -->
+  <form id="form-submit" action="{{route('MasterVesselsController.store')}}" method="POST">
+    {{ csrfField() }}
+  <div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselKapal" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h4 class="title-form">Add General Information</h4>
+                <div class="row g-3">
+                  {{--  <div class="col-6">
+                    <label class="form-label fw-bold">Kode Kapal</label>
+                  </div>  --}}
+                <input type="text" name="kd-kapal" id="kd-kapal" class="form-control input-kode" value="" hidden>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="form-label fw-bold">Prefix<span style="color:red;">*</span></label>
+                        <select id="prefix-kapal" name="prefix-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value="">Select</option>
+                          @each(item in data.prefixNamaKapal)
+                            <option value="{{item.name}}">{{item.name}}</option>
+                          @endeach
+                        </select>
+                      </div>
+                      <div class="col-10">
+                        <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Standar penulisan:
+                        [MV/MT/BG]. [NAMA KAPAL] [NOMOR, jika ada]
+                        Penulisan nama UPPERCASE">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input type="text" id="nama-kapal" name="nama-kapal" class="form-control" placeholder="cth: Butterfly">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Kapal<span style="color:red;">*</span></label>
+                    <select id="jenis-kapal" name="jenis-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.jenisKapal)
+                        <option value="{{item}}">{{item}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                          <label class="form-label fw-bold">Nama Negara<span style="color:red;">*</span></label>
+                          <select id="nama-negara" name="nama-negara" onchange="selectCountry(this.value, 'country-id')" name="nama-negara" class="form-select" data-control="select2" data-placeholder="Select">
+                            <option value="">Select</option>
+                            @each(item in country)
+                              <option value="{{item.country_code_3_digits}}">{{item.country_name}}</option>
+                            @endeach
+                          </select>                        
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label fw-bold">Kode Bendera<span style="color:red;">*</span></label>
+                          <select id="country-id" name="country-id" disabled class="form-select" data-placeholder="Select">
+                              <option value="">Select</option>
+                              @each(item in country)
+                              <option value="{{item.country_code_3_digits}}">{{item.country_code}}</option>
+                              @endeach
+                          </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Tipe Kapal<span style="color:red;">*</span></label>
+                    <select id="tipe-kapal" name="tipe-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Call Sign</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Penulisan nama UPPERCASE dan 
+                    ALFANUMERIC cth : AA11">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" onkeypress="return /[a-z0-9]/i.test(event.key)" id="call-sign" maxlength="10" name="call-sign" class="form-control input-kode" placeholder="cth: AA11">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Spesifik Kapal<span style="color:red;">*</span></label>
+                    <select id="spesifik-kapal" name="spesifik-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">No IMO</label>
+                    <input type="text" onkeypress="return /[0-9]/i.test(event.key)" id="no-imo" maxlength="10" name="no-imo" class="form-control" placeholder="cth: 887111">
+                </div>
+                <div class="col-6">
+                    <label class="form-label fw-bold">Informasi Tambahan Tipe Kapal</label>
+                    <select id="info-tambahan" name="info-tambahan[]" class="form-select form-control" data-control="select2" multiple data-live-search="true" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.typeAdditional)
+                      <option value="{{item.kd_additonal_info}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">MMSI<span style="color:red;">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="MMSI ( Maritime Mobile Service Identity.
+                    type text: alphanumeric, cth: AaBb12@!">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <div>
+                      <input type="text" id="mmsi" name="mmsi" onkeypress="return /[a-z0-9]/i.test(event.key)" maxlength="10" class="form-control" placeholder="Maritime Mobile Service Identity">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Pelayaran<span style="color:red;">*</span></label>
+                    <select id="jenis-pelayaran" name="jenis-pelayaran" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.jenisPelayaran)
+                      <option value="{{item.kd_jenis_pelayaran}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                    {{--  <label class="form-label fw-bold">Catatan Jenis Kapal</label>
+                    <textarea type="text" id="catatan-jenis" name="catatan-jenis" class="form-control" placeholder="Notes"></textarea>  --}}
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Pemilik<span style="color:red;">*</span></label> 
+                    <input type="text" id="nama-pemilik" name="nama-pemilik" class="form-control" placeholder="Nama Pemilik">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Trayek<span style="color:red;">*</span></label> 
+                    <select id="trayek" name="trayek" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.trayek)
+                      <option value="{{item.kd_trayek}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Pemilik Lama</label> 
+                    <input type="text" id="pemilik-lama" name="pemilik-lama" class="form-control" placeholder="Nama Pemilik Lama">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Tahun Pembuatan<span style="color:red;">*</span></label> 
+                    <select id="tahun-pembuatan" name="tahun-pembuatan" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.tahun)
+                      <option value="{{item}}">{{item}}</option>
+                      @end
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Status Kepemilikan Kapal<span style="color:red;">*</span></label>
+                      <select id="status-kepemilikan" name="status-kepemilikan" class="form-select" data-control="select2" data-placeholder="Select">
+                        <option value="">Select</option>
+                        @each(item in data.statusKapal)
+                        <option value="{{item.id}}">{{item.name}}</option>
+                        @endeach
+                      </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">No Tanda Pendaftaran</label>
+                    <input type="text" id="tanda-pendaftaran" class="form-control" placeholder="No Tanda Pendaftaran">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode History Kapal</label>
+                    <input type="text" name="kode-history-kapal" id="kode-history-kapal" maxlength="5" onkeypress="return /[a-z0-9]/i.test(event.key)" class="form-control" placeholder="Kode History Kapal">
+                  </div>
+                  <div class="col-6">
+                    {{--  <label class="form-label fw-bold">Kode Kapal Inaportnet</label>
+                    <input type="text" disabled id="kode-kapal-inaportnet" class="form-control" placeholder="Kode Kapal Inaportnet">  --}}
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">Add Spesifikasi</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas GT (Ton)<span style="color:red">*</span></label>
+                    <input type="text" maxlength="8" id="kapasitas-gt" onkeyup="tipeNumber(this.value, this)" onkeypress="setTwoNumberDecimal(this.value, this, event);" name="kapasitas-gt" class="form-control" placeholder="Gross Register Tonnage (ton)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Draft Maximum (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" maxlength="8" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" id="draft-maximum" name="draft-maximum" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas DWT (Ton)<span style="color:red">*</span></label>
+                    <input type="text" maxlength="8" onkeyup="tipeNumber(this.value, this)" onkeypress="setTwoNumberDecimal(this.value, this, event);" id="kapasitas-dwt" name="kapasitas-dwt" class="form-control" placeholder="Dead Weight Tonnage (ton)">
+                  </div>
+                  <div class="col-6"> 
+                    <label class="form-label fw-bold">Draft Depan(m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" maxlength="8" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" id="draft-depan" name="draft-depan" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas BRT (Ton)</label>
+                    <input type="text" maxlength="8" onkeyup="tipeNumber(this.value, this)" onkeypress="setTwoNumberDecimal(this.value, this, event);" id="kapasitas-brt" name="kapasitas-brt" class="form-control" placeholder="Bruto Register Tonnage (ton)">
+                  </div>              
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Draft Belakang (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" maxlength="8" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" id="draft-belakang" name="draft-belakang" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas NRT (Ton)</label>
+                    <input type="text" maxlength="8" id="kapasitas-nrt" onkeyup="tipeNumber(this.value, this)" onkeypress="setTwoNumberDecimal(this.value, this, event);" name="kapasitas-nrt" class="form-control" placeholder="Net Register Tonnage (ton)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Max Speed (Knot)</label>
+                    <input type="text" maxlength="8" id="max-speed" name="max-speed" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" class="form-control" placeholder="Kecepatan Maximum Kapal">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Panjang Kapal/LOA (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" id="panjang-loa" maxlength="8" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" name="panjang-loa" class="form-control" placeholder="Length Over All (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jumlah Palka/Tangki/Ruang Muat<span style="color:red">*</span></label>
+                    <input type="text" maxlength="8" onkeypress="return /[0-9]/i.test(event.key)" id="jumlah-palka" name="jumlah-palka" class="form-control" placeholder="cth: 100">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Lebar Kapal (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input type="text" maxlength="8" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" id="lebar-kapal" name="lebar-kapal" class="form-control" placeholder="Lebar Kapal (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jumlah Derek</label>
+                    <input type="text" id="jumlah-derek" maxlength="8" onkeypress="return /[0-9]/i.test(event.key)" name="jumlah-derek" class="form-control" placeholder="cth: 100">
+                  </div>
+                  <div class="col-6">
+                      <label class="form-label fw-bold">Tinggi Kapal (m)<span style="color:red">*</span></label>
+                      <input type="text" maxlength="8" id="tinggi-kapal" onkeypress="setTwoNumberDecimal(this.value, this, event);return /[-,0-9]/i.test(event.key);" name="tinggi-kapal" class="form-control" placeholder="Tinggi Kapal (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Derek</label>
+                    <input type="text" id="jenis-derek" name="jenis-derek" class="form-control" placeholder="Jenis Derek">
+                  </div>
+                  <div class="col-6">
+                    <label style="display:none;" id="label-horse-power" class="form-label fw-bold">Horse Power</label>
+                    <input style="display:none;" type="text" maxlength="8" onkeypress="return /[0-9]/i.test(event.key)" id="horse-power" name="horse-power" class="form-control" placeholder="Horse Power">
+                  </div>
+                </div>    
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">Add Dokumen Pendukung</h4>
+                <div class="row g-3">
+                    <div class="col-6 mb-5">
+                      <span class="form-label fs-4 fw-bold">Dokumen Surat Ukur</span>
+                    </div>
+                    <div class="col-6 mb-5">
+                      <span class="form-label fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Milik</span>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">No. Surat Ukur<span style="color:red">*</span></label>
+                        <input type="text" id="no-surat-ukur" name="no-surat-ukur" class="form-control" placeholder="Nomor Surat Ukur Kapal">
+                    </div>
+                    <div class="col-6">                  
+                      <label class="form-label fw-bold">No. PPKM</label>
+                      <input type="text" id="no-ppkm" name="no-ppkm" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Milik">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Jenis Surat Ukur<span style="color:red">*</span></label>
+                      <select id="jenis-surat-ukur" name="jenis-surat-ukur" class="form-select" data-control="select2" data-placeholder="Select">
+                        <option value="">Select</option>
+                        @each(item in data.jenisSuratUkur)
+                        <option value="{{item.id}}">{{item.name}}</option>
+                        @end
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Upload PPKM</label>
+                      <input type="file" id="surat-ppkm" name="surat-ppkm" class="form-control" placeholder="dokumenPPKM.pdf">
+                      <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                      <input type="text" name="surat-ppkm-file" id="surat-ppkm-file" hidden>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Upload Surat Ukur<span style="color:red">*</span></label>
+                        <input type="file" id="surat-ukur" name="surat-ukur" class="form-control" placeholder="dokumensuratukur.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-ukur-file" name="surat-ukur-file" hidden value="">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Terbit PPKM</label>
+                      <input type="date" id="terbit-ppkm" name="terbit-ppkm" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Tanggal Surat Ukur<span style="color:red">*</span></label>
+                        <input type="date" id="tanggal-surat-ukur"  name="tanggal-surat-ukur" class="form-control" placeholder="19 January 2023">
+                    </div>      
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Berlaku PPKM</label>
+                      <input type="date" id="berlaku-ppkm" name="berlaku-ppkm" class="form-control" placeholder="dokumenPPKA.pdf">
+                    </div>
+                    <div class="col-6 mt-5">
+                      <span class="form-label mt-5 fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Asing</span>
+                    </div>
+                    <div class="col-6 mt-5">
+                      <span class="form-label mt-5 fs-4 fw-bold">Dokumen Surat Penetapan Maritime Mobile Service Identity</span>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">No. PPKA</label>
+                        <input type="text" id="no-ppka" name="no-ppka" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Asing">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Upload Surat Penetapan MMSI</label>
+                      <input type="file" id="doc-mmsi" name="doc-mmsi" class="form-control" placeholder="dokumenPPKA.pdf">
+                      <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                      <input type="text" id="doc-mmsi-file" name="doc-mmsi-file" hidden>
+                    </div> 
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Upload PPKA</label>
+                        <input type="file" id="surat-ppka" name="surat-ppka" class="form-control" placeholder="dokumenPPKA.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-ppka-file" name="surat-ppka-file" hidden>
+                    </div> 
+                    <div class="col-6">
+                        <span class="form-label mt-5 fs-4 fw-bold">Dokumen Surat Tanda Pendaftaran Inaportnet</span>
+                        <label class="form-label fw-bold">Upload Surat Tanda Pendaftaran Inaportnet</label>
+                        <input type="file" id="surat-tanda-pendaftaran" name="surat-tanda-pendaftaran" class="form-control" placeholder="surat-tanda-pendaftaran.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-tanda-pendaftaran-file" name="surat-tanda-pendaftaran-file" hidden>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Terbit PPKA</label>
+                      <input type="date" id="terbit-ppka" name="terbit-ppka" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Berlaku PPKA</label>
+                      <input type="date" id="berlaku-ppka" name="berlaku-ppka" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" id="kirim" class="btn btn-primary">Submit</button>
+              <button type="button" id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+              <button type="button" id="kembali" class="btn btn-outline-primary border border-primary">Back</a>
+              <button type="button" id="draf" class="btn btn-warning">Save As Draft</button>
+              <button type="button" id="batal" class="btn btn-outline-primary border border-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>
+</form>
+
+  <!-- form end -->
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+     //show horse power
+     $('#prefix-kapal').change(function() {
+        let val = $('#prefix-kapal').val()
+        if(val == 'TB') {
+          $('#horse-power').show()
+          $('#label-horse-power').show()
+        } else {
+          $('#horse-power').hide()
+          $('#horse-power').val('')
+          $('#label-horse-power').hide()
+        }
+      })
+      
+      // standarisasi uppercase
+      $(":text").keyup(function() {
+        const teksUp = String($(this).val()).toUpperCase();
+        $(this).val(teksUp);
+      });
+  
+      //batal
+      $('#batal').click(function() {
+        Swal.fire({
+          title: "<span style='color:#FF0000;'>Batal?</span>", 
+          html: "<strong>Apakah anda yakin ?</strong>",
+          icon: 'warning',
+          showCancelButton: true, 
+          cancelButtonText: "Tidak",
+          confirmButtonText: "Iya",
+          confirmButtonColor: "#045299",
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            window.location.assign(`{{ route('MasterVesselsController.index') }}`); 
+          }
+        });
+      });
+  
+      var carouselVal = 0;
+      // kembali
+      $("#kembali").click(function() {
+        if(carouselVal === 1) {
+          //one step
+          carouselVal -= 1
+          $("#carouselKapal").carousel(0); 
+          $('#ball-step-2').removeClass('btn-primary');
+          $('#ball-step-2').addClass('btn-secondary');
+          $('#teks-spesification').removeClass('text-primary');
+          $('#teks-spesification').addClass('text-secondary');
+          $('#progress-page').css('width', '0%');
+          $(this).css('display', 'none');
+        } else if (carouselVal === 2) {
+          //two step
+          carouselVal -= 1
+          $("#carouselKapal").carousel(1); 
+          $('#ball-step-3').removeClass('btn-primary');
+          $('#ball-step-3').addClass('btn-secondary');
+          $('#teks-spesification1').removeClass('text-primary');
+          $('#teks-spesification1').addClass('text-secondary');
+          $('#progress-page1').css('width', '0%');
+          $('#kirim').css('display', 'none');
+          $("#selanjutnya").css('display', '');
+        }
+      });
+  
+      // ketika tombol simpan draf ditekan
+      $('#draf').click(function() {
+        Swal.fire({
+          title: "<span style='color:#EDAD51;'>Simpan sebagai draf</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          imageUrl: "/media/peralatan/draft.svg",
+          showCancelButton: true,
+          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            draftValidation()
+            if (isErrors === false) {
+              postData('DRAFT')
+            } else {
+            }
+          }
+        });
+      });
+
+      //validation
+      var isErrors = false
+      function validationGeneralInfo() {
+        let error = {
+          kode_bendera: false,
+          kode_negara: false,
+          nama_kapal: false,
+          nama_pemilik: false,
+          jenis: false,
+          tipe: false,
+          spesifik:false,
+          jenis_pelayaran: false,
+          trayek: false,
+          status:false,
+          tahun: false,
+          prefix: false,
+          mmsi: false
+        }
+
+        if($("#country-id").val() == ''){
+            error.kode_bendera = true;
+            if($("#country-id").hasClass("is-invalid") == false) {
+                $("#country-id").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-country-id');
+                $("#country-id").next().after(text);
+                $("#country-id").focus();
+              }
+            } else {
+                error.kode_bendera = false;
+                $("#country-id").removeClass('is-invalid');
+                $('#invalid-country-id').remove();
+            }
+
+        if($("#nama-negara").val() == ''){
+            error.kode_negara = true;
+            if($("#nama-negara").hasClass("is-invalid") == false) {
+                $("#nama-negara").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-negara');
+                $("#nama-negara").next().after(text);
+                $("#nama-negara").focus();
+              }
+            } else {
+                error.kode_negara = false;
+                $("#nama-negara").removeClass('is-invalid');
+                $('#invalid-nama-negara').remove();
+            }
+
+        if($("#nama-kapal").val() == ''){
+            error.nama_kapal = true;
+            if($("#nama-kapal").hasClass("is-invalid") == false) {
+                $("#nama-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-kapal');
+                $("#nama-kapal").after(text);
+                $("#nama-kapal").focus();
+              }
+            } else {
+                error.nama_kapal = false;
+                $("#nama-kapal").removeClass('is-invalid');
+                $('#invalid-nama-kapal').remove();
+            }
+
+        if($("#jenis-kapal").val() == ''){
+            error.jenis = true;
+            if($("#jenis-kapal").hasClass("is-invalid") == false) {
+                $("#jenis-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jenis-kapal');
+                $("#jenis-kapal").next().after(text);
+                $("#jenis-kapal").focus();
+              }
+            } else {
+                error.jenis = false;
+                $("#jenis-kapal").removeClass('is-invalid');
+                $('#invalid-jenis-kapal').remove();
+            }
+
+        if($("#tipe-kapal").val() == ''){
+            error.tipe = true;
+            if($("#tipe-kapal").hasClass("is-invalid") == false) {
+                $("#tipe-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-tipe-kapal');
+                $("#tipe-kapal").next().after(text);
+                $("#tipe-kapal").focus();
+              }
+            } else {
+                error.tipe = false;
+                $("#tipe-kapal").removeClass('is-invalid');
+                $('#invalid-tipe-kapal').remove();
+            }
+
+        if($("#spesifik-kapal").val() == ''){
+            error.spesifik = true;
+            if($("#spesifik-kapal").hasClass("is-invalid") == false) {
+                $("#spesifik-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-spesifik-kapal');
+                $("#spesifik-kapal").next().after(text);
+                $("#spesifik-kapal").focus();
+              }
+            } else {
+                error.spesifik = false;
+                $("#spesifik-kapal").removeClass('is-invalid');
+                $('#invalid-spesifik-kapal').remove();
+            }
+
+        if($("#jenis-pelayaran").val() == ''){
+            error.jenis_pelayaran = true;
+            if($("#jenis-pelayaran").hasClass("is-invalid") == false) {
+                $("#jenis-pelayaran").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jenis-pelayaran');
+                $("#jenis-pelayaran").next().after(text);
+                $("#jenis-pelayaran").focus();
+              }
+            } else {
+                error.jenis_pelayaran = false;
+                $("#jenis-pelayaran").removeClass('is-invalid');
+                $('#invalid-jenis-pelayaran').remove();
+            }
+
+        if($("#trayek").val() == ''){
+            error.trayek = true;
+            if($("#trayek").hasClass("is-invalid") == false) {
+                $("#trayek").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-trayek');
+                $("#trayek").next().after(text);
+                $("#trayek").focus();
+              }
+            } else {
+                error.trayek = false;
+                $("#trayek").removeClass('is-invalid');
+                $('#invalid-trayek').remove();
+            }
+            
+        if($("#nama-pemilik").val() == ''){
+            error.nama_pemilik = true;
+            if($("#nama-pemilik").hasClass("is-invalid") == false) {
+                $("#nama-pemilik").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-pemilik');
+                $("#nama-pemilik").after(text);
+                $("#nama-pemilik").focus();
+              }
+            } else {
+                error.nama_pemilik = false;
+                $("#nama-pemilik").removeClass('is-invalid');
+                $('#invalid-nama-pemilik').remove();
+            }
+
+        if($("#status-kepemilikan").val() == ''){
+            error.status = true;
+            if($("#status-kepemilikan").hasClass("is-invalid") == false) {
+                $("#status-kepemilikan").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-status-kepemilikan');
+                $("#status-kepemilikan").next().after(text);
+                $("#status-kepemilikan").focus();
+              }
+            } else {
+                error.status = false;
+                $("#status-kepemilikan").removeClass('is-invalid');
+                $('#invalid-status-kepemilikan').remove();
+            }
+
+        if($("#tahun-pembuatan").val() == ''){
+            error.tahun = true;
+            if($("#tahun-pembuatan").hasClass("is-invalid") == false) {
+                $("#tahun-pembuatan").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-tahun-pembuatan');
+                $("#tahun-pembuatan").next().after(text);
+                $("#tahun-pembuatan").focus();
+              }
+            } else {
+                error.tahun = false;
+                $("#tahun-pembuatan").removeClass('is-invalid');
+                $('#invalid-tahun-pembuatan').remove();
+            }
+
+        if($("#prefix-kapal").val() == ''){
+            error.prefix = true;
+            if($("#prefix-kapal").hasClass("is-invalid") == false) {
+                $("#prefix-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-prefix-kapal');
+                $("#prefix-kapal").next().after(text);
+                $("#prefix-kapal").focus();
+              }
+            } else {
+                error.prefix = false;
+                $("#prefix-kapal").removeClass('is-invalid');
+                $('#invalid-prefix-kapal').remove();
+            }
+            
+        if($("#mmsi").val() == ''){
+            error.mmsi = true;
+            if($("#mmsi").hasClass("is-invalid") == false) {
+                $("#mmsi").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-mmsi');
+                $("#mmsi").after(text);
+                $("#mmsi").focus();
+              }
+            } else {
+                error.mmsi = false;
+                $("#mmsi").removeClass('is-invalid');
+                $('#invalid-mmsi').remove();
+            }
+
+            if (error.kode_bendera === false && 
+                error.kode_negara === false && error.nama_kapal === false &&
+                error.nama_pemilik === false && error.jenis === false &&
+                error.tipe === false && error.spesifik === false &&
+                error.jenis_pelayaran === false && error.trayek === false &&
+                error.status === false && error.tahun === false &&
+                error.prefix === false && error.mmsi === false) {
+                  isErrors = false
+              } else {
+                isErrors = true
+                Swal.fire({
+                    html: `<span style="color:red">Lengkapi Data</span>`,
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                    }          
+                })
+              }
+      }
+
+      function validationSpesifik() {
+        let error = {
+          gt: false,
+          dwt: false,
+          loa:false,
+          lebar_kapal: false,
+          draft_maximum: false,
+          tinggi: false,
+          palka: false
+        }
+
+        if($("#kapasitas-gt").val() == ''){
+        error.gt = true;
+          if($("#kapasitas-gt").hasClass("is-invalid") == false) {
+            $("#kapasitas-gt").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-kapasitas-gt');
+            $("#kapasitas-gt").after(text);
+            $("#kapasitas-gt").focus();
+          }
+        } else {
+            error.gt = false;
+            $("#kapasitas-gt").removeClass('is-invalid');
+            $('#invalid-kapasitas-gt').remove();
+        }
+
+        if($("#kapasitas-dwt").val() == ''){
+        error.dwt = true;
+          if($("#kapasitas-dwt").hasClass("is-invalid") == false) {
+            $("#kapasitas-dwt").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-kapasitas-dwt');
+            $("#kapasitas-dwt").after(text);
+            $("#kapasitas-dwt").focus();
+          }
+        } else {
+            error.dwt = false;
+            $("#kapasitas-dwt").removeClass('is-invalid');
+            $('#invalid-kapasitas-dwt').remove();
+        }
+
+        if($("#panjang-loa").val() == ''){
+        error.loa = true;
+          if($("#panjang-loa").hasClass("is-invalid") == false) {
+            $("#panjang-loa").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-panjang-loa');
+            $("#panjang-loa").after(text);
+            $("#panjang-loa").focus();
+          }
+        } else {
+            error.loa = false;
+            $("#panjang-loa").removeClass('is-invalid');
+            $('#invalid-panjang-loa').remove();
+        }
+
+        if($("#lebar-kapal").val() == ''){
+        error.lebar_kapal = true;
+          if($("#lebar-kapal").hasClass("is-invalid") == false) {
+            $("#lebar-kapal").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-lebar-kapal');
+            $("#lebar-kapal").after(text);
+            $("#lebar-kapal").focus();
+          }
+        } else {
+            error.lebar_kapal = false;
+            $("#lebar-kapal").removeClass('is-invalid');
+            $('#invalid-lebar-kapal').remove();
+        }
+
+        if($("#draft-maximum").val() === ''){
+        error.draft_maximum = true;
+          if($("#draft-maximum").hasClass("is-invalid") == false) {
+            $("#draft-maximum").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-draft-maximum');
+            $("#draft-maximum").after(text);
+            $("#draft-maximum").focus();
+          }
+        } else {
+            error.draft_maximum = false;
+            $("#draft-maximum").removeClass('is-invalid');
+            $('#invalid-draft-maximum').remove();
+        }
+
+        if($("#tinggi-kapal").val() === ''){
+        error.tinggi = true;
+          if($("#tinggi-kapal").hasClass("is-invalid") == false) {
+            $("#tinggi-kapal").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-tinggi-kapal');
+            $("#tinggi-kapal").after(text);
+            $("#tinggi-kapal").focus();
+          }
+        } else {
+            error.tinggi = false;
+            $("#tinggi-kapal").removeClass('is-invalid');
+            $('#invalid-tinggi-kapal').remove();
+        }
+
+        if($("#jumlah-palka").val() === ''){
+        error.palka = true;
+          if($("#jumlah-palka").hasClass("is-invalid") == false) {
+            $("#jumlah-palka").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-jumlah-palka');
+            $("#jumlah-palka").after(text);
+            $("#jumlah-palka").focus();
+          }
+        } else {
+            error.palka = false;
+            $("#jumlah-palka").removeClass('is-invalid');
+            $('#invalid-jumlah-palka').remove();
+        }
+
+        if (error.gt === false && error.dwt === false &&
+            error.loa === false && error.lebar_kapal === false &&
+            error.draft_maximum === false && error.tinggi === false &&
+            error.palka === false) {
+          isErrors = false
+        } else {
+          isErrors = true
+          Swal.fire({
+              html: `<span style="color:red">Lengkapi Data</span>`,
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: "Ok",
+              customClass: {
+                  confirmButton: "btn btn-primary",
+              }          
+          })
+        }
+      }
+
+      function validationDocument() {
+        let error = {
+          no_ukur: false,
+          jenis_ukur:false,
+          file_ukur: false,
+          tanggal_ukur: false,
+        }
+
+        if($("#no-surat-ukur").val() == ''){
+        error.no_ukur = true;
+          if($("#no-surat-ukur").hasClass("is-invalid") == false) {
+            $("#no-surat-ukur").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-no-surat-ukur');
+            $("#no-surat-ukur").after(text);
+            $("#no-surat-ukur").focus();
+          }
+        } else {
+            error.no_ukur = false;
+            $("#no-surat-ukur").removeClass('is-invalid');
+            $('#invalid-no-surat-ukur').remove();
+        }
+
+        if($("#surat-ukur-file").val() == ''){
+        error.file_ukur = true;
+          if($("#surat-ukur").hasClass("is-invalid") == false) {
+            $("#surat-ukur").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-surat-ukur');
+            $("#surat-ukur").next().after(text);
+            $("#surat-ukur").focus();
+          }
+        } else {
+            error.file_ukur = false;
+            $("#surat-ukur").removeClass('is-invalid');
+            $('#invalid-surat-ukur').remove();
+        }
+
+        if($("#jenis-surat-ukur").val() == ''){
+        error.jenis_ukur = true;
+          if($("#jenis-surat-ukur").hasClass("is-invalid") == false) {
+            $("#jenis-surat-ukur").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-jenis-surat-ukur');
+            $("#jenis-surat-ukur").next().after(text);
+            $("#jenis-surat-ukur").focus();
+          }
+        } else {
+            error.jenis_ukur = false;
+            $("#jenis-surat-ukur").removeClass('is-invalid');
+            $('#invalid-jenis-surat-ukur').remove();
+        }
+
+        if($("#tanggal-surat-ukur").val() == ''){
+        error.tanggal_ukur = true;
+          if($("#tanggal-surat-ukur").hasClass("is-invalid") == false) {
+            $("#tanggal-surat-ukur").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-tanggal-surat-ukur');
+            $("#tanggal-surat-ukur").after(text);
+            $("#tanggal-surat-ukur").focus();
+          }
+        } else {
+            error.tanggal_ukur = false;
+            $("#tanggal-surat-ukur").removeClass('is-invalid');
+            $('#invalid-tanggal-surat-ukur').remove();
+        }
+
+        if (error.no_ukur === false && error.jenis_ukur === false &&
+            error.file_ukur === false && error.tanggal_ukur === false ) {
+              isErrors = false
+            } else {
+              isErrors = true
+              Swal.fire({
+                  html: `<span style="color:red">Lengkapi Data</span>`,
+                  icon: "error",
+                  buttonsStyling: false,
+                  confirmButtonText: "Ok",
+                  customClass: {
+                      confirmButton: "btn btn-primary",
+                  }          
+              })
+            }
+      }
+
+      function draftValidation() {
+        let error = {
+          nama_kapal : false,
+          prefix : false
+        }
+
+        if($("#nama-kapal").val() == ''){
+            error.nama_kapal = true;
+            if($("#nama-kapal").hasClass("is-invalid") == false) {
+                $("#nama-kapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-kapal');
+                $("#nama-kapal").next().after(text);
+                $("#nama-kapal").focus();
+              }
+            } else {
+                error.nama_kapal = false;
+                $("#nama-kapal").removeClass('is-invalid');
+                $('#invalid-nama-kapal').remove();
+            }
+
+        if($("#prefix-kapal").val() == ''){
+        error.prefix = true;
+        if($("#prefix-kapal").hasClass("is-invalid") == false) {
+            $("#prefix-kapal").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-prefix-kapa');
+            $("#prefix-kapal").next().after(text);
+            $("#prefix-kapal").focus();
+          }
+        } else {
+            error.prefix = false;
+            $("#prefix-kapal").removeClass('is-invalid');
+            $('#invalid-prefix-kapa').remove();
+        }
+        
+        if(error.prefix === false && error.nama_kapal === false ) {
+          isErrors = false
+        } else {
+          isErrors = true
+        }
+
+      }
+  
+      // next
+      $("#selanjutnya").click(function() {
+        var isError = false;
+        if(carouselVal === 0) {
+          validationGeneralInfo()
+          if (isErrors === false) {
+            carouselVal += 1;
+            $("#carouselKapal").carousel(1); 
+            $('#ball-step-2').removeClass('btn-secondary');
+            $('#ball-step-2').addClass('btn-primary');
+            $('#teks-spesification').removeClass('text-secondary');
+            $('#teks-spesification').addClass('text-primary');
+            $('#progress-page').css('width', '100%');
+            $("#kembali").css('display', 'block');
+          } else {
+          }
+        } else if(carouselVal === 1) {
+          validationSpesifik()
+          if (isErrors === false) {
+            carouselVal += 1;
+            $("#carouselKapal").carousel(2); 
+            $('#ball-step-3').removeClass('btn-secondary');
+            $('#ball-step-3').addClass('btn-primary');
+            $('#teks-spesification1').removeClass('text-secondary');
+            $('#teks-spesification1').addClass('text-primary');
+            $('#progress-page1').css('width', '100%');
+            $('#kirim').css('display', 'block');
+            $(this).css('display', 'none');
+          } else {
+          }
+        }
+      });
+
+      //stepper button
+      $("#ball-step-1").click(function() {
+          carouselVal = 0
+          $("#carouselKapal").carousel(0);
+          $('#ball-step-2').removeClass('btn-primary');
+          $('#ball-step-2').addClass('btn-secondary');
+          $('#teks-spesification').removeClass('text-primary');
+          $('#teks-spesification').addClass('text-secondary');
+          $('#progress-page').css('width', '0%');
+          $('#ball-step-3').removeClass('btn-primary');
+          $('#ball-step-3').addClass('btn-secondary');
+          $('#teks-spesification1').removeClass('text-primary');
+          $('#teks-spesification1').addClass('text-secondary');
+          $('#progress-page1').css('width', '0%');
+          $('#kirim').css('display', 'none');
+          $('#kembali').css('display', 'none');
+          $("#selanjutnya").css('display', '');
+      })
+
+      $("#ball-step-2").click(function() {
+        validationGeneralInfo()
+        if(isErrors === false) {
+          carouselVal = 1
+          $("#carouselKapal").carousel(1); 
+          $('#ball-step-2').removeClass('btn-secondary');
+          $('#ball-step-2').addClass('btn-primary');
+          $('#teks-spesification').removeClass('text-secondary');
+          $('#teks-spesification').addClass('text-primary');
+          $('#progress-page').css('width', '100%');
+          $("#kembali").css('display', 'block');
+          $('#ball-step-3').removeClass('btn-primary');
+          $('#ball-step-3').addClass('btn-secondary');
+          $('#teks-spesification1').removeClass('text-primary');
+          $('#teks-spesification1').addClass('text-secondary');
+          $('#progress-page1').css('width', '0%');
+          $('#kirim').css('display', 'none');
+          $("#selanjutnya").css('display', '');
+        }
+      })
+
+      $("#ball-step-3").click(function() {
+        validationSpesifik()
+        if(isErrors === false) {
+          carouselVal = 2
+          $("#carouselKapal").carousel(1);
+          $('#ball-step-2').removeClass('btn-secondary');
+          $('#ball-step-2').addClass('btn-primary');
+          $('#teks-spesification').removeClass('text-secondary');
+          $('#teks-spesification').addClass('text-primary');
+          $('#progress-page').css('width', '100%');
+          $("#carouselKapal").carousel(2); 
+          $('#ball-step-3').removeClass('btn-secondary');
+          $('#ball-step-3').addClass('btn-primary');
+          $('#teks-spesification1').removeClass('text-secondary');
+          $('#teks-spesification1').addClass('text-primary');
+          $('#progress-page1').css('width', '100%');
+          $('#kirim').css('display', 'block');
+          $('#selanjutnya').css('display', 'none');
+          $("#kembali").css('display', 'block');
+        }
+      })
+      
+      // ketika tombol kirim ditekan
+      $('#kirim').click(function() {
+        validationDocument()
+        if(isErrors === false) {
+          Swal.fire({
+              title: "<span style='color:#8CE02C;'>Dikirim</span>",
+              html: '<strong>Apakah anda yakin ?</strong>', 
+              icon: 'warning',
+              showCancelButton: true,
+              cancelButtonText: "Tidak",
+              confirmButtonText: 'Iya', 
+              confirmButtonColor: '#045299',
+              reverseButtons: true,
+              allowOutsideClick: false
+          }).then((result)=>{
+              if(result.isConfirmed == true) {
+                // var isError = false;
+                postData('REQUEST')
+              }
+            });
+        } else {
+        }
+      });
+
+      $('select[name="jenis-kapal"]').change(function(){
+        var jenis_kapal = $('#jenis-kapal').val()
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "{{route('select2.tipeKapal')}}",
+          data:{
+            jenisKapal: jenis_kapal
+          },
+          success: function(data){
+            console.log(data);
+            $('.tipe-kapal').remove();
+            data.map((el)=>{
+              $('select[name="tipe-kapal"]').append(`<option class="tipe-kapal" value="${el.tipe_kapal}">${el.tipe_kapal}</option>`)
+              
+            });
+          }
+        })
+      })
+
+      $('select[name="tipe-kapal"]').change(function(){
+        var tipeKapal = $('#tipe-kapal').val()
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "{{route('select2.spesifikKapal')}}",
+          data:{
+            tipeKapal: tipeKapal
+          },
+          success: function(data){
+            $('.spesifik-kapal').remove();
+            data.map((el)=>{
+              $('select[name="spesifik-kapal"]').append(`<option class="spesifik-kapal" value="${el.id}">${el.spesifik_kapal}</option>`)
+            });
+          }
+        })
+      })
+
+      // $('select[name="country-id"]').change(function(){
+      //   var kodeBendera = $('#country-id').find('option:selected').text();
+      //   $('select[name="nama-negara"] option').hide()
+      //   $('select[name="nama-negara"] option[value="'+${kodeBendera}+'"]').show()
+      // })
+
+      function progressUpload(element,name,percentage){
+        var progress = `
+        <div class="uploadProgress-${name} progress my-2" style="height: 10px;">
+            <div class="progress-bar bg-primary text-white" role="progressbar" style="width: ${percentage}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${percentage}%</div>
+        </div>
+        `
+        $(element).after(progress)
+    }
+
+    jQuery(function($) {
+      $('#nama-negara').on('change', function() {
+        var sel = $('option:selected', this).val();
+        $('#country-id option').filter(function(index, el) {
+          return el.value == sel;
+        }).prop('selected', true);
+      });
+    }); 
+
+    //upload file
+    uploadFile("doc-mmsi");
+    uploadFile("surat-ppka");
+    uploadFile("surat-ukur");
+    uploadFile("surat-ppkm");
+    uploadFile("surat-tanda-pendaftaran");
+  });
+
+  function vesselCode(name) {
+    name = name.replace(/[0-9]/gi,"")
+    name = name.replace("  "," ")
+    name = name.split(" ")
+    name = name.filter(el => el != "")
+    name = name.slice(0,2)
+    let code = ''
+    let nameLength = name.length
+    if(nameLength < 2) {
+      name.forEach((el) => {
+      code += el.substring(0, 4)
+      })
+    } else if (nameLength > 1){
+    name.forEach((el) =>
+      {
+        if(code == '') {
+        code = el.substring(0, 2)
+        } else {
+          code += el.substring(0, 2)
+        }
+      })
+    }
+    return code
+  }
+
+  function progressUpload(element,name,percentage){
+        var progress = `
+        <div class="uploadProgress-${name} progress my-2" style="height: 10px;">
+            <div class="progress-bar bg-primary text-white" role="progressbar" style="width: ${percentage}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${percentage}%</div>
+        </div>
+        `
+        $(element).after(progress)
+  }
+
+    function uploadFile (fieldname){
+        // start SPMP
+        $(`#${fieldname}`).change(function(){
+            var file_data = $(`#${fieldname}`).prop('files')[0];
+            var field_input = $(`#${fieldname}`).attr('name');
+            var form_data = new FormData();
+            form_data.append('inputFile',file_data);
+            form_data.append('fieldInput',field_input);
+
+            if(file_data.name.includes("pdf") == false) {
+              $(`#${fieldname}`).val("")
+              $(`input[name="${fieldname}-file"]`).val("")
+              return Swal.fire({
+                        html: `File yang dipilih harus PDF`,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        }          
+                    })
+            }
+
+            if(file_data.size > 2097152) {
+              $(`#${fieldname}`).val("")
+              $(`input[name="${fieldname}-file"]`).val("")
+              return Swal.fire({
+                        html: `Ukuran file melebihi 2mb`,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        }          
+                    })
+            }
+
+              $.ajax({
+                  url:"/kapal/uploadFile",
+                  type:"post",
+                  data: form_data,
+                  contentType: false,
+                  cache: false,
+                  processData:false,
+                  timeout: 20000,
+                  xhr: function() {
+                      var xhr = $.ajaxSettings.xhr();
+                      xhr.upload.onprogress = function(e) {
+                          var percentage = Math.floor(e.loaded / e.total *100);
+                          $('div').remove(`.uploadProgress-${fieldname}`);
+                          progressUpload(`#${fieldname}`,`${fieldname}`,percentage)
+                      };
+                      return xhr;
+                  },
+                  success: function (data) {
+                      $(`#${fieldname}`).css('border-color', '#045299');
+                      $(`#${fieldname}`).css('color', '#045299');
+                      // $('div').remove('.uploadProgress');
+                      $(`input[name="${fieldname}-file"]`).val(data == undefined ? "" : data)
+                    },
+                    error: function (error) {
+                      $(`input[name="${fieldname}-file"]`).val("")
+                      $(`#${fieldname}`).css('border-color', '#045299');
+                      $(`#${fieldname}`).css('color', '#045299');
+                      if(error.statusText == "Request Entity Too Large"){
+                          Swal.fire({
+                              html: `File yang dipilih lebih dari 2 MB`,
+                              icon: "error",
+                              buttonsStyling: false,
+                              confirmButtonText: "Ok",
+                              customClass: {
+                                  confirmButton: "btn btn-primary",
+                              }          
+                          })
+                      } else {
+                        $(`input[name="${fieldname}-file"]`).val("")
+                          Swal.fire({
+                              html: `${error.statusText}`,
+                              icon: "error",
+                              buttonsStyling: false,
+                              confirmButtonText: "Ok",
+                              customClass: {
+                                  confirmButton: "btn btn-primary",
+                              }          
+                          })
+                      }
+                  }
+              })
+        })
+    }
+      
+      // function setTwoNumberDecimal(evt, ele) {
+      //   var theEvent = evt || window.event;
+      //     var key = theEvent.keyCode || theEvent.which;
+      //     key = String.fromCharCode( key );
+      //     var value = ele.value + key;
+      //     var regex = /^\d+(.\d{0,2})?$/;
+      //     if( !regex.test(value) ) {
+      //       theEvent.returnValue = false;
+      //       if(theEvent.preventDefault) theEvent.preventDefault();
+      //     }
+      // }
+
+      function setTwoNumberDecimal(value, ele, evt) {
+        const myArray = value.split(",");
+        if (myArray[1]){
+          let numberDecimal = myArray[1];
+          if (numberDecimal.length > 1){
+            evt.preventDefault();
+            swal.fire("Dibatalkan", "2 digit decimal", "error");
+          }
+        }
+        return true;
+      }
+
+      function selectCountry(val, idSelector) {
+        if(val == null || val == '') return;
+        var idCountry = val
+        $(`#${idSelector} option[data-value='" + ${idCountry} +"']`)
+        .attr("selected","selected");
+        $(`#${idSelector}`).attr('data-control', "select2")
+      }
+
+      function postData(status) {
+        var namaKapal = $('#nama-kapal').val()
+        console.log($('#info-tambahan').val())
+        $.ajax({
+          url: `{{ route('MasterVesselsController.store') }}`,
+          type: 'get',
+          beforeSend: function() {
+          blockUI.block();
+          },
+          data: {
+            status: status,
+            'kd-kapal': vesselCode(namaKapal),
+            'kd-nama-kapal': $('#prefix-kapal').val(),
+            'kd-history-kapal': $('#kode-history-kapal').val(),
+            'jenis-kapal': $('#jenis-kapal').val(),
+            // 'nama-negara': $('#nama-negara').val(),
+            'tanda-pendaftaran': $('#tanda-pendaftaran').val(),
+            'country-id': $('#country-id').val(),
+            'tipe-kapal': $('#tipe-kapal').val(),
+            'nama-kapal': $('#nama-kapal').val(),
+            'spesifik-kapal': $('#spesifik-kapal').val(),
+            'call-sign': $('#call-sign').val(),
+            // 'info-tambahan': $('#info-tambahan').val(),
+            'info-tambahan': $('#info-tambahan').val().length > 0 ? mapingAdditonalInfo($('#info-tambahan').val()) : [],
+            'mmsi': $('#mmsi').val(),
+            // 'catatan-jenis': $('#catatan-jenis').val(),
+            'jenis-pelayaran': $('#jenis-pelayaran').val(),
+            'no-imo': $('#no-imo').val(),
+            'nama-pemilik': $('#nama-pemilik').val(),
+            'trayek': $('#trayek').val(),
+            'pemilik-lama': $('#pemilik-lama').val(),
+            'status-kepemilikan': $('#status-kepemilikan').val(),
+            // 'kode-kapal-inaportnet': $('#kode-kapal-inaportnet').val(),
+            'tahun-pembuatan': $('#tahun-pembuatan').val(),
+            'kapasitas-gt': $('#kapasitas-gt').val() ? numberFormater($('#kapasitas-gt').val()) : '',
+            'draft-maximum': $('#draft-maximum').val(),
+            'kapasitas-dwt': $('#kapasitas-dwt').val() ? numberFormater($('#kapasitas-dwt').val()) : '',
+            'draft-depan': $('#draft-depan').val(),
+            'kapasitas-brt': $('#kapasitas-brt').val() ? numberFormater($('#kapasitas-brt').val()) : '',
+            'draft-belakang': $('#draft-belakang').val(),
+            'kapasitas-nrt': $('#kapasitas-nrt').val() ? numberFormater($('#kapasitas-nrt').val()) : '',
+            'max-speed': $('#max-speed').val(),
+            'panjang-loa': $('#panjang-loa').val(),
+            'jumlah-palka': $('#jumlah-palka').val(),
+            'lebar-kapal': $('#lebar-kapal').val(),
+            'jumlah-derek': $('#jumlah-derek').val(),
+            'horse-power': $('#horse-power').val(),
+            'tinggi-kapal': $('#tinggi-kapal').val(),
+            'jenis-derek': $('#jenis-derek').val(),
+            'no-surat-ukur': $('#no-surat-ukur').val(),
+            'no-ppkm': $('#no-ppkm').val(),
+            'jenis-surat-ukur': $('#jenis-surat-ukur').val(),
+            'surat-ppkm-file': $('#surat-ppkm-file').val(),
+            'surat-ukur-file': $('#surat-ukur-file').val(),
+            'surat-tanda-pendaftaran-file': $('#surat-tanda-pendaftaran-file').val(),
+            'terbit-ppkm': $('#terbit-ppkm').val(),
+            'tanggal-surat-ukur': $('#tanggal-surat-ukur').val(),
+            'berlaku-ppkm': $('#berlaku-ppkm').val(),
+            'no-ppka': $('#no-ppka').val(),
+            'doc-mmsi-file': $('#doc-mmsi-file').val(),
+            'surat-ppka-file': $('#surat-ppka-file').val(),
+            'terbit-ppka': $('#terbit-ppka').val(),
+            'berlaku-ppka': $('#berlaku-ppka').val()
+          },
+          success: function(data) {
+            blockUI.release();
+            Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              }).then(()=>{
+                window.location.assign(`{{ route('MasterVesselsController.index') }}`);
+              });
+          },
+          error: function(data) {
+            blockUI.release();
+            if(data.responseJSON?.errors.length > 0) {
+              let errorMessage = ''
+              data.responseJSON?.errors.map(el => {
+                errorMessage += el.message + '<br>'
+              })
+              Swal.fire({
+                  title: "<span style='color:#FF0000;'>Gagal</span>", 
+                  html: `<strong>${errorMessage}</strong>`, 
+                  icon: "error",
+                  confirmButtonText: "Baik", 
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                })
+            } else {
+              Swal.fire({
+                  title: "<span style='color:#FF0000;'>Gagal</span>", 
+                  html: `<strong>${data.responseJSON.message}</strong>`, 
+                  icon: "error",
+                  confirmButtonText: "Baik", 
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                })
+            }
+          }
+        })
+      }
+
+      function desimal2digits (value, ele, evt) {
+        const myArray = value.split(",");
+        if (myArray[1]){
+          let numberDecimal = myArray[1];
+          if (numberDecimal.length > 1){
+            evt.preventDefault();
+            swal.fire("Dibatalkan", "2 digit decimal", "error");
+          }
+        }
+        return true;
+      }
+
+      function tipeNumber(value, ele) {
+          let newVal = value.replace(/[^0-9\-.,]/g, "");
+          if(!/[0-9]/.test(newVal)) {
+            newVal = newVal.replace(/[.,]/g, "");
+          }
+          if(!value.includes(".")) {
+            var parts = newVal.toString().split(".");
+            const numberPart = parts[0];
+            const decimalPart = parts[1];
+            const thousands = /\B(?=(\d{3})+(?!\d))/g;
+            ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : "");
+          } else {
+            newVal = newVal.toString().replace(/[.]/g,"");
+            var parts = newVal.split(".");
+            const numberPart = parts[0];
+            const decimalPart = parts[1];
+            const thousands = /\B(?=(\d{3})+(?!\d))/g;
+            ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : ""); 
+          }
+      }
+
+      function numberFormater(val) {
+        let num = val.replace(/\./g, '').replace(/\,/g, '.')
+        console.log(num);
+        return +num
+      }
+
+      function mapingAdditonalInfo(val) {
+        let data = val?.map(el => {
+          const value = {
+            kd_additional_info: el
+          }
+          return value
+        })
+        return data
+      }
+  
+
+</script>
+
+@endsection

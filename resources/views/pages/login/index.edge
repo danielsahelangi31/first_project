@@ -1,0 +1,79 @@
+@layout('layout/index_auth')
+@section('content')
+    <style>
+        body {
+            background-color:#045299; !important;
+        }
+
+        .custom-border-radius {
+            border-bottom-right-radius: 15% !important;
+        }
+
+    </style>
+    <div style="display: flex; flex-wrap:wrap;">
+        <div class="col-12 col-md-5">
+            <div class="card border rounded-0 bg-white custom-border-radius" style="height: 100vh">
+                <div class="mt-5 ms-7 ps-7">
+                    <img class="mt-5 img-fluid" style="width: auto" src="media/login_logo.svg" alt="">
+                    <div class="mt-5 mb-7">
+                        <div class="fw-bold fs-6">Welcome back</div>
+                        <div class="fw-bold fs-6">Please Login to your account.</div>
+                    </div>
+                </div>
+                <form class="form mx-7 px-7" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}" method="POST">
+                    {{ csrfField() }}
+                    @if(flashMessages.get('errors'))
+                    @!alert({
+                        type: 'danger',
+                        icon: 'svg-icon svg-icon-2hx svg-icon-light',
+                        title: flashMessages.get('errors.title'),
+                        message: flashMessages.get('errors.message'),
+                    })
+                    @endif
+                    <div class="mb-7">
+                        <label for="email" class="form-label fw-bold">Email</label>
+                        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" required>
+                    </div>
+                    <div class="mb-7">
+                        <label for="password" class="form-label fw-bold">Password</label>
+                        <div class="position-relative">
+                            <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" id="pass_log_id" required>
+                            <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+                                <i class="bi bi-eye-slash fs-2"></i>
+                                <i class="bi bi-eye fs-2 d-none"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <button type="submit" id="kt_sign_in_submit" class="btn btn-primary w-100">
+                            <span class="indicator-label">Sign In</span>
+                        </button>
+                    </div>
+                    <div class="separator separator-content border-primary my-14">
+                        <span class="w-137px fw-bold fs-7 text-primary">Or</span>
+                    </div>
+                    <div class="mb-7">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#request-api-modal" id="kt_sign_in_submit" class="btn btn-outline btn-outline-primary w-100">
+                            <span class="indicator-label">Request API</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-md-7">
+            <img class="w-100" style="height: 100vh" src="media/login_image.png" alt="">
+        </div>
+    </div>
+    @include('pages/login/modal/request_api')
+    <script>
+    $("body").on('click','.bi',function(){
+        // $(this).toggleClass("bi");
+        var inputPassword = $("#pass_log_id").attr("type");
+        if ($("#pass_log_id").attr("type") === "password") {
+            $("#pass_log_id").attr("type", "text");
+        } else {
+            $("#pass_log_id").attr("type", "password");
+        }
+    });
+    </script>
+@end

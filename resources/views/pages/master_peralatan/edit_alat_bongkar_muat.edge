@@ -1,0 +1,1794 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+    <!--begin::Navbar-->
+    <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="d-flex">
+                  <img src="/media/peralatan/circle-gear.svg" style="margin-top:-10px;">
+                  <h2 style="margin-left:30px;">Master Peralatan</h2>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <a target="_blank" class="float-end px-2" href="{{ route('MasterApungsController.index') }}" style="border:1px solid #01C3FF;line-height:2;color:black;border-radius:5px;" onmouseover="this.style.background='rgba(1, 195, 255, 0.2)';this.style.cursor='pointer';this.style.color='#01C3FF';" onmouseout="this.style.background='#fff';this.style.color='black';">Alat Apung</a>
+                <a target="_blank" class="float-end me-2 px-2" href="{{ route('MasterBongkarMuatsController.index') }}" style="border:1px solid #01C3FF;line-height:2;color:#01C3FF;background:rgba(1, 195, 255, 0.2);border-radius:5px;">Alat Bongkar Muat</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+          <div class="d-flex justify-content-center mb-2">
+            <a class="btn btn-sm btn-primary rounded-pill" style="width:3rem;height:3rem;">1</a>
+            <div class="progress bg-transparent" style="width:75px;height:1px;margin:20px -85px 0 10px;z-index:1;">
+              <div class="progress-bar bg-primary" id="progress-page" role="progressbar" aria-label="Example with label" style="width:0%;transition:width 1s;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="bg-secondary titik-progress" id="progress-nol" style="width:5px;height:1px;margin:20px 0 0 10px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-satu" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-dua" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tiga" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-empat" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-lima" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-enam" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tujuh" style="width:5px;height:1px;margin:20px 10px 0 5px;"></div>
+            <a class="btn btn-sm btn-secondary rounded-pill" id="btn-page-kedua" style="width:3rem;height:3rem;">2</a>
+          </div>
+          <div class="row mt-2">
+              <div class="col-lg-6 text-primary fw-bold">
+                <span class="float-end" style="margin-right:43px;">Main</span>
+              </div>
+              <div class="col-lg-6 fw-bold">
+                <span id="teks-spesification" class="text-secondary" style="margin-left:20px;">Spesification</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+       
+        <div id="kt_account_settings_signin_method" class="collapse show">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+              <div id="carouselAddBongkarMuat" class="carousel slide" data-wrap="false" data-interval="false">
+                <div class="carousel-inner">
+                  {{--  @if(data.status == "AKTIF")
+                  <form id="addBongkarMuat" action="{{ route('MasterBongkarMuatsController.store') }}" method="post" enctype="multipart/form-data">
+                  @else
+                  <form id="editBongkarMuat" action="{{ route('MasterBongkarMuatsController.update') }}" method="post" enctype="multipart/form-data">
+                  @endif
+                    {{ csrfField() }}  --}}
+                    <input type="hidden" id="dataId" name="dataId" value="{{ data.id }}">
+                    <div class="carousel-item active">
+                      <h4 style="color:#045299;padding-bottom:30px;">Edit Main Alat Bongkar Muat</h4>
+                      <div class="row g-3">
+                        @if(["AKTIF", "NONAKTIF"].includes(data.status))
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Equipment Number</label>
+                          <input type="text" name="equipmentNumber" id="equipmentNumber" class="form-control" value="{{ data.equipment_number == null || data.equipment_number == 'null' ? '' : data.equipment_number }}" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Nomor Aset</label>
+                          <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                data-bs-content="Nomor yang digunakan dalam pencatatan aset pada sistem keuangan">
+                            <span class="badge rounded-pill bg-light border border-secondary">
+                                <span class="text-black">?</span>
+                            </span>
+                          </span>
+                          <input type="text" name="nomorAssetSap" id="nomorAssetSap" class="form-control" value="{{ data.nomor_sap == null || data.nomor_sap == 'null' ? '' : data.nomor_sap }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Entity<span style="color:red;">*</span></label>
+                          <select name="entity" id="entity" class="form-select" data-control="select2" data-placeholder="{{ data.entity == null || data.entity == 'null' ? 'Select' : data.entity }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" name="entityValue" id="entityValue" value="{{ data.entity == null || data.entity == 'null' ? '' : data.entity }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Local Equipment No.</label>
+                          <input type="text" name="localEquipmentNo" id="localEquipmentNo" class="form-control" value="{{ data.local_equipment == null || data.local_equipment == 'null' ? '' : data.local_equipment }}">
+                        </div>
+                        {{--  <div class="col-6">
+                          <label class="form-label fw-bold">Equipment Number - Final</label>
+                          <input type="text" name="equipmentNumber" id="equipmentNumber" class="form-control" placeholder="Regristrasi Peralatan Pasca Merger" value="{{ data.equipment_number == null || data.equipment_number == 'null' ? '' : data.equipment_number }}" disabled>
+                        </div>  --}}
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Kepemilikan Aset<span style="color:red;">*</span></label>
+                          <select name="aset" id="aset" class="form-select" data-control="select2" data-placeholder="{{ data.kepemilikan_aset == null || data.kepemilikan_aset == 'null' ? 'Select' : data.kepemilikan_aset }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="asetValue" name="asetValue" value="{{ data.kode_aset == null || data.kode_aset == 'null' ? '' : data.kode_aset }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Country Of Origin<span style="color:red;">*</span></label>
+                          <select name="countryOfOrigin" id="countryOfOrigin" class="form-select" data-control="select2" data-placeholder="{{ data.country_origin == null || data.country_origin == 'null' ? 'Select' : data.country_origin }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="countryOfOriginValue" name="countryOfOriginValue" value="{{ data.country_origin == null || data.country_origin == 'null' ? '' : data.country_origin }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Cabang/Area/Lokasi Kepemilikan Aset<span style="color:red;">*</span></label>
+                          <select name="lokasiKepemilikanAset" id="lokasiKepemilikanAset" class="form-select" data-control="select2" data-placeholder="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? 'Select' : data.lokasi_kepemilikan }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="lokasiKepemilikanAsetValue" name="lokasiKepemilikanAsetValue" value="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? '' : data.lokasi_kepemilikan }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Manufacturer<span style="color:red;">*</span></label>
+                          <input type="text" id="manufacturer" name="manufacturer" class="form-control" value="{{ data.manufacturer == null || data.manufacturer == 'null' ? '' : data.manufacturer }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Cabang/Area/Lokasi Fisik Aset<span style="color:red;">*</span></label>
+                          <select name="lokasiFisikAset" id="lokasiFisikAset" class="form-select" data-control="select2" data-placeholder="{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? 'Select' : data.lokasi_fisik }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="lokasiFisikAsetValue" name="lokasiFisikAsetValue" value="{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? '' : data.lokasi_fisik }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Manufacturer Year<span style="color:red;">*</span></label>
+                          <input type="text" maxlength="4" name="manufacturerYear" id="manufacturerYear" class="form-control" value="{{ data.manufacturer_year == null || data.manufacturer_year == 'null' ? '' : data.manufacturer_year }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Group Alat/Class Description<span style="color:red;">*</span></label>
+                          <input type="text" class="form-select" name="alatClassDescription" id="alatClassDescription" value="{{ data.class_description == null || data.class_description == 'null' ? '' : data.class_code + ' - ' + data.class_description }}" disabled>
+                          <input type="hidden" name="alatClassDescriptionValue" id="alatClassDescriptionValue" value="{{ data.class_code == null || data.class_code == 'null' ? '' : data.class_code }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Acquisition Year<span style="color:red;">*</span></label>
+                          <input type="text" maxlength="4" name="acquisitionYear" id="acquisitionYear" class="form-control" value="{{ data.acquisition_year == null || data.acquisition_year == 'null' ? '' : data.acquisition_year }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Kategori Alat<span style="color:red;">*</span></label>
+                          <input type="text" name="kategoriAlat" id="kategoriAlat" class="form-control" value="{{ [null, 'null'].includes(data.kategori_alat) ? '' : data.kategori_alat }}" disabled>
+                          <input type="hidden" name="kategoriAlatValue" id="kategoriAlatValue" value="{{ [null, 'null'].includes(data.kategori_alat) ? '' : data.kategori_alat }}">
+                        </div>
+                        @else 
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Entity<span style="color:red;">*</span></label>
+                          <select name="entity" id="entity" class="form-select" data-control="select2" data-placeholder="{{ data.entity == null || data.entity == 'null' ? 'Select' : data.entity }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" name="entityValue" id="entityValue" value="{{ data.entity == null || data.entity == 'null' ? '' : data.entity }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Nomor Asset</label>
+                          <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                data-bs-content="Nomor yang digunakan dalam pencatatan asset pada sistem keuangan">
+                            <span class="badge rounded-pill bg-light border border-secondary">
+                                <span class="text-black">?</span>
+                            </span>
+                          </span>
+                          <input type="text" name="nomorAssetSap" id="nomorAssetSap" class="form-control" value="{{ data.nomor_sap == null || data.nomor_sap == 'null' ? '' : data.nomor_sap }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Kepemilikan Aset<span style="color:red;">*</span></label>
+                          <select name="aset" id="aset" class="form-select" data-control="select2" data-placeholder="{{ data.kepemilikan_aset == null || data.kepemilikan_aset == 'null' ? 'Select' : data.kepemilikan_aset }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="asetValue" name="asetValue" value="{{ data.kode_aset == null || data.kode_aset == 'null' ? '' : data.kode_aset }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Local Equipment No.</label>
+                          <input type="text" name="localEquipmentNo" id="localEquipmentNo" class="form-control" value="{{ data.local_equipment == null || data.local_equipment == 'null' ? '' : data.local_equipment }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Cabang/Area/Lokasi Kepemilikan Aset<span style="color:red;">*</span></label>
+                          <select name="lokasiKepemilikanAset" id="lokasiKepemilikanAset" class="form-select" data-control="select2" data-placeholder="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? 'Select' : data.lokasi_kepemilikan }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="lokasiKepemilikanAsetValue" name="lokasiKepemilikanAsetValue" value="{{ data.lokasi_kepemilikan == null || data.lokasi_kepemilikan == 'null' ? '' : data.lokasi_kepemilikan }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Country Of Origin<span style="color:red;">*</span></label>
+                          <select name="countryOfOrigin" id="countryOfOrigin" class="form-select" data-control="select2" data-placeholder="{{ data.country_origin == null || data.country_origin == 'null' ? 'Select' : data.country_origin }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="countryOfOriginValue" name="countryOfOriginValue" value="{{ data.country_origin == null || data.country_origin == 'null' ? '' : data.country_origin }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Cabang/Area/Lokasi Fisik Aset<span style="color:red;">*</span></label>
+                          <select name="lokasiFisikAset" id="lokasiFisikAset" class="form-select" data-control="select2" data-placeholder="{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? 'Select' : data.lokasi_fisik }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="lokasiFisikAsetValue" name="lokasiFisikAsetValue" value="{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? '' : data.lokasi_fisik }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Manufacturer<span style="color:red;">*</span></label>
+                          <input type="text" id="manufacturer" name="manufacturer" class="form-control" value="{{ data.manufacturer == null || data.manufacturer == 'null' ? '' : data.manufacturer }}">
+                        </div>
+                        @if([null, "null", ""].includes(data.reference_id))
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Group Alat/Class Description<span style="color:red;">*</span></label>
+                          <select class="form-select" name="alatClassDescription" id="alatClassDescription" data-control="select2" data-placeholder="{{ data.class_description == null || data.class_description == 'null' ? 'Select' : data.class_code + ' - ' + data.class_description }}">
+                            <option value=""></option>
+                            @each(data in groupAlat)
+                              <option value="{{ data.kode_alat }}">{{ data.kode_alat + ' - ' + data.deskripsi_alat }}</option>
+                            @endeach
+                          </select>
+                        </div>
+                        @else
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Group Alat/Class Description<span style="color:red;">*</span></label>
+                          <input type="text" class="form-select" name="alatClassDescription" id="alatClassDescription" value="{{ data.class_description == null || data.class_description == 'null' ? '' : data.class_code + ' - ' + data.class_description }}" disabled>
+                          <input type="hidden" name="alatClassDescriptionValue" id="alatClassDescriptionValue" value="{{ data.class_code == null || data.class_code == 'null' ? '' : data.class_code }}">
+                        </div>
+                        @endif
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Manufacturer Year<span style="color:red;">*</span></label>
+                          <input type="text" maxlength="4" name="manufacturerYear" id="manufacturerYear" class="form-control" value="{{ data.manufacturer_year == null || data.manufacturer_year == 'null' ? '' : data.manufacturer_year }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Kategori Alat<span style="color:red;">*</span></label>
+                          <input type="text" name="kategoriAlat" id="kategoriAlat" class="form-control" value="{{data.kategori_alat == null  || data.kategori == 'null' ? '' : data.kategori_alat}}" disabled>
+                          <input type="hidden" name="kategoriAlatValue" id="kategoriAlatValue" value="{{ [null, 'null'].includes(data.kategori_alat) ? '' : data.kategori_alat }}">
+                        </div>   
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Acquisition Year<span style="color:red;">*</span></label>
+                          <input type="text" maxlength="4" name="acquisitionYear" id="acquisitionYear" class="form-control" value="{{ data.acquisition_year == null || data.acquisition_year == 'null' ? '' : data.acquisition_year }}">
+                        </div>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <h4 style="color:#045299;padding-bottom:30px;">Edit Spesification Alat Bongkar Muat</h4>
+                      <div class="row g-3">
+                        <div class="col-6">
+                          <label id="labelModel" class="form-label fw-bold">Model</label>
+                          <input type="text" name="model" id="model" class="form-control" value="{{ data.model == null || data.model == 'null' ? '' : data.model }}" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelOutreach" class="form-label fw-bold">Outreach(m)</label>
+                          <input type="text" name="outreach" id="outreach" class="form-control" value="{{ data.outreach == null || data.outreach == 'null' ? '' : data.outreach }}" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelSerial" class="form-label fw-bold">Equipment Serial Number</label>
+                          <input type="text" name="serialNumber" id="serialNumber" class="form-control" value="{{ data.equipment_serial == null || data.equipment_serial == 'null' ? '' : data.equipment_serial }}" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelSpan" class="form-label fw-bold">Span(m)</label>
+                          <input type="text" name="span" id="span" class="form-control" value="{{ data.span == null || data.span == 'null' ? '' : data.span }}" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelKapasitas" class="form-label fw-bold">Kapasitas</label>
+                          <input type="text" name="kapasitas" id="kapasitas" class="form-control" value="{{ data.kapasitas == null || data.kapasitas == 'null' ? '' : data.kapasitas }}" onkeyup="tipeNumber(this.value, this)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelBelow" class="form-label fw-bold">Lifting Height Below Rail(m)</label>
+                          <input type="text" name="liftingHeightBelow" id="liftingHeightBelow" class="form-control" value="{{ data.lifting_below == null || data.lifiting_below == 'null' ? '' : data.lifting_below }}" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelSatuanKapasitas" class="form-label fw-bold">Satuan Kapasitas</label>
+                          <select name="satuanKapasitas" id="satuanKapasitas" class="form-select" disabled>
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" name="satuanKapasitasValue" id="satuanKapasitasValue" value="{{ data.satuan_kapasitas }}">
+                        </div>
+                        <div class="col-6">
+                          <label id="labelAbove" class="form-label fw-bold">Lifting Height Above Rail(m)</label>
+                          <input type="text" name="liftingHeightAbove" id="liftingHeightAbove" class="form-control" value="{{ data.lifting_above == null || data.lifting_above == 'null' ? '' : data.lifting_above }}" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Power Source</label>
+                          <select name="powerSource" id="powerSource" class="form-select" data-control="select2" data-placeholder="{{ data.power_source == null || data.power_source == 'null' ? 'Select' : data.power_source }}">
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" name="powerSourceValue" id="powerSourceValue" value="{{ data.power_source == null || data.power_source == 'null' ? '' : data.power_source }}">
+                        </div>
+                        <div class="col-6">
+                          <label id="labelTier" class="form-label fw-bold">Tier Height Type</label>
+                          <select name="tierHeightType" id="tierHeightType" class="form-select" disabled>
+                            <option value=""></option>
+                          </select>
+                          <input type="hidden" id="tierHeightTypeValue" name="tierHeightTypeValue" value="{{ data.tier_type == null || data.tier_type == 'null' ? '' : data.tier_type }}">
+                        </div>
+                        <div class="col-6">
+                          <label id="labelPowerCapacity" class="form-label fw-bold">Power Capacity</label>
+                          <input type="text" id="powerCapacity" class="form-control" value="{{ data.power_capacity == null || data.power_capacity == 'null' ? '' : data.power_capacity }}" onkeyup="tipeNumber(this.value, this)" disabled>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Equipment Description</label>
+                          <textarea name="equipmentDescription" id="equipmentDescription" class="form-control" rows="2" disabled>{{ data.equipment_description == null || data.equipment_description == 'null' ? '' : data.equipment_description }}</textarea>
+                        </div>
+                        <div class="col-6">
+                          <label id="labelSatuanCapacity" class="form-label fw-bold">Satuan Power Capacity</label>
+                          <select id="satuanCapacity" class="form-select" disabled>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Notes</label>
+                          <textarea name="notes" id="notes" class="form-control" rows="2">{{ data.notes == null || data.notes == 'null' ? '' : data.notes }}</textarea>
+                          <input type="hidden" id="notesValue" name="notesValue" value="{{ data.notes == null || data.notes == 'null' ? '' : data.notes }}">
+                        </div>
+                        <div class="col-6">
+                          <label id="labelBast" class="form-label fw-bold">Upload File BAST</label>
+                          <input type="file" name="fileBast" id="fileBast" class="form-control" accept=".pdf">
+                          <label for="fileBast" style="font-size:10px;">* Max Size : 2Mb, Format : pdf</label><br>
+                          @if([null, "null", ""].includes(data.file_bast) == false)
+                            <span>file yang dipilih sebelumnya : </span>
+                            <a id="view-file-bast" target="_blank">{{ data.file_bast }}</a>
+                          @endif
+                          <input type="hidden" name="fileBastName" id="fileBastName" value="{{ [null, 'null', ''].includes(data.file_bast) ? '' : data.file_bast }}">
+                        </div>
+                        <div class="col-6">
+                          <label id="labelLampiranTeknis" class="form-label fw-bold">Upload File Lampiran Teknis</label>
+                          <input type="file" name="fileLampiranTeknis" id="fileLampiranTeknis" class="form-control" accept=".pdf">
+                          <label for="fileLampiranTeknis" style="font-size:10px;">* Max Size : 2Mb, Format : pdf</label><br>
+                          @if([null, "null", ""].includes(data.file_lampiran_teknis) == false)
+                            <span>file yang dipilih sebelumnya : </span>
+                            <a id="view-file-lampiran-teknis" target="_blank">{{ data.file_lampiran_teknis }}</a>
+                          @endif
+                          <input type="hidden" name="fileLampiranTeknisName" id="fileLampiranTeknisName" value="{{ [null, 'null', ''].includes(data.file_lampiran_teknis) ? '' : data.file_lampiran_teknis }}">
+                        </div>
+                        @if(data.status == "AKTIF" || data.status == "DRAFT" || data.status == "DITOLAK")
+                        <hr style="margin-top:5%;">
+                        <div class="col-12">
+                          <label class="form-label fw-bold">Data Edited<span style="color:red;">*</span></label>
+                          <textarea name="dataEdited" id="dataEdited" class="form-control" rows="5"></textarea>
+                        </div>
+                        @endif
+                      </div>    
+                    </div>
+                </div>
+              </div>
+              <hr id="prev-hr" style="margin-top:5%;">
+              <div class="row">
+                <div class="col-12">
+                  <button id="submit" class="btn btn-primary" style="float:right;display:none">Submit</button>
+                  <button id="next-form" class="btn btn-primary" style="float:right;">Next</button>
+                  <button data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="0" class="btn btn-outline-primary border border-primary crsl-one" style="float:right;margin-right:10px;">Back</button>
+                  <button id="draft" class="btn btn-warning" style="float:right;margin-right:20px;">Save as Draft</button>
+                  <button id="batal" class="btn btn-outline-primary border border-primary">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+    </div>
+    
+  
+</div>
+
+<script>
+    $(document).ready(function() {
+
+      // standarisasi input teks
+      $(":text").keyup(function() {
+        const teksUp = String($(this).val()).toUpperCase();
+        $(this).val(teksUp);
+      });
+
+      // standarisasi form select
+      // $(".form-select").select2({
+      //     minimumResultsForSearch: 7
+      // });
+
+      // standarisasi option value entity
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.entityPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#entity').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+      
+      // standarisasi option value aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.kepemilikanAsetPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#aset').append(`<option value="${el.company_name.toUpperCase()}">${el.company_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value lokasi kepemilikan aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.lokasiKepemilikanPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#lokasiKepemilikanAset').append(`<option value="${el.company_name.toUpperCase()}">${el.company_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value lokasi fisik aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.lokasiFisikPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#lokasiFisikAset').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value class description
+      @if([null, 'null', ''].includes(data.reference_id))
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.classDescriptionPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#alatClassDescription').append(`<option value="${el.kode_alat.toUpperCase()}">${el.kode_alat.toUpperCase()} - ${el.deskripsi_alat.toUpperCase()}</option>`);              
+          });
+        }
+      });
+      @endif
+
+      // standarisasi option value country of origin
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.country')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#countryOfOrigin').append(`<option value="${el.country_name.toUpperCase()}">${el.country_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value satuan kapasitas
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.satuanKapasitasBm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#satuanKapasitas').append(`<option value="${el.satuan.toUpperCase()}">${el.satuan.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value power source
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.powerSourceBm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#powerSource').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value tier height type
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.tierTypeBm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#tierHeightType').append(`<option value="${el.type.toUpperCase()}">${el.type.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value satuan power capacity
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.satuanCapacityBm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#satuanCapacity').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+      
+      $('#batal').click(function() {
+        Swal.fire({
+          title: "<span style='color:#FF0000;'>Batal?</span>", 
+          html: "<strong>Apakah anda yakin ?</strong>",
+          icon: 'error',
+          showCancelButton: true, 
+          cancelButtonText: "Tidak",
+          confirmButtonText: "Iya",
+          confirmButtonColor: "#045299",
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            @if(data.status == 'AKTIF' || data.status =='NONAKTIF')
+            window.location.assign(`{{ route('MasterBongkarMuatsController.index') }}`);
+            @else
+            window.location.assign(`{{ route('MasterBongkarMuatsController.index', ['outstanding']) }}`);
+            @end 
+          }
+        });
+      });
+
+      $(`#fileBast`).change(function(){
+        var file_data = $(`#fileBast`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATBM-BAST-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','bast');
+        form_data.append('modul', 'bongkarMuat');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2mb";
+
+          if(file_data.name.includes("pdf") == false) throw "Format file harus pdf";
+
+          $.ajax({
+            url:"{{ route('MasterBongkarMuatsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileBastName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileBastName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : "Gagal upload file"; 
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${errMsg}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileBastName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          });
+        }
+      });
+
+      $(`#fileLampiranTeknis`).change(function(){
+        var file_data = $(`#fileLampiranTeknis`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATBM-LAMPIRANTEKNIS-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','lampiranTeknis');
+        form_data.append('modul', 'bongkarMuat');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2mb";
+          
+          if(file_data.name.includes("pdf") == false) throw "Format file harus pdf";
+
+          $.ajax({
+            url:"{{ route('MasterBongkarMuatsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileLampiranTeknisName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileLampiranTeknisName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : 'Gagal upload file'
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${errMsg}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileLampiranTeknisName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          });
+        }
+      });
+
+      // validasi mandatory step 1
+      $("#next-form").click(function() {
+        var isError = false;
+            
+        if($("#entity").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#entity").val()) == false) {
+          isError = true;
+          if($("#entity").hasClass("is-invalid") == false) {
+            $("#entity").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-entity');  
+            $("#entity").after(text);
+          }
+        } else {
+          $("#entity").removeClass('is-invalid');
+          $('#invalid-entity').remove();
+        }
+
+        if($("#aset").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#aset").val()) == false) {
+          isError = true;
+          if($("#aset").hasClass("is-invalid") == false) {
+            $("#aset").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-aset'); 
+            $("#aset").after(text);
+          }
+        } else {
+          $("#aset").removeClass('is-invalid');
+          $('#invalid-aset').remove();
+        }
+
+        if($("#lokasiKepemilikanAset").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#lokasiKepemilikanAset").val()) == false) {
+          isError = true;
+          if($("#lokasiKepemilikanAset").hasClass("is-invalid") == false) {
+            $("#lokasiKepemilikanAset").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-kepemilikan-aset'); 
+            $("#lokasiKepemilikanAset").after(text);
+          }
+        } else {
+          $("#lokasiKepemilikanAset").removeClass('is-invalid');
+          $('#invalid-kepemilikan-aset').remove();
+        }
+
+        if($("#lokasiFisikAset").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#lokasiFisikAset").val()) == false) {
+          isError = true;
+          if($("#lokasiFisikAset").hasClass("is-invalid") == false) {
+            $("#lokasiFisikAset").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-fisik-aset'); 
+            $("#lokasiFisikAset").after(text);
+          }
+        } else {
+          $("#lokasiFisikAset").removeClass('is-invalid');
+          $('#invalid-fisik-aset').remove();
+        }
+
+        if($("#alatClassDescription").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#alatClassDescription").val()) == false) {
+          isError = true;
+          if($("#alatClassDescription").hasClass("is-invalid") == false) {
+            $("#alatClassDescription").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-class-description');
+            $("#alatClassDescription").after(text);
+          }
+        } else {
+          $("#alatClassDescription").removeClass('is-invalid');
+          $('#invalid-class-description').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#kategoriAlat").val()) == false) {
+          isError = true;
+          if($("#kategoriAlat").hasClass("is-invalid") == false) {
+            $("#kategoriAlat").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-kategori-alat');
+            $("#kategoriAlat").after(text);
+          }
+        } else {
+          $("#kategoriAlat").removeClass('is-invalid');
+          $('#invalid-kategori-alat').remove();
+        }
+
+        if($("#countryOfOrigin").attr("data-placeholder") == "Select" && /[A-z0-9]/.test($("#countryOfOrigin").val()) == false) {
+          isError = true;
+          if($("#countryOfOrigin").hasClass("is-invalid") == false) {
+            $("#countryOfOrigin").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-country-origin');
+            $("#countryOfOrigin").after(text);
+          }
+        } else {
+          $("#countryOfOrigin").removeClass('is-invalid');
+          $('#invalid-country-origin').remove();
+        }
+
+        if(/[A-z0-9]/.test($('#manufacturer').val()) == false) {
+          isError = true;
+          if($("#manufacturer").hasClass("is-invalid") == false) {
+            $('#manufacturer').addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-manufacturer'); 
+            $("#manufacturer").after(text);
+          }
+        } else {
+          $("#manufacturer").removeClass('is-invalid');
+          $('#invalid-manufacturer').remove();
+        }
+
+        if(/[0-9]/.test($('#manufacturerYear').val()) == false || $("#manufacturerYear").val().length < 4) {
+          isError = true;
+          if($('#manufacturerYear').hasClass("is-invalid") == false) {
+            $('#manufacturerYear').addClass("is-invalid");
+            var pesan = ""
+            if(/[0-9]/.test($("#manufacturerYear").val()) == false) {
+              pesan = "Lengkapi bidang ini";
+            } else if($("#manufacturerYear").val().length < 4) {
+              pesan = "Tahun harus 4 digit"
+            }
+            var text = $("<div></div>").text(pesan);
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-manufacturer-year');
+            $("#manufacturerYear").after(text);
+          }
+        } else {
+          $("#manufacturerYear").removeClass('is-invalid');
+          $('#invalid-manufacturer-year').remove();
+        }
+
+        if(/[0-9]/.test($('#acquisitionYear').val()) == false || $("#acquisitionYear").val().length < 4) {
+          isError = true;
+          if($('#acquisitionYear').hasClass("is-invalid") == false) {
+            $('#acquisitionYear').addClass("is-invalid");
+            var pesan = ""
+            if(/[0-9]/.test($("#acquisitionYear").val()) == false) {
+              pesan = "Lengkapi bidang ini";
+            } else if($("#acquisitionYear").val().length < 4) {
+              pesan = "Tahun harus 4 digit"
+            }
+            var text = $("<div></div>").text(pesan);
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-acquisition-year'); 
+            $("#acquisitionYear").after(text);
+          }
+        } else {
+          $("#acquisitionYear").removeClass('is-invalid');
+          $('#invalid-acquisition-year').remove();
+        }
+        
+        if(isError == false) {
+          $("#carouselAddBongkarMuat").carousel(1); 
+          $('#btn-page-kedua').removeClass('btn-secondary');
+          $('#btn-page-kedua').addClass('btn-primary');
+          $('#teks-spesification').removeClass('text-secondary');
+          $('#teks-spesification').addClass('text-primary');
+          $('#progress-page').css('width', '100%');
+          $('#submit').css('display', '');
+          $('#next-form').css('display', 'none');
+        }
+      });
+
+      $('#submit').click(function() {
+        Swal.fire({
+          title: "<span style='color:#045299;'>Memperbarui</span>",
+          html: '<strong>Data Anda akan diperbaharui.<br>Apakah anda yakin ?</strong>', 
+          imageUrl: "/media/peralatan/update.svg",
+          showCancelButton: true,
+          cancelButtonText: "Tidak",
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          
+          if(result.isConfirmed == true) {
+
+            var isError = false;
+
+            if($('#labelModel').text() == "Model*") {
+              if(/[A-z0-9]/.test($('#model').val()) == false) {
+                isError = true;
+                if($('#model').hasClass("is-invalid") == false) {
+                  $('#model').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-model'); 
+                  $("#model").after(text);
+                }
+              } else {
+                $("#model").removeClass('is-invalid');
+                $('#invalid-model').remove();  
+              }
+            } else {
+              $("#model").removeClass('is-invalid');
+              $('#invalid-model').remove();
+            }
+
+            if($('#labelSerial').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#serialNumber').val()) == false) {
+                isError = true;
+                if($('#serialNumber').hasClass("is-invalid") == false) {
+                  $('#serialNumber').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-serial-number'); 
+                  $("#serialNumber").after(text);
+                }
+              } else {
+                $("#serialNumber").removeClass('is-invalid');
+                $('#invalid-serial-number').remove();
+              }
+            } else {
+              $("#serialNumber").removeClass('is-invalid');
+              $('#invalid-serial-number').remove();
+            }
+
+            if($('#labelKapasitas').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#kapasitas').val()) == false) {
+                isError = true;
+                if($('#kapasitas').hasClass("is-invalid") == false) {
+                  $('#kapasitas').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-kapasitas'); 
+                  $("#kapasitas").after(text);
+                }
+              } else {
+                $("#kapasitas").removeClass('is-invalid');
+                $('#invalid-kapasitas').remove();
+              }
+            } else {
+              $("#kapasitas").removeClass('is-invalid');
+              $('#invalid-kapasitas').remove();
+            }
+
+            if($('#labelPowerCapacity').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#powerCapacity').val()) == false) {
+                isError = true;
+                if($('#powerCapacity').hasClass("is-invalid") == false) {
+                  $('#powerCapacity').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-power-capacity'); 
+                  $("#powerCapacity").after(text);
+                }
+              } else {
+                $("#powerCapacity").removeClass('is-invalid');
+                $('#invalid-power-capacity').remove();
+              }
+            } else {
+              $("#powerCapacity").removeClass('is-invalid');
+              $('#invalid-power-capacity').remove();
+            }
+
+            if($('#labelSatuanCapacity').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#satuanCapacity').val()) == false && $("#satuanCapacity").attr("data-palecholder") == "Select") {
+                isError = true;
+                if($('#satuanCapacity').hasClass("is-invalid") == false) {
+                  $('#satuanCapacity').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-satuanCapacity'); 
+                  $("#satuanCapacity").after(text);
+                }
+              } else {
+                $("#satuanCapacity").removeClass('is-invalid');
+                $('#invalid-satuanCapacity').remove();
+              }
+            } else {
+              $("#satuanCapacity").removeClass('is-invalid');
+              $('#invalid-satuanCapacity').remove();
+            }
+
+            if($('#labelSpan').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#span').val()) == false) {
+                isError = true;
+                if($('#span').hasClass("is-invalid") == false) {
+                  $('#span').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-span'); 
+                  $("#span").after(text);
+                }
+              } else {
+                $("#span").removeClass('is-invalid');
+                $('#invalid-span').remove();
+              }
+            } else {
+              $("#span").removeClass('is-invalid');
+              $('#invalid-span').remove();
+            }
+
+            if($('#labelOutreach').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#outreach').val()) == false) {
+                isError = true;
+                if($('#outreach').hasClass("is-invalid") == false) {
+                  $('#outreach').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-outreach'); 
+                  $("#outreach").after(text);
+                }
+              } else {
+                $("#outreach").removeClass('is-invalid');
+                $('#invalid-outreach').remove();
+              }
+            } else {
+              $("#outreach").removeClass('is-invalid');
+              $('#invalid-outreach').remove();
+            }
+
+            if($('#labelAbove').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#liftingHeightAbove').val()) == false) {
+                isError = true;
+                if($('#liftingHeightAbove').hasClass("is-invalid") == false) {
+                  $('#liftingHeightAbove').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-above'); 
+                  $("#liftingHeightAbove").after(text);
+                }
+              } else {
+                $("#liftingHeightAbove").removeClass('is-invalid');
+                $('#invalid-above').remove();
+              }
+            } else {
+              $("#liftingHeightAbove").removeClass('is-invalid');
+              $('#invalid-above').remove();
+            }
+            
+            if($('#labelBelow').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#liftingHeightBelow').val()) == false) {
+                isError = true;
+                if($('#liftingHeightBelow').hasClass("is-invalid") == false) {
+                  $('#liftingHeightBelow').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-below'); 
+                  $("#liftingHeightBelow").after(text);
+                }
+              } else {
+                $("#liftingHeightBelow").removeClass('is-invalid');
+                $('#invalid-below').remove();
+              }
+            } else {
+              $("#liftingHeightBelow").removeClass('is-invalid');
+              $('#invalid-below').remove();
+            }
+
+            if($('#labelTier').text().includes("*")) {
+              if($('#tierHeightType').attr("data-placeholder") == "Select" && /[A-z0-9]/.test($('#tierHeightType').val()) == false) {
+                isError = true;
+                if($('#tierHeightType').hasClass("is-invalid") == false) {
+                  $('#tierHeightType').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-tier'); 
+                  $("#tierHeightType").after(text);
+                }
+              } else {
+                $("#tierHeightType").removeClass('is-invalid');
+                $('#invalid-tier').remove();
+              }
+            } else {
+              $("#tierHeightType").removeClass('is-invalid');
+              $('#invalid-tier').remove();
+            }
+
+            if($('#labelBast').text().includes("*")) {
+              if($('#fileBastName').val() == "") {
+                isError = true;
+                if($('#fileBast').hasClass("is-invalid") == false) {
+                  $('#fileBast').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-fileBast'); 
+                  $("#fileBast").after(text);
+                }
+              } else {
+                $("#fileBast").removeClass('is-invalid');
+                $('#invalid-fileBast').remove();
+              }
+            } else {
+              $("#fileBast").removeClass('is-invalid');
+              $('#invalid-fileBast').remove();
+            }
+
+            if($('#labelLampiranTeknis').text().includes("*")) {
+              if($('#fileLampiranTeknisName').val() == "") {
+                isError = true;
+                if($('#fileLampiranTeknis').hasClass("is-invalid") == false) {
+                  $('#fileLampiranTeknis').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-fileLampiranTeknis'); 
+                  $("#fileLampiranTeknis").after(text);
+                }
+              } else {
+                $("#fileLampiranTeknis").removeClass('is-invalid');
+                $('#invalid-fileLampiranTeknis').remove();
+              }
+            } else {
+              $("#fileLampiranTeknis").removeClass('is-invalid');
+              $('#invalid-fileLampiranTeknis').remove();
+            }
+
+            @if(data.status == "AKTIF" || data.status == "DRAFT" || data.status == "DITOLAK")
+            if(/[A-z0-9]/.test($('#dataEdited').val()) == false) {
+              isError = true;
+              if($('#dataEdited').hasClass("is-invalid") == false) {
+                $('#dataEdited').addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-dataEdited'); 
+                $("#dataEdited").after(text);
+              }
+            } else {
+              $("#dataEdited").removeClass('is-invalid');
+              $('#invalid-dataEdited').remove();
+            }
+            @endif
+
+            if(isError == false) {
+              @if(data.status == "AKTIF")
+
+              // proses edit data aktif
+              $.ajax({
+                url: `{{ route('MasterBongkarMuatsController.countNoRequest') }}`,
+                type: "get", 
+                success: function(data) {
+                  // generate no request
+                  let tanggal = new Date();
+                  let strTanggal = tanggal.toString();
+                  const strDay = strTanggal.substring(8, 10);
+                  let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                  "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  let bulan;
+                  for(let i = 0; i < bulanChar.length; i++) {
+                      if(strTanggal.substring(4,7) == bulanChar[i]) {
+                          bulan = (i+1);
+                      }
+                  }
+                  let year = strTanggal.substring(11,15);
+                  let resultDate = year + bulan + strDay;
+                  const runNum = '000'.substring( String(data).length ) + (data);
+                  const no_request = `ALATBM${resultDate}${runNum}`;
+                  
+                  // insert data into table 
+                  $.ajax({
+                    url: `{{ route('MasterBongkarMuatsController.store') }}`,
+                    type:'get', 
+                    data: {
+                      id: `{{ data.id }}`,
+                      entity: $("#entity").val() == "" ? "{{ data.entity }}" : $("#entity").val(),
+                      aset: $("#aset").val() == "" ? "{{ data.kepemilikan_aset }}" : $("#aset").val(),
+                      lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val() == "" ? "{{ data.lokasi_kepemilikan }}" : $("#lokasiKepemilikanAset").val(), 
+                      lokasiFisikAset: $("#lokasiFisikAset").val() == "" ? "{{ data.lokasi_fisik }}" : $("#lokasiFisikAset").val(),
+                      alatClassCode: $("#alatClassDescription").val().substring(0, 3),
+                      alatClassDescription: $("#alatClassDescription").val().substring(6), 
+                      kategoriAlat: $("#kategoriAlat").val(), 
+                      nomorAssetSap: $("#nomorAssetSap").val(), 
+                      localEquipmentNo: $("#localEquipmentNo").val(),
+                      equipmentNumber: $("#equipmentNumber").val(), 
+                      manufacturer: $("#manufacturer").val(),
+                      countryOfOrigin: $("#countryOfOrigin").val() == "" ? "{{ data.country_origin }}" : $("#countryOfOrigin").val(), 
+                      manufacturerYear: $("#manufacturerYear").val(),
+                      acquisitionYear: $("#acquisitionYear").val(), 
+                      model: $("#model").val(), 
+                      serialNumber: $("#serialNumber").val(), 
+                      kapasitas: $("#kapasitas").val(), 
+                      satuanKapasitas: $("#satuanKapasitas").val() == "" ? "{{ data.satuan_kapasitas }}" : $("#satuanKapasitas").val(), 
+                      powerSource: $("#powerSource").val() == "" ? "{{ data.power_source }}" : $("#powerSource").val(),
+                      powerCapacity: $("#powerCapacity").val(), 
+                      equipmentDescription: $("#equipmentDescription").val(),
+                      span: $("#span").val(), 
+                      outreach: $("#outreach").val(),
+                      liftingHeightAbove: $("#liftingHeightAbove").val(), 
+                      liftingHeightBelow: $("#liftingHeightBelow").val(), 
+                      tierHeightType: $("#tierHeightType").val() == "" ? "{{ data.tier_type }}" : $("#tierHeightType").val(),
+                      satuanCapacity: $("#satuanCapacity").val() == "" ? "{{ data.satuan_capacity }}" : $("#satuanCapacity").val(), 
+                      fileBastName: $("#fileBastName").val(), 
+                      fileLampiranTeknisName: $("#fileLampiranTeknisName").val(), 
+                      notes: $("#notes").val(),
+                      dataEdited: $("#dataEdited").val(),
+                      status: 'DIAJUKAN', 
+                      no_request: no_request,
+                      equipment_number: `{{ [null, 'null', ''].includes(data.equipment_number) ? '' : data.equipment_number }}`
+                    },
+                    success:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                        html: `<strong>${data.message}</strong>`, 
+                        icon:'success',
+                        confirmButtonText: "Lanjutkan",
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      }).then(()=>{
+                        window.location.assign(`{{ route('MasterBongkarMuatsController.index', ['outstanding']) }}`);
+                      });
+                    },
+                    error:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                        html: `<strong>${data.responseJSON.message}</strong>`, 
+                        icon: "error",
+                        confirmButtonText: "Oke", 
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      })
+                    }
+                  });
+                } 
+              });
+
+              @else 
+              
+              // proses edit data yang bukan aktif
+
+              // menentukan cara pengambilan data class description jika data memiliki reference id atau tidak
+              @if([null, "null", ""].includes(data.reference_id))
+              let valueClassCode = $("#alatClassDescription").val() == "" ? $("#alatClassDescription").attr("data-placeholder").substring(0, 3) : $("#alatClassDescription").val();
+              let valueClassDesc = $("#alatClassDescription").val() == "" ? $("#alatClassDescription").attr("data-placeholder").substring(6) : $("#alatClassDescription").find(":selected").text().substring(6);
+              @else
+              let valueClassCode = $("#alatClassDescription").val().substring(0, 3);
+              let valueClassDesc = $("#alatClassDescription").val().substring(6); 
+              @endif
+
+              // insert into table
+              $.ajax({
+                url: `{{ route('MasterBongkarMuatsController.update') }}`,
+                type:'get', 
+                data: {
+                  id: `{{ data.id }}`,
+                  entity: $("#entity").val() == "" ? "{{ data.entity }}" : $("#entity").val(),
+                  aset: $("#aset").val() == "" ? "{{ data.kepemilikan_aset }}" : $("#aset").val(), 
+                  lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val() == "" ? "{{ data.lokasi_kepemilikan }}" : $("#lokasiKepemilikanAset").val(), 
+                  lokasiFisikAset: $("#lokasiFisikAset").val() == "" ? "{{ data.lokasi_fisik }}" : $("#lokasiFisikAset").val(),
+                  alatClassCode: valueClassCode,
+                  alatClassDescription: valueClassDesc, 
+                  kategoriAlat: $("#kategoriAlat").val(), 
+                  nomorAssetSap: $("#nomorAssetSap").val(), 
+                  localEquipmentNo: $("#localEquipmentNo").val(),
+                  equipmentNumber: $("#equipmentNumber").val(), 
+                  manufacturer: $("#manufacturer").val(),
+                  countryOfOrigin: $("#countryOfOrigin").val() == "" ? "{{ data.country_origin }}" : $("#countryOfOrigin").val(), 
+                  manufacturerYear: $("#manufacturerYear").val(),
+                  acquisitionYear: $("#acquisitionYear").val(), 
+                  model: $("#model").val(), 
+                  serialNumber: $("#serialNumber").val(), 
+                  kapasitas: $("#kapasitas").val(), 
+                  satuanKapasitas: $("#satuanKapasitas").val() == "" ? "{{ data.satuan_kapasitas }}" : $("#satuanKapasitas").val(), 
+                  powerSource: $("#powerSource").val() == "" ? "{{ data.power_source }}" : $("#powerSource").val(),
+                  powerCapacity: $("#powerCapacity").val(), 
+                  equipmentDescription: $("#equipmentDescription").val(),
+                  span: $("#span").val(), 
+                  outreach: $("#outreach").val(),
+                  liftingHeightAbove: $("#liftingHeightAbove").val(), 
+                  liftingHeightBelow: $("#liftingHeightBelow").val(), 
+                  tierHeightType: $("#tierHeightType").val() == "" ? "{{ data.tier_type }}" : $("#tierHeightType").val(),
+                  satuanCapacity: $("#satuanCapacity").val() == "" ? "{{ data.satuan_capacity }}" : $("#satuanCapacity").val(), 
+                  fileBastName: $("#fileBastName").val(), 
+                  fileLampiranTeknisName: $("#fileLampiranTeknisName").val(), 
+                  notes: $("#notes").val(),
+                  dataEdited: $("#dataEdited").val(),
+                  status: `{{ data.status == 'DITOLAK' || data.resubmit == 1 ? 'UPDATE' : 'DIAJUKAN' }}`, 
+                  no_request: `{{ data.request_number }}`,
+                  equipment_number: `{{ [null, 'null', ''].includes(data.equipment_number) ? '' : data.equipment_number }}`
+                },
+                success:function(data) {
+                  Swal.fire({
+                    title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                    html: `<strong>${data.message}</strong>`, 
+                    icon:'success',
+                    confirmButtonText: "Lanjutkan",
+                    confirmButtonColor: "#045299",
+                    allowOutsideClick: false
+                  }).then(()=>{
+                    window.location.assign(`{{ route('MasterBongkarMuatsController.index', ['outstanding']) }}`);
+                  });
+                },
+                error:function(data) {
+                  Swal.fire({
+                    title: "<span style='color:#FF0000;'>Gagal</span>", 
+                    html: `<strong>${data.responseJSON.message}</strong>`, 
+                    icon: "error",
+                    confirmButtonText: "Oke", 
+                    confirmButtonColor: "#045299",
+                    allowOutsideClick: false
+                  })
+                }
+              });
+              
+              @endif
+            }
+          }
+        });
+      });
+
+      $('#draft').click(function() {
+        Swal.fire({
+          title: "<span style='color:#EDAD51;'>Simpan sebagai draf</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          imageUrl: "/media/peralatan/draft.svg",
+          showCancelButton: true,
+          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            @if(data.status == "AKTIF")
+
+            // proses edit data aktif
+            $.ajax({
+              url: `{{ route('MasterBongkarMuatsController.countNoRequest') }}`,
+              type: "get", 
+              success: function(data) {
+                // generate no request
+                let tanggal = new Date();
+                let strTanggal = tanggal.toString();
+                const strDay = strTanggal.substring(8, 10);
+                let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                "Aug", "Sep", "Oct", "Nov", "Dec"];
+                let bulan;
+                for(let i = 0; i < bulanChar.length; i++) {
+                    if(strTanggal.substring(4,7) == bulanChar[i]) {
+                        bulan = (i+1);
+                    }
+                }
+                let year = strTanggal.substring(11,15);
+                let resultDate = year + bulan + strDay;
+                const runNum = '000'.substring( String(data).length ) + (data);
+                const no_request = `ALATBM${resultDate}${runNum}`;
+                
+                // insert data into table 
+                $.ajax({
+                  url: `{{ route('MasterBongkarMuatsController.store') }}`,
+                  type:'get', 
+                  data: {
+                    id: `{{ data.id }}`,
+                    entity: $("#entity").val() == "" ? "{{ data.entity }}" : $("#entity").val(),
+                    aset: $("#aset").val() == "" ? "{{ data.kepemilikan_aset }}" : $("#aset").val(), 
+                    lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val() == "" ? "{{ data.lokasi_kepemilikan }}" : $("#lokasiKepemilikanAset").val(), 
+                    lokasiFisikAset: $("#lokasiFisikAset").val() == "" ? "{{ data.lokasi_fisik }}" : $("#lokasiFisikAset").val(),
+                    alatClassCode: $("#alatClassDescription").val().substring(0, 3),
+                    alatClassDescription: $("#alatClassDescription").val().substring(6), 
+                    kategoriAlat: $("#kategoriAlat").val(), 
+                    nomorAssetSap: $("#nomorAssetSap").val(), 
+                    localEquipmentNo: $("#localEquipmentNo").val(),
+                    equipmentNumber: $("#equipmentNumber").val(), 
+                    manufacturer: $("#manufacturer").val(),
+                    countryOfOrigin: $("#countryOfOrigin").val() == "" ? "{{ data.country_origin }}" : $("#countryOfOrigin").val(), 
+                    manufacturerYear: $("#manufacturerYear").val(),
+                    acquisitionYear: $("#acquisitionYear").val(), 
+                    model: $("#model").val(), 
+                    serialNumber: $("#serialNumber").val(), 
+                    kapasitas: $("#kapasitas").val(), 
+                    satuanKapasitas: $("#satuanKapasitas").val() == "" ? "{{ data.satuan_kapasitas }}" : $("#satuanKapasitas").val(), 
+                    powerSource: $("#powerSource").val() == "" ? "{{ data.power_source }}" : $("#powerSource").val(),
+                    powerCapacity: $("#powerCapacity").val(), 
+                    equipmentDescription: $("#equipmentDescription").val(),
+                    span: $("#span").val(), 
+                    outreach: $("#outreach").val(),
+                    liftingHeightAbove: $("#liftingHeightAbove").val(), 
+                    liftingHeightBelow: $("#liftingHeightBelow").val(), 
+                    tierHeightType: $("#tierHeightType").val() == "" ? "{{ data.tier_type }}" : $("#tierHeightType").val(),
+                    satuanCapacity: $("#satuanCapacity").val() == "" ? "{{ data.satuan_capacity }}" : $("#satuanCapacity").val(), 
+                    fileBastName: $("#fileBastName").val(), 
+                    fileLampiranTeknisName: $("#fileLampiranTeknisName").val(),
+                    notes: $("#notes").val(),
+                    dataEdited: $("#dataEdited").val(), 
+                    status: "DRAFT",
+                    no_request: no_request,
+                    equipment_number: `{{ [null, 'null', ''].includes(data.equipment_number) ? '' : data.equipment_number }}` 
+                  },
+                  success:function(data) {
+                    Swal.fire({
+                      title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                      html: `<stong>${data.message}</strong>`, 
+                      icon:'success',
+                      confirmButtonText: "Lanjutkan",
+                      confirmButtonColor: "#045299",
+                      allowOutsideClick: false
+                    }).then(()=>{
+                      @if(data.status == 'AKTIF' || data.status =='NONAKTIF')
+                      window.location.assign(`{{ route('MasterBongkarMuatsController.index') }}`);
+                      @else
+                      window.location.assign(`{{ route('MasterBongkarMuatsController.index', ['outstanding']) }}`);
+                      @end
+                    });
+                  }, 
+                  error:function(data) {
+                    Swal.fire({
+                      title: "<span style='color:#FF0000;'>Gagal</span>", 
+                      html: `<strong>${data.responseJSON.message}</strong>`, 
+                      icon:'error',
+                      confirmButtonText: "Baik",
+                      confirmButtonColor: "#045299",
+                      allowOutsideClick: false
+                    });
+                  }
+                });
+              } 
+            });
+
+            @else
+            
+            // proses edit data yang bukan aktif
+            
+            // menentukan cara pengambilan data class description jika data memiliki reference id atau tidak
+            @if([null, "null", ""].includes(data.reference_id))
+            let valueClassCode = $("#alatClassDescription").val() == "" ? $("#alatClassDescription").attr("data-placeholder").substring(0, 3) : $("#alatClassDescription").val();
+            let valueClassDesc = $("#alatClassDescription").val() == "" ? $("#alatClassDescription").attr("data-placeholder").substring(6) : $("#alatClassDescription").find(":selected").text().substring(6);
+            @else
+            let valueClassCode = $("#alatClassDescription").val().substring(0, 3);
+            let valueClassDesc = $("#alatClassDescription").val().substring(6); 
+            @endif
+            
+            // insert into table
+            $.ajax({
+              url: `{{ route('MasterBongkarMuatsController.update') }}`,
+              type:'get', 
+              data: {
+                id: `{{ data.id }}`,
+                entity: $("#entity").val() == "" ? "{{ data.entity }}" : $("#entity").val(),
+                aset: $("#aset").val() == "" ? "{{ data.kepemilikan_aset }}" : $("#aset").val(), 
+                lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val() == "" ? "{{ data.lokasi_kepemilikan }}" : $("#lokasiKepemilikanAset").val(), 
+                lokasiFisikAset: $("#lokasiFisikAset").val() == "" ? "{{ data.lokasi_fisik }}" : $("#lokasiFisikAset").val(),
+                alatClassCode: valueClassCode,
+                alatClassDescription: valueClassDesc, 
+                kategoriAlat: $("#kategoriAlat").val(), 
+                nomorAssetSap: $("#nomorAssetSap").val(), 
+                localEquipmentNo: $("#localEquipmentNo").val(),
+                equipmentNumber: $("#equipmentNumber").val(), 
+                manufacturer: $("#manufacturer").val(),
+                countryOfOrigin: $("#countryOfOrigin").val() == "" ? "{{ data.country_origin }}" : $("#countryOfOrigin").val(), 
+                manufacturerYear: $("#manufacturerYear").val(),
+                acquisitionYear: $("#acquisitionYear").val(), 
+                model: $("#model").val(), 
+                serialNumber: $("#serialNumber").val(), 
+                kapasitas: $("#kapasitas").val(), 
+                satuanKapasitas: $("#satuanKapasitas").val() == "" ? "{{ data.satuan_kapasitas }}" : $("#satuanKapasitas").val(), 
+                powerSource: $("#powerSource").val() == "" ? "{{ data.power_source }}" : $("#powerSource").val(),
+                powerCapacity: $("#powerCapacity").val(), 
+                equipmentDescription: $("#equipmentDescription").val(),
+                span: $("#span").val(), 
+                outreach: $("#outreach").val(),
+                liftingHeightAbove: $("#liftingHeightAbove").val(), 
+                liftingHeightBelow: $("#liftingHeightBelow").val(), 
+                tierHeightType: $("#tierHeightType").val() == "" ? "{{ data.tier_type }}" : $("#tierHeightType").val(),
+                satuanCapacity: $("#satuanCapacity").val() == "" ? "{{ data.satuan_capacity }}" : $("#satuanCapacity").val(), 
+                fileBastName: $("#fileBastName").val(), 
+                fileLampiranTeknisName: $("#fileLampiranTeknisName").val(),
+                notes: $("#notes").val(),
+                dataEdited: $("#dataEdited").val(), 
+                status: "DRAFT",
+                no_request: `{{ data.request_number }}`, 
+                resubmit: {{ data.status == "DITOLAK" ? 1 : 0 }},
+                equipment_number: `{{ [null, 'null', ''].includes(data.equipment_number) ? '' : data.equipment_number }}` 
+              },
+              success:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                  html: `<stong>${data.message}</strong>`, 
+                  icon:'success',
+                  confirmButtonText: "Lanjutkan",
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                }).then(()=>{
+                  @if(data.status == 'AKTIF' || data.status =='NONAKTIF')
+                  window.location.assign(`{{ route('MasterBongkarMuatsController.index') }}`);
+                  @else
+                  window.location.assign(`{{ route('MasterBongkarMuatsController.index', ['outstanding']) }}`);
+                  @end
+                });
+              }, 
+              error:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#FF0000;'>Gagal</span>", 
+                  html: `<strong>${data.responseJSON.message}</strong>`, 
+                  icon:'error',
+                  confirmButtonText: "Baik",
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                });
+              }
+            });
+
+            @endif
+          }
+        });
+      });
+
+      @if(data.status == "AKTIF" || [null, "null", ""].includes(data.reference_id) == false)
+      const kodeKelas = $("#alatClassDescription").val().substring(0, 3)
+      @else 
+      const kodeKelas = $("#alatClassDescription").attr("data-placeholder").substring(0, 3)
+      @endif
+      if($("#kategoriAlat").val().toLowerCase() == "alat utama") {
+        $("#labelModel").html("Model<span style='color:red;'>*</span>");
+        $("#model").prop("disabled", false);
+        $("#labelSerial").html("Equipment Serial Number<span style='color:red;'>*</span>");
+        $("#serialNumber").prop("disabled", false);
+        if(["ARG", "ASC", "FJC", "GJC", "GLC", "GSU", "QCC", "RMG", "RTG"].includes(kodeKelas)) {
+          $('#labelSpan').html("Span(m)<span style='color:red;'>*</span>");
+          $('#span').prop("disabled", false);
+        } else {
+          $('#labelSpan').html("Span(m)");
+          $('#span').prop("disabled", true);
+        }
+        if(["FJC", "GJC", "GLC", "GSU", "HMC", "MBC", "QCC"].includes(kodeKelas)) {
+          $("#labelOutreach").html("Outreach(m)<span style='color:red;'>*</span>");
+          $("#outreach").prop("disabled", false);
+          $("#labelAbove").html("Lifting Height Above Rail(m)<span style='color:red;'>*</span>");
+          $("#liftingHeightAbove").prop("disabled", false);
+          $("#labelBelow").html("Lifting Height Below Rail(m)<span style='color:red;'>*</span>");
+          $("#liftingHeightBelow").prop("disabled", false);
+        } else {
+          $("#labelOutreach").html("Outreach(m)");
+          $("#outreach").prop("disabled", true);
+          $("#labelAbove").html("Lifting Height Above Rail(m)");
+          $("#liftingHeightAbove").prop("disabled", true);
+          $("#labelBelow").html("Lifting Height Below Rail(m)");
+          $("#liftingHeightBelow").prop("disabled", true);
+        }
+        if(["ARG", "ASC", "RMG", "RTG"].includes(kodeKelas)) {
+          $("#labelTier").html("Tier Height Type<span style='color:red;'>*</span>");
+          $("#tierHeightType").prop("disabled", false);
+          $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+        } else {
+          $("#labelTier").html("Tier Height Type");
+          $("#tierHeightType").prop("disabled", true);
+          $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+          $("#tierHeightType").select2('destroy');
+        }
+        $("#labelKapasitas").html("Kapasitas<span style='color:red;'>*</span>");
+        $("#kapasitas").prop("disabled", false);
+        $("#labelSatuanKapasitas").html("Satuan Kapasitas<span style='color:red;'>*</span>");
+        $("#satuanKapasitas").prop("disabled", false);
+        $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? 'Select' : data.satuan_kapasitas }}"});
+        $("#labelBast").html("Upload File BAST<span style='color:red;'>*</span>");
+        $("#labelLampiranTeknis").html("Upload File Lampiran Teknis<span style='color:red;'>*</span>");
+      } else {
+        if($("#kategoriAlat").val().toLowerCase() == "alat bantu") {
+          $("#labelModel").html("Model<span style='color:red;'>*</span>");
+          $("#model").prop("disabled", false);
+          $("#labelSerial").html("Equipment Serial Number<span style='color:red;'>*</span>");
+          $("#serialNumber").prop("disabled", false);
+          $("#labelKapasitas").html("Kapasitas");
+          $("#kapasitas").prop("disabled", true);
+          $("#labelSatuanKapasitas").html("Satuan Kapasitas");
+          $("#satuanKapasitas").prop("disabled", true);
+          $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? 'Select' : data.satuan_kapasitas }}"});
+          $("#satuanKapasitas").select2("destroy");
+        } else if($("#kategoriAlat").val().toLowerCase() == "alat pendukung") {
+          $("#labelModel").html("Model");
+          $("#model").prop("disabled", true);
+          $("#labelSerial").html("Equipment Serial Number");
+          $("#serialNumber").prop("disabled", true);
+          $("#labelKapasitas").html("Kapasitas<span style='color:red;'>*</span>");
+          $("#kapasitas").prop("disabled", false);
+          $("#labelSatuanKapasitas").html("Satuan Kapasitas<span style='color:red;'>*</span>");
+          $("#satuanKapasitas").prop("disabled", false);
+          $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? 'Select' : data.satuan_kapasitas }}"});
+        }
+        $('#labelSpan').html("Span(m)");
+        $('#span').prop("disabled", true);
+        $("#labelOutreach").html("Outreach(m)");
+        $("#outreach").prop("disabled", true);
+        $("#labelAbove").html("Lifting Height Above Rail(m)");
+        $("#liftingHeightAbove").prop("disabled", true);
+        $("#labelBelow").html("Lifting Height Below Rail(m)");
+        $("#liftingHeightBelow").prop("disabled", true);
+        $("#labelTier").html("Tier Height Type");
+        $("#tierHeightType").prop("disabled", true);
+        $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+        $("#tierHeightType").select2('destroy');
+        $("#labelBast").html("Upload File BAST");
+        $("#labelLampiranTeknis").html("Upload File Lampiran Teknis");
+      }
+
+      let arrEquipNum = {alat:`{{ data.class_code == null || data.class_code == 'null' ? '' : data.class_code }}`, num:`{{ data.equipment_number == null || data.equipment_number == 'null' ? '' : data.equipment_number.substring(4)}}`};
+      let equipDes = {equipmentNumber: `{{ [null, 'null', ''].includes(data.equipment_number) ? '' : data.equipment_number }}`, groupAlat:`{{ data.class_description == null || data.class_description == 'null' ? '' : data.class_description }}`, num:`{{ data.equipment_number == null || data.equipment_number == 'null' ? '' : data.equipment_number }}`, model:`{{ data.model == null || data.model == 'null' ? '' : data.model }}`, date:`{{ data.manufacturer_year == null || data.manufacturer_year == 'null' ? '' : data.manufacturer_year }}`, fis:`{{ data.lokasi_fisik == null || data.lokasi_fisik == 'null' ? '' : data.lokasi_fisik }}`, kap:`{{ data.kapasitas == null || data.kapasitas == 'null' ? '' : data.kapasitas }}`, satuanKap:`{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? '' : data.satuan_kapasitas }}`, pow:`{{ data.power_source == null || data.power_source == 'null' ? '' : data.power_source }}`};
+
+      $('#alatClassDescription').change(function() {
+        equipDes.groupAlat = $(this).find(':selected').text().substring(6);
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif
+        const alatUtama = ["ARG", "ASC", "CVR", "EXC", "FJC", "FLC", "GJC", "GLC", "GSU", "HMC", "HPC", "MBC", 
+                        "QCC", "RMG", "RST", "RTG", "SIL", "TPL", "WHL"];
+        const alatBantu = ["BCT", "CHS", "CSS", "DOL", "GRB", "HOP", "MEL", "RAM", "SPR", "TSL", "WHL"];
+        const alatPendukung = ["BLD", "CTT", "DTR", "FLT", "HDT", "OHC", "PLM", "RTR", "STC", "TRN", "TTR"];
+        if(alatUtama.includes($(this).val())) {
+          $("#labelModel").html("Model<span style='color:red;'>*</span>");
+          $("#model").prop("disabled", false);
+          $("#labelSerial").html("Equipment Serial Number<span style='color:red;'>*</span>");
+          $("#serialNumber").prop("disabled", false);
+          $('#kategoriAlat').val("ALAT UTAMA");
+          if(["ARG", "ASC", "FJC", "GJC", "GLC", "GSU", "QCC", "RMG", "RTG"].includes($(this).val())) {
+            $('#labelSpan').html("Span(m)<span style='color:red;'>*</span>");
+            $('#span').prop("disabled", false);
+          } else {
+            $('#labelSpan').html("Span(m)");
+            $('#span').prop("disabled", true);
+          }
+          if(["FJC", "GJC", "GLC", "GSU", "HMC", "MBC", "QCC"].includes($(this).val())) {
+            $("#labelOutreach").html("Outreach(m)<span style='color:red;'>*</span>");
+            $("#outreach").prop("disabled", false);
+            $("#labelAbove").html("Lifting Height Above Rail(m)<span style='color:red;'>*</span>");
+            $("#liftingHeightAbove").prop("disabled", false);
+            $("#labelBelow").html("Lifting Height Below Rail(m)<span style='color:red;'>*</span>");
+            $("#liftingHeightBelow").prop("disabled", false);
+          } else {
+            $("#labelOutreach").html("Outreach(m)");
+            $("#outreach").prop("disabled", true);
+            $("#labelAbove").html("Lifting Height Above Rail(m)");
+            $("#liftingHeightAbove").prop("disabled", true);
+            $("#labelBelow").html("Lifting Height Below Rail(m)");
+            $("#liftingHeightBelow").prop("disabled", true);
+          }
+          if(["ARG", "ASC", "RMG", "RTG"].includes($(this).val())) {
+            $("#labelTier").html("Tier Height Type<span style='color:red;'>*</span>");
+            $("#tierHeightType").prop("disabled", false);
+            $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+          } else {
+            $("#labelTier").html("Tier Height Type");
+            $("#tierHeightType").prop("disabled", true);
+            $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+            $("#tierHeightType").select2('destroy');
+          }
+          $("#labelKapasitas").html("Kapasitas<span style='color:red;'>*</span>");
+          $("#kapasitas").prop("disabled", false);
+          $("#labelSatuanKapasitas").html("Satuan Kapasitas<span style='color:red;'>*</span>");
+          $("#satuanKapasitas").prop("disabled", false);
+          $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? 'Select' : data.satuan_kapasitas }}"});
+          $("#labelBast").html("Upload File BAST<span style='color:red;'>*</span>");
+          $("#labelLampiranTeknis").html("Upload File Lampiran Teknis<span style='color:red;'>*</span>");
+        } else {
+          if(alatBantu.includes($(this).val())) {
+            $('#kategoriAlat').val("ALAT BANTU");
+            $("#labelModel").html("Model<span style='color:red;'>*</span>");
+            $("#model").prop("disabled", false);
+            $("#labelSerial").html("Equipment Serial Number<span style='color:red;'>*</span>");
+            $("#serialNumber").prop("disabled", false);
+            $("#labelKapasitas").html("Kapasitas");
+            $("#kapasitas").prop("disabled", true);
+            $("#labelSatuanKapasitas").html("Satuan Kapasitas");
+            $("#satuanKapasitas").prop("disabled", true);
+            $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? '' : data.satuan_kapasitas }}"});
+            $("#satuanKapasitas").select2("destroy");
+          } else if(alatPendukung.includes($(this).val())) {
+            $('#kategoriAlat').val("ALAT PENDUKUNG");
+            $("#labelModel").html("Model");
+            $("#model").prop("disabled", true);
+            $("#labelSerial").html("Equipment Serial Number");
+            $("#serialNumber").prop("disabled", true);
+            $("#labelKapasitas").html("Kapasitas<span style='color:red;'>*</span>");
+            $("#kapasitas").prop("disabled", false);
+            $("#labelSatuanKapasitas").html("Satuan Kapasitas<span style='color:red;'>*</span>");
+            $("#satuanKapasitas").prop("disabled", false);
+            $("#satuanKapasitas").select2({placeholder:"{{ data.satuan_kapasitas == null || data.satuan_kapasitas == 'null' ? '' : data.satuan_kapasitas }}"});
+          }
+          $('#labelSpan').html("Span(m)");
+          $('#span').prop("disabled", true);
+          $("#labelOutreach").html("Outreach(m)");
+          $("#outreach").prop("disabled", true);
+          $("#labelAbove").html("Lifting Height Above Rail(m)");
+          $("#liftingHeightAbove").prop("disabled", true);
+          $("#labelBelow").html("Lifting Height Below Rail(m)");
+          $("#liftingHeightBelow").prop("disabled", true);
+          $("#labelTier").html("Tier Height Type");
+          $("#tierHeightType").prop("disabled", true);
+          $("#tierHeightType").select2({placeholder:"{{ data.tier_type == null || data.tier_type == 'null' ? 'Select' : data.tier_type }}"});
+          $("#tierHeightType").select2('destroy');
+          $("#labelBast").html("Upload File BAST");
+          $("#labelLampiranTeknis").html("Upload File Lampiran Teknis");
+        }
+      });
+      
+      $('#model').keyup(function() {
+        equipDes.model = $(this).val();
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif
+      });
+
+      $('#manufacturerYear').keyup(function() {
+        $(this).val($(this).val().replace(/\D/g,''));
+        equipDes.date = $(this).val(); 
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif 
+      });
+
+      $('#acquisitionYear').keyup(function() {
+        $(this).val($(this).val().replace(/\D/g,'')); 
+      });
+
+      $('#lokasiFisikAset').change(function() {
+        $("#lokasiFisikAsetValue").val($(this).val());
+        equipDes.fis = $(this).val(); 
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif 
+      });
+
+      $('#kapasitas').keyup(function() {
+        equipDes.kap = $(this).val(); 
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif 
+      });
+
+      $('#satuanKapasitas').change(function() {
+        equipDes.satuanKap = $(this).val(); 
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif 
+      });
+
+      $('#powerSource').change(function() {
+        // $('#powerSourceValue').val($(this).val());
+        if($(this).val() == "MANUAL" || $(this).val() == "HYDRAULICS") {
+          $("#labelPowerCapacity").html("Power Capacity");
+          $('#powerCapacity').prop("disabled", true);
+          $("#labelSatuanCapacity").html("Satuan Power Capacity");
+          $('#satuanCapacity').prop("disabled", true);
+          $("#satuanCapacity").select2({placeholder:"{{ [null, 'null', ''].includes(data.satuan_capacity) ? 'Select' : data.satuan_capacity }}"});
+          $("#satuanCapacity").select2("destroy");
+        } else {
+          $("#labelPowerCapacity").html("Power Capacity<span style='color:red;'>*</span>");
+          $('#powerCapacity').prop("disabled", false);
+          $("#labelSatuanCapacity").html("Satuan Power Capacity<span style='color:red;'>*</span>");
+          $('#satuanCapacity').prop("disabled", false);
+          $("#satuanCapacity").select2({placeholder:"{{ [null, 'null', ''].includes(data.satuan_capacity) ? 'Select' : data.satuan_capacity }}"});
+        }
+        equipDes.pow = $(this).val(); 
+        @if([null, 'null', ''].includes(data.equipment_number))
+        $('#equipmentDescription').val(`${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @else
+        $('#equipmentDescription').val(`${equipDes.equipmentNumber}, ${equipDes.groupAlat}, ${equipDes.model}, ${equipDes.date}, ${equipDes.fis}, ${equipDes.kap} ${equipDes.satuanKap}, ${equipDes.pow}`);
+        @endif 
+      });
+
+      if(["manual", "hydraulics", "select"].includes($("#powerSource").attr("data-placeholder").toLowerCase())) {
+        $("#labelPowerCapacity").html("Power Capacity");
+        $('#powerCapacity').prop("disabled", true);
+        $("#labelSatuanCapacity").html("Satuan Power Capacity");
+        $('#satuanCapacity').prop("disabled", true);
+        $("#satuanCapacity").select2({placeholder:"{{ [null, 'null', ''].includes(data.satuan_capacity) ? 'Select' : data.satuan_capacity }}"});
+        $("#satuanCapacity").select2("destroy");
+      } else {
+        $("#labelPowerCapacity").html("Power Capacity<span style='color:red;'>*</span>");
+        $('#powerCapacity').prop("disabled", false);
+        $("#labelSatuanCapacity").html("Satuan Power Capacity<span style='color:red;'>*</span>");
+        $('#satuanCapacity').prop("disabled", false);
+        $("#satuanCapacity").select2({placeholder:"{{ [null, 'null', ''].includes(data.satuan_capacity) ? 'Select' : data.satuan_capacity }}"});
+      }
+
+      @if([null, "null", ""].includes(data.file_bast) == false)
+      $.ajax({
+        url : `{{ route('MasterBongkarMuatsController.downloadUploadedFile', [data.file_bast]) }}`,
+        type : "get",
+        success: function(url) {
+          $("#view-file-bast").attr("href", url)
+        }
+      });
+      @endif
+
+      @if([null, "null", ""].includes(data.file_lampiran_teknis) == false)
+      $.ajax({
+        url : `{{ route('MasterBongkarMuatsController.downloadUploadedFile', [data.file_lampiran_teknis]) }}`,
+        type : "get",
+        success: function(url) {
+          $("#view-file-lampiran-teknis").attr("href", url)
+        }
+      });
+      @endif
+
+      $(".crsl-one").click(function() {
+        $('#btn-page-kedua').removeClass('btn-primary');
+        $('#btn-page-kedua').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#submit').css('display', 'none');
+        $('#next-form').css('display', '');
+        $('#prev-hr').css('margin-top', '5%');
+      });
+
+      $(".crsl-two").click(function() {
+        $('#btn-page-kedua').removeClass('btn-secondary');
+        $('#btn-page-kedua').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#submit').css('display', '');
+        $('#next-form').css('display', 'none');
+        $('#prev-hr').css('margin-top', '');
+      });
+
+    });
+
+    function desimal2digits (value, ele, evt) {
+      const myArray = value.split(",");
+      if (myArray[1]){
+        let numberDecimal = myArray[1];
+        if (numberDecimal.length > 1){
+          evt.preventDefault();
+          swal.fire("Dibatalkan", "2 digit decimal", "error");
+        }
+      }
+      return true;
+    }
+
+    // auto pemisah ribuan dan desimal
+    function tipeNumber(value, ele) {
+      let newVal = value.replace(/[^0-9\-.,]/g, "");
+      if(!/[0-9]/.test(newVal)) {
+        newVal = newVal.replace(/[.,]/g, "");
+      }
+      if(!value.includes(".")) {
+        var parts = newVal.toString().split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : "");
+      } else {
+        newVal = newVal.toString().replace(/[.]/g,"");
+        var parts = newVal.split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : ""); 
+      }
+    }
+</script>
+
+@end

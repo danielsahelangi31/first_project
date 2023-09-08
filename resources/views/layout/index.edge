@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+	<base href="" />
+	<title>Single Master Data Management</title>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="/media/mdm_icon.png" type="image/png" />
+	{{ csrfField() }}
+	<meta name="description"
+		content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Blazor, Django, Flask & Laravel versions. Grab your copy now and get life-time updates for free." />
+	<meta name="keywords"
+		content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Blazor, Django, Flask & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title"
+		content="Metronic | Bootstrap HTML, VueJS, React, Angular, Asp.Net Core, Blazor, Django, Flask & Laravel Admin Dashboard Theme" />
+	<meta property="og:url" content="https://keenthemes.com/metronic" />
+	<meta property="og:site_name" content="Keenthemes | Metronic" />
+	<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+	<!--begin::Fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+	<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
+	<!--end::Fonts-->
+	<!--begin::Vendor Stylesheets(used by this page)-->
+	<link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	<!--end::Vendor Stylesheets-->
+	<!--begin::Global Stylesheets Bundle(used by all pages)-->
+	<link href="/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="/css/style.bundle.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	{{--  org chart  --}}
+	<script type="text/javascript" src="/js/chart/jquery.orgchart.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/jquery.orgchart.css">
+	{{--  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js'></script>  --}}
+	<script type="text/javascript" charset="utf8"
+	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" charset="utf8"
+	 src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+	<!--end::Global Stylesheets Bundle-->
+	@!section('css')
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body id="kt_body"
+	class="page-loading-enabled page-loading header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
+	<!--layout-partial:partials/theme-mode/_init.html-->
+	@include('layout/partials/theme-mode/_init')
+	<!--layout-partial:partials/_loader.html-->
+	@include('layout/partials/_loader')
+	<!--begin::Main-->
+	<!--begin::Root-->
+	<div class="d-flex flex-column flex-root">
+		<!--begin::Page-->
+		<div class="page d-flex flex-row flex-column-fluid">
+			<!--begin::Wrapper-->
+			<div class="wrapper d-flex flex-column flex-row-fluid bg-secondary" id="kt_wrapper">
+				<!--layout-partial:layout/header/_base.html-->
+				@include('layout/layout/header/_base')
+				{{-- @include('layout/layout/_toolbar') --}}
+				<!--layout-partial:layout/_toolbar.html-->
+				<!--begin::Container-->
+				@!section('toolbar')
+				<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-fluid">
+					@!section('content')
+				</div>
+				<!--end::Container-->
+				@include('layout/layout/_footer')
+				<!--layout-partial:layout/_footer.html-->
+			</div>
+			<!--end::Wrapper-->
+		</div>
+		<!--end::Page-->
+	</div>
+	<!--begin::Toast-->
+<div class="position-fixed top-0 end-0 p-3 z-index-3">
+
+    <div id="kt_docs_toast_toggle" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast-header">
+            <span class="svg-icon svg-icon-2 svg-icon-primary me-3">
+				<i class="fas fa-bullhorn"></i>
+			</span>
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-body">
+
+        </div>
+    </div>
+
+</div>
+<!--end::Toast-->
+	{{--
+	<!--end::Root-->
+	@include('layout/partials/_drawers')
+	<!--layout-partial:partials/_drawers.html-->
+	<!--end::Main-->
+	@include('layout/partials/_scrolltop')
+	<!--layout-partial:partials/_scrolltop.html-->
+	<!--begin::Modals-->
+	@include('layout/partials/modals/create-campaign/_main')
+	<!--layout-partial:partials/modals/create-campaign/_main.html-->
+	@include('layout/partials/modals/_invite-friends')
+	<!--layout-partial:partials/modals/_invite-friends.html-->
+	@include('layout/partials/modals/users-search/_main') --}}
+	<!--layout-partial:partials/modals/users-search/_main.html-->
+	<!--end::Modals-->
+	<!--begin::Javascript-->
+	<script>var hostUrl = "assets/";</script>
+	<!--begin::Global Javascript Bundle(used by all pages)-->
+	<script src="/plugins/global/plugins.bundle.js"></script>
+	<script src="/js/scripts.bundle.js"></script>
+	<!--end::Global Javascript Bundle-->
+	<!--begin::Vendors Javascript(used by this page)-->
+	<script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+
+	<script src="/plugins/custom/datatables/datatables.bundle.js"></script>
+	<!--end::Vendors Javascript-->
+	<!--begin::Custom Javascript(used by this page)-->
+	<script src="/js/widgets.bundle.js"></script>
+	<script src="/js/custom/widgets.js"></script>
+	<script src="/js/custom/apps/chat/chat.js"></script>
+	<script src="/js/custom/utilities/modals/create-campaign.js"></script>
+	<script src="/js/custom/utilities/modals/users-search.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	{{--
+	<script src="/js/mdm/public/js/custom/pages/miscellaneous/sweetalert2.js"></script> --}}
+	<!--end::Custom Javascript-->
+	<!--end::Javascript-->
+
+	@!section('js')
+	<script>
+		var target = document.querySelector("#kt_body");
+    	var blockUI = new KTBlockUI(target, {
+			message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Loading...</div>',
+			overlayClass: "bg-secondary bg-opacity-75"
+		});
+		$(document).ready(function () {
+			$.ajaxSetup({
+				headers:
+					{'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')}
+			})
+		})
+
+		function swallGetRequest(url, redirect = false, message = '') {
+			console.log(url)
+			Swal.fire({
+				title: message,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: 'Process',
+				cancelButtonText: "Tidak, Batalkan!",
+				reverseButtons: true,
+			}).then(confirm => {
+
+				if (confirm.isConfirmed) {
+					return $.ajax({
+						url: url,
+						type: 'GET',
+						success: function (response) {
+							if (redirect) {
+								blockUI.release();
+								return Swal.fire("Success ", response.message, 'success').then(function (result) {
+									if (result.value) {
+										window.location = redirect;
+									}
+								})
+							}
+						blockUI.release();
+						return Swal.fire("Success ", response.message, 'success').then(function (result) {
+							window.location.reload();
+						})
+						}, error: function (err) {
+							blockUI.release();
+              					if (err.responseJSON){
+              						Swal.fire("Gagal !", err.responseJSON.message, 'error')
+              					}else{
+              						Swal.fire("Gagal !", err.status, 'error')
+              					}
+
+						}, beforeSend: function () {
+                        blockUI.block();
+                    },
+					})
+				} else {
+					blockUI.release();
+					swal.fire("Dibatalkan", "Prosess Dibatalkan", "error");
+				}
+
+			});
+		}
+
+		function swallRequest(url, data = new FormData(), modal = false, tableId = false, redirect = false) {
+			Swal.fire({
+				title: "Anda Yakin ?",
+				icon: "warning",
+				dangerMode: data.get('_method') == 'DELETE' ? true : false,
+				showCancelButton: true,
+				confirmButtonText: data.get('_method') == 'DELETE' ? 'Hapus !' : 'Ya',
+				cancelButtonText: "Tidak",
+				reverseButtons: true,
+			}).then(confirm => {
+
+				if (confirm.isConfirmed) {
+					return $.ajax({
+						url: url,
+						type: 'POST',
+						data: data,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (response) {
+							blockUI.release();
+              					if (modal) {
+
+              						$(`${modal}`).modal('hide')
+              					}
+              					if (tableId) {
+              					//console.log('tableid')
+              						// return window.location.reload();
+              					}
+              					if (redirect) {
+
+              						return Swal.fire("Success ", response.message, 'success').then(function (result) {
+              							window.location = redirect;
+              						})
+              					}
+              					return Swal.fire("Success ", response.message, 'success').then(function (result) {
+                                      						 window.location.reload();
+                                      						})
+						}, error: function (err) {
+							blockUI.release();
+              					if (err) {
+              						if (err.responseJSON){
+              							Swal.fire("Gagal !", err.responseJSON.message, 'error')
+              							if (err.responseJSON.errors) {
+              								resetFormValidation()
+              								$('.text-error').remove()
+              								$.each(err.responseJSON.errors, function (index, val) {
+              									console.log(val);
+              									let html = '<span class="invalid-feedback" role="alert"><strong>' + val.message+ '</strong></span>'
+              									$(`#${val.field}`).addClass("is-invalid");
+              									$(`#${val.field}`).after(html)
+              								})
+              							}
+              						}else{
+              							Swal.fire("Gagal !", err.status, 'error')
+              						}
+
+              					} else {
+              						swal.close()
+              					}
+						}, beforeSend: function () {
+                        blockUI.block();
+                    }
+					})
+				} else {
+					swal.fire("Dibatalkan", "Prosess Dibatalkan", "error");
+				}
+			});
+		}
+
+		function resetFormValidation() {
+        $('.invalid-feedback').remove()
+        $("input").removeClass("is-invalid");
+        $("textarea").removeClass("is-invalid");
+        $("div").removeClass("is-invalid");
+        $("select").removeClass("is-invalid");
+    }
+	</script>
+	<script>
+		@if (flashMessages.get('success'))
+			Swal.fire({
+				text:  "{{flashMessages.get('success.message')}}",
+				icon: "success",
+				buttonsStyling: false,
+				confirmButtonText: "Ok",
+				reverseButtons: true,
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			});
+		@endif
+
+		@if (flashMessages.get('errors'))
+			Swal.fire({
+				text: "{{flashMessages.get('errors.message')}}",
+				icon: "error",
+				buttonsStyling: false,
+				confirmButtonText: "Ok",
+				reverseButtons: true,
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			});
+		@endif
+	</script>
+	<script>
+			getAlertNotif();
+		function getAlertNotif(){
+			$("#alert-notif").empty()
+			$.ajax({
+				type: "GET",
+				dataType: "html",
+				url: "{{route('notif.unread')}}",
+				data: '',
+				success: function(msg){
+					if (parseInt(msg) >0){
+						console.log(msg)
+						$("#alert-notif").html(`<span class=" h-6px w-6px position-absolute translate-middle top-0 start-50"> <span class="position-absolute top-0 start-100 translate-middle  badge badge-circle badge-primary">${msg}</span></span>`)
+					}
+				}
+			});
+		}
+
+		$(document).on('click', '.btn-read', function () {
+            let url=$(this).attr('data-url');
+			let id=$(this).attr('data-id');
+			let noRequest=$(this).attr('data-request');
+			
+			$.ajax({
+				type: "GET",
+				dataType: "html",
+				url: "/set-read/"+id,
+				data: '',
+				success: function(msg){
+					window.location.href = url+"&q="+noRequest;
+				}
+			});
+            
+        })
+		$(".btn-notif").click(function(){
+			$.ajax({
+				type: "GET",
+				dataType: "html",
+				url: "{{route('notif.list')}}",
+				data: '',
+				success: function(msg){
+					$("#notif-content").empty();
+					getAlertNotif();
+					$.each(JSON.parse(msg ), function( index, value ) {
+						let color='default';
+						if ((value.status.trim()=='APPROVED' || value.status.trim()=='DRAFT') && value.read===null){
+							 color='primary';
+						}
+						if (value.status.trim()=='REJECTED' && value.read===null){
+							color='danger';
+						}
+						
+						var html='<div class="d-flex bg-gray flex-stack py-4"><div class="d-flex align-items-center"><div class="symbol symbol-35px me-4"><span class="symbol-label bg-light-'+color+'"><i class="fas fa-bullhorn fs-2x text-'+color+'"></i></span></div><div class="mb-0 me-2"><a href="#" data-request="'+value.request_no+'" data-url="'+value.uri+'" data-id="'+value.id+'" class="btn-read	 fs-6 text-gray-800 text-hover-primary fw-bold">'+value.title+'</a><div class="text-gray-400 fs-7">'+value.message+'</div></div></div></div>';
+					$("#notif-content").append(html);
+					});
+				}
+			});
+		});
+	</script>
+
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+<script>
+var userId='{{auth?.user?.id}}';
+  const socket = io()
+  socket.on('receive-notif', (data) => {
+	if (data.userId==userId){
+		const toastElement = document.getElementById('kt_docs_toast_toggle');
+		const toast = bootstrap.Toast.getOrCreateInstance(toastElement);
+		$('#toast-body').html(data.message);
+		toast.show();
+		getAlertNotif();
+	}
+  })
+
+  function checkDecimal(value){
+    const myArray = value.split(".");
+    if (myArray[1]){
+      let numberDecimal = myArray[1];
+    if (numberDecimal.length > 0){
+      swal.fire("Dibatalkan", "1 digit decimal", "error");
+    }
+    }
+   return true;
+  }
+</script>
+</body>
+
+<!--end::Body-->
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notifikasi</title>
+</head>
+<body>
+    <h3>Yth, {{data.name}}</h3>
+    <h3>Anda memiliki 1 master data baru yang membutuhkan approval:</h3>
+    <p>No Request: {{data.noRequest}}</p>
+    <p>Master Data: {{data.masterData}}</p>
+    <p>Submitter: {{data.submitter}}</p>
+    <p>Tanggal Disubmit: {{data.submit_date}}</p>
+
+    <p>Mohon dilakukan pengecekan terhadap master data di atas dan melakukan approval pada link di bawah ini.</p>
+   <a href="http://mdm-1717698111.ap-southeast-3.elb.amazonaws.com/login" targe="_blank">mdm-1717698111.ap-southeast-3.elb.amazonaws.com</a>
+</body>
+</html>

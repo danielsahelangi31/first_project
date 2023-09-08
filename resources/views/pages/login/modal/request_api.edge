@@ -1,0 +1,153 @@
+<div class="modal fade modal-lg" tabindex="-1" id="request-api-modal">
+    <div class="modal-dialog">
+        <form method="POST" action="{{route('requestApi')}}" id="form-role">
+            {{ csrfField() }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">Request API</h3>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">Master Data</label>
+                        <select name="master_type_id" id="master_type_id" class="form-control form-select   selectpicker ">
+                            <option value=""> Choose</option>
+                            @each(masterTypeRow in dataType)
+                            <option value="{{masterTypeRow.id}}">{{masterTypeRow.master_name}}</option>
+                            @end
+                        </select>
+                    </div>
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">Institutions</label>
+                        <input type="text" class="form-control form-sm" name="institusi" id="institusi" placeholder="Institutions"/>
+                    </div>
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">Application's Name</label>
+                        <input type="text" class="form-control form-sm" name="app_name" id="app_name" placeholder="Application's Name"/>
+                    </div>
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">Name</label>
+                        <input type="text" class="form-control form-sm" name="name" id="name" placeholder="Name"/>
+                    </div>
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">Email</label>
+                        <input type="text" class="form-control form-sm" name="email" id="email" placeholder="Email"/>
+                    </div>
+                    <div class="mb-10">
+                        <label for="exampleFormControlInput1" class="required form-label">No. Handphone</label>
+                        <input type="text" class="form-control form-sm" name="phone" id="phone" placeholder="No. Handphone"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline btn-outline-primary "
+                        data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="saving" class="btn btn-primary mx-1" style="float:right;">Submit</button>
+                        <button id="trigger" type="submit" hidden></button>
+                    {{--  <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>  --}}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+$('#saving').click(function (e) {
+    Swal.fire({
+        title: `Apakah kamu yakin?`,
+        text:`jika Anda melanjutkan, Anda akan menyetujui semua data yang telah Anda isi`,
+        iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M76.125 43.5C76.125 25.4883 61.5117 10.875 43.5 10.875C25.4883 10.875 10.875 25.4883 10.875 43.5C10.875 61.5117 25.4883 76.125 43.5 76.125C61.5117 76.125 76.125 61.5117 76.125 43.5Z" stroke="#8CE02C" stroke-width="5.4375" stroke-miterlimit="10"/>
+        <path d="M59.8125 29.9062L36.975 57.0938L27.1875 46.2188" stroke="#8CE02C" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        `,
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: "Iya", 
+        cancelButtonText: 'Tidak',
+        reverseButtons: true,
+        customClass: {
+            icon: 'border-0',
+            confirmButton: "btn btn-primary",
+            cancelButton: 'btn btn-danger'
+        }          
+    }).then((result) => {
+            if(result.isConfirmed){
+                // $('#form-submit').submit()
+                $('#trigger').trigger('click')
+            }
+        })
+    }
+)
+
+
+
+$(document).ready($('#form-role').validate({
+rules: {
+    master_type_id: 'required',
+    institusi: 'required',
+    app_name:  'required',
+    name: 'required',
+    email: 'required',
+    phone: 'required'
+},
+messages: {
+    master_type_id: 'lengkapi bidang ini',
+    institusi: 'lengkapi bidang ini',
+    app_name: 'lengkapi bidang ini',
+    name: 'lengkapi bidang ini',
+    email: 'lengkapi bidang ini',
+    phone: 'lengkapi bidang ini'
+},
+submitHandler: function(form) {
+    let email = $('#email').val()
+    let masterType  = $('#master_type_id').val()
+    $.ajax({
+        type: "GET",
+        url: "/check-duplicate-api" + `?email=${email}&masterType=${masterType}`,
+        success: function(response) {
+            if(response === 'true') {
+                Swal.fire({
+                title: "<span style='color:#FF0000;'>Gagal</span>", 
+                html: `<strong>Request API Sudah Tersedia</strong>`,
+                icon:'error',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+                }).then(() => {
+                })
+            } else if(response === 'false') {
+                Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>Request API Berhasil Dibuat</strong>`,
+                icon:'success',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+                }).then(() => {
+                    form.submit()
+                })
+            }
+        }
+    })
+    
+
+}
+}))
+</script>
+
+<style>
+    .error {
+    color: red;
+    }
+</style>

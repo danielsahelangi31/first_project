@@ -1,0 +1,455 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* css header 2 start */
+  #progress-trans {
+    width:75px;
+    height:1px;
+    margin:20px -85px 0 10px;
+    z-index:1;
+  }
+  
+  #progress-page {
+    width:0%;
+    transition:width 1s;
+  }
+
+  .ball-step {
+    width:3rem;
+    height:3rem;
+  }
+
+  .titik-progress {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 5px;
+  }
+
+  #titik-progress-awal {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 10px;
+  }
+
+  #titik-progress-akhir {
+    width:5px;
+    height:1px;
+    margin:20px 10px 0 5px;
+  }
+
+  /* css header 2 end */
+  
+  /* css form start */
+  .title-form {
+    color:#045299;
+    padding-bottom:30px;
+  }
+
+  #kirim {
+    float:right;
+    display:none;
+  }
+
+  #kembali {
+    float:right;
+    margin-right:10px;
+  }
+
+  #draf {
+    float:right;
+    margin-right:20px;
+  }
+  /* css form end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header -->
+  @include('pages/master_dermaga/component/header.edge')
+  
+  <!-- stepper -->
+  @include('pages/master_dermaga/component/stepper.edge')
+
+  <!-- form start -->
+  <div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselDermaga" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h4 class="title-form">View General Information</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label for="kode-dermaga" class="form-label fw-bold">Kode Dermaga</label>
+                    <input type="text" class="form-control" id="kode-dermaga" value="{{ [null, 'null', ''].includes(data.kode_dermaga) ? '' : data.kode_dermaga }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="kode-area-labuh">Kode Area Labuh</label>
+                    <input type="text" id="kode-area-labuh" class="form-control input-kode" placeholder="Kode Area Labuh" value="{{ [null, 'null', ''].includes(data.kode_area_labuh) ? '' : data.kode_area_labuh }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-pelabuhan">Nama Pelabuhan<span style="color:red;">*</span></label>
+                    <input type="text" id="nama-pelabuhan" class="form-select" value="{{ [null, 'null', ''].includes(data.nama_pelabuhan) ? 'Select' : data.nama_pelabuhan }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jenis-perairan">Jenis Perairan</label>
+                    <input type="text" id="jenis-perairan" class="form-select" value="{{ [null, 'null', ''].includes(data.jenis_perairan) ? 'Select' : data.jenis_perairan }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-terminal">Nama Terminal<span style="color:red;">*</span></label>
+                    <input type="text" id="nama-terminal" class="form-select" value="{{ [null, 'null', ''].includes(data.nama_terminal) ? 'Select' : data.nama_terminal }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="tipe-layanan-utama">Tipe Layanan Utama<span style="color:red;">*</span></label>
+                    <input type="text" id="tipe-layanan-utama" class="form-select" value="{{ [null, 'null', ''].includes(data.tipe_layanan_utama) ? 'Select' : data.tipe_layanan_utama }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-dermaga">Nama Dermaga<span style="color:red;">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Penulisan untuk nama dermaga auto UPPERCASE. cth : TANJUNG PRIOK">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                          <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="nama-dermaga" class="form-control" placeholder="cth : TANJUNG PRIOK" value="{{ [null, 'null', ''].includes(data.nama_dermaga) ? '' : data.nama_dermaga }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="zonasi">Zonasi</label>
+                    <input type="text" id="zonasi" class="form-control" placeholder="Zonasi" value="{{ [null, 'null', ''].includes(data.zonasi) ? '' : data.zonasi }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jenis-dermaga">Jenis Dermaga<span style="color:red;">*</span></label>
+                    <input type="text" id="jenis-dermaga" class="form-select" value="{{ [null, 'null', ''].includes(data.jenis_dermaga) ? 'Select' : data.jenis_dermaga }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Layanan Dermaga<span style="color:red;">*</span></label>
+                    <div id="form-layanan-dermaga" class="d-flex flex-row mt-4">
+                      <div class="form-check me-8">
+                        <input class="form-check-input" type="checkbox" value="{{ data.layanan_labuh }}" id="layanan-labuh" onclick="checkBox(this)" {{ data.layanan_labuh == 1 ? 'checked' : '' }}  disabled>
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Labuh
+                        </label>
+                      </div>
+                      <div class="form-check me-8">
+                        <input class="form-check-input" type="checkbox" value="{{ data.layanan_tambat }}" id="layanan-tambat" onclick="checkBox(this)" {{ data.layanan_tambat == 1 ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Tambat
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label id="label-jenis-konstruksi" class="form-label fw-bold" for="jenis-konstruksi">Jenis Konstruksi</label>
+                    <input type="text" id="jenis-konstruksi" class="form-select" value="{{ [null, 'null', ''].includes(data.jenis_konstruksi) ? 'Select' : data.jenis_konstruksi }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="kode-dermaga-inaportnet">Kode Dermaga Inaportnet</label>
+                    <input type="text" id="kode-dermaga-inaportnet" class="form-control input-kode" value="{{ [null, 'null', ''].includes(data.kode_dermaga_inaportnet) ? '' : data.kode_dermaga_inaportnet }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <div class="col-12">
+                      <label id="label-pemilik" class="form-label fw-bold" for="pemilik">Pemilik</label>
+                      <input type="text" id="pemilik" class="form-control" placeholder="cth : PT ..." value="{{ [null, 'null', ''].includes(data.pemilik) ? '' : data.pemilik }}" disabled>
+                    </div>
+                    <br />
+                    <div class="col-12">
+                      <label id="label-status-milik" class="form-label fw-bold" for="status-milik">Status Milik</label>
+                      <input type="text" id="status-milik" class="form-select" value="{{ [null, 'null', ''].includes(data.status_milik) ? 'Select' : data.status_milik }}" disabled>
+                    </div>
+                    <br />
+                    <div class="col-12">
+                      <label class="form-label fw-bold" for="dokumen-pendukung">Dokumen Pendukung<span style="color:red;">*</span></label>
+                      @if(data.dokumen_pendukung)
+                        <a href="{{route('downloadFile',{id:data.dokumen_pendukung??''})}}" target="_blank">Previous File</a>
+                      @endif
+                      <input id="dokumen-pendukung" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg, .pdf" disabled>
+                      <input name="dokumen_pendukung_file" type="text" value="" hidden>
+                      <span class="form-text">*Max Size: 2 Mb, Format: PDF/JPG/JPEG/PNG</span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    @each (data_coordinate in data_coordinates)
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                        <div class="input-group">
+                          <input type="text" id="longitude" class="form-control longitude" placeholder="(LS) cth : 09° 49' - 10° 25'" value="{{ [null, 'null', ''].includes(data_coordinate.longitude) ? '' : data_coordinate.longitude }}" disabled>
+                          <span class="input-group-text" id="basic-addon2">LS</span>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Koordinat Bujur</label>
+                        <div class="input-group">
+                          <input type="text" id="latitude" class="form-control latitude" placeholder="(BT) cth : 106° 49' - 107° 00'" value="{{ [null, 'null', ''].includes(data_coordinate.latitude) ? '' : data_coordinate.latitude }}" disabled>
+                          <span class="input-group-text" id="basic-addon2">BT</span>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    @endeach
+                    @if(data_coordinates == '')
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                        <div class="input-group">
+                          <input type="text" id="longitude" class="form-control longitude" name="longitude[]" placeholder="(LS) cth : 09° 49' - 10° 25'" disabled>
+                          <span class="input-group-text" id="basic-addon2">LS</span>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Koordinat Bujur</label>
+                        <div class="input-group">
+                          <input type="text" id="latitude" class="form-control latitude" name="latitude[]" placeholder="(BT) cth : 106° 49' - 107° 00'" disabled>
+                          <span class="input-group-text" id="basic-addon2">BT</span>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                        <div class="input-group">
+                          <input type="text" id="longitude" class="form-control longitude" name="longitude[]" placeholder="(LS) cth : 09° 49' - 10° 25'" disabled>
+                          <span class="input-group-text" id="basic-addon2">LS</span>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Koordinat Bujur</label>
+                        <div class="input-group">
+                          <input type="text" id="latitude" class="form-control latitude" name="latitude[]" placeholder="(BT) cth : 106° 49' - 107° 00'" disabled>
+                          <span class="input-group-text" id="basic-addon2">BT</span>
+                        </div>
+                      </div>
+                    </div>
+                  @endif
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">View Spesifikasi</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="panjang">Panjang/Length (m)</label>
+                    <input type="text" id="panjang" class="form-control" placeholder="Panjang/Length (meter)" value="{{ [null, 'null', ''].includes(data.panjang) ? '' : data.panjang }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jarak-station-tunda">Jarak Station Kapal Tunda (nmi)<span style="color:red;">*</span></label>
+                    <input type="text" id="jarak-station-tunda" class="form-control desimal" placeholder="Jarak Station Kapal Tunda (nmi)" value="{{ [null, 'null', ''].includes(data.jarak_station_tunda) ? '' : data.jarak_station_tunda }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="lebar">Lebar/Width (m)</label>
+                    <input type="text" id="lebar" class="form-control" placeholder="Lebar/Width (meter)" value="{{ [null, 'null', ''].includes(data.lebar) ? '' : data.lebar }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jarak-station-pandu">Jarak Station Pandu (nmi)<span style="color:red;">*</span></label>
+                    <input type="text" id="jarak-station-pandu" class="form-control desimal" placeholder="Jarak Station Pandu (nmi)" value="{{ [null, 'null', ''].includes(data.jarak_station_pandu) ? '' : data.jarak_station_pandu }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-awal">Kade Meter Awal</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 300,05">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kade-meter-awal" class="form-control" placeholder="cth : 300,05" value="{{ [null, 'null', ''].includes(data.kade_meter_awal) ? '' : data.kade_meter_awal }}" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-akhir">Kade Meter Akhir</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 500,05">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kade-meter-akhir" class="form-control" placeholder="cth : 500,05" value="{{ [null, 'null', ''].includes(data.kade_meter_akhir) ? '' : data.kade_meter_akhir }}" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="overhang-start">Overhang Allowed at Start (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Panjang kapal yang melebihi ujung awal dermaga">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                          <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="overhang-at-start" class="form-control" placeholder="overhang allowed at start (meter)" value="{{ [null, 'null', ''].includes(data.overhang_at_start) ? '' : data.overhang_at_start }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kedalaman-minimal">Kedalaman Minimal (-mLWS)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan tanda negatif (-) dan 2 digit angka desimal (,) Contoh: -1000,07">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kedalaman-minimal" class="form-control" placeholder="cth : -1000,07" value="{{ [null, 'null', ''].includes(data.kedalaman_minimal) ? '' : data.kedalaman_minimal }}" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kedalaman-maximal">Kedalaman Maximal (-mLWS)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan tanda negatif (-) dan 2 digit angka desimal (,) Contoh: -2000,07">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kedalaman-maximal" class="form-control" placeholder="cth : -2000,07" value="{{ [null, 'null', ''].includes(data.kedalaman_maximal) ? '' : data.kedalaman_maximal }}" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="overhang-end">Overhang Allowed at End (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Panjang kapal yang melebihi ujung akhir dermaga">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                          <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="overhang-at-end" class="form-control" placeholder="overhang allowed at end (meter)" value="{{ [null, 'null', ''].includes(data.overhang_at_end) ? '' : data.overhang_at_end }}" disabled>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-awal">Elevasi Dermaga (m)</label>
+                        <input type="text" id="elevasi-dermaga-minimal" class="form-control" placeholder="Minimal Elevasi Dermaga" value="{{ [null, 'null', ''].includes(data.elevasi_dermaga_minimal) ? '' : data.elevasi_dermaga_minimal }}" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold invisible" for="kade-meter-akhir">Elevasi Dermaga (m)</label>
+                        <input type="text" id="elevasi-dermaga-maximal" class="form-control" placeholder="Maximal Elevasi Dermaga" value="{{ [null, 'null', ''].includes(data.elevasi_dermaga_maximal) ? '' : data.elevasi_dermaga_maximal }}" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="mob-demob">Mob / Demob (menit)<span style="color:red">*</span></label>
+                    <input type="text" id="mob-demob" class="form-control" placeholder="Mob / Demob (menit)" value="{{ [null, 'null', ''].includes(data.mob_demob) ? '' : data.mob_demob }}" disabled>
+                  </div>
+                </div>    
+              </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              <button id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+              <button id="kembali" class="btn btn-outline-primary border border-primary crsl-one" data-bs-target="#carouselDermaga" data-bs-slide-to="0">Back</button>
+              <button id="kembali-utama" class="btn btn-outline-primary border border-primary">Back to Main</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>
+  <!-- form end -->
+
+</div>
+
+<script>
+    $(document).ready(function() {
+
+      // rules jenis dermaga halaman edit
+      if(["dermaga umum", "dermaga khusus (duks)"].includes($("#jenis-dermaga").val().toLowerCase())) {
+        $("#label-pemilik").html("Pemilik<span style='color:red'>*</span>");
+        $("#label-status-milik").html("Status Milik<span style='color:red'>*</span>");
+        $("#label-jenis-konstruksi").html("Jenis Konstruksi<span style='color:red'>*</span>");
+        // $("#kode-area-labuh").prop("disabled", true);
+        // $("#layanan-labuh").prop("checked", false);
+        // $("#layanan-labuh").val(0);
+        // $("#layanan-tambat").prop("checked", true);
+        // $("#layanan-tambat").val(1);
+      } else {
+        $("#label-pemilik").html("Pemilik");
+        $("#label-status-milik").html("Status Milik");
+        $("#label-jenis-konstruksi").html("Jenis Konstruksi");
+        // $("#kode-area-labuh").prop("disabled", false);
+        // if($("#jenis-dermaga").attr("data-placeholder") == "Area Labuh") {
+        //   $("#layanan-labuh").prop("checked", true);
+        //   $("#layanan-labuh").val(1);
+        // } else {
+        //   $("#layanan-labuh").prop("checked", false);
+        //   $("#layanan-labuh").val(0);
+        // }
+        // $("#layanan-tambat").prop("checked", false);
+        // $("#layanan-tambat").val(0);
+      }
+
+      // ketika tombol kembali ditekan
+      $("#kembali").click(function() {
+        $('#ball-step-2').removeClass('btn-primary');
+        $('#ball-step-2').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#kirim').css('display', 'none');
+        $("#selanjutnya").css('display', '');
+      });
+
+      // ketika tombol selanjutnya
+      $("#selanjutnya").click(function() {
+        $("#carouselDermaga").carousel(1); 
+        $('#ball-step-2').removeClass('btn-secondary');
+        $('#ball-step-2').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#kirim').css('display', 'block');
+        $(this).css('display', 'none');
+      });
+
+      // ketika tombol kembali ditekan
+      $("#ball-step-1").click(function() {
+        $("#carouselDermaga").carousel(0);
+        $('#ball-step-2').removeClass('btn-primary');
+        $('#ball-step-2').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#kirim').css('display', 'none');
+        $("#selanjutnya").css('display', '');
+      });
+
+      // ketika tombol selanjutnya
+      $("#ball-step-2").click(function() {
+        $("#carouselDermaga").carousel(1); 
+        $('#ball-step-2').removeClass('btn-secondary');
+        $('#ball-step-2').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#kirim').css('display', 'block');
+        $("#selanjutnya").css('display', 'none');
+      });
+
+      // ketika tombol kembali ke hal.utama ditekan
+      $("#kembali-utama").click(function() {
+        window.location.assign(`{{ route('MasterDermagasController.index') }}`)
+      })
+      
+
+    });
+    
+    function coordinates() {
+      let dataCoordinates = []
+      let longitude =  Array.from(document.querySelectorAll("input[name='longitude[]']"), input => input.value);
+      let latitude =  Array.from(document.querySelectorAll("input[name='latitude[]']"), input => input.value);
+      let line_number = []
+      longitude.forEach((val, index) => {
+        dataCoordinates.push(
+          {
+            'longitude' : val,
+            'latitude' : latitude[index],
+            'line_number' : index+1
+          }
+        )
+      });
+      return dataCoordinates
+    }
+</script>
+
+@endsection

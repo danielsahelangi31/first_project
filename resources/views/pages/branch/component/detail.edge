@@ -1,0 +1,144 @@
+<div class="scroll h-300px px-5">
+    <div class="card-header mb-5">
+        <h3 class="card-title text-primary">Informasi Pelabuhan</h3>
+      </div>
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Negara<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" id="country" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Provinsi<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" id="provinsi" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Nama Pelabuhan<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" value="" name="port_name" id="port_name"
+            placeholder="Nama Pelabuhan" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Status/Kelas</label>
+          <input type="text" class="form-control form-sm" value="" id="kelas_pelabuhan" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Kode Pelabuhan<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" value="" name="port_code" id="port_code"
+            placeholder="Kode Pelabuhan" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Perairan Pelabuhan</label>
+          <input type="text" class="form-control form-sm" value="" id="perairan_pelabuhan" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Nama Regional<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" value="" id="kode_regional" readonly/>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">DLKR (m2)</label>
+          <input type="text" class="form-control form-sm" name="luas_daratan" id="luas_daratan"
+            placeholder="DLKR (m2)" value=""   readonly/>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-bold">DLKP (m2)</label>
+          <input type="text" class="form-control form-sm" name="luas_perairan" id="luas_perairan"
+            placeholder="DLKP (m2)" value="" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Cabang Lokasi Kerja<span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-sm" value="" name="name" id="cabang" placeholder="Cabang Lokasi Kerja" readonly/>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Kode Perairan</label>
+          <input type="text" class="form-control form-sm" value="" name="kode_perairan" id="kode_perairan"
+            placeholder="Kode Perairan" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Jenis Pelabuhan</label>
+          <input type="text" class="form-control form-sm" value="" id="jenis_pelabuhan" readonly/>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Koordinat</label>
+          <input type="text" class="form-control form-sm" value="" id="lng" readonly/>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold"></label>
+          <input type="text" class="form-control form-sm" value="" id="lat" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Kode UN/LOCODE</label>
+          <input type="text" class="form-control form-sm" value=""  name="kode_kemenhub" id="kode_kemenhub"
+            placeholder="Kode UN/LOCODE" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Kedalaman Alur (-mLWS)<span class="text-danger">*</span></label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" class="form-control form-sm" name="kedalaman_min"  value="" id="kedalaman_min"
+                placeholder="Minimum" readonly/>
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-sm" name="kedalaman_max" value=""  id="kedalaman_max"
+                placeholder="Maximum" readonly/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+              <div class="col-md-6">
+                     <label class="form-label fw-bold required">Rencana Induk Pelabuhan</label>
+                     <br>
+             <span id="rencana_induk_file"></span>
+              </div>
+               <div class="col-md-3">
+               <label class="form-label fw-bold ">Panjang Alur (nmi)</label>
+                  <input type="text" class="form-control form-sm" name="panjang_alur" value=""  id="panjang_alur"
+                    placeholder="Panjang Alur (nmi)" readonly/>
+                </div>
+                <div class="col-md-3">
+                <label class="form-label fw-bold ">Lebar Alur (m)</label>
+                    <input type="text" class="form-control form-sm" name="lebar_alur" value=""  id="lebar_alur"
+                      placeholder="Lebar Alur (m)" readonly/>
+                  </div>
+
+
+
+            </div>
+
+            <div class="row mb-5">
+                          <div class="col-md-6">
+                                 <label class="form-label fw-bold ">Alamat Pelabuhan</label>
+                                <textarea  class="form-control form-sm" name="address"  id="address"
+                                                     placeholder="Alamat Pelabuhan" readonly></textarea>
+                          </div>
+                        </div>
+
+
+</div>

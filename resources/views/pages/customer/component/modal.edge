@@ -1,0 +1,1117 @@
+
+<div class="modal fade modal-xl" id="ApproveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">View Master Data Customer</h1>
+          <button type="button" id="tutupModalApprove" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex">
+            <img src="/media/peralatan/circle-gear.svg" alt="" srcset="">
+            <div class="mx-5">
+              Requested By <br>
+              <strong>Master Data Customer</strong><br>
+              <span class="name_request"></span>
+            </div>
+            <div style="border-left: 1px solid #C0C0C0;"></div>
+            <div class="mx-3">
+              <br><strong>Departemen</strong> <br>
+              <span class="dept_request"></span>
+            </div>
+            <div style="border-left: 1px solid #C0C0C0;"></div>
+            <div class="mx-3">
+              <br><strong>Tanggal</strong><br>
+              <span class="date_request"></span>
+            </div>
+          </div>
+          {{--  <div class="d-flex">
+            
+          </div>  --}}
+          <hr>
+          <h4>Detail Master Data Customer</h4>
+          @include('pages/customer/component/stepper')
+          <div class="card-body border-top p-9">
+            <div id="carouselCustomer" class="carousel slide" data-wrap="false" data-interval="false">
+              <div class="carousel-inner">
+                {{--  NPWP  --}}
+                <div class="carousel-item active">
+                  <h4 class="title-form">View NPWP</h4>
+                  <div class="form-group row">
+                    <div class="col-6">
+                      <div class="my-auto">
+                          <label class="form-label fw-bold">Format NPWP/NIK/TAX ID</label>
+                          <input disabled name="npwp-type" id="npwp-type"class="form-control" placeholder="Format NPWP/NIK/TAX ID"></input> 
+                      </div>
+                      <div class="my-5 form-group">
+                        <label class="form-label fw-bold">NPWP/NIK/TAX ID Number<span class="text-danger">*</span>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="*NPWP wajib untuk seluruh badan usaha (UMKM dapat menggunakan NPWP pemilik usaha)">
+                                <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                            </span>
+                        </label>
+                          <div>
+                            <div class="input-group" >
+                              <input id="npwp_number" type="text" maxlength="16" class="npwp_number form-control" aria-label="npwp" aria-describedby="basic-addon2" placeholder="NPWP Number" name="npwp_number"/>
+                              <button id="npwp_check button-addon2" disabled class="npwp_check btn btn-sm btn-sm-light border border-primary" type="button">Check</button>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="my-auto">
+                          <label class="form-label fw-bold">NPWP/NIK/TAX Name <span class="text-danger">*</span>
+                              <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="*Masukkan NPWP Name sesuai dengan kartu NPWP">
+                                  <span class="badge rounded-pill bg-light border border-secondary">
+                                      <span class="text-black">?</span>
+                                  </span>
+                              </span>
+                          </label>
+                          <input disabled id="npwp_name" type="text" class="form-control" maxlength="50" placeholder="NPWP Name" name="npwp_name"/>
+                      </div>
+                      <div class="my-5">
+                          <label class="form-label fw-bold" for="npwp_address">NPWP/NIK/TAX address<span class="text-danger">*</span>
+                              <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                      data-bs-content="*Masukkan NPWP Address sesuai dengan kartu NPWP">
+                                  <span class="badge rounded-pill bg-light border border-secondary">
+                                      <span class="text-dark">?</span>
+                                  </span>
+                              </span>
+                          </label>
+                          <textarea disabled placeholder="NPWP address" class="form-control" id="npwp_address" rows="5" style="resize: none" name="npwp_address"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{--  Customer Info  --}}
+                <div class="carousel-item">
+                  <h4 class="title-form">View Customer Information</h4>
+                  <div class="form-group row">
+                    <div class="col-6">
+                      {{--  begin:: parent radio  --}}
+                      <div class="my-auto">
+                        <div class="col-lg-4 form-check form-check-inline">
+                            <input disabled name="parent" class="form-check-input parent-radio" type="radio" id="parent-radio" value="1">
+                            <label class="form-check-label" for="inlineRadio1">Parent Company</label>
+                        </div>
+                        <div class="col-lg-4 form-check form-check-inline">
+                            <input disabled name="parent" class="form-check-input parent-radio" type="radio" id="parent-radio-2" value="2">
+                            <label class="form-check-label" for="inlineRadio2">Affiliation Company</label>
+                        </div>
+                      </div>
+                      {{--  end:: parent radio  --}}
+                      {{--  begin:: nama perusahaan  --}}
+                      <div class="my-4  ">
+                        <label class="form-label fw-bold">Nama Perusahaan<span class="text-danger">*</span>
+                          <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="SOP Penulisan Nama Perusahaan:
+                                  - Hanya tulis nama perusahaan, tanpa tanda baca
+                                  - Tanpa penyebutan jenis perusahaan (Contoh: PT / CV / Persero / TBK)
+                                  - Contoh format penulisan yang benar: Pelabuhan Indonesia">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                          </span>
+                        </label>
+                        <input disabled id="company_name" name="company_name" type="text" class="form-control" placeholder="Company Name"/>
+                        <div class="checkbox-inline">   
+                            <label class="checkbox checkbox-rounded">
+                                <input id="tp-nm-perusahaan-1" disabled value="1" class="type-nama-perusahaan" name="type-nama-perusahaan" type="checkbox" />
+                                <span></span>
+                                Persero
+                            </label>
+                            <label class="checkbox checkbox-rounded">
+                                <input id="tp-nm-perusahaan-2" disabled value="2" class="type-nama-perusahaan" name="type-nama-perusahaan" type="checkbox"/>
+                                <span></span>
+                                Tbk
+                            </label>
+                        </div>
+                      </div>
+                      {{--  end:: nama perusahaan  --}}
+                      {{--  begin:: customer type  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Customer Type<span class="text-danger">*</span>
+                          <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="1. Pelanggan : pengguna jasa berbadan hukum / perorangan yang menggunakan jasa serta fasilitas pelabuhan yang dimiliki oleh PT Pelabuhan Indonesia (Persero) dalam melakukan kegiatan usaha di Pelabuhan 
+                              2. Mitra : Pihak yang bekerjasama dengan PT Pelabuhan Indonesia (Persero) dalam hal pengelolaan aset, penyertaan aset, dan kerjasama yang berkaitan dengan SK Kerjasama Usaha / Rupa-rupa usaha yang ada pada PT Pelabuhan Indonesia (Persero)
+                              3. Pelanggan dan Mitra : Mitra juga sebagai Pelanggan dan sebaliknya
+                              ">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                          </span>
+                        </label>
+                        <input disabled id="customer_type" name="id_customer_type" class="form-control" placeholder="Customer Type" ></input>
+                      </div>
+                      {{--  end:: customer type  --}}
+                      {{--  begin:: type Usaha Pelanggan  --}}
+                      <div class="my-5">
+                        <div id="id_customer">
+                          <label class="form-label fw-bold">Tipe Usaha Pelanggan<span style="display: none" class="tipe-usaha-bullet text-danger">*</span></label>
+                          <input disabled id="usaha_pelanggan"  name="id_customer[]" class="form-control" placeholder="Tipe Usaha Pelanggan"></input>
+                        </div>
+                      </div>
+                      {{--  end:: type Usaha Pelanggan  --}}
+                      {{--  begin:: tipe usaha Mitra  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Tipe Usaha Mitra<span style="display: none" class="usaha-mitra-bullet text-danger">*</span></label>
+                        <input disabled id="mitra"  name="id_mitra[]" class="form-control" placeholder="Tipe Usaha Mitra"></input>
+                      </div>
+                      {{--  end:: tipe usaha Mitra  --}}
+                      {{--  begin:: tipe shiping line  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Tipe Shipping Line<span style="display: none" class="tipe-shipping-bullet text-danger">*</span></label>
+                        <input disabled id="shipping_line"  name="id_shipping_line[]" class="form-control" placeholder="Tipe Shipping Line"></input>
+                      </div>
+                      {{--  end:: tipe shiping line  --}}
+                      {{--  begin:: tipe cargo owner  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Tipe Cargo Owner<span style="display: none" class="cargo-owner-bullet text-danger">*</span></label>
+                        <input disabled id="cargo_owner"  name="id_cargo_owner[]" class="form-control" placeholder="Tipe Cargo Owner"></input>
+                      </div>
+                      {{--  end:: tipe cargo owner  --}}
+                      {{--  begin:: customer group  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Customer Group<span class="text-danger">*</span></label>
+                        <input disabled id="customer_group"  name="id_customer_group[]" class="form-control" placeholder="Customer Group"></input>
+                      </div>
+                      {{--  end:: customer group  --}}
+                      {{--  begin:: bentuk usaha  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Bentuk Usaha<span class="text-danger">*</span></label>
+                        <input disabled id="bentuk_usaha"  name="id_bentuk_usaha[]" class="form-control" placeholder="Bentuk Usaha"></input>
+                      </div>
+                      {{--  end:: bentuk usaha  --}}
+                      {{--  start:: principle  --}}
+                      <div id="principle-form" style="display:none" class="my-5">
+                          <label class="form-label fw-bold">Principle</label>
+                          <input disabled class="form-control" id="principle" onkeypress="return /[a-z0-9]/i.test(event.key)" type="text" maxlength="50">
+                      </div>
+                      {{--  end:: principle  --}}
+                      {{--  begin:: jenis Layanan  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Jenis Layanan<span class="text-danger">*</span></label>
+                        <input disabled id="jenis_layanan"  name="id_jenis_layanan[]" class="form-control" placeholder="Jenis Layanan"></input>
+                      </div>
+                      {{--  end:: jenis Layanan  --}}
+                      {{--  begin:: perusahaan bebas pajak  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Perusahaan Bebas Pajak</label>
+                        <radio class="d-flex">
+                          <div class="">
+                            <input id="pajak-1" disabled type="radio" class="form-check-input" value="1" name="bebas_pajak">
+                            <label for="">Iya</label>
+                          </div>
+                          <div class="mx-3">
+                            <input id="pajak-2" disabled type="radio" class="form-check-input" value="2" name="bebas_pajak">
+                            <label for="">Tidak</label>
+                          </div>
+                        </radio>
+                      </div>
+                      {{--  end:: perusahaan bebas pajak  --}}
+                      {{--  begin:: parent customer  --}}
+                      <div id="parent_customer" style="margin-top: 3.12rem">
+                        <label class="form-label fw-bold">Parent Customer<span class="text-danger">*</span></label>
+                        <input disabled id="parent_company"  name="id_parent_company[]" class="form-control" placeholder="Parent Customer"></input>
+                      </div>
+                      {{--  end:: parent customer  --}}
+                    </div>
+                    <div class="col-6">
+                      {{--  begin:: email  --}}
+                      <div style="margin-top: 3.12rem">
+                        <label class="form-label fw-bold">Email<span class="text-danger">*</span></label>
+                        <input disabled id="customer_email" name="email" type="email" class="form-control" placeholder="Email" />
+                      </div>
+                      {{--  end:: email  --}}
+                      {{--  begin:: phone  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Phone<span class="text-danger">*</span></label>
+                        <input disabled name="phone" id="phone" type="text" class="form-control" placeholder="Phone" maxlength="12" onkeypress="return /[0-9]/i.test(event.key)"/>
+                      </div>
+                      {{--  end:: phone  --}}
+                      {{--  begin:: country  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Country<span class="text-danger">*</span></label>
+                        <input disabled id="country" name="country" type="text" class="form-control" placeholder="Country" />
+                      </div>
+                      {{--  end:: country  --}}
+                      {{--  begin:: area  --}}
+                      <label class="form-label fw-bold">Area</label>
+                      <input disabled id="postal_code" name="postal_code" type="text" class="form-control" placeholder="Area" />
+                      {{--  end:: area  --}}
+                      {{--  begin:: address  --}}
+                      <div class="my-5">
+                        <label for="exampleTextarea" class="form-label fw-bold">Address<span class="text-danger">*</span></label>
+                        <textarea disabled id="customer_address" name="address" class="form-control" id="exampleTextarea" rows="2" style="resize: none"></textarea>
+                      </div>
+                      {{--  end:: address  --}}
+                      {{--  begin:: First registration  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">First Registration Branch</label>
+                        <input disabled id="branch_id" name="branch_id" type="text" class="form-control" placeholder="First Registration Branch" />
+                      </div>
+                      {{--  end:: First registration  --}}
+                      {{--  begin:: joining since --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Joining Since</label>
+                        <input disabled name="joining_since" id="joining_since" type="date" class="form-control" placeholder="Joining Since"/>
+                      </div>
+                      {{--  end:: joining since --}}
+                      {{--  begin:: company-birthday  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Company Birthday</label>
+                        <input disabled name="company_birthday" id="company_birthday" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>                      {{--  end:: company-birthday  --}}
+                      </div>
+                      {{--  end:: company-birthday  --}}
+                      {{--  begin:: company establishment  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Company Establishment Date</label>
+                        <input disabled name="company_est" id="company_est" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>
+                      </div>
+                      {{--  end:: company establishment  --}}
+                      {{--  begin:: pimpinan perusahaan  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Pimpinan Perusahaan</label>
+                        <input disabled name="company_head" id="company_head" type="text" class="form-control" name="date" placeholder="Pimpinan Perusahaan"/>
+                      </div>
+                      {{--  end:: pimpinan perusahaan  --}}
+                      {{--  begin:: brithday pimpinan  --}}
+                      <div class="my-5">
+                        <label class="form-label fw-bold">Birthday Pimpinan Perusahaan</label>
+                        <input disabled name="company_head_birthday" id="company_head_birthday" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>
+                      </div>
+                      {{--  end:: brithday pimpinan  --}}
+                    </div>
+                  </div>  
+                </div>
+                {{--  Contact  --}}
+                <div class="carousel-item">
+                  <div id="contact-item">
+                      <div class="card mt-5 mb-xl-10 bg-white">
+                          <div class="card-body border-top p-9">
+                              {{--  begin:: form title  --}}
+                              <div class="row justify-content-lg-between">
+                                  <div class="col-lg-6">
+                                      <h2 class="text-primary">View Contact Person</h2>
+                                  </div>
+                              </div>
+                              {{--  end:: form title  --}}
+                              <div class="d-flex flex-lg-column flex-row-fluid">
+                                  <div class="card-body">
+                                      <div class="form-group row mb-3">
+                                          {{--  begin:: contact-name  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Contact Name<span class="text-danger">*</span></label>
+                                              <input disabled id="contact_name" type="text" class="contact_name form-control" placeholder="Contact Name" name="contact_name[]" />
+                                          </div>
+                                          {{--  end:: contact-name  --}}
+                                          {{--  begin:: email  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Email<span class="text-danger">*</span></label>
+                                              <input disabled id="email_contact" type="email" class="email_contact form-control" placeholder="Email" name="email_contact[]" />
+                                          </div>
+                                          {{--  end:: email  --}}
+                                      </div>
+                                      <div class="form-group row mb-3">
+                                          {{--  begin:: position  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Position<span class="text-danger">*</span></label>
+                                              <input disabled id="position" type="text" class="position form-control" placeholder="Position" name="position[]" />
+                                          </div>
+                                          {{--  end:: position  --}}
+                                          {{--  begin:: mobile  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Mobile/Handphone<span class="text-danger">*</span></label>
+                                              <input disabled id="mobile" type="text" class="mobile form-control" placeholder="Mobile/Handphone" name="mobile_phone[]" />
+                                          </div>
+                                          {{--  end:: mobile  --}}
+                                      </div>
+                                      <div class="form-group row mb-3">
+                                          <div class="col-lg-6">
+                                              {{--  begin:: phone  --}}
+                                              <div>
+                                                  <label class="form-label fw-bold">Phone</label>
+                                                  <input disabled id="contact_phone" type="text" class="contact_phone form-control" placeholder="Phone" name="phone_contact[]" maxlength="12"/>
+                                              </div>
+                                              {{--  end:: phone  --}}
+                                              {{--  begin:: location  --}}
+                                              <div class="mt-3">
+                                                  <label class="form-label fw-bold">Location<span class="text-danger">*</span></label>
+                                                  <input disabled id="contact_branch_id" name="contact_branch_id[]" class="form-control" placeholder="Location" >
+                                              </div>
+                                              {{--  end:: location  --}}
+                                          </div>
+                                          {{--  begin:: address  --}}
+                                          <div class="col-lg-6">
+                                              <label for="exampleTextarea" class="form-label fw-bold">Address<span class="text-danger">*</span></label>
+                                              <textarea disabled id="contact_address" class="contact_address form-control" rows="5" style="resize: none" name="address_contact[]" ></textarea>
+                                          </div>
+                                          {{--  end:: address  --}}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                {{--  Billing  --}}
+                <div class="carousel-item">
+                  <div id="billing-item">
+                    <div class="card mt-5 mb-xl-10 bg-white">
+                        <div class="card-body border-top p-9">
+                            {{--  begin:: title form  --}}
+                            <div class="row justify-content-lg-between">
+                                <div class="col-lg-6">
+                                    <h2 class="text-primary">View NPWP Account</h2>
+                                </div>
+                            </div>
+                            {{--  end:: title form  --}}
+                            <div class="d-flex flex-lg-column flex-row-fluid">
+                                <div class="card-body">
+                                    <div class="form-group row mb-3">
+                                        {{--  begin:: npwp  --}}
+                                        <div class="col-lg-6">
+                                            <label class="form-label fw-bold">NPWP Number<span class="text-danger">*</span></label>
+                                            <input disabled type="text" id="npwp_billing" class="billing_npwp form-control" name="billing_npwp_number[]" placeholder="NPWP Number">                                          
+                                        </div>
+                                        {{--  end:: npwp  --}}
+                                        {{--  begin: address npwp account  --}}
+                                        <div class="col-lg-6">
+                                          <label class="form-label fw-bold">NPWP Address<span class="text-danger">*</span></label>
+                                          <input disabled type="text" id="npwp-account-address" class="npwp-account-address form-control" name="npwp-account-address[]" placeholder="address">
+                                        </div>
+                                        {{--  end: address npwp account  --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>                  
+                </div>
+                {{--  Document  --}}
+                <div class="carousel-item">
+                  <div class="card-body border-top p-9">
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                      <h2 class="text-primary">View Document Support</h2>
+                    </div>
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                      <div class="card-body">
+                          <div class="form-group row mb-3">
+                              {{--  begin:: SPMP  --}}
+                              <div class="col-lg-6">
+                                      <label class="form-label fw-bold">Surat Permohonan menjadi pelanggan<span class="text-danger">*</span></label>
+                                      <input id="spmp" name="spmp" type="text" disabled class="form-control" 
+                                      accept="image/png, image/jpeg, image/jpg, .pdf"
+                                      placeholder="Surat Permohonan menjadi pelanggan" 
+                                      />
+                                      <input name="spmp_file" type="text" value="" hidden>
+                                      <span class="text-muted">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                                      <span class="error-msg"></span>
+                              </div>
+                              {{--  end:: SPMP  --}}
+                              {{--  begin:: KTP pemimpin  --}}
+                              <div class="col-lg-6">
+                                    <label class="form-label fw-bold">KTP pemimpin perusahaan<span class="text-danger">*</span></label>
+                                    <input id="ktp_pemimpin_perusahaan" name="ktp_pemimpin_perusahaan" type="text" disabled class="form-control" placeholder="Surat Permohonan menjadi pelanggan"
+                                    accept="image/png, image/jpeg, image/jpg, .pdf" 
+                                    />
+                                    <input name="ktp_pemimpin_perusahaan_file" type="text" value="" hidden>
+                                    <span class="text-muted">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                                    <span class="error-msg"></span>
+                              </div>
+                              {{--  end:: KTP pemimpin  --}}
+                          </div>
+                          <div class="form-group row mb-3">
+                              <div class="col-lg-6">
+                                  <label class="form-label fw-bold">Surat Keterangan Domisili<span class="text-danger">*</span></label>
+                                  <input id="ket_domisili" name="ket_domisili" type="text" disabled class="form-control" placeholder="Surat Permohonan menjadi pelanggan"
+                                  accept="image/png, image/jpeg, image/jpg, .pdf" 
+                                  />
+                                  <input name="ket_domisili_file" type="text" value="" hidden>
+                                  <span class="text-muted">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                                  <span class="error-msg"></span>
+                              </div>
+
+                            <div class="col-lg-6">
+                                <div class="row">
+                                <label class="form-label fw-bold">Tanggal Expired Document<span class="text-danger">*</span></label>
+                                <input id="exp_ket_domisili" type="date" disabled class="exp_document form-control" name="exp_ket_domisili" placeholder="Tanggal Expired Document" /> 
+                                <span class="error-msg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">KTP penanggung jawab perusahaan<span class="text-danger">*</span></label>
+                                <input id="ktp_pic" name="ktp_pic" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="KTP pemimpin perusahaan" />
+                                <input name="ktp_pic_file" type="text" value="" hidden>
+                                <span class="text-muted">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6"></div>
+                        </div>
+                        <h4 class="fw-bold my-5">Surat Ijin Operasional dari Instansi Berwenang</h4>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">SIUPAL/SIUPKK</label>
+                                <input id="siupal_siupkk" name="siupal_siupkk" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="SIUPAL/SIUPKK"/>
+                                <input name="siupal_siupkk_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                <input id="exp_siupal_siupkk" type="date" disabled class="exp_document form-control" name="exp_siupal_siupkk"
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="Tanggal Expired Document"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">PMKU</label>
+                                <input disabled id="pmku" name="pmku" type="text"  
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                class="form-control" placeholder="PMKU"/>
+                                <input name="pmku_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">No. PMKU</label>
+                                <input disabled id="pmku_number" name="pmku_number" type="text" class="form-control" placeholder="No. PMKU" data-inputmask="'mask': 'AAAA.AAAAA.9999.999999'"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">SIUPBM</label>
+                                <input id="siupbm" name="siupbm" type="text" disabled 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                class="form-control" placeholder="SIUPBM"/>
+                                <input name="siupbm_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                <input id="exp_siupbm" name="exp_siupbm" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">SIUP/NIB</label>
+                                <input id="siup_nib" name="siup_nib" type="text" disabled 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                class="form-control" placeholder="SIUP/NIB"/>
+                                <input name="siup_nib_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                <input id="exp_siup_nib" name="exp_siup_nib" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Akta Pendirian Perusahaan & Perubahan</label>
+                                <input id="akta_perusahaan" name="akta_perusahaan" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="Akta Pendirian Perusahaan & Perubahan"/>
+                                <input name="akta_perusahaan_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Keterangan/Referensi Bank</label>
+                                <input id="reff_bank" name="reff_bank" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="Keterangan/Referensi Bank"/>
+                                <input name="reff_bank_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span> 
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">NPWP<span style="display:none" class="npwp-bullet text-danger">*</span></label>
+                                <input id="npwp_upload" name="npwp_upload" type="text" disabled class="form-control"
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="NPWP"/>
+                                <input name="npwp_upload_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">PKP (Perusahaan Kena Pajak) atau Non PKP</label>
+                                <input id="pkp_non_pkp" name="pkp_non_pkp" type="text" disabled class="form-control"
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="PKP (Perusahaan Kena Pajak) atau Non PKP"/>
+                                <input name="pkp_non_pkp_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span> 
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Surat Rekomendasi Asosiasi</label>
+                                <input id="rek_asosiasi" name="rek_asosiasi" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="Surat Rekomendasi Asosiasi"/>
+                                <input name="rek_asosiasi_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                          <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-7">
+                                    <label class="form-label fw-bold">SKTD</label>
+                                    <input disabled id="sktd" name="sktd" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="SKTD"/>
+                                    <input name="sktd_file" type="text" value="" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                                </div>
+                                <div class="col-5">
+                                    <label class="form-label fw-bold">Nomor SKTD</label>
+                                    <input disabled name="no_sktd" id="no_sktd" type="text" maxlength="50" class=" form-control" placeholder="No SKTD"/> 
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="row">
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Tanggal Mulai Berlaku</label>
+                                <input disabled id="start_sktd" name="start_sktd" type="date" class="form-control" placeholder="Tanggal Mulai Berlaku"/> 
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                <input disabled id="exp_sktd" name="exp_sktd" type="date" class="form-control" placeholder="Tanggal Expired Document"/> 
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">COR/DGT Form dan Competent of Authority (untuk perusahaan asing)<span class="text-danger">*</span></label>
+                                <input id="cor_dgt" name="cor_dgt" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="COR/DGT Form dan Competent of Authority(untuk perusahaan asing)"/>
+                                <input name="cor_dgt_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                <input id="exp_cor_dgt" name="exp_cor_dgt" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                            </div>
+                        </div>  
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Surat Izin pengelolaan</label>
+                                <input id="surat_pengelolaan" name="surat_pengelolaan" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="Surat Izin Pengelolaan"/>
+                                <input name="surat_pengelolaan_file" id="surat_pengelolaan_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                <input id="exp_surat_pengelolaan" name="exp_surat_pengelolaan" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                            </div>
+                        </div>  
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">SKPT</label>
+                                <input id="skpt" name="skpt" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="SKPT"/>
+                                <input id="skpt_file" name="skpt_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                <input id="exp_skpt" name="exp_skpt" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                            </div>
+                        </div>  
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">SIOPSUS</label>
+                                <input id="siopsus" name="siopsus" type="text" disabled class="form-control" 
+                                accept="image/png, image/jpeg, image/jpg, .pdf"
+                                placeholder="siopsus"/>
+                                <input id="siopsus_file" name="siopsus_file" type="text" value="" hidden>
+                                <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF/JPG/JPEG/PNG</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                <input id="exp_siopsus" name="exp_siopsus" type="date" disabled class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                <input id="no-request"type="text" value="" hidden>
+                            </div>
+                        </div>  
+                    </div>
+                  </div>
+                </div>                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer row">
+        <hr>
+        <div class="col-12">
+          @include('pages/approval_history/history')
+        </div>
+        @include('pages/approval_history/log')
+        <label for="noteApproval" class="form-label">Notes<span style="color:red;">*</span></label>
+        <textarea class="form-control" id="noteApprovalReject" rows="3"></textarea>
+        <div>
+          <button disabled style="float:right" class="btn btn-primary" id="submit-approve">Approve</button>
+          <input type="hidden" id="id-submit-approve" value="">
+          <button disabled style="float:right" type="button" class="btn btn-danger mx-3" id="submit-reject">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // next
+
+  
+  
+  //stepper button
+  $("#ball-step-1").click(function() {
+      carouselVal = 0
+      $("#carouselCustomer").carousel(0);
+      $('#ball-step-2').removeClass('btn-primary');
+      $('#ball-step-2').addClass('btn-secondary');
+      $('#teks-spesification').removeClass('text-primary');
+      $('#teks-spesification').addClass('text-secondary');
+      $('#progress-page').css('width', '0%');
+      $('#ball-step-3').removeClass('btn-primary');
+      $('#ball-step-3').addClass('btn-secondary');
+      $('#ball-step-4').removeClass('btn-primary');
+      $('#ball-step-4').addClass('btn-secondary');
+      $('#ball-step-5').removeClass('btn-primary');
+      $('#ball-step-5').addClass('btn-secondary');
+      $('#teks-spesification1').removeClass('text-primary');
+      $('#teks-spesification1').addClass('text-secondary');
+      $('#teks-spesification2').removeClass('text-primary');
+      $('#teks-spesification2').addClass('text-secondary');
+      $('#teks-spesification3').removeClass('text-primary');
+      $('#teks-spesification3').addClass('text-secondary');
+      $('#progress-page1').css('width', '0%');
+      $('#progress-page2').css('width', '0%');
+      $('#progress-page3').css('width', '0%');
+      $('#kirim').css('display', 'none');
+      $('#kembali').css('display', 'none');
+      $("#selanjutnya").css('display', '');
+  })
+
+  $("#ball-step-2").click(function() {
+    // validationGeneralInfo()
+      carouselVal = 1
+      buttonValidation(2);
+      $("#carouselCustomer").carousel(1); 
+      $('#ball-step-2').removeClass('btn-secondary');
+      $('#ball-step-2').addClass('btn-primary');
+      $('#teks-spesification').removeClass('text-secondary');
+      $('#teks-spesification').addClass('text-primary');
+      $('#progress-page').css('width', '100%');
+      $("#kembali").css('display', 'block');
+      $('#ball-step-3').removeClass('btn-primary');
+      $('#ball-step-3').addClass('btn-secondary');
+      $('#ball-step-4').removeClass('btn-primary');
+      $('#ball-step-4').addClass('btn-secondary');
+      $('#ball-step-5').removeClass('btn-primary');
+      $('#ball-step-5').addClass('btn-secondary');
+      $('#teks-spesification1').removeClass('text-primary');
+      $('#teks-spesification1').addClass('text-secondary');
+      $('#teks-spesification2').removeClass('text-primary');
+      $('#teks-spesification2').addClass('text-secondary');
+      $('#teks-spesification3').removeClass('text-primary');
+      $('#teks-spesification3').addClass('text-secondary');
+      $('#progress-page1').css('width', '0%');
+      $('#progress-page2').css('width', '0%');
+      $('#progress-page3').css('width', '0%');  
+      $('#kirim').css('display', 'none');
+      $("#selanjutnya").css('display', '');
+    
+  })
+
+  $("#ball-step-3").click(function() {
+    // validationSpesifik()
+      carouselVal = 2
+      buttonValidation(3);
+      // $("#carouselCustomer").carousel(1);
+      $('#ball-step-2').removeClass('btn-secondary');
+      $('#ball-step-2').addClass('btn-primary');
+      $('#ball-step-4').removeClass('btn-primary');
+      $('#ball-step-4').addClass('btn-secondary');
+      $('#ball-step-5').removeClass('btn-primary');
+      $('#ball-step-5').addClass('btn-secondary');
+      $('#teks-spesification').removeClass('text-secondary');
+      $('#teks-spesification').addClass('text-primary');
+      $('#teks-spesification2').removeClass('text-primary');
+      $('#teks-spesification2').addClass('text-secondary');
+      $('#teks-spesification3').removeClass('text-primary');
+      $('#teks-spesification3').addClass('text-secondary');
+      $('#progress-page').css('width', '100%');
+      $('#progress-page2').css('width', '0%');
+      $('#progress-page3').css('width', '0%');
+      $("#carouselCustomer").carousel(2); 
+      $('#ball-step-3').removeClass('btn-secondary');
+      $('#ball-step-3').addClass('btn-primary');
+      $('#teks-spesification1').removeClass('text-secondary');
+      $('#teks-spesification1').addClass('text-primary');
+      $('#progress-page1').css('width', '100%');
+      $('#kirim').css('display', 'none');
+      $('#selanjutnya').css('display', 'block');
+      $("#kembali").css('display', 'block');
+    
+  })
+
+  $("#ball-step-4").click(function() {
+    // validationSpesifik()
+   
+      $('#draf').show()
+      carouselVal = 3
+      buttonValidation(4);
+      // $("#carouselCustomer").carousel(1);
+      $('#ball-step-1').removeClass('btn-secondary');
+      $('#ball-step-1').addClass('btn-primary');
+      $('#ball-step-2').removeClass('btn-secondary');
+      $('#ball-step-2').addClass('btn-primary');
+      $('#ball-step-3').removeClass('btn-secondary');
+      $('#ball-step-3').addClass('btn-primary');
+      $('#ball-step-5').removeClass('btn-primary');
+      $('#ball-step-5').addClass('btn-secondary');
+      $('#teks-spesification').removeClass('text-secondary');
+      $('#teks-spesification').addClass('text-primary');
+      $('#teks-spesification1').removeClass('text-secondary');
+      $('#teks-spesification1').addClass('text-primary');
+      $('#progress-page').css('width', '100%');
+      $("#carouselCustomer").carousel(3); 
+      $('#ball-step-4').removeClass('btn-secondary');
+      $('#ball-step-4').addClass('btn-primary');
+      $('#teks-spesification2').removeClass('text-secondary');
+      $('#teks-spesification2').addClass('text-primary');
+      $('#teks-spesification3').removeClass('text-primary');
+      $('#teks-spesification3').addClass('text-secondary');
+      $('#progress-page1').css('width', '100%');
+      $('#progress-page2').css('width', '100%');
+      $('#progress-page3').css('width', '0%');
+      $('#kirim').css('display', 'none');
+      $('#selanjutnya').css('display', 'block');
+      $("#kembali").css('display', 'block');
+    
+  })
+
+    $("#ball-step-5").click(function() {
+        carouselVal = 4
+        buttonValidation(5);
+        // $("#carouselCustomer").carousel(1);
+        $('#ball-step-1').removeClass('btn-secondary');
+        $('#ball-step-1').addClass('btn-primary');
+        $('#ball-step-2').removeClass('btn-secondary');
+        $('#ball-step-2').addClass('btn-primary');
+        $('#ball-step-3').removeClass('btn-secondary');
+        $('#ball-step-3').addClass('btn-primary');
+        $('#ball-step-4').removeClass('btn-secondary');
+        $('#ball-step-4').addClass('btn-primary');  
+        $('#ball-step-5').removeClass('btn-secondary');
+        $('#ball-step-5').addClass('btn-primary');
+        $('#progress-page').css('width', '100%');
+        $('#progress-page1').css('width', '100%');
+        $('#progress-page2').css('width', '100%');
+        $("#carouselCustomer").carousel(4); 
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#teks-spesification1').removeClass('text-secondary');
+        $('#teks-spesification1').addClass('text-primary');
+        $('#teks-spesification2').removeClass('text-secondary');
+        $('#teks-spesification2').addClass('text-primary');
+        $('#teks-spesification3').removeClass('text-secondary');
+        $('#teks-spesification3').addClass('text-primary');
+        $('#progress-page3').css('width', '100%');
+        $('#kirim').css('display', 'block');
+        $('#selanjutnya').css('display', 'none');
+        $("#kembali").css('display', 'block');
+      
+    }) 
+
+  //button reject & approve validation
+  let arrayStepper;
+  let stepper = {
+    2 : false,
+    3 : false,
+    4 : false,
+    5 : false
+  };
+
+  let resetValidation = () => {
+    stepper[2] = false;
+    stepper[3] = false;
+    stepper[4] = false;
+    stepper[5] = false;
+    $('#submit-approve').attr('disabled', true)
+    $('#submit-reject').attr('disabled', true)
+  }
+
+  let buttonValidation = (params) => {
+    stepper[params] = true;
+    arrayStepper = Object.values(stepper);
+    let trueOrFalse = arrayStepper.includes(false);    
+    if(trueOrFalse == false) {
+      $('#submit-approve').attr('disabled', false)
+      $('#submit-reject').attr('disabled', false)
+    }
+  };
+
+    
+  var btnApprove = document.querySelectorAll('.approve');
+  var approve = document.querySelectorAll('.idapprove');
+  for(let i = 0; i < btnApprove.length; i++) {
+    btnApprove[i].addEventListener('click', function() {
+      $('.delPreview').remove()
+      document.getElementById('id-submit-approve').value = approve[i].value;
+      let dataValue = approve[i].value
+      $.ajax({
+        url: "{{ route('MasterCustomerV2sController.modalData') }}",
+        type: "get",
+        data: {
+          no_request: approve[i].value
+        }, 
+        success: function(data) {
+          $('#no-request').val(`${data.no_request}`);
+          $('#npwp-type').val(`${data.npwp_customer?.type == 1 ? 'NPWP' : data.npwp_customer?.type == 2 ? 'NIK' : 'TAX ID'}`)
+          $('#npwp_number').val(`${data.npwp_customer?.no_npwp ? data.npwp_customer?.no_npwp : ''}`);
+          $('#npwp_name').val(`${data.npwp_customer?.name ? data.npwp_customer?.name : ''}`);
+          $('#npwp_address').val(`${data.npwp_customer?.address ? data.npwp_customer?.address : ''}`);
+          $('#company_name').val(`${data.nm_perusahaan ? data.nm_perusahaan : ''}`);
+          $('#customer_type').val(`${data.customer_type ? data.customer_type : ''}`);
+          $('#customer_group').val(`${data.customer_group ? data.customer_group : ''}`);
+          $('#bentuk_usaha').val(`${data.bentuk_usaha ? data.bentuk_usaha : ''}`);
+          $('#principle').val(`${data?.principle ? data?.principle : ''}`);
+          $('#usaha_pelanggan').val(`${data?.usaha_pelanggan?.length > 0 ? data?.usaha_pelanggan : ''}`);
+          $('#mitra').val(`${data?.mitra?.length > 0 ? data?.mitra : ''}`);
+          $('#shipping_line').val(`${data?.shiping_line?.length > 0 ? data?.shiping_line : ''}`);
+          $('#cargo_owner').val(`${data?.cargo_owner?.length > 0 ? data?.cargo_owner : ''}`);
+          $('#jenis_layanan').val(`${data?.service_type?.length > 0 ? data?.service_type : ''}`);
+          $('#parent_company').val(`${data?.parent_customer ? data?.parent_customer : '' }`)
+          $('#customer_email').val(`${data?.email ? data?.email : ''}`);
+          $('#phone').val(`${data?.phone ? data?.phone : ''}`);
+          $('#country').val(`${data.country ? data.country : ''}`);
+          $('#postal_code').val(`${data?.area?.province ? data?.area?.province+','+data?.area?.city+','+
+          data?.area?.subdistrict+','+data?.area?.village+'('+data?.area?.post_code+')' : ''}`);
+          $('#customer_address').val(`${data?.address ? data?.address : ''}`);
+          $('#branch_id').val(`${data?.first_registration_branch ? data?.first_registration_branch : ''}`);
+          $('#company_head').val(`${data?.nm_pemimpin ? data?.nm_pemimpin : ''}`);
+          $('#joining_since').val(`${data?.join_date ? new Date(data?.join_date).toLocaleDateString('en-CA') : ''}`);
+          $('#company_birthday').val(`${data?.establish_date ? new Date(data?.establish_date).toLocaleDateString('en-CA') : ''}`);
+          $('#company_est').val(`${data?.birthday_date ? new Date(data?.birthday_date).toLocaleDateString('en-CA') : ''}`);
+          $('#company_est').val(`${data?.birthday_date ? new Date(data?.birthday_date).toLocaleDateString('en-CA') : ''}`);
+          $('#company_head_birthday').val(`${data?.birthday_pemimpin_date ? new Date(data?.birthday_pemimpin_date).toLocaleDateString('en-CA') : ''}`);
+          $('#contact_name').val(`${data?.contacts[0]?.nm_contact ? data?.contacts[0]?.nm_contact : ''}`);
+          $('#email_contact').val(`${data?.contacts[0]?.email_contact ? data?.contacts[0]?.email_contact : ''}`);
+          $('#position').val(`${data?.contacts[0]?.job_title ? data?.contacts[0]?.job_title : ''}`);
+          $('#mobile').val(`${data?.contacts[0]?.mobilephone ? data?.contacts[0]?.mobilephone : ''}`);
+          $('#contact_phone').val(`${data?.contacts[0]?.phone ? data?.contacts[0]?.phone : ''}`);
+          // $('#contact_branch_id').val(`${data?.contacts[0]?.cabang.length > 0 ? data?.contacts?.cabang[0].cabang : ''}`);
+          $('#contact_address').val(`${data?.contacts[0]?.address ? data?.contacts[0]?.address : ''}`);
+          $('#npwp_billing').val(`${data?.billing[0]?.no_npwp ? data?.billing[0]?.no_npwp : ''}`);
+          // $('#billing_name').val(`${data?.billing[0]?.nm_account ? data?.billing[0]?.nm_account : ''}`);
+          // $('#bank_number').val(`${data?.billing[0]?.no_bank_account ? data?.billing[0]?.no_bank_account : ''}`);
+          // $('#bank_name').val(`${data?.billing[0]?.nm_bank ? data?.billing[0]?.nm_bank : ''}`);
+          // $('#payment_type').val(`${data?.billing[0]?.payment_type.length > 0 ? data?.billing[0]?.payment_type : ''}`);
+          $('#npwp-account-address').val(`${data?.billing[0]?.npwp_address ? data?.billing[0]?.npwp_address : ''}`);
+          $('#spmp').val(`${data.spmp?.filename ? data.spmp?.filename : ''}`);
+          $('#ket_domisili').val(`${data.ket_domisili?.filename ? data.ket_domisili?.filename : ''}`);
+          $('#ktp_pemimpin_perusahaan').val(`${data.ktp_pemimpin_perusahaan?.filename ? data.ktp_pemimpin_perusahaan?.filename : ''}`);
+          $('#ktp_pic').val(`${data.ktp_pic?.filename ? data.ktp_pic?.filename : ''}`);
+          $('#siupal_siupkk').val(`${data.siupal_siupkk?.filename ? data.siupal_siupkk?.filename : ''}`);
+          $('#siupbm').val(`${data.siupbm?.filename ? data.siupbm?.filename : ''}`);
+          $('#siup_nib').val(`${data.siup_nib?.filename ? data.siup_nib?.filename : ''}`);
+          $('#pmku').val(`${data.pmku?.filename ? data.pmku?.filename : ''}`);
+          $('#akta_perusahaan').val(`${data.akta_perusahaan?.filename ? data.akta_perusahaan?.filename : ''}`);
+          $('#reff_bank').val(`${data.ref_bank?.filename ? data.ref_bank?.filename : ''}`);
+          $('#npwp_upload').val(`${data.npwp?.filename ? data.npwp?.filename : ''}`);
+          $('#pkp_non_pkp').val(`${data.pkp_non_pkp?.filename ? data.pkp_non_pkp?.filename : ''}`);
+          $('#rek_asosiasi').val(`${data.rek_asosiasi?.filename ? data.rek_asosiasi?.filename : ''}`);
+          $('#cor_dgt').val(`${data.cor_dgt?.filename ? data.cor_dgt?.filename : ''}`);
+          $('#surat_pengelolaan').val(`${data.surat_izin_pengelolaan?.filename ? data.surat_izin_pengelolaan?.filename : ''}`);
+          $('#skpt').val(`${data.skpt?.filename ? data.skpt?.filename : ''}`);
+          $('#sktd').val(`${data.sktd?.filename ? data.sktd?.filename : ''}`);
+          $('#siopsus').val(`${data.siopsus?.filename ? data.siopsus?.filename : ''}`);
+          $('#exp_sktd').val(`${data.sktd?.end_date ? data.sktd?.end_date : ''}`);
+          $('#start_sktd').val(`${data.sktd?.start_date ? data.sktd?.start_date : ''}`);
+          $('#exp_cor_dgt').val(`${data.cor_dgt?.end_date ? data.cor_dgt?.end_date : ''}`);
+          $('#exp_surat_pengelolaan').val(`${data.surat_izin_pengelolaan?.end_date ? data.surat_izin_pengelolaan?.end_date : ''}`);
+          $('#exp_skpt').val(`${data.skpt?.end_date ? data.skpt?.end_date : ''}`);
+          $('#exp_siopsus').val(`${data.siopsus?.end_date ? data.siopsus?.end_date : ''}`);
+          $('#exp_siup_nib').val(`${data.cor_dgt?.end_date ? data.cor_dgt?.end_date : ''}`);
+          $('#exp_siupbm').val(`${data.surat_izin_pengelolaan?.end_date ? data.surat_izin_pengelolaan?.end_date : ''}`);
+          $('#exp_siupal_siupkk').val(`${data.skpt?.end_date ? data.skpt?.end_date : ''}`);
+          $('#exp_ket_domisili').val(`${data.siopsus?.end_date ? data.siopsus?.end_date : ''}`);
+          $('#pmku_number').val(`${data.pmku?.no_surat ? data.pmku?.no_surat : ''}`);
+          $('#no_sktd').val(`${data.sktd?.no_surat ? data.sktd?.no_surat : ''}`);
+          $('#location_billing').val(`${data.billing[0].location_id ? data.billing[0].location_id : ''}`)
+          $('.name_request').html(`${data.name_request}`); 
+          $('.date_request').html(`${data.date_request}`); 
+          $('.dept_request').html(`${data.dept_request}`);
+
+        // generate donwload file
+        console.log(data);
+        data.spmp?.preview ? $( `
+        <a href="${data.spmp?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#spmp" ) : '';
+        data.ket_domisili?.preview ? $( `
+        <a href="${data.ket_domisili?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#ket_domisili" ) : '';
+        data.ktp_pemimpin_perusahaan?.preview ? $( `
+        <a href="${data.ktp_pemimpin_perusahaan?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#ktp_pemimpin_perusahaan" ) : '';
+        data.ktp_pic?.preview ? $( `
+        <a href="${data.ktp_pic?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#ktp_pic" ) : '';
+        data.siupal_siupkk?.preview ? $( `
+        <a href="${data.siupal_siupkk?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#siupal_siupkk" ) : '';
+        data.siupbm?.preview ? $( `
+        <a href="${data.siupbm?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#siupbm" ) : '';
+        data.siup_nib?.preview ? $( `
+        <a href="${data.siup_nib?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#siup_nib" ) : '';
+        data.pmku?.preview ? $( `
+        <a href="${data.pmku?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#pmku" ) : '';
+        data.akta_perusahaan?.preview ? $( `
+        <a href="${data.akta_perusahaan?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#akta_perusahaan" ) : '';
+        data.ref_bank?.preview ? $( `
+        <a href="${data.ref_bank?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#reff_bank" ) : '';
+        data.npwp?.preview ? $( `
+        <a href="${data.npwp?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#npwp_upload" ) : '';
+        data.pkp_non_pkp?.preview ? $( `
+        <a href="${data.pkp_non_pkp?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#pkp_non_pkp" ) : '';
+        data.rek_asosiasi?.preview ? $( `
+        <a href="${data.rek_asosiasi?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#rek_asosiasi" ) : '';
+        data.cor_dgt?.preview ? $( `
+        <a href="${data.cor_dgt?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#cor_dgt" ) : '';
+        data.surat_izin_pengelolaan?.preview ? $( `
+        <a href="${data.surat_izin_pengelolaan?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#surat_pengelolaan" ) : '';
+        data.skpt?.preview ? $( `
+        <a href="${data.skpt?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#skpt" ) : '';
+        data.sktd?.preview ? $( `
+        <a href="${data.sktd?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#sktd" ) : '';
+        data.siopsus?.preview ? $( `
+        <a href="${data.siopsus?.preview}" class="delPreview" target="_blank">Preview File</a>          
+        ` ).insertBefore( "#siopsus" ) : '';
+
+        //bullet type usaha mandatory
+        let typeUsahaPelanggan = data?.usaha_pelanggan?.length;
+        if (typeUsahaPelanggan > 0) {
+          $('.tipe-usaha-bullet').show();
+        } else {
+          $('.tipe-usaha-bullet').hide();
+        };
+
+        //bullet type usaha mitra mandatory
+        let typeUsahaMitra = data?.mitra?.length;
+        if (typeUsahaMitra > 0) {
+          $('.usaha-mitra-bullet').show();
+        } else {
+          $('.usaha-mitra-bullet').hide();
+        };
+
+        //bullet type shipping mandatory
+        let typeShipping = data?.shiping_line?.length;
+        if(typeShipping > 0) {
+          $('.tipe-shipping-bullet').show();
+        } else {
+          $('.tipe-shipping-bullet').hide();
+        };
+
+        //bullet cargo owner mandatory
+        let cargoOwner = data?.cargo_owner?.length;
+        if (cargoOwner > 0) {
+          $('.cargo-owner-bullet').show();
+        } else {
+          $('.cargo-owner-bullet').hide();
+        };
+
+        //customer type bullet mandtory
+        let customertype = data?.customer_type;
+        if(customertype === "Pelanggan"){
+          $('.type-usaha-mitra').hide()
+          $('.type-usaha-pelanggan').show()
+        } else if (customertype === "Mitra") {
+            $('.type-usaha-mitra').show()
+            $('.type-usaha-pelanggan').hide()
+        } else if (customertype === "Pelanggan dan Mitra") {
+            $('.type-usaha-mitra').show()
+            $('.type-usaha-pelanggan').show()
+        }
+
+        //usaha pelanggan bullet mandatory
+        let usahaPelanggan = data?.usaha_pelanggan;
+        const id_cargo_owner = 'Pemilik barang (cargo owner)';
+        const id_shippingline = 'Shipping line / company';
+        const double = [id_cargo_owner, id_shippingline ]; 
+        const included = double.filter(type => usahaPelanggan.includes(type));
+        if(included == id_cargo_owner){
+          $('.type-cargo').show()
+          $('.type-shippingline').hide()
+        }else if (included == id_shippingline) {
+            $('.type-cargo').hide()
+            $('.type-shippingline').show()
+        }else if (double.every(type => usahaPelanggan.includes(type))){
+            $('.type-cargo').show()
+            $('.type-shippingline').show()
+        }
+
+        //npwp upload bullet mandatory
+        let npwpType = data.npwp_customer?.type;
+        if(npwpType == 1) {
+          $('.npwp-bullet').show();
+        } else {
+          $('.npwp-bullet').hide();
+        }
+
+        //type company checked
+        if(data?.tp_company == 1) {
+          $("#parent-radio").prop("checked", true);
+          $("#parent_customer").hide()
+        }else{
+          $("#parent-radio-2").prop("checked", true);
+          $("#parent_customer").show()
+        }
+
+        //principle show & hide
+        data?.bentuk_usaha == 'BUT' ? $('#principle-form').show() : $('#principle-form').hide()
+
+        if(data?.bebas_pajak == 1) {
+          $("#pajak-1").prop("checked", true);
+        }else{
+          $("#pajak-2").prop("checked", true);
+        }
+
+        if(data?.tp_nm_perusahaan == 1){
+          $('#tp-nm-perusahaan-1').prop('checked', true);
+        }else if(data?.tp_nm_perusahaan == 2){
+          $('#tp-nm-perusahaan-2').prop('checked', true);
+        }else{
+          $('#tp-nm-perusahaan-1').prop('checked', true);
+          $('#tp-nm-perusahaan-2').prop('checked', true);
+        }
+
+      }
+    })
+  })
+}
+</script>

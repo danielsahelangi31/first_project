@@ -1,0 +1,161 @@
+<h4 class="title-form text-primary">{{title}} Master Vendor</h4>
+<div class="form-group row p-3">
+    <h5 class="fw-bold">Informasi Vendor</h4>
+    <div class="row" style="display: {{display}}">
+        <div class="col-12 col-md-6">
+            {{--  begin:: Nomor Npwp  --}}
+            <div class="my-4">
+                <label class="form-label">Nomor NPWP<span class="text-danger">*</span>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="*Berisikan informasi nomor NPWP vendor">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">i</span></span>
+                    </span>
+                </label>
+                <div class="row">
+                    <div class="col-8 col-md-10">
+                        <input {{usable_info}} value="{{vendor?.no_npwp ? vendor?.no_npwp : ""}}" id="no_npwp" name="no_npwp" type="text" class="form-control" maxlength="15" placeholder="Nomor NPWP">
+                    </div>
+                    <div class="col-4 col-md-2  d-flex justify-content-center align-items-center">
+                        <button {{usable_info}} id="npwp_check button-addon2" class="npwp_check btn btn-sm btn-primary" type="button">Check</button>
+                    </div>
+                </div>
+            </div>
+            {{--  end:: Nomor Npwp  --}}
+            {{--  begin:: nama perusahaan  --}}
+            <div class="my-4">
+                <label class="form-label">Nama Perusahaan<span class="text-danger">*</span>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="*Berisikan informasi nama badan usaha vendor">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">i</span></span>
+                    </span>
+                </label>
+                <input {{usable_info}} id="nm_perusahaan" value="{{vendor?.nm_perusahaan ? vendor?.nm_perusahaan : ""}}" name="nm_perusahaan" type="text" class="form-control" maxlength="50" placeholder="Nama Perusahaan">
+            </div>
+            {{--  end:: nama perusahaan  --}}
+
+            {{--  begin:: kode vendor  --}}
+            <div class="my-4">
+                <label class="form-label">Kode Vendor</label>
+                <input disabled id="kd_vendor" value="{{vendor?.kd_vendor ? vendor?.kd_vendor : ""}}" name="kd_vendor" type="text" class="form-control" placeholder="Kode Vendor">
+            </div>
+            {{--  end:: kode vendor  --}}
+
+            {{--  begin:: kode sap  --}}
+            <div class="my-4">
+                <label class="form-label">Kode SAP</label>
+                <input disabled id="kd_sap" value="{{vendor?.kd_sap ? vendor?.kd_sap : ""}}" name="kd_sap" type="text" class="form-control" placeholder="Kode SAP">
+            </div>
+            {{--  end:: kode sap  --}}
+
+            {{--  begin:: Jenis Vendor  --}}
+            <div class="my-4">
+                <label class="form-label">Jenis Vendor</label>
+                <select {{usable_info}} id="jn_vendor_id" name="jn_vendor_id" class="form-control form-select" data-placeholder="Select" data-control="select2">
+                    @each(data in jn_vendor)
+                        @if(vendor?.jn_vendor_id == data?.id)
+                            <option selected value="{{data?.id}}">{{data?.name}}</option>
+                        @endif
+                    @endeach
+                </select>
+            </div>
+            {{--  end:: Jenis Vendor  --}}
+
+        </div>
+        <div class="col-12 col-md-6">
+            {{--  begin:: Kota  --}}
+            <div class="my-4">
+                <label class="form-label">Kota</label>
+                <select {{usable_info}} id="id_postal_code" name="id_postal_code" class="form-control" placeholder="Kota">
+                    @if(vendor?.city_id)
+                    <option selected value={{vendor.city_id}}>{{vendor?.postalCode?.city}}</option>
+                    @endif
+                </select>
+            </div>
+            {{--  end:: Kota  --}}
+
+            {{--  begin:: Nomor Telepon  --}}
+            <div class="my-4">
+                <label class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
+                <input {{usable_info}} id="no_telp" value="{{vendor?.phone ? vendor?.phone : ""}}" name="no_telp" type="text" class="form-control" maxlength="20" placeholder="Nomor Telepon">
+            </div>
+            {{--  end:: Nomor Telepon  --}}
+
+            {{--  begin:: Email  --}}
+            <div class="my-4">
+                <label class="form-label">Email<span class="text-danger">*</span></label>
+                <input {{usable_info}} id="email" value="{{vendor?.email ? vendor?.email : ""}}" name="email" type="email" class="form-control" maxlength="50" placeholder="Email">
+            </div>
+            {{--  end:: Email  --}}
+
+            {{--  begin:: Alamat  --}}
+            <div class="my-4">
+                <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                <textarea {{usable_info}} id="address" name="address" class="form-control" placeholder="Alamat" rows="3" maxlength="200" style="resize: none">{{vendor?.address ? vendor?.address : ""}}</textarea>
+            </div>
+            {{--  end:: Alamat  --}}
+            <input type="text" hidden id="data_id" value="{{vendor?.id}}">
+            <input type="text" hidden id="reference_id" value="{{vendor?.id}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="row mb-5">
+            <div class="col-6">
+                <h6 class="title-form">Bank Account</h4>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button {{usable}} type="button" id="add_row" class="btn btn-primary"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Add</button>
+            </div>
+        </div>
+        <div class="table-responsive"
+        style="overflow-x:scroll;word-break: keep-all; white-space: nowrap; "
+        >
+            <table id="bank_table" class="table border text-center">
+                <thead class="table border border-secondary" style="background: rgba(182, 234, 255, 0.2);">
+                    <tr>
+                        <th class=" font-weight-bold" scope="col">Bank Name</th>
+                        <th class=" font-weight-bold" scope="col">Account Holder</th>
+                        <th class=" font-weight-bold" scope="col">Nomor Rekening</th>
+                        <th class=" font-weight-bold" scope="col">Upload Bukti Buku Tabungan</th>
+                        <th class=" font-weight-bold"></th>
+                    </tr>
+                </thead>
+                <tbody class="border border-secondary" id="vendorTbody">
+                    @each(data in vendor?.bankAccount)     
+                    <tr>
+                        <td>
+                            <select {{usable_account}} name="nm_bank" class="nm_bank form-control">
+                                <option value="">Select</option>
+                                @if(data?.nm_bank)
+                                    <option selected value="{{data?.nm_bank}}">{{data?.nm_bank}}</option>
+                                @endif
+                            </select>
+                        </td>
+                        <td>
+                            <input {{usable_account}} value="{{data?.account_holder ? data?.account_holder : ""}}" name="account_holder" type="text" class="account_holder form-control" maxlength="50" onkeydown="return /[A-Za-z\.,]/i.test(event.key)" placeholder="Account Holder">
+                        </td>
+                        <td>
+                            <input {{usable_account}} value="{{data.no_rek ? data.no_rek : ""}}" name="no_rek" type="text" class="no_rek form-control" maxlength="30" onkeypress="return /[0-9]/i.test(event.key)" placeholder="Nomor Rekening">
+                        </td>
+                        <td>
+                            <input {{usable_account}} name="saving_book" type="file" class="saving_book form-control" maxlength="50" placeholder="Email">
+                        </td>
+                        <td class="d-flex justify-content-center align-items-center">
+                            {{--  <a {{usable_account}} class ="add_row"><img src="/media/peralatan/add.svg" data-bs-toggle="tooltip" data-bs-title="add"></a>  --}}
+                            <a {{usable_account}} class ="min_row"><img src="/media/peralatan/minus.svg" data-bs-toggle="tooltip" data-bs-title="minus"></a>
+                        </td>
+                    </tr>
+                    @endeach
+                </tbody>
+            </table>
+        </div>
+        @if(isEdit)
+        <div class="form-group row mb-3">
+            <div class="col-lg-12">
+                <label for="exampleTextarea" class="form-label fw-bold">Data Edited<span class="text-danger">*</span></label>
+                <textarea id="remarks" name="remarks" class="form-control" id="exampleTextarea" rows="5" style="resize: none"></textarea>
+            </div>
+        </div>      
+        @endif
+    </div>
+</div>
+

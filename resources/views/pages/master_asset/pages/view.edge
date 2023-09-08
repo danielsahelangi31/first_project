@@ -1,0 +1,645 @@
+@layout('layout/index')
+@section('content')
+<style>
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+    }
+
+    #progress-trans {
+        width:75px;
+        height:1px;
+        margin:20px -85px 0 10px;
+        z-index:1;
+    }
+
+    #progress-page {
+    width:100%;
+    transition:width 1s;
+    }
+
+    #progress-page1 {
+        width:100%;
+        transition:width 1s;
+    }
+
+    #progress-page2 {
+        width:100%;
+        transition:width 1s;
+    }
+
+    .ball-step {
+        width:3rem;
+        height:3rem;
+    }
+
+    .titik-progress {
+        width:5px;
+        height:1px;
+        margin:20px 0 0 5px;
+    }
+
+    #titik-progress-awal {
+        width:5px;
+        height:1px;
+        margin:20px 0 0 10px;
+    }
+
+    #titik-progress-akhir {
+        width:5px;
+        height:1px;
+        margin:20px 10px 0 5px;
+    }
+
+    label:has( + input[required])::after {
+        content: "*";
+        color: red;
+    }
+
+</style>
+<div class="content flex-row-fluid">
+    <!-- header 1 start -->
+    <div class="card mt-5 bg-white">
+        <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="row">
+                <div class="col-md-4">
+                <div class="d-flex">
+                    <img src="/media/aset/asset-icon.svg" style="margin-top:-10px;">
+                    <h2 style="margin-left:30px;">Master Aset</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- header 1 end -->
+
+    {{--  import stepper  --}}
+    @include('pages/master_asset/component/stepper.edge')
+    {{--  import stepper  --}}
+    {{--  form start  --}}
+    <form class="mt-5">
+        <div class="card mb-5 mb-xl-10 bg-white">
+            <div class="card-body border-top p-9">
+                <div id="carousel-aset" class="carousel slide" data-wrap="false" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h4 class="title-form fw-bold text-primary">View Header Aset</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">No Aset</label>
+                                        <input required type="text" name="no-aset" id="no-aset" class="form-control" value="{{data?.asetHeader?.no_aset ? data?.asetHeader?.no_aset : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Nama Aset</label>
+                                        <input required type="text" name="nama-aset" id="nama-aset" class="form-control" value="{{data?.asetHeader?.nama_aset ? data?.asetHeader?.nama_aset : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Aset Kelas</label>
+                                        <input required type="text" name="aset-kelas" id="aset-kelas" class="form-control" value="{{data?.asetHeader?.aset_kelas ? data?.asetHeader?.aset_kelas : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Nama Cabang</label>
+                                        <input required type="text" name="nama-cabang" id="nama-cabang" class="form-control" value="{{data?.asetHeader?.nama_cabang ? data?.asetHeader?.nama_cabang : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Tanggal Perolehan</label>
+                                        <input type="text" name="tanggal-perolehan" id="tanggal-perolehan" class="form-control format-date" value="{{data?.asetHeader?.tgl_perolehan ? data?.asetHeader?.tgl_perolehan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Harga Perolehan</label>
+                                        <input type="text" name="harga-perolehan" id="harga-perolehan" class="form-control" value="{{data?.asetHeader?.hrg_perolehan ? data?.asetHeader?.hrg_perolehan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Nilai Buku</label>
+                                        <input type="text" name="nilai-buku" id="nilai-buku" class="form-control" value="{{data?.asetHeader?.nilai_buku ? data?.asetHeader?.nilai_buku : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Qr Code</label><br>
+                                        <input hidden id="qrcode-value" type="text" value="{{data?.asetHeader?.no_aset ? data?.asetHeader?.no_aset : ''}}">
+                                        <div id="qrcode"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <h4 class="title-form fw-bold text-primary">View Detail Aset</h4>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Lokasi</label>
+                                        <input type="text" name="lokasi" id="lokasi" class="form-control" value="{{data?.asetDetail?.lokasi ? data?.asetDetail?.lokasi : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Titik Koordinat</label>
+                                        <input type="text" name="titik-koordinat" id="titik-koordinat" class="form-control" value="{{data?.asetDetail?.koordinat ? data?.asetDetail?.koordinat : ''}}">
+                                    </div>
+                                    <div class="my-4 row">
+                                        <div class="col-3">
+                                            <label class="form-label">Foto Fisik Utuh</label><br>
+                                            <a type="button" id="kondisi-fisik-utuh" class="text-primary" data-bs-toggle="modal" data-bs-target="#fisik-utuh-dc">Preview File</a>
+                                            @!component('pages/master_asset/component/modal_preview', {
+                                                idComponent: 'fisik-utuh-dc',
+                                                link: 'https://pii.or.id/uploads/dummies.pdf'
+                                            })
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="form-label">Foto Dekat</label><br>
+                                            <a type="button" id="foto-dekat" class="text-primary" data-bs-toggle="modal" data-bs-target="#foto-dekat-dc">Preview File</a>
+                                            @!component('pages/master_asset/component/modal_preview', {
+                                                idComponent: 'foto-dekat-dc',
+                                                link: 'https://pii.or.id/uploads/dummies.pdf'
+                                            })
+                                        </div>
+                                    </div>
+                                    <div class="mt-10">
+                                        <label class="form-label">Kondisi Fisik</label>
+                                        <input type="text" name="kondisi-fisik" id="kondisi-fisik" class="form-control" value="{{data?.asetDetail?.kondisi_fisik ? data?.asetDetail?.kondisi_fisik : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Tindak Lanjut</label>
+                                        <input type="text" name="tindak-lanjut" id="tindak-lanjut" class="form-control" value="{{data?.asetDetail?.tindak_lanjut ? data?.asetDetail?.tindak_lanjut : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Merek</label>
+                                        <input type="text" name="merek" id="merek" class="form-control" value="{{data?.asetDetail?.merek ? data?.asetDetail?.merek : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Tipe</label>
+                                        <input type="text" name="tipe" id="tipe" class="form-control" value="{{data?.asetDetail?.tipe ? data?.asetDetail?.tipe : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Status Prolehan</label>
+                                        <input type="text" name="status-prolehan" id="status-prolehan" class="form-control" value="{{data?.asetDetail?.status_perolehan ? data?.asetDetail?.status_perolehan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Asuransi</label>
+                                        <input type="text" name="asuransi" id="asuransi" class="form-control" value="{{data?.asetDetail?.asuransi ? data?.asetDetail?.asuransi : ''}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <h4 class="title-form fw-bold text-primary">View Informasi Bukti Kepemilikan</h4>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Nomor Kepemilikan</label>
+                                        <input type="text" name="nomor-kepemilikan" id="nomor-kepemilikan" class="form-control" value="{{data?.asetBuktiKepemilikan?.detail?.no_kepemilikan ? data?.asetBuktiKepemilikan?.detail?.no_kepemilikan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Tanggal Kepemilikan</label>
+                                        <input type="text" name="tanggal-kepemilikan" id="tanggal-kepemilikan" class="form-control format-date" value="{{data?.asetBuktiKepemilikan?.detail?.tgl_kepemilikan ? data?.asetBuktiKepemilikan?.detail?.tgl_kepemilikan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Waktu Berlaku</label>
+                                        <input type="text" name="waktu-berlaku" id="waktu-berlaku" class="form-control" value="{{data?.asetBuktiKepemilikan?.detail?.waktu_berlaku ? data?.asetBuktiKepemilikan?.detail?.waktu_berlaku : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Keterangan Tambahan</label>
+                                        <input type="text" name="keterangan-tambahan" id="keterangan-tambahan" class="form-control" value="{{data?.asetBuktiKepemilikan?.detail?.keterangan ? data?.asetBuktiKepemilikan?.detail?.keterangan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Fisik Dokumen</label>
+                                        <input type="text" name="fisik-dokumen-informasi" id="fisik-dokumen-informasi" class="form-control" value="{{data?.asetBuktiKepemilikan?.detail?.fisik_dokumen ? data?.asetBuktiKepemilikan?.detail?.fisik_dokumen : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Scan Bukti Kepemilikan</label><br>
+                                        <a type="button" id="sbki" class="text-primary" data-bs-toggle="modal" data-bs-target="#sbki-dc">Preview File</a>
+                                        @!component('pages/master_asset/component/modal_preview', {
+                                            idComponent: 'sbki-dc',
+                                            link: 'https://pii.or.id/uploads/dummies.pdf'
+                                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="scroll h-700px">
+                                <div class="row">
+                                    <h4 class="title-form fw-bold text-primary">View Detail Pengelolaan</h4>
+                                    <div class="col-6">
+                                        <div class="my-4">
+                                            <label class="form-label">Status Pengelolaan</label>
+                                            <input type="text" name="status-pengelolaan" id="status-pengelolaan" class="form-control" value="{{data?.asetDetailPengelolaan?.status_pengelolaan ? data?.asetDetailPengelolaan?.status_pengelolaan : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Bukti Kepemilikan</label>
+                                            <input type="text" name="bukti-kepemilikan" id="bukti-kepemilikan" class="form-control" value="{{data?.asetDetailPengelolaan?.bukti_kepemilikan ? data?.asetDetailPengelolaan?.bukti_kepemilikan : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Waktu Berlaku</label>
+                                            <input type="text" name="waktu-berlaku" id="waktu-berlaku" class="form-control" value="{{data?.asetDetailPengelolaan?.waktu_berlaku ? data?.asetDetailPengelolaan?.waktu_berlaku : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Tanggal Kepemilikan</label>
+                                            <input type="text" name="tanggal-kepemilikan" id="tanggal-kepemilikan" class="form-control format-date" value="{{data?.asetDetailPengelolaan?.tgl_kepemilikan ? data?.asetDetailPengelolaan?.tgl_kepemilikan : ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="my-4">
+                                            <label class="form-label">Keterangan Tambahan</label>
+                                            <input type="text" name="keterangan-tambahan" id="keterangan-tambahan" class="form-control" value="{{data?.asetDetailPengelolaan?.keterangan ? data?.asetDetailPengelolaan?.keterangan : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Fisik Dokumen</label>
+                                            <input type="text" name="fisik-dokumen-pengelilolaan" id="fisik-dokumen-pengelilolaan" class="form-control" value="{{data?.asetDetailPengelolaan?.fisik_dokumen ? data?.asetDetailPengelolaan?.fisik_dokumen : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Scan Bukti Kepemilikan</label><br>
+                                            <a type="button" id="sbkd" class="text-primary" data-bs-toggle="modal" data-bs-target="#sbkd-dc">Preview File</a>
+                                            @!component('pages/master_asset/component/modal_preview', {
+                                                idComponent: 'sbkd-dc',
+                                                link: 'https://pii.or.id/uploads/dummies.pdf'
+                                            })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Tindak Lanjut Proses Hukum</h4>
+                                    <div class="col-6">
+                                        <div class="my-4">
+                                            <label class="form-label">Nomor & Tanggal Surat</label>
+                                            <input type="text" name="nomor-tgl-surat" id="nomor-tgl-surat" class="form-control" value="{{data?.asetProsesHukum?.no_tgl_surat ? data?.asetProsesHukum?.no_tgl_surat : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Keterangan Tindak Lanjut</label>
+                                            <input type="text" name="ktr-tindak-lanjut" id="ktr-tindak-lanjut" class="form-control" value="{{data?.asetProsesHukum?.keterangan ? data?.asetProsesHukum?.keterangan : ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="my-4">
+                                            <label class="form-label">Rincian Tindak Lanjut</label>
+                                            <input type="text" name="rtl" id="rtl" class="form-control" value="{{data?.asetProsesHukum?.rincian ? data?.asetProsesHukum?.rincian : ''}}">
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Scan Tindak Lanjut</label><br>
+                                            <a type="button" id="stl" class="text-primary" data-bs-toggle="modal" data-bs-target="#stl-dc">Preview File</a>
+                                            @!component('pages/master_asset/component/modal_preview', {
+                                                idComponent: 'stl-dc',
+                                                link: 'https://pii.or.id/uploads/dummies.pdf'
+                                            })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Data Penilaian Appraisal Independen (KJPP)</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Tanggal KJPP</label>
+                                                <input type="text" name="tgl-kipp" id="tgl-kipp" class="form-control format-date" value="{{data?.asetKjpp?.pengelolaan?.tgl_kjpp ? data?.asetKjpp?.pengelolaan?.tgl_kjpp : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Nomor</label>
+                                                <input type="text" name="nomor" id="nomor" class="form-control" value="{{data?.asetKjpp?.pengelolaan?.nomor ? data?.asetKjpp?.pengelolaan?.nomor : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Pelaksana</label>
+                                                <input type="text" name="pelaksana" id="pelaksana" class="form-control" value="{{data?.asetKjpp?.pengelolaan?.pelaksana ? data?.asetKjpp?.pengelolaan?.pelaksana : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Umur Manfaat</label>
+                                                <input type="text" name="umur-manfaat" id="umur-manfaat" class="form-control" value="{{data?.asetKjpp?.pengelolaan?.umur_manfaat ? data?.asetKjpp?.pengelolaan?.umur_manfaat : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Nilai Wajar</label>
+                                                <input type="text" name="nilai-wajar" id="nilai-wajar" class="form-control" value="{{data?.asetKjpp?.pengelolaan?.nilai_wajar ? data?.asetKjpp?.pengelolaan?.nilai_wajar : ''}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Status Pengelolaan</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Rincian</label>
+                                                <input type="text" name="rincian-sc" id="rincian-sc" class="form-control" value="{{data?.asetStatusPengelolaan?.rincian ? data?.asetStatusPengelolaan?.rincian : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Pihak Yang Menempati</label>
+                                                <input type="text" name="pym" id="pym" class="form-control" value="{{data?.asetStatusPengelolaan?.pihak_menempati ? data?.asetStatusPengelolaan?.pihak_menempati : ''}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Informasi Penyewaan Tanah</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Nama Penyewa</label>
+                                                <input type="text" name="nama-penyewa" id="nama-penyewa" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaanTanah?.nama_penyewa ? data?.asetInformasiPenyewaan?.penyewaanTanah?.nama_penyewa : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">No?. Kontrak Sewa</label>
+                                                <input type="text" name="nks" id="nks" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaanTanah?.no_kontak ? data?.asetInformasiPenyewaan?.penyewaanTanah?.no_kontak : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="my-4">
+                                                        <label class="form-label">Masa Perjanjian Awal</label>
+                                                        <input type="text" name="mp-awal" id="mp-awal" class="form-control format-date" value="{{data?.asetInformasiPenyewaan?.penyewaanTanah?.perjanjian_awal ? data?.asetInformasiPenyewaan?.penyewaanTanah?.perjanjian_awal : ''}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="my-4">
+                                                        <label class="form-label">Masa Perjanjian Akhir</label>
+                                                        <input type="text" name="mp-akhir" id="mp-akhir" class="form-control format-date" value="{{data?.asetInformasiPenyewaan?.penyewaanTanah?.perjanjian_akhir ? data?.asetInformasiPenyewaan?.penyewaanTanah?.perjanjian_akhir : ''}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Informasi PBB</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Nilai N.J.O.P</label>
+                                                <input type="text" name="njop" id="njop" class="form-control" value="{{data?.asetInformasiPbb?.nilai_njop ? data?.asetInformasiPbb?.nilai_njop : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">No. PBB</label>
+                                                <input type="text" name="no-pbb" id="no-pbb" class="form-control" value="{{data?.asetInformasiPbb?.no_pbb ? data?.asetInformasiPbb?.no_pbb : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Tanggal PBB</label>
+                                                <input type="text" name="tgl-pbb" id="tgl-pbb" class="form-control format-date" value="{{data?.asetInformasiPbb?.tgl_pbb ? data?.asetInformasiPbb?.tgl_pbb : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Keterangan (Luas Lahan dan Bangunan sesuai PBB)</label>
+                                                <textarea type="text" name="keterangan-pbb" id="keterangan-pbb" class="form-control">{{data?.asetInformasiPbb?.keterangan ? data?.asetInformasiPbb?.keterangan : ''}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Asuransi</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Rincian</label>
+                                                <input type="text" name="rincian-asuransi" id="rincian-asuransi" class="form-control" value="{{data?.asetAsuransi.rincian ? data?.asetAsuransi.rincian : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Nomor Polis</label>
+                                                <input type="text" name="no-polis" id="no-polis" class="form-control" value="{{data?.asetAsuransi.no_polis ? data?.asetAsuransi.no_polis : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Tanggal</label>
+                                                <input type="text" name="tgl-asuransi" id="tgl-asuransi" class="form-control" value="{{data?.asetAsuransi.tgl_asuransi ? data?.asetAsuransi.tgl_asuransi : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Scan Polis</label>
+                                                <input type="text" name="scan-polis" id="scan-polis" class="form-control" value="{{data?.asetAsuransi.scan_polis ? data?.asetAsuransi.scan_polis : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Nilai Premi</label>
+                                                <input type="text" name="nilai-premi" id="nilai-premi" class="form-control" value="{{data?.asetAsuransi.nilai_premi ? data?.asetAsuransi.nilai_premi : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Jangka Waktu Berlaku dan Keterangan Terkait</label>
+                                                <input type="text" name="jwbdk" id="jwbdk" class="form-control" value="{{data?.asetAsuransi.waktu_keterangan ? data?.asetAsuransi.waktu_keterangan: ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Alasan tidak Asuransi</label>
+                                                <input type="text" name="ata" id="ata" class="form-control" value="{{data?.asetAsuransi.alasan_tidak_asuransi ? data?.asetAsuransi.alasan_tidak_asuransi : ''}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Informasi Penyewaan</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Nama Penyewa</label>
+                                                <input type="text" name="nama-penyewa" id="nama-penyewa" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaan?.nama_penyewa ? data?.asetInformasiPenyewaan?.penyewaan?.nama_penyewa : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">No?. Kontrak Sewa</label>
+                                                <input type="text" name="nks" id="nks" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaan?.no_kontak ? data?.asetInformasiPenyewaan?.penyewaan?.no_kontak : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="my-4">
+                                                        <label class="form-label">Masa Perjanjian Awal</label>
+                                                        <input type="text" name="mp-awal" id="mp-awal" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaan?.perjanjian_awal ? data?.asetInformasiPenyewaan?.penyewaan?.perjanjian_awal : ''}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="my-4">
+                                                        <label class="form-label">Masa Perjanjian Akhir</label>
+                                                        <input type="text" name="mp-akhir" id="mp-akhir" class="form-control" value="{{data?.asetInformasiPenyewaan?.penyewaan?.perjanjian_akhir ? data?.asetInformasiPenyewaan?.penyewaan?.perjanjian_akhir : ''}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <h4 class="title-form fw-bold text-primary">View Informasi Bukti Kepemilikan</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Nomor Kepemilikan</label>
+                                                <input type="text" name="no-kepemilikan" id="no-kepemilikan" class="form-control" value="{{data?.asetBuktiKepemilikan?.pengelolaan?.no_kepemilikan ? data?.asetBuktiKepemilikan?.pengelolaan?.no_kepemilikan : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Tanggal Kepemilikan</label>
+                                                <input type="text" name="tgl-kepemilikan" id="tgl-kepemilikan" class="form-control formate-date" value="{{data?.asetBuktiKepemilikan?.pengelolaan?.tgl_kepemilikan}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Waktu Berlaku</label>
+                                                <input type="text" name="waktu-berlaku" id="waktu-berlaku" class="form-control" value="{{data?.asetBuktiKepemilikan?.pengelolaan?.waktu_berlaku ? data?.asetBuktiKepemilikan?.pengelolaan?.waktu_berlaku : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="my-4">
+                                                <label class="form-label">Keterangan Tambahan</label>
+                                                <input type="text" name="keterangan-tambahan" id="keterangan-tambahan" class="form-control" value="{{data?.asetBuktiKepemilikan?.pengelolaan?.keterangan ? data?.asetBuktiKepemilikan?.pengelolaan?.keterangan : ''}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Fisik Dokumen</label>
+                                                <input type="text" name="fdbk" id="fdbk" class="form-control" value="{{data?.asetBuktiKepemilikan?.pengelolaan?.fisik_dokumen}}">
+                                            </div>
+                                            <div class="my-4">
+                                                <label class="form-label">Scan Bukti Kepemilikan</label><br>
+                                                <a type="button" id="sibk" class="text-primary" data-bs-toggle="modal" data-bs-target="#sibk-dc">Preview File</a>
+                                                @!component('pages/master_asset/component/modal_preview', {
+                                                    idComponent: 'sibk-dc',
+                                                    link: 'https://pii.or.id/uploads/dummies.pdf'
+                                                })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <h4 class="title-form fw-bold text-primary">View Usulan Penghapusan</h4>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Nomor dan Tanggal Surat/SK/Laporan Penilaian (Nilai Wajar)</label>
+                                        <input type="text" name="nilai-wajar" id="nilai-wajar" class="form-control" value="{{data?.asetUsulanPenghapusan?.no_tgl_surat ? data?.asetUsulanPenghapusan?.no_tgl_surat : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Rincian</label>
+                                        <input type="text" name="rincian-nilai-wajar" id="rincian-nilai-wajar" class="form-control" value="{{data?.asetUsulanPenghapusan?.rincian ? data?.asetUsulanPenghapusan?.rincian : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Usulan Penghapusan</label>
+                                        <input type="text" name="usulan-penghapusan" id="usulan-penghapusan" class="form-control" value="{{data?.asetUsulanPenghapusan?.usulan_penghapusan ? data?.asetUsulanPenghapusan?.usulan_penghapusan : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Keterangan</label>
+                                        <input type="text" name="keterangan-nilai-wajar" id="keterangan-nilai-wajar" class="form-control" value="{{data?.asetUsulanPenghapusan?.keterangan ? data?.asetUsulanPenghapusan?.keterangan : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Scan</label><br>
+                                        <a type="button" id="snw" class="text-primary" data-bs-toggle="modal" data-bs-target="#snw-dc">Preview File</a>
+                                        @!component('pages/master_asset/component/modal_preview', {
+                                            idComponent: 'snw-dc',
+                                            link: 'https://pii.or.id/uploads/dummies.pdf'
+                                        })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 class="title-form fw-bold text-primary">View Data Penilaian Appraisal Independen (KJPP) Usulan Hapus</h4>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Pelaksana</label>
+                                        <input type="text" name="pelaksana-kjpp" id="pelaksana-kjpp" class="form-control" value="{{data?.asetKjpp?.penghapusan?.pelaksana ? data?.asetKjpp?.penghapusan?.pelaksana : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">No Laporan</label>
+                                        <input type="text" name="no-laporan" id="no-laporan" class="form-control" value="{{data?.asetKjpp?.penghapusan?.nomor ? data?.asetKjpp?.penghapusan?.nomor : ''}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Tanggal Laporan</label>
+                                        <input type="text" name="tgl-laporan" id="tgl-laporan" class="form-control format-date" value="{{data?.asetKjpp?.penghapusan?.tgl_kjpp ? data?.asetKjpp?.penghapusan?.tgl_kjpp : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Umur Manfaat</label>
+                                        <input type="text" name="umur-manfaat-kjpp" id="umur-manfaat-kjpp" class="form-control" value="{{data?.asetKjpp?.penghapusan?.umur_manfaat}}">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Nilai Wajar</label><br>
+                                        <input type="text" name="nilai-wajar-kjjp" id="nilai-wajar-kjjp" class="form-control" value="{{data?.asetKjpp?.penghapusan?.nilai_wajar}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="separator my-10"></div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/master-aset" type="button" id="btn-home" class="float-start btn btn-outline-primary border border-primary me-3">Kembali Hal Utama</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" id="btn-next" class="float-end btn btn-primary">Selanjutnya</button>
+                        <button type="button" id="btn-back" class="float-end btn btn-outline-primary border border-primary me-3">Kembali</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{--  form end  --}}
+</div>
+<script src="/js/custom/stepper/stepper.js" type="text/javascript"></script>
+<script src="/js/custom/qrcode/qrcode.js" type="text/javascript"></script>
+<script src="/js/custom/qrcode/qrcode.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $( "input" ).prop( "disabled", true );
+    $( "textarea" ).prop( "disabled", true );
+    
+    let componentId = "#carousel-aset";
+    const pageStepper = new Stepper(4);
+    const totalSteps = pageStepper.totalSteps();
+    pageStepper.action(componentId);
+
+    var qrcode = new QRCode("qrcode", {
+        width: 110,
+        height: 110,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    function makeCode () {    
+        var elText = document.getElementById("qrcode-value");
+        
+        if (!elText.value) {
+            alert("Input a text");
+            elText.focus();
+            return;
+        }
+        
+        qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+
+        $("#text").
+        on("blur", function () {
+            makeCode();
+        }).
+        on("keydown", function (e) {
+            if (e.keyCode == 13) {
+            makeCode();
+            }
+    });
+
+    function formatAndSetDate(el) {
+        const dateString = el.val();
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+        el.val(formattedDate);
+    };
+
+    $(".format-date").each(function(){
+        console.log('masuk ding harus nya ');
+        formatAndSetDate($(this));
+    });
+    $(document).ready(function(){
+    })
+    
+</script>
+
+@end

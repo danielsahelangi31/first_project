@@ -1,0 +1,30 @@
+<div class="modal fade" tabindex="-1" id="filter_vendor">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Filter</h3>
+
+                <!--begin::Close-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="my-5">
+                    <label class="form-label">Filter By</label>
+                    <select id="filter_export" class="form-control form-select" data-control="select2" name="filter_export">
+                        <option value="">Pilih</option>
+                        @each(data in jn_vendor)
+                            <option value="{{data?.id}}">{{data?.name}}</option>
+                        @endeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" id="filter_button" data-bs-dismiss="modal" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

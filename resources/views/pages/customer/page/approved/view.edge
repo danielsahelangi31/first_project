@@ -1,0 +1,1424 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* css header 2 start */
+  #progress-trans {
+    width:75px;
+    height:1px;
+    margin:20px -85px 0 10px;
+    z-index:1;
+  }
+  
+  #progress-page {
+    width:0%;
+    transition:width 1s;
+  }
+
+  #progress-page1 {
+    width:0%;
+    transition:width 1s;
+  }
+
+  .ball-step {
+    width:3rem;
+    height:3rem;
+  }
+
+  .titik-progress {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 5px;
+  }
+
+  #titik-progress-awal {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 10px;
+  }
+
+  #titik-progress-akhir {
+    width:5px;
+    height:1px;
+    margin:20px 10px 0 5px;
+  }
+
+  /* css header 2 end */
+  
+  /* css form start */
+  .title-form {
+    color:#045299;
+    padding-bottom:30px;
+  }
+
+  #kirim {
+    float:right;
+    display:none;
+  }
+
+  #kembali {
+    display: none;
+  }
+
+  #kembali {
+    padding:10px 25px;
+    border-radius:7px;
+    float:right;
+    margin-right:10px;
+  }
+
+  #draf {
+    float:right;
+    margin-right:20px;
+  }
+
+  #batal {
+    padding:10px 25px;
+    border-radius:7px;
+  }
+
+  option:first {
+    color: #045299;
+  }
+
+  /* css form end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header 1 start -->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="d-flex">
+                <img src="/media/customer/icon.svg" style="margin-top:-10px;">
+                <h2 style="margin-left:30px;">Master Customer</h2>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- header 1 end -->
+
+  <!-- header 2 start -->
+  @include('pages.customer.component.stepper')
+  <!-- header 2 end -->
+
+  <!-- form start -->
+  <form id="form-submit" method="POST">
+    {{ csrfField() }}
+  <div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselCustomer" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h4 class="title-form">View NPWP</h4>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <div class="my-auto">
+                                <div>
+                                    <input hidden value="{{data?.id}}" id="data-id" type="text">
+                                </div>
+                                <label class="form-label fw-bold">Format NPWP/NIK/TAX ID</label>
+                                <select name="npwp-type" id="npwp-type"class="form-control form-select" data-placeholder="Select">
+                                    <option value="">Select</option>
+                                    <option {{ data?.npwp?.type == 1 ? 'selected' : '' }} value="1">NPWP</option>
+                                    <option {{ data?.npwp?.type == 2 ? 'selected' : '' }} value="2">NIK</option>
+                                    <option {{ data?.npwp?.type == 3 ? 'selected' : '' }} value="3">TAX ID</option>
+                                </select> 
+                            </div>
+                            <div class="my-5 form-group">
+                              <label class="form-label fw-bold">NPWP/NIK/TAX ID Number<span class="text-danger">*</span>
+                                  <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                        data-bs-content="*NPWP wajib untuk seluruh badan usaha (UMKM dapat menggunakan NPWP pemilik usaha)">
+                                      <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                                  </span>
+                              </label>
+                                <div>
+                                  <div class="input-group" >
+                                    <input id="npwp_number" value="{{data?.npwp?.no_npwp ? data?.npwp?.no_npwp : ''}}" type="text" maxlength="16" class="npwp_number form-control" placeholder="NPWP Number" name="npwp_number"/>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="my-auto">
+                                <label class="form-label fw-bold">NPWP/NIK/TAX Name <span class="text-danger">*</span>
+                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                        data-bs-content="*Masukkan NPWP Name sesuai dengan kartu NPWP">
+                                        <span class="badge rounded-pill bg-light border border-secondary">
+                                            <span class="text-black">?</span>
+                                        </span>
+                                    </span>
+                                </label>
+                                <input id="npwp_name" value="{{data?.npwp?.name ? data?.npwp?.name : ''}}" type="text" class="form-control" maxlength="50" placeholder="NPWP Name" name="npwp_name"/>
+                            </div>
+                            <div class="my-5">
+                                <label class="form-label fw-bold" for="npwp_address">NPWP/NIK/TAX address<span class="text-danger">*</span>
+                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                            data-bs-content="*Masukkan NPWP Address sesuai dengan kartu NPWP">
+                                        <span class="badge rounded-pill bg-light border border-secondary">
+                                            <span class="text-dark">?</span>
+                                        </span>
+                                    </span>
+                                </label>
+                                <textarea placeholder="NPWP address" class="form-control" id="npwp_address" maxlength="200" rows="5" style="resize: none" name="npwp_address">{{data?.npwp?.address ? data?.npwp?.address : ''}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <h4 class="title-form">View Customer Information</h4>
+                    <div class="form-group row">
+                      <div class="col-6">
+                        {{-- begin:: customer Number --}}
+                        <div class="my-auto">
+                            <label class="form-label fw-bold">Customer Number</label>
+                            <input value="{{data?.no_customer ? data?.no_customer : ''}}" id="no_customer" class="form-control" type="text">
+                        </div>
+                        {{--  end:: Customer Number  --}}
+                        {{--  begin:: parent radio  --}}
+                        {{--  <div class="my-auto">
+                          <div class="col-lg-3 form-check form-check-inline">
+                              <input name="parent" {{data?.tp_company == 1 ? 'checked' : ''}} class="form-check-input parent-radio" type="radio" id="parent-radio" value="1">
+                              <label class="form-check-label" for="inlineRadio1">Parent Company</label>
+                          </div>
+                          <div class="col-lg-3 form-check form-check-inline">
+                              <input name="parent" {{data?.tp_company == 2 ? 'checked' : ''}} class="form-check-input parent-radio" type="radio" id="parent-radio-2" value="2">
+                              <label class="form-check-label" for="inlineRadio2">Affiliation Company</label>
+                          </div>
+                        </div>  --}}
+                        {{--  end:: parent radio  --}}
+                        {{--  begin:: nama perusahaan  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Nama Perusahaan<span class="text-danger">*</span>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                data-bs-content="SOP Penulisan Nama Perusahaan:
+                                    - Hanya tulis nama perusahaan, tanpa tanda baca
+                                    - Tanpa penyebutan jenis perusahaan (Contoh: PT / CV / Persero / TBK)
+                                    - Contoh format penulisan yang benar: Pelabuhan Indonesia">
+                                <span class="badge rounded-pill bg-light border border-secondary">
+                                    <span class="text-black">?</span>
+                                </span>
+                            </span>
+                          </label>
+                          <input value="{{data?.nm_perusahaan ? data?.nm_perusahaan : ''}}" id="company_name" name="company_name" type="text" class="form-control" placeholder="Company Name"/>
+                          <div class="checkbox-inline">   
+                              <label class="checkbox checkbox-rounded">
+                                  <input {{data?.tp_nm_perusahaan == 1 || data?.tp_nm_perusahaan == 3 ? 'checked' : ''}} value="1" class="type-nama-perusahaan" name="type-nama-perusahaan" type="checkbox" checked="checked"/>
+                                  <span></span>
+                                  Persero
+                              </label>
+                              <label class="checkbox checkbox-rounded">
+                                  <input {{data?.tp_nm_perusahaan == 2 || data?.tp_nm_perusahaan == 3 ? 'checked' : ''}} value="2" class="type-nama-perusahaan" name="type-nama-perusahaan" type="checkbox"/>
+                                  <span></span>
+                                  Tbk
+                              </label>
+                          </div>
+                        </div>
+                        {{--  end:: nama perusahaan  --}}
+                        {{--  begin:: customer type  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Customer Type<span class="text-danger">*</span>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                data-bs-content="1. Pelanggan : pengguna jasa berbadan hukum / perorangan yang menggunakan jasa serta fasilitas pelabuhan yang dimiliki oleh PT Pelabuhan Indonesia (Persero) dalam melakukan kegiatan usaha di Pelabuhan 
+                                2. Mitra : Pihak yang bekerjasama dengan PT Pelabuhan Indonesia (Persero) dalam hal pengelolaan aset, penyertaan aset, dan kerjasama yang berkaitan dengan SK Kerjasama Usaha / Rupa-rupa usaha yang ada pada PT Pelabuhan Indonesia (Persero)
+                                3. Pelanggan dan Mitra : Mitra juga sebagai Pelanggan dan sebaliknya
+                                ">
+                                <span class="badge rounded-pill bg-light border border-secondary">
+                                    <span class="text-black">?</span>
+                                </span>
+                            </span>
+                          </label>
+                          <select id="customer_type" name="id_customer_type" class="form-control form-select" data-control="select2" data-placeholder="Select" >
+                              <option value="">Select</option>
+                              @each(item in customer_type)
+                              <option 
+                              @if(data?.customer_type_id == item.id)
+                                selected
+                              @endif 
+                              value="{{item.id}}">{{item.name_type}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: customer type  --}}
+                        {{--  begin:: type Usaha Pelanggan  --}}
+                        <div class="my-5">
+                          <div id="id_customer">
+                            <label class="form-label fw-bold">Tipe Usaha Pelanggan<span style="display:none" class="type-usaha-pelanggan text-danger">*</span></label>
+                            <select multiple id="usaha_pelanggan"  name="id_customer[]" class="form-select form-control" data-placeholder="Select" data-control="select2" data-live-search="true">
+                                <option value="">Select</option>
+                                @each(item in usaha_pelanggan)
+                                <option 
+                                @each(usaha in data?.usahaPelanggan)
+                                    {{usaha?.usaha_pelanggan_id == item.id ? 'selected' : ''}}
+                                @endeach
+                                value="{{item.id}}">{{item.name}}</option>
+                                @endeach
+                            </select>
+                          </div>
+                        </div>
+                        {{--  end:: type Usaha Pelanggan  --}}
+                        {{--  begin:: tipe usaha Mitra  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Tipe Usaha Mitra<span style="display:none" class="type-usaha-mitra text-danger">*</span></label>
+                          <select id="mitra"  multiple name="id_mitra[]" class="form-select form-control" data-placeholder="Select" data-control="select2" data-live-search="true">
+                              <option value="">Select</option>
+                              @each(item in mitra)
+                              <option 
+                                @each(typeMitra in data?.mitra)
+                                  {{typeMitra.mitra_id == item.id ? 'selected' : ''}}
+                                @endeach
+                              value="{{item.id}}">{{item.name}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: tipe usaha Mitra  --}}
+                        {{--  begin:: tipe shiping line  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Tipe Shipping Line<span style="display:none" class="type-shippingline text-danger">*</span></label>
+                          <select id="shippingline" multiple name="id_shipping_line[]" class="form-control form-select" data-placeholder="Select" data-control="select2">
+                              <option value="">Select</option>
+                              @each(item in shipping_line)
+                              <option
+                              @each(shippingLine in data?.shippingLine)
+                                {{shippingLine?.shipping_line_id == item.id ? 'selected' : ''}}
+                              @endeach
+                              value="{{item.id}}">{{item.name}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: tipe shiping line  --}}
+                        {{--  begin:: tipe cargo owner  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Tipe Cargo Owner<span style="display:none" class="type-cargo text-danger">*</span></label>
+                          <select multiple id="id_cargo_owner" name="id_cargo_owner[]" class="form-control form-select" data-placeholder="Select" data-control="select2">
+                              <option value="">Select</option>
+                              @each(item in cargo_owner)
+                              <option 
+                                @each(cargo in data?.cargoOwner)
+                                    {{cargo.cargo_owner_id == item.id ? 'selected' : ''}}
+                                @endeach
+                              value="{{item.id}}">{{item.name}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: tipe cargo owner  --}}
+                        {{--  begin:: customer group  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Customer Group<span class="text-danger">*</span></label>
+                          <select id="customer_group" name="id_customer_group" class="form-control form-select" data-placeholder="Select" data-control="select2" data-live-search="true">
+                              <option hidden value="">Select</option>
+                              @each(item in customer_group)
+                                  <option 
+                                  {{data?.group_customer_id == item.id ? 'selected' : '' }}
+                                  value="{{item.id}}">{{item.name}}</option>
+                              @endeach                                   
+                          </select>
+                        </div>
+                        {{--  end:: customer group  --}}
+                        {{--  begin:: lainnya  --}}
+                        {{--  <div class="my-5">
+                          <label class="form-label fw-bold">Lainnya</label>
+                          <select name="id_customer_etc" class="form-control form-select" data-placeholder="Select" data-control="select2" data-live-search="true">
+                              <option hidden value="" >Select</option>
+                              @each(data in customer_etc)
+                                  <option value="{{data.id}}">{{data.name}}</option>
+                              @endeach
+                          </select>
+                        </div>  --}}
+                        {{--  end:: lainnya  --}}
+                        {{--  begin:: bentuk usaha  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Bentuk Usaha<span class="text-danger">*</span></label>
+                          <select id="bentuk_usaha" name="id_bentuk_usaha" class="form-control form-select" data-placeholder="Select" data-control="select2" data-live-search="true">
+                              <option hidden value="">Select</option>
+                              @each(item in bentuk_usaha)
+                                  <option 
+                                  {{data?.bentuk_usaha_id == item.id ? 'selected' : ''}}
+                                  value="{{item.id}}">{{item.name}}</option>                                      
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: bentuk usaha  --}}
+                        {{--  start:: principle  --}}
+                        <div id="principle-form" style="display:none" class="my-5">
+                            <label class="form-label fw-bold">Principle</label>
+                            <input value="{{data?.principle ? data?.principle : ''}}" class="form-control" id="principle" onkeypress="return /[a-z0-9]/i.test(event.key)" type="text" maxlength="50">
+                        </div>
+                        {{--  end:: principle  --}}
+                        {{--  begin:: jenis Layanan  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Jenis Layanan<span class="text-danger">*</span></label>
+                          <div id="service_div" class="mx-auto row">                                
+                              @each(item in service_type)                                    
+                              <div class="col-lg-3 form-check form-check-inline mb-2">
+                                  <input
+                                    @each(type in data?.serviceType)
+                                      {{type.service_type_id == item.id ? 'checked' : ''}}
+                                    @endeach
+                                  id="service_type" name="id_service_type[]" class="form-check-input" type="checkbox" value="{{item.id}}" >
+                                  <label class="form-check-label" for="inlineRadio2">{{item.name}}</label>
+                              </div>
+                              @endeach
+                          </div>
+                        </div>
+                        {{--  end:: jenis Layanan  --}}
+                        {{--  begin:: SAP Code  --}}
+                        @if(data?.sap_code)
+                            <div class="my-5">
+                                <label class="form-label fw-bold">ERP ID</label>
+                                <input value="{{data?.sap_code ? data?.sap_code : ''}}" class="form-control" id="erp_id" type="text">
+                            </div>
+                        @end
+                        {{--  end:: SAP Code  --}}
+                        {{--  begin:: perusahaan bebas pajak  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Perusahaan dengan Transaksi Bebas Pajak</label>
+                          <radio class="d-flex">
+                            <div class="">
+                              <input {{data?.is_bebas_pajak == 1 ? 'checked' : ''}} type="radio" class="bebas-pajak form-check-input" value="1" name="bebas_pajak">
+                              <label for="">Iya</label>
+                            </div>
+                            <div class="mx-3">
+                              <input {{data?.is_bebas_pajak == 2 ? 'checked' : ''}} type="radio" class="bebas-pajak form-check-input" value="2" name="bebas_pajak">
+                              <label for="">Tidak</label>
+                            </div>
+                          </radio>
+                        </div>
+                        {{--  end:: perusahaan bebas pajak  --}}
+                      </div>
+                      <div class="col-6">
+                        {{--  begin:: no affiliasi  --}}
+                        <div class="my-auto">
+                            <label class="form-label fw-bold">Affiliate Number<span class="text-danger">*</span></label>
+                            <input value="{{data?.no_affiliasi ? data?.no_affiliasi : ''}}" class="form-control" id="no_affiliasi" type="text">
+                        </div>
+                        {{--  end:: no affiliasi  --}}
+                        {{--  begin:: email  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Email<span class="text-danger">*</span></label>
+                          <input value="{{data?.email ? data?.email : ''}}" id="customer_email" name="email" type="email" class="form-control" placeholder="Email" />
+                        </div>
+                        {{--  end:: email  --}}
+                        {{--  begin:: phone  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Phone</label>
+                          <input value="{{data?.phone ? data?.phone : ''}}" name="phone" id="phone" type="text" class="form-control" placeholder="Phone" maxlength="12" onkeypress="return /[0-9]/i.test(event.key)"/>
+                        </div>
+                        {{--  end:: phone  --}}
+                        {{--  begin:: country  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Country<span class="text-danger">*</span></label>
+                          <select id="country" name="country" class="form-control form-select" data-size="7" data-placeholder="Select" data-control="select2" data-live-search="true">
+                              <option hidden value="">Select</option>
+                              @each(item in country) 
+                                  <option
+                                  {{data?.country_id == item.id ? 'selected' : ''}}
+                                  value={{item.id}}>{{item.country_name}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: country  --}}
+                        {{--  begin:: area  --}}
+                        <label class="form-label fw-bold">Area</label>
+                        <select name="id_postal_code" class="form-control" id="id_postal_code" >
+                            <option value="">Select</option>
+                            @if(data?.area_id)
+                                <option selected value={{data.area_id}}>{{data?.postalCode?.village}},{{data?.postalCode?.subdistrict}},{{data?.postalCode?.city}},{{data?.postalCode?.province}},({{data?.postalCode?.post_code}})</option>
+                            @endif
+                        </select>
+                        {{--  end:: area  --}}
+                        {{--  begin:: address  --}}
+                        <div class="my-5">
+                          <label for="exampleTextarea" class="form-label fw-bold">Address<span class="text-danger">*</span></label>
+                          <textarea id="customer_address" name="address" class="form-control" id="exampleTextarea" rows="2" style="resize: none">{{data?.address ? data?.address : ''}}</textarea>
+                        </div>
+                        {{--  end:: address  --}}
+                        {{--  begin:: First registration  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">First Registration Branch</label>
+                          <select name="first_registration_branch" id="first_registration_branch" class="form-control form-select" data-placeholder="Select" data-size="7" data-control="select2" data-live-search="true">
+                              <option value="">Select</option>
+                              @each(item in branch)
+                              <option
+                              {{data?.branch_id == item.id ? 'selected' : ''}}
+                              value="{{item.id}}">{{item.name}}</option>
+                              @endeach
+                          </select>
+                        </div>
+                        {{--  end:: First registration  --}}
+                        {{--  begin:: joining since --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Joining Since</label>
+                          <input value="{{data?.join_date ? new Date(data?.join_date).toLocaleDateString('af-ZA') : ''}}" name="joining_since" id="joining_since" type="date" class="form-control" placeholder="Joining Since"/>
+                        </div>
+                        {{--  end:: joining since --}}
+                        {{--  begin:: company-birthday  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Company Birthday</label>
+                          <input value="{{data?.birthday_date ? new Date(data?.birthday_date).toLocaleDateString('af-ZA') : ''}}" name="company_birthday" id="company_birthday" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>                      {{--  end:: company-birthday  --}}
+                        </div>
+                        {{--  end:: company-birthday  --}}
+                        {{--  begin:: company establishment  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Company Establishment Date</label>
+                          <input value="{{data?.establish_date ? new Date(data?.establish_date).toLocaleDateString('af-ZA') : ''}}" name="company_est" id="company_est" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>
+                        </div>
+                        {{--  end:: company establishment  --}}
+                        {{--  begin:: pimpinan perusahaan  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Pimpinan Perusahaan</label>
+                          <input value="{{data?.nm_pemimpin ? data?.nm_pemimpin : ''}}" name="company_head" id="company_head" type="text" class="form-control" name="date" placeholder="Pimpinan Perusahaan"/>
+                        </div>
+                        {{--  end:: pimpinan perusahaan  --}}
+                        {{--  begin:: brithday pimpinan  --}}
+                        <div class="my-5">
+                          <label class="form-label fw-bold">Birthday Pimpinan Perusahaan</label>
+                          <input value="{{data?.birthday_pemimpin_date ? new Date(data?.birthday_pemimpin_date).toLocaleDateString('af-ZA') : '' }}" name="company_head_birthday" id="company_head_birthday" type="date" class="form-control" name="date" placeholder="Select date" id="kt_datepicker"/>
+                        </div>
+                        {{--  end:: brithday pimpinan  --}}
+                        {{--  begin:: parent customer  --}}
+                        <div id="parent_customer" class="my-5">
+                          <label class="form-label fw-bold">Parent Customer<span class="text-danger">*</span></label>
+                          <select name="parent_company" class="form-control" id="parent_company" >
+                            @if(data?.parent_customer)
+                            <option selected value="{{data?.parent_customer}}">{{data?.parent_customer}}</option>
+                            @endif
+                          </select>
+                        </div>
+                        {{--  end:: parent customer  --}}
+                      </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    @each(item in data?.contact)
+                    <div id="contact-item">
+                      <div class="card mt-5 mb-xl-10 bg-white">
+                          <div class="card-body border-top p-9">
+                              {{--  begin:: form title  --}}
+                              <div class="row justify-content-lg-between">
+                                  <div class="col-lg-6">
+                                      <h2 class="text-primary">View Contact Person</h2>
+                                  </div>
+                              </div>
+                              {{--  end:: form title  --}}
+                              <div class="d-flex flex-lg-column flex-row-fluid">
+                                  <div class="card-body">
+                                      <div class="form-group row mb-3">
+                                          {{--  begin:: contact-name  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Contact Name<span class="text-danger">*</span></label>
+                                              <input value="{{item?.nm_contact ? item?.nm_contact : ''}}" id="contact_name" type="text" class="contact_name form-control" placeholder="Contact Name" name="contact_name[]" />
+                                          </div>
+                                          {{--  end:: contact-name  --}}
+                                          {{--  begin:: email  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Email<span class="text-danger">*</span></label>
+                                              <input value="{{item?.email_contact ? item?.email_contact : ''}}" id="email_contact" type="email" class="email_contact form-control" placeholder="Email" name="email_contact[]" />
+                                          </div>
+                                          {{--  end:: email  --}}
+                                      </div>
+                                      <div class="form-group row mb-3">
+                                          {{--  begin:: position  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Position<span class="text-danger">*</span></label>
+                                              <input value="{{item?.job_title ? item?.job_title : ''}}" id="position" type="text" class="position form-control" placeholder="Position" name="position[]" />
+                                          </div>
+                                          {{--  end:: position  --}}
+                                          {{--  begin:: mobile  --}}
+                                          <div class="col-lg-6">
+                                              <label class="form-label fw-bold">Mobile/Handphone<span class="text-danger">*</span></label>
+                                              <input value="{{item?.mobilephone ? item?.mobilephone : ''}}" id="mobile" type="text" class="mobile form-control" placeholder="Mobile/Handphone" name="mobile_phone[]" onkeypress="return /[0-9]/i.test(event.key)" data-inputmask="'mask': '(62)999-9999-9999'"/>
+                                          </div>
+                                          {{--  end:: mobile  --}}
+                                      </div>
+                                      <div class="form-group row mb-3">
+                                          <div class="col-lg-6">
+                                              {{--  begin:: phone  --}}
+                                              <div>
+                                                  <label class="form-label fw-bold">Phone</label>
+                                                  <input value="{{item?.phone ? item?.phone : ''}}" type="text" class="contact_phone form-control" placeholder="Phone" name="phone_contact[]" maxlength="12" onkeypress="return /[0-9]/i.test(event.key)"/>
+                                              </div>
+                                              {{--  end:: phone  --}}
+                                              {{--  begin:: location  --}}
+                                              <div class="mt-3">
+                                                  <label class="form-label fw-bold">Location<span class="text-danger">*</span></label>
+                                                  <select multiple name="contact_branch_id[]" class="form-control form-select" data-control="select2" data-live-search="true" >
+                                                      @each(data in branch)
+                                                      <option
+                                                      @each(location in item?.cabang)
+                                                        {{ location?.cabang_id == data?.id ? 'selected' : ''}}
+                                                      @endeach
+                                                      value="{{data.id}}">{{data.name}}</option>
+                                                      @endeach
+                                                  </select>
+                                              </div>
+                                              {{--  end:: location  --}}
+                                          </div>
+                                          {{--  begin:: address  --}}
+                                          <div class="col-lg-6">
+                                              <label for="exampleTextarea" class="form-label fw-bold">Address<span class="text-danger">*</span></label>
+                                              <textarea id="contact_address" class="contact_address form-control" id="exampleTextarea" rows="5" style="resize: none" name="address_contact[]" >{{item?.address ? item?.address : ''}}</textarea>
+                                          </div>
+                                          {{--  end:: address  --}}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                    @endeach
+                </div>
+                <div class="carousel-item">
+                    @each(item in data?.billing)
+                    <div id="billing-item">
+                      <div class="card mt-5 mb-xl-10 bg-white">
+                          <div class="card-body border-top p-9">
+                              {{--  begin:: title form  --}}
+                              <div class="row justify-content-lg-between">
+                                  <div class="col-lg-6">
+                                      <h2 class="text-primary">View NPWP Account</h2>
+                                  </div>
+                              </div>
+                              {{--  end:: title form  --}}
+                              <div class="d-flex flex-lg-column flex-row-fluid">
+                                  <div class="card-body">
+                                      <div class="form-group row mb-3">
+                                          {{--  begin:: npwp  --}}
+                                          <div class="col-lg-6">
+                                            <label class="form-label fw-bold">NPWP Number<span class="text-danger">*</span></label>
+                                            <div class="select-npwp-billing">
+                                                <select type="text" class="billing_npwp form-control form-select" name="billing_npwp_number[]">
+                                                    <option {{item?.no_npwp == data?.npwp?.no_npwp ? 'selected' : ''}} value="{{data?.npwp?.no_npwp}}">{{data?.npwp?.no_npwp}}||{{data?.npwp?.name}}</option>
+                                                    @if(data?.tp_company == 2) 
+                                                    <option class="npwp_parent" {{item?.no_npwp == npwpParent?.no_npwp ? 'selected' : ''}} value="{{npwpParent?.no_npwp ? npwpParent?.no_npwp : ''}}">{{npwpParent?.no_npwp ? npwpParent?.no_npwp : ''}}||{{data?.parent_customer ? data?.parent_customer : ''}}</option>
+                                                    @endif
+                                                </select> 
+                                            </div>
+                                            <div class="create-npwp-billing">
+                                              <input hidden type="text" value="{{item?.flag_npwp_billing ? item?.flag_npwp_billing : 0 }}" class="flag_npwp_billing">
+                                              <input type="text" value="{{item?.no_npwp}}" class="billing_npwp_create form-control">
+                                            </div>                                         
+                                          </div>
+                                          {{--  end:: npwp  --}}
+                                         {{--  begin: address npwp account  --}}
+                                            <div class="col-lg-6">
+                                                <label class="form-label fw-bold">NPWP Address<span class="text-danger">*</span></label>
+                                                <textarea class="npwp-account-address form-control" rows="5" style="resize: none" name="npwp-account-address[]" >{{item?.npwp_address ? item?.npwp_address : ''}}</textarea>
+                                            </div>
+                                         {{--  end: address npwp account  --}}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    @endeach
+                </div>
+                <div class="carousel-item">
+                  <div class="card-body border-top p-9">
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                        <h2 class="text-primary">View Document Support</h2>
+                    </div>
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                        <div class="card-body">
+                            <div class="form-group row mb-3">
+                                {{--  begin:: SPMP  --}}
+                                <div class="col-lg-6">
+                                        <label class="form-label fw-bold">Surat Permohonan menjadi pelanggan<span class="text-danger">*</span></label>
+                                        @if(data?.document?.spmp)
+                                        <a href="{{url.spmp}}" target="_blank">Preview File</a>
+                                        @endif
+                                        <input value="{{data?.document?.spmp ? data?.document?.spmp : ''}}" id="spmp" name="spmp" type="text" class="form-control" 
+                                        accept="image/png, image/jpeg, image/jpg, .pdf"
+                                        placeholder="Surat Permohonan menjadi pelanggan" 
+                                        />
+                                        <input value="{{data?.document?.spmp ? data?.document?.spmp : ''}}" name="spmp_file" type="text" hidden>
+                                        <span class="text-muted">*Max. Sized:2Mb, Format:PDF</span>
+                                        <span class="error-msg"></span>
+                                </div>
+                                {{--  end:: SPMP  --}}
+                                {{--  begin:: KTP pemimpin  --}}
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <label class="form-label fw-bold">KTP pemimpin perusahaan<span class="text-danger">*</span></label>
+                                        @if(data?.document?.ktp_pemimpin_perusahaan)
+                                        <a href="{{url.ktp_pemimpin_perusahaan}}" target="_blank">Preview File</a>
+                                        @endif
+                                        <input value="{{data?.document?.ktp_pemimpin_perusahaan ? data?.document?.ktp_pemimpin_perusahaan : ''}}" id="ktp_pemimpin_perusahaan" name="ktp_pemimpin_perusahaan" type="text" class="form-control" placeholder="Surat Permohonan menjadi pelanggan"
+                                        accept="image/png, image/jpeg, image/jpg, .pdf" 
+                                        />
+                                        <input value="{{data?.document?.ktp_pemimpin_perusahaan ? data?.document?.ktp_pemimpin_perusahaan : ''}}" name="ktp_pemimpin_perusahaan_file" type="text" hidden>
+                                        <span class="text-muted">*Max. Sized:2Mb, Format:PDF</span>
+                                        <span class="error-msg"></span>
+                                    </div>
+                                </div>
+                                {{--  end:: KTP pemimpin  --}}
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Surat Keterangan Domisili<span class="text-danger">*</span></label>
+                                    @if(data?.document?.ket_domisili)
+                                    <a href="{{url.ket_domisili}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.ket_domisili ? data?.document?.ket_domisili : '' }}" id="ket_domisili" name="ket_domisili" type="text" class="form-control" placeholder="Surat Permohonan menjadi pelanggan"
+                                    accept="image/png, image/jpeg, image/jpg, .pdf" 
+                                    />
+                                    <input value="{{data?.document?.ket_domisili ? data?.document?.ket_domisili : '' }}" name="ket_domisili_file" type="text" hidden>
+                                    <span class="text-muted">*Max. Sized:2Mb, Format:PDF</span>
+                                    <span class="error-msg"></span>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                    <label class="form-label fw-bold">Tanggal Expired Document<span class="text-danger">*</span></label>
+                                    <input value="{{data?.document?.expDocument?.exp_ket_domisili ? new Date(data?.document?.expDocument?.exp_ket_domisili).toLocaleDateString('af-ZA') : ''}}" id="exp_ket_domisili" type="date" class="exp_document form-control" name="exp_ket_domisili" placeholder="Tanggal Expired Document" /> 
+                                    <span class="error-msg"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">KTP penanggung jawab perusahaan<span class="text-danger">*</span></label>
+                                    @if(data?.document?.ktp_pic)
+                                    <a href="{{url.ktp_pic}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.ktp_pic ? data?.document?.ktp_pic : ''}}" id="ktp_pic" name="ktp_pic" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="KTP pemimpin perusahaan" />
+                                    <input value="{{data?.document?.ktp_pic ? data?.document?.ktp_pic : ''}}" name="ktp_pic_file" type="text" hidden>
+                                    <span class="text-muted">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <h4 class="fw-bold my-5">Surat Ijin Operasional dari Instansi Berwenang</h4>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">SIUPAL/SIUPKK</label>
+                                    @if(data?.document?.siupal_siupkk)
+                                    <a href="{{url.siupal_siupkk}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.siupal_siupkk ? data?.document?.siupal_siupkk : ''}}" id="siupal_siupkk" name="siupal_siupkk" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="SIUPAL/SIUPKK"/>
+                                    <input value="{{data?.document?.siupal_siupkk ? data?.document?.siupal_siupkk : ''}}" name="siupal_siupkk_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                    <input value="{{data?.document?.expDocument?.exp_siupal_siupkk ? new Date(data?.document?.expDocument?.exp_siupal_siupkk).toLocaleDateString('af-ZA') : ''}}" type="date" class="exp_document form-control" name="exp_siupal_siupkk"
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="Tanggal Expired Document"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">PMKU</label>
+                                    @if(data?.document?.pmku)
+                                    <a href="{{url.pmku}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.pmku ? data?.document?.pmku : ''}}" id="pmku" name="pmku" type="text" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    class="form-control" placeholder="PMKU"/>
+                                    <input value="{{data?.document?.pmku ? data?.document?.pmku : ''}}" name="pmku_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">No. PMKU</label>
+                                    <input value="{{data?.no_pmku ? data?.no_pmku : ''}}" id="pmku_number" name="pmku_number" type="text" class="form-control" placeholder="No. PMKU" data-inputmask="'mask': 'AAAA.AAAAA.9999.999999'"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">SIUPBM</label>
+                                    @if(data?.document?.siupbm)
+                                    <a href="{{url.siupbm}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.siupbm ? data?.document?.siupbm : ''}}" id="siupbm" name="siupbm" type="text" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    class="form-control" placeholder="SIUPBM"/>
+                                    <input value="{{data?.document?.siupbm ? data?.document?.siupbm : ''}}" name="siupbm_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                    <input value="{{data?.document?.expDocument?.exp_siupbm ? new Date(data?.document?.expDocument?.exp_siupbm).toLocaleDateString('af-ZA') : ''}}" name="exp_siupbm" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">SIUP/NIB</label>
+                                    @if(data?.document?.siup_nib)
+                                    <a href="{{url.siup_nib}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.siup_nib ? data?.document?.siup_nib : ''}}" id="siup_nib" name="siup_nib" type="text" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    class="form-control" placeholder="SIUP/NIB"/>
+                                    <input value="{{data?.document?.siup_nib ? data?.document?.siup_nib : ''}}" name="siup_nib_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document </label>
+                                    <input value="{{data?.document?.expDocument?.exp_siup_nib ? new Date(data?.document?.expDocument?.exp_siup_nib).toLocaleDateString('af-ZA') : ''}}" name="exp_siup_nib" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Akta Pendirian Perusahaan & Perubahan</label>
+                                    @if(data?.document?.akta_perusahaan)
+                                    <a href="{{url.akta_perusahaan}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.akta_perusahaan ? data?.document?.akta_perusahaan : ''}}" id="akta_perusahaan" name="akta_perusahaan" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="Akta Pendirian Perusahaan & Perubahan"/>
+                                    <input value="{{data?.document?.akta_perusahaan ? data?.document?.akta_perusahaan : ''}}" name="akta_perusahaan_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Keterangan/Referensi Bank</label>
+                                    @if(data?.document?.ref_bank)
+                                    <a href="{{url.ref_bank}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.ref_bank ? data?.document?.ref_bank : ''}}" id="reff_bank" name="reff_bank" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="Keterangan/Referensi Bank"/>
+                                    <input value="{{data?.document?.ref_bank ? data?.document?.ref_bank : ''}}" name="reff_bank_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span> 
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">NPWP<span style="display:none" class="npwp-bullet text-danger">*</span></label>
+                                    @if(data?.document?.npwp)
+                                    <a href="{{url.npwp}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.npwp ? data?.document?.npwp : ''}}" id="npwp_upload" name="npwp_upload" type="text" class="form-control"
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="NPWP"/>
+                                    <input value="{{data?.document?.npwp ? data?.document?.npwp : ''}}" name="npwp_upload_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">PKP (Perusahaan Kena Pajak) atau Non PKP</label>
+                                    @if(data?.document?.pkp_non_pkp)
+                                    <a href="{{url.pkp_non_pkp}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.pkp_non_pkp ? data?.document?.pkp_non_pkp : ''}}" id="pkp_non_pkp" name="pkp_non_pkp" type="text" class="form-control"
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="PKP (Perusahaan Kena Pajak) atau Non PKP"/>
+                                    <input value="{{data?.document?.pkp_non_pkp ? data?.document?.pkp_non_pkp : ''}}" name="pkp_non_pkp_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span> 
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Surat Rekomendasi Asosiasi</label>
+                                    @if(data?.document?.rek_asosiasi)
+                                    <a href="{{url.rek_asosiasi}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.rek_asosiasi ? data?.document?.rek_asosiasi : ''}}" id="rek_asosiasi" name="rek_asosiasi" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="Surat Rekomendasi Asosiasi"/>
+                                    <input value="{{data?.document?.rek_asosiasi ? data?.document?.rek_asosiasi : ''}}" name="rek_asosiasi_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <label class="form-label fw-bold">SKTD<span style="display:none" class="sktd-bullet text-danger">*</span></label>
+                                            @if(data?.document?.sktd)
+                                            <a href="{{url.sktd}}" target="_blank">Preview File</a>
+                                            @endif
+                                            <input value="{{data?.document?.sktd ? data?.document?.sktd : ''}}" id="sktd" name="sktd" type="text" class="form-control" 
+                                            accept="image/png, image/jpeg, image/jpg, .pdf"
+                                            placeholder="SKTD"/>
+                                            <input value="{{data?.document?.sktd ? data?.document?.sktd : ''}}" name="sktd_file" type="text" hidden>
+                                            <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <label class="form-label fw-bold">Nomor SKTD</label>
+                                            <input value="{{data?.no_sktd ? data?.no_sktd : ''}}" name="no_sktd" id="no_sktd" type="text" maxlength="50" class=" form-control" placeholder="No SKTD"/> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold">Tanggal Mulai Berlaku</label>
+                                            <input value="{{data?.document?.expDocument?.start_date_sktd ? new Date(data?.document?.expDocument?.start_date_sktd).toLocaleDateString('af-ZA') : ''}}" name="start_sktd" type="date" class="form-control" placeholder="Tanggal Mulai Berlaku"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                            <input value="{{data?.document?.expDocument?.exp_sktd ? new Date(data?.document?.expDocument?.exp_sktd).toLocaleDateString('af-ZA') : ''}}" name="exp_sktd" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">COR/DGT Form dan Competent of Authority (untuk perusahaan asing)<span style="display:none" class="bentuk-usaha-bullet cor-bullet text-danger">*</span></label>
+                                    @if(data?.document?.cor_dgt)
+                                    <a href="{{url.cor_dgt}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.cor_dgt ? data?.document?.cor_dgt : ''}}" id="cor_dgt" name="cor_dgt" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="COR/DGT Form dan Competent of Authority(untuk perusahaan asing)"/>
+                                    <input value="{{data?.document?.cor_dgt ? data?.document?.cor_dgt : ''}}" name="cor_dgt_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document<span style="display:none" class="bentuk-usaha-bullet cor-bullet text-danger">*</span></label>
+                                    <input value="{{data?.document?.expDocument?.exp_cor_dgt ? new Date(data?.document?.expDocument?.exp_cor_dgt).toLocaleDateString('af-ZA') : ''}}" name="exp_cor_dgt" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                </div>
+                            </div>  
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Surat Izin pengelolaan</label>
+                                    @if(data?.document?.surat_izin_pengelolaan)
+                                    <a href="{{url.surat_izin_pengelolaan}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.surat_izin_pengelolaan ? data?.document?.surat_izin_pengelolaan : ''}}" id="surat_pengelolaan" name="surat_pengelolaan" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="Surat Izin Pengelolaan"/>
+                                    <input value="{{data?.document?.surat_izin_pengelolaan ? data?.document?.surat_izin_pengelolaan : ''}}" name="surat_pengelolaan_file" id="surat_pengelolaan_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                    <input value="{{data?.document?.expDocument?.exp_surat_izin_pengelolaan ? new Date(data?.document?.expDocument?.exp_surat_izin_pengelolaan).toLocaleDateString('af-ZA') : ''}}" name="exp_surat_pengelolaan" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                </div>
+                            </div>  
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">SKPT</label>
+                                    @if(data?.document?.skpt)
+                                    <a href="{{url.skpt}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.skpt ? data?.document?.skpt : ''}}" id="skpt" name="skpt" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="SKPT"/>
+                                    <input value="{{data?.document?.skpt ? data?.document?.skpt : ''}}" id="skpt_file" name="skpt_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                    <input value="{{data?.document?.expDocument?.exp_skpt ? new Date(data?.document?.expDocument?.exp_skpt).toLocaleDateString('af-ZA') : ''}}" name="exp_skpt" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                </div>
+                            </div>  
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">SIOPSUS</label>
+                                    @if(data?.document?.siopsus)
+                                    <a href="{{url.siopsus}}" target="_blank">Preview File</a>
+                                    @endif
+                                    <input value="{{data?.document?.siopsus ? data?.document?.siopsus : ''}}" id="siopsus" name="siopsus" type="text" class="form-control" 
+                                    accept="image/png, image/jpeg, image/jpg, .pdf"
+                                    placeholder="siopsus"/>
+                                    <input value="{{data?.document?.siopsus ? data?.document?.siopsus : ''}}" id="siopsus_file" name="siopsus_file" type="text" hidden>
+                                    <span class="text-muted fs-6">*Max. Sized:2Mb, Format:PDF</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Tanggal Expired Document</label>
+                                    <input value="{{data?.document?.expDocument?.exp_siopsus ? new Date(data?.document?.expDocument?.exp_siopsus).toLocaleDateString('af-ZA') : ''}}" name="exp_siopsus" type="date" class="exp_document form-control" placeholder="Tanggal Expired Document"/> 
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" id="kirim" class="btn btn-primary">Submit</button>
+              <button type="button" id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+              <button type="button" id="kembali" class="btn btn-outline-primary border border-primary">Back</a>
+              {{--  <button type="button" id="draf" class="btn btn-warning">Save As Draft</button>  --}}
+              <button type="button" id="batal" class="btn btn-outline-primary border border-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>
+</form>
+
+  <!-- form end -->
+
+</div>
+
+<script src="/js/custom/customerV2/view.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    //hide and show sett billing info
+    let flagNoNpwp = Array.from(document.querySelectorAll(".flag_npwp_billing"), input => input.value);
+    flagNoNpwp.forEach((val, index) => {
+        console.log('masuk sini');
+        if(val == 1) {
+            $(".select-npwp-billing").eq(index).hide();
+            $(".selectNpwpBilling").eq(index).show();
+            
+            $(".createNpwpBilling").eq(index).hide();
+            $(".create-npwp-billing").eq(index).show();
+        } else {
+            $(".select-npwp-billing").eq(index).show();
+            $(".selectNpwpBilling").eq(index).hide();
+            
+            $(".createNpwpBilling").eq(index).show();
+            $(".create-npwp-billing").eq(index).hide();
+        }
+    }) 
+
+    //set mandatory icon sktd
+    let bebasPajak = $('input[name=bebas_pajak]:checked').val()
+    if (bebasPajak == 1) {
+        $('.sktd-bullet').show();
+    } else {
+        $('.sktd-bullet').hide();
+    }
+
+    //disable input
+    $('input').prop('disabled', true);
+    $('select').prop('disabled', true);
+    $('textarea').prop('disabled', true);
+
+    //coloring stepper
+    $('#ball-step-1').removeClass('btn-secondary');
+    $('#ball-step-1').addClass('btn-primary');
+    $('#ball-step-2').removeClass('btn-secondary');
+    $('#ball-step-2').addClass('btn-primary');
+    $('#ball-step-3').removeClass('btn-secondary');
+    $('#ball-step-3').addClass('btn-primary');
+    $('#ball-step-4').removeClass('btn-secondary');
+    $('#ball-step-4').addClass('btn-primary');
+    $('#ball-step-5').removeClass('btn-secondary');
+    $('#ball-step-5').addClass('btn-primary');
+    $('#teks-spesification').removeClass('text-secondary');
+    $('#teks-spesification').addClass('text-primary');
+    $('#teks-spesification1').removeClass('text-secondary');
+    $('#teks-spesification1').addClass('text-primary');
+    $('#teks-spesification2').removeClass('text-secondary');
+    $('#teks-spesification2').addClass('text-primary');
+    $('#teks-spesification3').removeClass('text-secondary');
+    $('#teks-spesification3').addClass('text-primary');
+    $('#teks-spesification4').removeClass('text-secondary');
+    $('#teks-spesification4').addClass('text-primary');
+    $('#progress-page').css('width', '100%');
+    $('#progress-page1').css('width', '100%');
+    $('#progress-page2').css('width', '100%');
+    $('#progress-page3').css('width', '100%');
+    // $('#progress-page4').css('width', '100%');
+
+    //parent customer
+    let parentCustomer = $('#parent_customer option:checked').val()
+    if(parentCustomer == undefined || parentCustomer == ''){
+      $('#parent_customer').hide()
+    }
+
+    // show parent company on customer information
+    $('input[name="parent"]').change(function(){
+        if($(this).val() === "1"){
+            $('#parent_customer').hide()
+            $('#parent_company_data').val("");
+        }else{
+            $('#parent_customer').show()
+        }        
+    })
+
+
+    //mandatory bullet customer type
+    let customerType = $('select[name="id_customer_type"]').find(':selected').text()
+    let pelanggan = $('select[name="id_customer[]"]')
+    let mitra = $('select[name="id_mitra[]"]')
+    let shipping_line = $('select[name="id_shipping_line[]"]')
+    let cargo_owner = $('select[name="id_cargo_owner[]"]')
+    if(customerType === "Pelanggan"){
+        $('.type-usaha-mitra').hide()
+        $('.type-usaha-pelanggan').show()
+        pelanggan.attr('disabled',false)
+        shipping_line.attr('disabled',false)
+        cargo_owner.attr('disabled',false)
+        mitra.attr('disabled',true)
+        mitra.find('option').remove().end()
+        mitra.prepend(`
+        @each(data in mitra)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `)
+    } else if (customerType === "Mitra") {
+        $('.type-usaha-mitra').show()
+        $('.type-usaha-pelanggan').hide()
+        mitra.attr('disabled',false);
+        pelanggan.attr('disabled',true);
+        shipping_line.attr('disabled',true);
+        cargo_owner.attr('disabled',true);
+        pelanggan.find('option').remove().end();
+        shipping_line.find('option').remove().end();
+        cargo_owner.find('option').remove().end();
+        pelanggan.prepend(`
+        @each(data in usaha_pelanggan)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);
+        shipping_line.prepend(`
+        @each(data in shipping_line)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);
+        cargo_owner.prepend(`
+        @each(data in cargo_owner)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `)
+    } else if (customerType === "Pelanggan dan Mitra") {
+        $('.type-usaha-mitra').show()
+        $('.type-usaha-pelanggan').show()
+        pelanggan.attr('disabled',false)
+        mitra.attr('disabled',false)
+    } else {
+        pelanggan.attr('disabled',true)
+        mitra.attr('disabled',true)
+        mitra.find('option').remove().end()
+        pelanggan.find('option').remove().end()
+        pelanggan.prepend(`
+        @each(data in usaha_pelanggan)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);
+        mitra.prepend(`
+        @each(data in mitra)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);       
+    }
+
+    //mandatory bullet cargo owner & shippingline
+    let typePelanggan = $('select[id="usaha_pelanggan"]').val();
+    let id_cargo_owner = 'fd28cc6b-3c3c-45c6-be0b-85ecb4afda8f';
+    let id_shippingline = 'a6c0f05a-b458-43e5-9f4c-eb594d7ee68e';
+    let double = [id_cargo_owner, id_shippingline ];        
+    let included = double.filter(type => typePelanggan.includes(type))
+    if(included == id_cargo_owner){
+        $('.type-cargo').show()
+        $('.type-shippingline').hide()
+        cargo_owner.attr("disabled",false)
+        shipping_line.attr("disabled",true)
+        shipping_line.find('option').remove().end();
+        shipping_line.prepend(`
+        @each(data in shipping_line)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);
+    }else if (included == id_shippingline) {
+        $('.type-cargo').hide()
+        $('.type-shippingline').show()
+        cargo_owner.attr("disabled",true)
+        shipping_line.attr("disabled",false)
+        cargo_owner.find('option').remove().end();
+        cargo_owner.prepend(`
+        @each(data in cargo_owner)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `)
+    }else if (double.every(type => typePelanggan.includes(type))){
+        $('.type-cargo').show()
+        $('.type-shippingline').show()
+        cargo_owner.attr("disabled",false)
+        shipping_line.attr("disabled",false)
+    } else {
+        cargo_owner.attr("disabled",true)
+        shipping_line.attr("disabled",true)
+        shipping_line.find('option').remove().end();
+        cargo_owner.find('option').remove().end();
+        shipping_line.prepend(`
+        @each(data in shipping_line)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `);
+        cargo_owner.prepend(`
+        @each(data in cargo_owner)
+        <option value="{{data.id}}">{{data.name}}</option>
+        @endeach
+        `)
+    }
+
+    //get value area
+    $('#id_postal_code').select2({
+          placeholder: "Select a Area",
+          allowClear: true,
+          ajax: {
+              url: "{{route('select2.postalcode')}}",
+              dataType: 'json',
+              type: "GET",
+              data: function (params) {
+                  var query = {
+                  search: params.term,
+                  }
+                  // Query parameters will be ?search=[term]&page=[page]
+                  return query;
+              },
+              processResults: function (data) {
+              return {
+                  results: $.map(data, function (item) {
+                      return {
+                      text: item.village + ',' + item.subdistrict + ',' + item.city + ',' + item.province + ' (' + item.post_code + ')',
+                      id: item.id
+                      }
+                  })
+              };
+              }
+          }
+    });
+      //contact person
+    $(document).on('click','.add-contact',function(e){
+
+        e.preventDefault()
+        $('#contact-item').prepend(`
+        <div class="card mt-5 mb-xl-10 bg-white">
+                <div class="card-body border-top p-9">
+                    <div class="row justify-content-lg-between">
+                        <div class="col-lg-6">
+                            <h2 class="text-primary">Add Contact Person</h2>
+                        </div>
+                        <div class="col-lg-6 d-flex flex-end">
+                            <button type="button" class="btn btn-sm btn-danger mx-3 remove-contact">delete</button>
+                            <button type="button" class="btn btn-sm btn-primary add-contact" >+ Add</button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                        <div class="card-body">
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Contact Name<span class="text-danger">*</span></label>
+                                    <input id="contact_name" type="text" class="contact_name form-control" placeholder="Contact Name" name="contact_name[]" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Email<span class="text-danger">*</span></label>
+                                    <input id="email_contact" type="email" class="email_contact form-control" placeholder="Email" name="email_contact[]" />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Position<span class="text-danger">*</span></label>
+                                    <input id="position" type="text" class="position form-control" placeholder="Position" name="position[]" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Mobile/Handphone<span class="text-danger">*</span></label>
+                                    <input id="mobile" type="text" class="mobile form-control" placeholder="Mobile/Handphone" name="mobile_phone[]" onkeypress="return /[0-9]/i.test(event.key)" data-inputmask="'mask': '(62)999-9999-9999'" />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label class="form-label fw-bold">Phone</label>
+                                        <input type="text" class="contact_phone form-control" placeholder="Phone" name="phone_contact[]" maxlength="12" onkeypress="return /[0-9]/i.test(event.key)"/>
+                                    </div>
+                                    <div>
+                                        <label class="form-label fw-bold">Location<span class="text-danger">*</span></label>
+                                        <select name="contact_branch_id[]" class="form-control form-select" data-control="select2" data-live-search="true" >
+                                            @each(item in branch)
+                                            <option
+                                            value="{{item.id}}">{{item.name}}</option>
+                                            @endeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="exampleTextarea" class="form-label fw-bold">Address<span class="text-danger">*</span></label>
+                                    <textarea id="contact_address" class="contact_address form-control" id="exampleTextarea" rows="5" style="resize: none" name="address_contact[]" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        `)
+        $('select').select2()
+      })
+
+    // new form billing
+    $(document).on('click','.add-billing',function(e){
+        e.preventDefault()
+        $('#billing-item').prepend(`
+        <div class="card mt-5 mb-xl-10 bg-white">
+                <div class="card-body border-top p-9">
+                    {{--  begin:: title form  --}}
+                    <div class="row justify-content-lg-between">
+                        <div class="col-lg-6">
+                            <h2 class="text-primary">Add Billing Info</h2>
+                        </div>
+                        <div class="col-lg-6 d-flex flex-end">
+                            <button type="button" class="btn btn-sm btn-danger mx-3 remove-billing">delete</button>
+                            <button type="button" class="btn btn-sm btn-primary add-billing">+ Add</button>
+                        </div>
+                    </div>
+                    {{--  end:: title form  --}}
+                    <div class="d-flex flex-lg-column flex-row-fluid">
+                        <div class="card-body">
+                            <div class="form-group row mb-3">
+                                {{--  begin:: name  --}}
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Billing Account Name<span class="text-danger">*</span></label>
+                                    <input id="billing_name" value="" type="text" class="billing_name form-control" placeholder="Billing Account Name" name="billing_account_name[]" />
+                                </div>
+                                {{--  end:: name  --}}
+                                {{--  begin:: npwp id="billing_npwp"  --}}
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">NPWP Number<span class="text-danger">*</span></label>
+                                    <select type="text" class="billing_npwp form-control form-select" name="billing_npwp_number[]">
+                                        <option selected value=${npwp_number_billing}>${npwp_number_billing} || ${npwp_name_billing}</option>                                         
+                                        <option class="npwp_parent" value=${npwp_number_parent}>${npwp_number_parent} || ${npwp_name_parent}</option>                                         
+                                    </select>                                          
+                                </div>
+                                {{--  end:: npwp  --}}
+                            </div>
+                            <div class="form-group row mb-3">
+                                {{--  begin:: erp  --}}
+                                {{--  <div class="col-lg-6">
+                                    <label class="form-label fw-bold">ERP ID</label>
+                                    <input disabled value="" type="text" class="form-control" placeholder="ERP ID" name="erp_id[]"/>
+                                </div>  --}}
+                                {{--  begin:: bank number  --}}
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Bank Account Number<span class="text-danger">*</span></label>
+                                    <input id="bank_number" value="" type="text" class="bank_number form-control mb-3" placeholder="Bank Account Number" name="bank_account_number[]" onkeypress="return /[0-9]/i.test(event.key)"  />
+                                </div>
+                                {{--  end:: bank number  --}}
+                                {{--  end:: erp  --}}
+                                {{--  begin:: bank name  --}}
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Bank Name<span class="text-danger">*</span></label>
+                                    <select class="bank_name form-control form-select" name="bank_name[]" data-placeholder="Select" data-control="select2" data-live-search="true">
+                                        <option hidden value="">Select</option>
+                                        @each(item in bank)
+                                        <option value="{{item.name}}">{{item.name}}</option>
+                                        @endeach
+                                    </select>
+                                    {{-- <input id="bank_name" value="" type="text" class="bank_name form-control" placeholder="Bank Name" name="bank_name[]" /> --}}
+                                </div>
+                                {{--  end:: bank name  --}}
+                            </div>
+                            <div class="form-group row mb-3">
+                                {{--  begin:: payment-type  --}}
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold">Payment Type</label>
+                                    <select multiple class="form-control form-select multiple-select" name="id_payment_type[]" data-placeholder="Select" data-control="select2" data-live-search="true" >
+                                    @each(item in payment_type)
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                    @endeach
+                                    </select>   
+                                </div>
+                                {{--  end:: payment-type  --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `)
+        $('select #payment_type').select2()
+    })
+
+    var npwp_number_parent = '';
+    var npwp_name_parent = '';
+    let npwp_number_billing ;
+    let npwp_name_billing;
+    let isRegisterNpwp = false;
+    //npwp billing
+    $('#npwp_name,#npwp_number, #nonnpwp_number').on("change",function(){
+      let npwp_number_data = $('#npwp_number').val() == '' ? $('#nonnpwp_number').val() : $('#npwp_number').val();
+      let npwp_name_data = $('#npwp_name').val();
+      npwp_name_billing = npwp_name_data;
+      npwp_number_billing = npwp_number_data;
+      $('.billing_npwp').empty().end();
+      $('.billing_npwp').append(`<option selected value=${npwp_number_data}>${npwp_number_data} || ${npwp_name_data}</option>`);       
+    })
+
+    //parent company
+    $('select[name="parent_company"]').change(function(){
+      const name = $(this).find('option:selected').text()
+      $.ajax({
+          datatype: 'json',
+          url:`/customer/npwp?parentNpwp=${name}`,
+          type: "GET",
+          success: function (data) {
+              if(data.length > 0){
+                  npwp_name_parent = data[0]?.npwp_name ? data[0]?.npwp_name : '' ;
+                  npwp_number_parent = data[0]?.npwp ? data[0]?.npwp : '' ;
+                  console.log(npwp_name_parent)
+                  console.log(npwp_number_parent)
+                  $(".npwp_parent").remove();
+                  $('.billing_npwp').append(`<option class="npwp_parent" value=${data[0]?.npwp}>${data[0]?.npwp} || ${data[0]?.npwp_name}</option>`)                    
+              }   
+          }
+      })
+    })
+
+    //npwp check
+    $('#npwp_check').click(function(e){ 
+      var npwp_number = $('input[name="npwp_number"]').val()             
+      $.ajax({
+          datatype: 'json',
+          url:`/customer/npwp/`,
+          type: "GET",
+          data: {search:npwp_number == '' ?  $('input[name="nonnpwp_number"]').val() : npwp_number },
+          success: function (data) {
+              if(data.length > 0){
+                  // $('input[name="npwp_name"]').val(data[0].npwp_name)
+                  // $('textarea[name="npwp_address"]').val(data[0].npwp_address)
+                  isRegisterNpwp = true;
+                  Swal.fire({
+                      text:  `Nama NPWP/NIK/Tax ID : ${data[0].npwp_name} \n`,
+                      title: 'Data NPWP/NIK/Tax ID sudah terdaftar di database!',
+                      icon: "error",
+                      buttonsStyling: false,
+                      confirmButtonText: "Ok",
+                      customClass: {
+                          confirmButton: "btn btn-outline-primary border border-primary",
+                          title: "text-danger fw-bold"
+                      }
+                  });
+              }else{
+                  isRegisterNpwp = false
+                  Swal.fire({
+                      text:  "Data NPWP/NIK/Tax ID belum terdaftar",
+                      icon: "success",
+                      buttonsStyling: false,
+                      confirmButtonText: "Ok",
+                      customClass: {
+                          confirmButton: "btn btn-outline-primary border border-primary",
+                          text: "fw-bold"
+                      }
+                  });
+              }
+          },
+          error: function(data){
+              Swal.fire({
+                  text:  "Data NPWP/NIK/Tax ID tidak ditemukan",
+                  icon: "Error",
+                  buttonsStyling: false,
+                  confirmButtonText: "Ok",
+                  customClass: {
+                      confirmButton: "btn btn-primary"
+                  }
+              });
+          }
+      })
+    })
+
+  })
+
+  
+</script>
+
+@endsection

@@ -1,0 +1,443 @@
+
+<div class="modal fade modal-xl" id="ApproveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">View Master Data Kapal</h1>
+        <button type="button" id="tutupModalApprove" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <img src="/media/peralatan/circle-gear.svg" alt="" srcset="">
+          <div class="mx-5">
+            Requested By <br>
+            <strong>Master Data Kapal</strong><br>
+            <strong>
+              <span class="name_request"></span>
+            </strong>
+          </div>
+          <div style="border-left: 1px solid #C0C0C0;"></div>
+          <div class="mx-3">
+            <br>
+            Departemen <br>
+            <strong>
+              <span class="dept_request"></span>
+            </strong>
+          </div>
+          <div style="border-left: 1px solid #C0C0C0;"></div>
+          <div class="mx-3">
+            <br>
+            Tanggal <br>
+            <strong>
+              <span class="date_request"></span>
+            </strong>
+          </div>
+        </div>
+        {{--  <div class="d-flex">
+          
+        </div>  --}}
+        <hr>
+        <h4>Detail Master Data Kapal</h4>
+        <div class="card mt-5 mb-xl-10 bg-white" >
+          <div id="kt_account_settings_signin_method" class="collapse show">
+            <div class="card-body border-top p-9 shadow-sm">
+              <div class="d-flex justify-content-center mb-2" style="width: 100%;">
+                <a class="btn btn-md btn-primary" id="ball-step-1" style="border; border-radius:100%;">1</a>
+                <div id="progress-trans" class="progress bg-transparent">
+                  <div id="progress-page" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div id="titik-progress-awal" class="bg-primary"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div id="titik-progress-akhir" class="bg-primary"></div>
+                <a id="ball-step-2" class="btn btn-md btn-primary" style="border; border-radius:100%;">2</a>
+                <div id="progress-trans" class="progress bg-transparent">
+                  <div id="progress-page1" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div id="titik-progress-awal" class="bg-primary"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div class="bg-primary titik-progress"></div>
+                <div id="titik-progress-akhir" class="bg-primary"></div>
+                <a id="ball-step-3" class="btn btn-md btn-primary" style="border; border-radius:100%;">3</a>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <div class="text-primary mx-lg-5 fw-bold">
+                  <span class="float-end" style="">General Information</span>
+                </div>
+                <div class="fw-bold mx-lg-5">
+                  <span id="teks-spesification" class="text-primary">Spesifikasi</span>
+                </div>
+                <div class="fw-bold mx-lg-5">
+                  <span id="teks-spesification1" class="text-primary">Dokumen Pendukung</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-5 mb-xl-10 bg-white" style="height:500px;overflow-y:scroll;">       
+          <div id="kt_account_settings_signin_method" class="collapse show">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+              <div id="carouselKapal" class="carousel slide" data-wrap="false" data-interval="false">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row g-3">
+                      {{--  <div class="col-6">
+                        <label class="form-label fw-bold">Kode Kapal</label>
+                      </div>  --}}
+                      {{--  <input type="text" name="kd-kapal" id="kd-kapal" class="form-control input-kode" value="" hidden>  --}}
+                      {{--  <div class="col-6">
+                        <label class="form-label fw-bold">Kode Kapal</label>
+                        <input type="text" disabled name="kd-kapal" id="kd-kapal" onkeypress="return /[0-9]/i.test(event.key)" maxlength="5" minlength="5" class="form-control" placeholder="Kode History Kapal">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">No Request<span style="color:red;">*</span></label>
+                      </div>  --}}
+                      <input id="no-request" hidden name="no-request" class="form-control" placeholder="No Request">
+                      <div class="col-6">
+                        <span class="fs-2 fw-bold" style="color:#045299">General Information</span>
+                      </div>
+                      <div class="col-6"></div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-2">
+                            <label class="form-label fw-bold">Prefix<span style="color:red;">*</span></label>
+                            <input disabled id="prefix-kapal" name="prefix-kapal" class="form-control" placeholder="Select">
+                          </div>
+                          <div class="col-10">
+                            <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                            data-bs-content="Standar penulisan:
+                            [MV/MT/BG]. [NAMA KAPAL] [NOMOR, jika ada]
+                            Penulisan nama UPPERCASE">
+                            <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                            </span>
+                            <input disabled type="text" id="nama-kapal" name="nama-kapal" class="form-control" placeholder="cth: Butterfly">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jenis Kapal<span style="color:red;">*</span></label>
+                        <input disabled id="jenis-kapal" name="jenis-kapal" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-6">
+                              <label class="form-label fw-bold">Nama Negara<span style="color:red;">*</span></label>
+                              <input id="nama-negara" disabled name="nama-negara" onchange="selectCountry(this.value, 'country-id')" name="nama-negara" class="form-control" placeholder="Select">               
+                          </div>
+                          <div class="col-6">
+                              <label class="form-label fw-bold">Kode Bendera<span style="color:red;">*</span></label>
+                              <input disabled id="country-id" name="country-id" class="form-control" disabled placeholder="Select">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Tipe Kapal<span style="color:red;">*</span></label>
+                        <input id="tipe-kapal" disabled name="tipe-kapal" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Call Sign</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Penulisan nama UPPERCASE dan 
+                        ALFANUMERIC cth : AA11">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" id="call-sign" maxlength="4" name="call-sign" class="form-control input-kode" placeholder="cth: AA11">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Spesifik Kapal<span style="color:red;">*</span></label>
+                        <input disabled id="spesifik-kapal" name="spesifik-kapal" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">No IMO</label>
+                        <input disabled type="text" onkeypress="return /[0-9]/i.test(event.key)" id="no-imo" name="no-imo" class="form-control" placeholder="cth: 887111">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Informasi Tambahan Tipe Kapal</label>
+                        <select disabled id="info-tambahan" name="info-tambahan" class="form-select" data-control="select2" multiple data-live-search="true" data-placeholder="Select">
+                          <option value="">Select</option>
+                        </select>
+                        {{--  <input disabled id="info-tambahan" name="info-tambahan" class="form-control" placeholder="Select">  --}}
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">MMSI<span style="color:red;">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="MMSI ( Maritime Mobile Service Identity.
+                        type text: alphanumeric, cth: AaBb12@!">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" id="mmsi" name="mmsi" class="form-control" placeholder="Maritime Mobile Service Identity">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jenis Pelayaran<span style="color:red;">*</span></label>
+                        <input disabled id="jenis-pelayaran" name="jenis-pelayaran" class="form-control" placeholder="Select">
+                        {{--  <label class="form-label fw-bold">Catatan Jenis Kapal</label>
+                        <textarea disabled type="text" id="catatan-jenis" name="catatan-jenis" class="form-control" placeholder="Notes"></textarea>  --}}
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Nama Pemilik<span style="color:red;">*</span></label> 
+                        <input disabled type="text" id="nama-pemilik" name="nama-pemilik" class="form-control" placeholder="Nama Pemilik">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Trayek<span style="color:red;">*</span></label> 
+                        <input disabled id="trayek" name="trayek" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Nama Pemilik Lama</label> 
+                        <input disabled type="text" id="pemilik-lama" name="pemilik-lama" class="form-control" placeholder="Nama Pemilik Lama">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Tahun Pembuatan<span style="color:red;">*</span></label> 
+                        <input disabled id="tahun-pembuatan" name="tahun-pembuatan" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Status Kepemilikan Kapal<span style="color:red;">*</span></label>
+                        <input disabled id="status-kepemilikan" name="status-kepemilikan" class="form-control" placeholder="Select">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">No Tanda Pendaftaran</label>
+                        <input disabled type="text" id="no-tanda-pendaftaran" class="form-control" placeholder="No Tanda Pendaftaran">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kode History Kapal</label>
+                        <input type="text" disabled name="kode-history-kapal" id="kode-history-kapal" onkeypress="return /[0-9]/i.test(event.key)" maxlength="5" minlength="5" class="form-control" placeholder="Kode History Kapal">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kode Kapal Inaportnet</label>
+                        <input disabled type="text" id="kode-kapal-inaportnet" class="form-control" placeholder="Kode Kapal Inaportnet">
+                      </div>
+                      <div class="col-6"></div>
+                      <div class="col-6">
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <span class="fs-2 fw-bold" style="color:#045299">Spesifikasi</span>
+                      </div>
+                      <div class="col-6"></div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kapasitas GT (Ton)<span style="color:red">*</span></label>
+                        <input disabled type="text" id="kapasitas-gt" onkeypress="return /[0-9]/i.test(event.key)" name="kapasitas-gt" class="form-control" placeholder="Gross Register Tonnage (ton)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Draft Maximum (m)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Menggunakan format decimal dengan 
+                        ketentuan dua digit angka dibelakang koma.
+                        cth: 10,00">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" onkeypress="setTwoNumberDecimal(event, this)" id="draft-maximum" name="draft-maximum" class="form-control" placeholder="cth: 10,00">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kapasitas DWT (Ton)<span style="color:red">*</span></label>
+                        <input disabled type="text" onkeypress="return /[0-9]/i.test(event.key)" id="kapasitas-dwt" name="kapasitas-dwt" class="form-control" placeholder="Dead Weight Tonnage (ton)">
+                      </div>
+                      <div class="col-6"> 
+                        <label class="form-label fw-bold">Draft Depan(m)</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Menggunakan format decimal dengan 
+                        ketentuan dua digit angka dibelakang koma.
+                        cth: 10,00">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" onkeypress="setTwoNumberDecimal(event, this)" id="draft-depan" name="draft-depan" class="form-control" placeholder="cth: 10,00">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kapasitas BRT (Ton)</label>
+                        <input disabled type="text" onkeypress="return /[0-9]/i.test(event.key)" id="kapasitas-brt" name="kapasitas-brt" class="form-control" placeholder="Bruto Register Tonnage (ton)">
+                      </div>              
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Draft Belakang (m)</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Menggunakan format decimal dengan 
+                        ketentuan dua digit angka dibelakang koma.
+                        cth: 10,00">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" onkeypress="setTwoNumberDecimal(event, this)" id="draft-belakang" name="draft-belakang" class="form-control" placeholder="cth: 10,00">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kapasitas NRT (Ton)</label>
+                        <input disabled type="text" id="kapasitas-nrt" onkeypress="return /[0-9]/i.test(event.key)" name="kapasitas-nrt" class="form-control" placeholder="Net Register Tonnage (ton)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Max Speed</label>
+                        <input disabled type="text" id="max-speed" name="max-speed" onkeypress="return /[0-9]/i.test(event.key)" class="form-control" placeholder="Kecepatan Maximum Kapal">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Panjang Kapal/LOA (m)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Menggunakan format decimal dengan 
+                        ketentuan dua digit angka dibelakang koma.
+                        cth: 10,00">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" id="panjang-loa" onkeypress="setTwoNumberDecimal(event, this)" name="panjang-loa" class="form-control" placeholder="Length Over All (m)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jumlah Palka/Tangki/Ruang Muat<span style="color:red">*</span></label>
+                        <input disabled type="number" id="jumlah-palka" name="jumlah-palka" class="form-control" placeholder="cth: 100">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Lebar Kapal (m)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Menggunakan format decimal dengan 
+                        ketentuan dua digit angka dibelakang koma.
+                        cth: 10,00">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" onkeypress="setTwoNumberDecimal(event, this)" id="lebar-kapal" name="lebar-kapal" class="form-control" placeholder="Lebar Kapal (m)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jumlah Derek</label>
+                        <input disabled type="number" id="jumlah-derek" name="jumlah-derek" class="form-control" placeholder="cth: 100">
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label fw-bold">Tinggi Kapal (m)<span style="color:red">*</span></label>
+                          <input disabled type="text" id="tinggi-kapal" onkeypress="setTwoNumberDecimal(event, this)" name="tinggi-kapal" class="form-control" placeholder="Tinggi Kapal (m)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jenis Derek</label>
+                        <input disabled type="text" id="jenis-derek" name="jenis-derek" class="form-control" placeholder="Jenis Derek">
+                      </div>
+                      <div class="col-6">
+                        <label id="label-horse-power" class="form-label fw-bold">Horse Power</label>
+                        <input disabled type="text" id="horse-power" name="horse-power" class="form-control" placeholder="Hourse Power">
+                      </div>
+                    </div>    
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <span class="fs-2 fw-bold" style="color:#045299">Dokumen Pendukung</span>
+                      </div>
+                      <div class="col-6"></div>
+                        <div class="col-6 mb-5">
+                          <span class="form-label fs-4 fw-bold">Dokumen Surat Ukur</span>
+                        </div>
+                        <div class="col-6 mb-5">
+                          <span class="form-label fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Milik</span>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold">No. Surat Ukur<span style="color:red">*</span></label>
+                            <input disabled type="text" id="no-surat-ukur" name="no-surat-ukur" class="form-control" placeholder="Nomor Surat Ukur Kapal">
+                        </div>
+                        <div class="col-6">                  
+                          <label class="form-label fw-bold">No. PPKM</label>
+                          <input disabled type="text" id="no-ppkm" name="no-ppkm" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Milik">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Jenis Surat Ukur<span style="color:red">*</span></label>
+                          <input disabled id="jenis-surat-ukur" name="jenis-surat-ukur" class="form-control" placeholder="Select">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Upload PPKM</label>
+                          <a id="link-ppkm" href="" target="_blank">Preview File</a>
+                          <input disabled hidden type="file" id="surat-ppkm" name="surat-ppkm" class="form-control" placeholder="dokumenPPKM.pdf">
+                          <input disabled class="form-control" type="text" name="surat-ppkm-file" id="surat-ppkm-file">
+                          <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Upload Surat Ukur<span style="color:red">*</span></label>
+                            <a id="link-surat-ukur" href="" target="_blank">Preview File</a>
+                            <input disabled hidden type="file" id="surat-ukur" name="surat-ukur" class="form-control" placeholder="dokumensuratukur.pdf">
+                            <input disabled class="form-control" type="text" id="surat-ukur-file" name="surat-ukur-file" value="">
+                            <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Tanggal Terbit PPKM</label>
+                          <input disabled type="date" id="terbit-ppkm" name="terbit-ppkm" class="form-control" placeholder="cth: 12 January 2023">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Tanggal Surat Ukur<span style="color:red">*</span></label>
+                            <input disabled type="date" id="tanggal-surat-ukur"  name="tanggal-surat-ukur" class="form-control" placeholder="19 January 2023">
+                        </div>      
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Tanggal Berlaku PPKM</label>
+                          <input disabled type="date" id="berlaku-ppkm" name="berlaku-ppkm" class="form-control" placeholder="dokumenPPKA.pdf">
+                        </div>
+                        <div class="col-6 mt-5">
+                          <span class="form-label mt-5 fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Asing</span>
+                        </div>
+                        <div class="col-6 mt-5">
+                          <span class="form-label mt-5 fs-4 fw-bold">Dokumen Surat Penetapan Maritime Mobile Service Identity</span>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold">No. PPKA</label>
+                            <input disabled type="text" id="no-ppka" name="no-ppka" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Asing">
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Upload Surat Penetapan MMSI</label>
+                          <a id="link-mmsi" href="" target="_blank">Preview File</a>
+                          <input disabled hidden type="file" id="doc-mmsi" name="doc-mmsi" class="form-control" placeholder="dokumenPPKA.pdf">
+                          <input disabled type="text" id="doc-mmsi-file" class="form-control" name="doc-mmsi-file" >
+                          <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        </div> 
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Upload PPKA</label>
+                            <a id="link-ppka" href="" target="_blank">Preview File</a>
+                            <input disabled hidden type="file" id="surat-ppka" name="surat-ppka" class="form-control" placeholder="dokumenPPKA.pdf">
+                            <input disabled type="text" class="form-control" id="surat-ppka-file" name="surat-ppka-file">
+                            <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        </div> 
+                        <div class="col-6">
+                          <span class="form-label my-5 fs-4 fw-bold">Dokumen Surat Tanda Pendaftaran Inaportnet</span>
+                          <div>
+                            <label class="form-label fw-bold">Upload Surat Tanda Pendaftaran Inaportnet</label>
+                            <a href="" id="link-pendaftaran" target="_blank">Preview File</a>
+                            <input disabled type="text" value="" id="surat-tanda-pendaftaran" name="surat-tanda-pendaftaran" class="form-control" placeholder="surat-tanda-pendaftaran.pdf">
+                            <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Tanggal Terbit PPKA</label>
+                          <input disabled type="date" id="terbit-ppka" name="terbit-ppka" class="form-control" placeholder="cth: 12 January 2023">
+                        </div>
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold">Tanggal Berlaku PPKA</label>
+                          <input disabled type="date" id="berlaku-ppka" name="berlaku-ppka" class="form-control" placeholder="cth: 12 January 2023">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <hr style="margin-top:5%;">
+            <div class="row">
+              <div class="col-12">
+                <button type="button" id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+                <button type="button" id="kembali" class="btn btn-outline-primary border border-primary mx-3" style="float:right; display:none;">Back</a>
+              </div>
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer row">
+        <hr>
+        @include('pages.approval_history.history')
+        @include('pages.approval_history.log')
+        <label for="noteApproval" class="form-label">Notes<span style="color:red;">*</span></label>
+        <textarea class="form-control" id="noteApprovalReject" rows="3"></textarea>
+        <div>
+          <button style="float:right" class="btn btn-primary" id="submit-approve">Approve</button>
+          <input type="hidden" id="id-submit-approve" value="">
+          <button style="float:right" type="button" class="btn btn-danger mx-3" id="submit-reject">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

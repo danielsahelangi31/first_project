@@ -1,0 +1,1394 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+  <!--begin::Navbar-->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="d-flex">
+              <img src="/media/peralatan/circle-gear.svg" style="margin-top:-10px;">
+              <h2 style="margin-left:30px;">Master Peralatan</h2>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <a target="_blank" class="float-end px-2" href="{{ route('MasterApungsController.index') }}" onmouseover="this.style.cursor='pointer'" style="border:1px solid #01C3FF;line-height:2;color:#01C3FF;background:rgba(1, 195, 255, 0.2);border-radius:5px;">Alat Apung</a>
+            <a target="_blank" class="float-end me-2 px-2" href="{{ route('MasterBongkarMuatsController.index') }}" style="border:1px solid #01C3FF;line-height:2;color:black;border-radius:5px;" onmouseover="this.style.background='rgba(1, 195, 255, 0.2)';this.style.cursor='pointer';this.style.color='#01C3FF';" onmouseout="this.style.background='#fff';this.style.color='black';">Alat Bongkar Muat</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+          <div class="d-flex justify-content-center mb-2">
+            <a class="btn btn-sm btn-primary rounded-pill" style="width:3rem;height:3rem;">1</a>
+            <div class="progress bg-transparent" style="width:75px;height:1px;margin:20px -85px 0 10px;z-index:1;">
+              <div class="progress-bar bg-primary" id="progress-page" role="progressbar" aria-label="Example with label" style="width:0%;transition:width 1s;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="bg-secondary titik-progress" id="progress-nol" style="width:5px;height:1px;margin:20px 0 0 10px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-satu" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-dua" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tiga" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-empat" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-lima" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-enam" style="width:5px;height:1px;margin:20px 0 0 5px;"></div>
+            <div class="bg-secondary titik-progress" id="progress-tujuh" style="width:5px;height:1px;margin:20px 10px 0 5px;"></div>
+            <a class="btn btn-sm btn-secondary rounded-pill" id="btn-page-kedua" style="width:3rem;height:3rem;">2</a>
+          </div>
+          <div class="row mt-2">
+            <div class="col-lg-6 text-primary fw-bold">
+              <span class="float-end" style="margin-right:43px;">Main</span>
+            </div>
+            <div class="col-lg-6 fw-bold">
+              <span id="teks-spesification" class="text-secondary" style="margin-left:20px;">Spesification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            {{--  <form id="AddAlatApung" action="{{ route('MasterApungsController.store') }}" method="post" enctype="multipart/form-data">  --}}
+              <div id="carouselAddBongkarMuat" class="carousel slide" data-wrap="false" data-interval="false">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <h4 style="color:#045299;padding-bottom:30px;">Add Main Alat Apung</h4>
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Entity<span style="color:red;">*</span></label>
+                        <select name="entity" id="entity" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Country of Origin<span style="color:red;">*</span></label>
+                        <select name="countryOfOrigin" id="countryOfOrigin" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kepemilikan Aset<span style="color:red;">*</span></label>
+                        <select name="kepemilikanAset" id="kepemilikanAset" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Manufacture<span style="color:red;">*</span></label>
+                        <input type="text" name="manufacturer" id="manufacturer" placeholder="Manufacture" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Cabang/Area/Lokasi Kepemilikan Aset<span style="color:red;">*</span></label>
+                        <select name="lokasiKepemilikanAset" id="lokasiKepemilikanAset" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Manufacturer Year<span style="color:red;">*</span></label>
+                        <input type="text" maxlength="4" name="manufacturerYear" id="manufacturerYear" placeholder="yyyy" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                        <input type="text" name="namaKapal" id="namaKapal" placeholder="Nama Kapal" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Acquisition Year<span style="color:red;">*</span></label>
+                        <input type="text" maxlength="4" name="acquisitionYear" id="acquisitionYear" placeholder="yyyy" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Kode - Jenis Kapal<span style="color:red;">*</span></label>
+                        <select name="jenisKapal" id="jenisKapal" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelLocalAsset">Local Asset Number</label>
+                        <input type="text" name="localAssetNumber" id="localAssetNumber" placeholder="Local Asset Number" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Klasifikasi<span style="color:red;">*</span></label>
+                        <select name="klasifikasi" id="klasifikasi" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      {{--  <div class="col-6">
+                        <label class="form-label fw-bold">Cabang/Area/Lokasi Fisik Aset<span style="color:red;">*</span></label>
+                        <select name="lokasiFisikAset" id="lokasiFisikAset" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                          <option value="Jakarta">Jakarta</option>
+                          <option value="Bandung">Bandung</option>
+                        </select>
+                      </div>  --}}
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <h4 style="color:#045299;padding-bottom:30px;">Add Spesification Alat Apung</h4>
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelTipeMe">Merk/Tipe ME</label>
+                        <input type="text" name="tipeMe" id="tipeMe" placeholder="Merk/Tipe ME" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelTipeAe">Merk/Tipe AE</label>
+                        <input type="text" name="tipeAe" id="tipeAe" placeholder="Merk/Tipe AE" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelDayaMe">Daya ME (Horsepower)</label>
+                        <input type="text" name="dayaMe" id="dayaMe" placeholder="Daya ME (Horsepower)" class="form-control" onkeyup="tipeNumber(this.value, this)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelDayaAe">Daya AE (Horsepower)</label>
+                        <input type="text" name="dayaAe" id="dayaAe" placeholder="Daya AE (Horsepower)" class="form-control" onkeyup="tipeNumber(this.value, this)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelJumlahMe">Jumlah ME</label>
+                        <input type="text" name="jumlahMe" id="jumlahMe" placeholder="Jumlah ME" class="form-control" onkeyup="tipeNumber(this.value, this)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelJumlahAe">Jumlah AE</label>
+                        <input type="text" name="jumlahAe" id="jumlahAe" placeholder="Jumlah AE" class="form-control" onkeyup="tipeNumber(this.value, this)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelJenisPropulsi">Jenis Propulsi</label>
+                        {{--  <input type="text" name="jenispropulsi" id="jenispropulsi" placeholder="Jenis Propulsi" class="form-control">  --}}
+                        <select name="jenispropulsi" id="jenispropulsi" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value=""></option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelMerkPropulsi">Merk propulsi</label>
+                        <input type="text" name="merkpropulsi" id="merkpropulsi" placeholder="Merk propulsi" class="form-control">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelGrosseAkta">Upload File Grosse Akta<span style="color:red;">*</span></label>
+                        <input type="file" class="form-control" id="fileGrosseAkta" name="fileGrosseAkta" accept=".pdf">
+                        <label for="fileGrosseAkta" style="font-size:10px;">* Max Size : 2Mb, Format : pdf</label>
+                        <input type="hidden" name="fileGrosseAktaName" id="fileGrosseAktaName">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelEquipmentDescription">Existing Equipment Description</label>
+                        <textarea name="existingEquipmentDescription" id="existingEquipmentDescription" class="form-control" rows="2" disabled></textarea>
+                        <input type="hidden" name="existingEquipmentDescriptionValue" id="existingEquipmentDescriptionValue">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelBAST">Upload File BAST<span style="color:red;">*</span></label>
+                        <input type="file" class="form-control" id="fileBast" name="fileBast" accept=".pdf">
+                        <label for="fileBast" style="font-size:10px;">* Max Size : 2Mb, Format : pdf</label>
+                        <input type="hidden" name="fileBastName" id="fileBastName">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelNotes">Notes</label>
+                        <textarea name="notes" id="notes" class="form-control" rows="2"></textarea>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelLampiranTeknis">Upload File Lampiran Teknis<span style="color:red;">*</span></label>
+                        <input type="file" class="form-control" id="fileLampiranTeknis" name="fileLampiranTeknis" accept=".pdf">
+                        <label for="fileLampiranTeknis" style="font-size:10px;">* Max Size : 2Mb, Format : pdf</label>
+                        <input type="hidden" name="fileLampiranTeknisName" id="fileLampiranTeknisName">
+                      </div>
+                      <div class="col-6"></div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" id="labelSpesifikasiDetailKapal">Upload File Spesifikasi Detail Kapal</label>
+                        <input type="file" class="form-control" id="fileSpesifikasiDetailKapal" name="fileSpesifikasiDetailKapal" accept=".xls,.xlsx">
+                        <label for="fileSpesifikasiDetailKapal" style="font-size:10px;">* Max Size : 2Mb, Format : xls, xlsx</label>
+                        <input type="hidden" name="fileSpesifikasiDetailKapalName" id="fileSpesifikasiDetailKapalName">
+                      </div>
+                      <div class="col-6"></div>
+                    </div>    
+                  </div>
+                </div>
+              </div>
+              {{--  <input type="hidden" name="no_request" id="no_request">
+              <input type="hidden" name="status" id="status">
+            </form>  --}}
+            <hr>
+            <div class="row">
+              <div class="col-12">
+                <button id="submit" class="btn btn-primary" style="float:right;display:none">Submit</button>
+                <button id="next-form" class="btn btn-primary" style="float:right;">Next</button>
+                <button class="btn btn-outline-primary border border-primary crsl-one" data-bs-target="#carouselAddBongkarMuat" data-bs-slide-to="0" style="float:right;margin-right:10px;">Back</button>
+                <button id="draft" class="btn btn-warning" style="float:right;margin-right:20px;">Save as Draft</button>
+                <button id="batal" class="btn btn-outline-primary border border-primary">
+                  Cancel
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+
+      // standarisasi input teks
+      $(":text").keyup(function() {
+        const teksUp = String($(this).val()).toUpperCase();
+        $(this).val(teksUp);
+      });
+
+      // standarisasi form select
+      // $(".form-select").select2({
+      //     minimumResultsForSearch: 7
+      // });
+
+      // standarisasi option value entity
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.entityPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#entity').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value kepemilikan aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.kepemilikanAsetPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#kepemilikanAset').append(`<option value="${el.company_name.toUpperCase()}">${el.company_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value lokasi kepemilikan aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.lokasiKepemilikanPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#lokasiKepemilikanAset').append(`<option value="${el.company_name.toUpperCase()}">${el.company_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value lokasi fisik aset
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.lokasiFisikPeralatan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#lokasiFisikAset').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value country of origin
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.country')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#countryOfOrigin').append(`<option value="${el.country_name.toUpperCase()}">${el.country_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value klasifikasi
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.jenisKapalAp')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#jenisKapal').append(`<option value="${el.kode_jenis.toUpperCase()}">${el.kode_jenis.toUpperCase()} - ${el.jenis_kapal.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value klasifikasi
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.klasifikasiAp')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#klasifikasi').append(`<option value="${el.klasifikasi.toUpperCase()}">${el.kode.toUpperCase()} - ${el.klasifikasi.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value jenis propulsi
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.jenisPropulsiAp')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#jenispropulsi').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+      
+      $('#batal').click(function() {
+        Swal.fire({
+          title: "<span style='color:#FF0000;'>Batal</span>", 
+          html: "<strong>Apakah anda yakin ?</strong>",
+          icon: 'error',
+          showCancelButton: true, 
+          cancelButtonText: "Tidak",
+          confirmButtonText: "Iya",
+          confirmButtonColor: "#045299",
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            window.location.assign(`{{ route('MasterApungsController.index') }}`); 
+          }
+        });
+      });
+
+      $(`#fileGrosseAkta`).change(function(){
+        var file_data = $(`#fileGrosseAkta`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATAP-GROSSEAKTA-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','grosseAkta');
+        form_data.append('modul', 'apung');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2 file";
+          
+          if(file_data.name.includes("pdf") == false) throw "Format file harus pdf";
+
+          $.ajax({
+            url:"{{ route('MasterApungsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileGrosseAktaName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileGrosseAktaName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : 'Gagal upload file';
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${data.responseJSON.message}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileGrosseAktaName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          })
+        }
+      });
+
+      $(`#fileBast`).change(function(){
+        var file_data = $(`#fileBast`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATAP-BAST-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','bast');
+        form_data.append('modul', 'apung');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2mb";
+
+          if(file_data.name.includes("pdf") == false) throw "Format file harus pdf";
+
+          $.ajax({
+            url:"{{ route('MasterApungsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileBastName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileBastName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : "Gagal upload file";
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${errMsg}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileBastName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          })
+        }
+      });
+
+      $(`#fileLampiranTeknis`).change(function(){
+        var file_data = $(`#fileLampiranTeknis`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATAP-LAMPIRANTEKNIS-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','lampiranTeknis');
+        form_data.append('modul', 'apung');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2mb";
+
+          if(file_data.name.includes("pdf") == false) throw "Format file harus pdf";
+
+          $.ajax({
+            url:"{{ route('MasterApungsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileLampiranTeknisName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileLampiranTeknisName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : "Gagal upload file";
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${errMsg}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileLampiranTeknisName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          })
+        }
+      });
+
+      $(`#fileSpesifikasiDetailKapal`).change(function(){
+        var file_data = $(`#fileSpesifikasiDetailKapal`).prop('files')[0];
+        let formatName = String(file_data.name).trim();
+        formatName = formatName.replace(/ +/g, "");
+        formatName = `ALATAP-SPESIFIKASIDETAILKAPAL-${formatName}-${Math.floor(Math.random() * 100000)}`;
+        var form_data = new FormData();
+        form_data.append('fileData',file_data);
+        form_data.append('namaFile', formatName);
+        form_data.append('jenisFile','spesifikasiDetailKapal');
+        form_data.append('modul', 'apung');
+        try {
+          if(file_data.size > 2097152) throw "Ukuran file melebihi 2mb";
+          
+          if(file_data.name.includes("xlsx") == false || file_data.name.includes("xls") == false) throw "Format file harus xlsx atau xls";
+
+          $.ajax({
+            url:"{{ route('MasterApungsController.uploadFile') }}",
+            type:"post",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false, 
+            success:function(data) {
+              $("#fileSpesifikasiDetailKapalName").val(formatName);
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: `<strong>${data.message}</strong>`, 
+                icon:'success',
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            },
+            error: function(data) {
+              $("#fileSpesifikasiDetailKapalName").val("");
+              var errMsg = data.responseJSON ? data.responseJSON.message : "Gagal upload file";
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+                html: `<strong>${errMsg}</strong>`, 
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik", 
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+          })
+        } catch (err) {
+          $("#fileSpesifikasiDetailKapalName").val("");
+          Swal.fire({
+            title: "<span style='color:#FF0000;'>Tidak dapat mengunggah file</span>", 
+            html: `<strong>${err}</strong>`, 
+            imageUrl: "/media/peralatan/gagal_upload.svg",
+            confirmButtonText: "Baik", 
+            confirmButtonColor: "#045299",
+            allowOutsideClick: false
+          })
+        }
+      });
+
+      // validasi mandatory step main
+      $("#next-form").click(function(){
+        var isError = false;
+            
+        if(/[A-z0-9]/.test($("#entity").val()) == false) {
+          isError = true;
+          if($("#entity").hasClass("is-invalid") == false) {
+            $("#entity").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-entity');  
+            $("#entity").after(text);
+          }
+        } else {
+          $("#entity").removeClass('is-invalid');
+          $('#invalid-entity').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#kepemilikanAset").val()) == false) {
+          isError = true;
+          if($("#kepemilikanAset").hasClass("is-invalid") == false) {
+            $("#kepemilikanAset").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-kepemilikanAset');  
+            $("#kepemilikanAset").after(text);
+          }
+        } else {
+          $("#kepemilikanAset").removeClass('is-invalid');
+          $('#invalid-kepemilikanAset').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#lokasiKepemilikanAset").val()) == false) {
+          isError = true;
+          if($("#lokasiKepemilikanAset").hasClass("is-invalid") == false) {
+            $("#lokasiKepemilikanAset").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-lokasiKepemilikanAset');  
+            $("#lokasiKepemilikanAset").after(text);
+          }
+        } else {
+          $("#lokasiKepemilikanAset").removeClass('is-invalid');
+          $('#invalid-lokasiKepemilikanAset').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#klasifikasi").val()) == false) {
+          isError = true;
+          if($("#klasifikasi").hasClass("is-invalid") == false) {
+            $("#klasifikasi").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-klasifikasi');  
+            $("#klasifikasi").after(text);
+          }
+        } else {
+          $("#klasifikasi").removeClass('is-invalid');
+          $('#invalid-klasifikasi').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#namaKapal").val()) == false) {
+          isError = true;
+          if($("#namaKapal").hasClass("is-invalid") == false) {
+            $("#namaKapal").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-namaKapal');  
+            $("#namaKapal").after(text);
+          }
+        } else {
+          $("#namaKapal").removeClass('is-invalid');
+          $('#invalid-namaKapal').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#jenisKapal").val()) == false) {
+          isError = true;
+          if($("#jenisKapal").hasClass("is-invalid") == false) {
+            $("#jenisKapal").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-jenisKapal');  
+            $("#jenisKapal").after(text);
+          }
+        } else {
+          $("#jenisKapal").removeClass('is-invalid');
+          $('#invalid-jenisKapal').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#countryOfOrigin").val()) == false) {
+          isError = true;
+          if($("#countryOfOrigin").hasClass("is-invalid") == false) {
+            $("#countryOfOrigin").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-countryOfOrigin');  
+            $("#countryOfOrigin").after(text);
+          }
+        } else {
+          $("#countryOfOrigin").removeClass('is-invalid');
+          $('#invalid-countryOfOrigin').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#manufacturer").val()) == false) {
+          isError = true;
+          if($("#manufacturer").hasClass("is-invalid") == false) {
+            $("#manufacturer").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-manufacturer');  
+            $("#manufacturer").after(text);
+          }
+        } else {
+          $("#manufacturer").removeClass('is-invalid');
+          $('#invalid-manufacturer').remove();
+        }
+
+        if(/[0-9]/.test($("#manufacturerYear").val()) == false || $("#manufacturerYear").val().length < 4) {
+          isError = true;
+          if($("#manufacturerYear").hasClass("is-invalid") == false) {
+            $("#manufacturerYear").addClass("is-invalid");
+            var pesan = ""
+            if(/[0-9]/.test($("#manufacturerYear").val()) == false) {
+              pesan = "Lengkapi bidang ini";
+            } else if($("#manufacturerYear").val().length < 4) {
+              pesan = "Tahun harus 4 digit"
+            }
+            var text = $("<div></div>").text(pesan);
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-manufacturerYear');  
+            $("#manufacturerYear").after(text);
+          }
+        } else {
+          $("#manufacturerYear").removeClass('is-invalid');
+          $('#invalid-manufacturerYear').remove();
+        }
+
+        if(/[0-9]/.test($("#acquisitionYear").val()) == false || $("#acquisitionYear").val().length < 4) {
+          isError = true;
+          if($("#acquisitionYear").hasClass("is-invalid") == false) {
+            $("#acquisitionYear").addClass("is-invalid");
+            var pesan = ""
+            if($("#acquisitionYear").val() == "") {
+              pesan = "Lengkapi bidang ini";
+            } else if($("#acquisitionYear").val().length < 4) {
+              pesan = "Tahun harus 4 digit"
+            }
+            var text = $("<div></div>").text(pesan);
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-acquisitionYear');  
+            $("#acquisitionYear").after(text);
+          }
+        } else {
+          $("#acquisitionYear").removeClass('is-invalid');
+          $('#invalid-acquisitionYear').remove();
+        }
+
+        if(isError == false) {
+          $('#carouselAddBongkarMuat').carousel(1);
+          $('#btn-page-kedua').removeClass('btn-secondary');
+          $('#btn-page-kedua').addClass('btn-primary');
+          $('#teks-spesification').removeClass('text-secondary');
+          $('#teks-spesification').addClass('text-primary');
+          $('#progress-page').css('width', '100%');
+          $('#submit').css('display', '');
+          $('#next-form').css('display', 'none');
+        }
+      });
+
+      $('#submit').click(function() {
+        Swal.fire({
+          title: "<span style='color:#8CE02C;'>Dikirim</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          icon: 'success',
+          showCancelButton: true,
+          cancelButtonText: "Tidak",
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true, 
+          allowOutsideClick: false 
+        }).then((result)=>{
+          
+          if(result.isConfirmed == true) {
+            var isError = false;
+
+            if($("#labelTipeMe").text().includes("*")) {
+              if(/[A-z0-9]/.test($("#tipeMe").val()) == false) {
+                isError = true;
+                if($("#tipeMe").hasClass("is-invalid") == false) {
+                  $("#tipeMe").addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-tipeMe');  
+                  $("#tipeMe").after(text);
+                }
+              } else {
+                $("#tipeMe").removeClass('is-invalid');
+                $('#invalid-tipeMe').remove();
+              }
+            } else {
+              $("#tipeMe").removeClass('is-invalid');
+              $('#invalid-tipeMe').remove();
+            }
+
+            if($("#labelDayaMe").text().includes("*")) {
+              if(/[A-z0-9]/.test($("#dayaMe").val()) == false) {
+                isError = true;
+                if($("#dayaMe").hasClass("is-invalid") == false) {
+                  $("#dayaMe").addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-dayaMe');  
+                  $("#dayaMe").after(text);
+                }
+              } else {
+                $("#dayaMe").removeClass('is-invalid');
+                $('#invalid-dayaMe').remove();
+              }
+            } else {
+              $("#dayaMe").removeClass('is-invalid');
+              $('#invalid-dayaMe').remove();
+            }
+
+            if($("#labelJenisPropulsi").text().includes("*")) {
+              if(/[A-z0-9]/.test($("#jenispropulsi").val()) == false) {
+                isError = true;
+                if($("#jenispropulsi").hasClass("is-invalid") == false) {
+                  $("#jenispropulsi").addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-jenispropulsi');  
+                  $("#jenispropulsi").after(text);
+                }
+              } else {
+                $("#jenispropulsi").removeClass('is-invalid');
+                $('#invalid-jenispropulsi').remove();
+              }
+            } else {
+              $("#jenispropulsi").removeClass('is-invalid');
+              $('#invalid-jenispropulsi').remove();
+            }
+
+            if($("#labelMerkPropulsi").text().includes("*")) {
+              if(/[A-z0-9]/.test($("#merkpropulsi").val()) == false) {
+                isError = true;
+                $('#carouselAddBongkarMuat').carousel(0);
+                $('#btn-page-kedua').removeClass('btn-primary');
+                $('#btn-page-kedua').addClass('btn-secondary');
+                $('#teks-spesification').removeClass('text-primary');
+                $('#teks-spesification').addClass('text-secondary');
+                $('#progress-page').css('width', '0%');
+                $('#submit').css('display', 'none');
+                $('#next-form').css('display', '');
+                if($("#merkpropulsi").hasClass("is-invalid") == false) {
+                  $("#merkpropulsi").addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-merkpropulsi');  
+                  $("#merkpropulsi").after(text);
+                }
+              } else {
+                $("#merkpropulsi").removeClass('is-invalid');
+                $('#invalid-merkpropulsi').remove();
+              }
+            } else {
+              $("#merkpropulsi").removeClass('is-invalid');
+              $('#invalid-merkpropulsi').remove();
+            }
+            
+            if($("#labelEquipmentDescription").text().includes("*")) {
+              if(/[A-z0-9]/.test($("#existingEquipmentDescription").val()) == false) {
+                isError = true;
+                if($("#existingEquipmentDescription").hasClass("is-invalid") == false) {
+                  $("#existingEquipmentDescription").addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-existingEquipmentDescription');  
+                  $("#existingEquipmentDescription").after(text);
+                }
+              } else {
+                $("#existingEquipmentDescription").removeClass('is-invalid');
+                $('#invalid-existingEquipmentDescription').remove();
+              }
+            } else {
+              $("#existingEquipmentDescription").removeClass('is-invalid');
+              $('#invalid-existingEquipmentDescription').remove();
+            }
+
+            if($('#labelLocalAsset').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#localAssetNumber').val()) == false) {
+                isError = true;
+                if($('#localAssetNumber').hasClass("is-invalid") == false) {
+                  $('#localAssetNumber').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-localAssetNumber'); 
+                  $("#localAssetNumber").after(text);
+                }
+              } else {
+                $("#localAssetNumber").removeClass('is-invalid');
+                $('#invalid-localAssetNumber').remove();
+              }
+            } else {
+              $("#localAssetNumber").removeClass('is-invalid');
+              $('#invalid-localAssetNumber').remove();
+            }
+
+            if($('#labelTipeAe').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#tipeAe').val()) == false) {
+                isError = true;
+                if($('#tipeAe').hasClass("is-invalid") == false) {
+                  $('#tipeAe').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-tipeAe'); 
+                  $("#tipeAe").after(text);
+                }
+              } else {
+                $("#tipeAe").removeClass('is-invalid');
+                $('#invalid-tipeAe').remove();
+              }
+            } else {
+              $("#tipeAe").removeClass('is-invalid');
+              $('#invalid-tipeAe').remove();
+            }
+
+            if($('#labelDayaAe').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#dayaAe').val()) == false) {
+                isError = true;
+                if($('#dayaAe').hasClass("is-invalid") == false) {
+                  $('#dayaAe').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-dayaAe'); 
+                  $("#dayaAe").after(text);
+                }
+              } else {
+                $("#dayaAe").removeClass('is-invalid');
+                $('#invalid-dayaAe').remove();
+              }
+            } else {
+              $("#dayaAe").removeClass('is-invalid');
+              $('#invalid-dayaAe').remove();
+            }
+
+            if($('#labelJumlahAe').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#jumlahAe').val()) == false) {
+                isError = true;
+                if($('#jumlahAe').hasClass("is-invalid") == false) {
+                  $('#jumlahAe').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-jumlahAe'); 
+                  $("#jumlahAe").after(text);
+                }
+              } else {
+                $("#jumlahAe").removeClass('is-invalid');
+                $('#invalid-jumlahAe').remove();
+              }
+            } else {
+              $("#jumlahAe").removeClass('is-invalid');
+              $('#invalid-jumlahAe').remove();
+            }
+            
+            if($('#labelJumlahMe').text().includes("*")) {
+              if(/[A-z0-9]/.test($('#jumlahMe').val()) == false) {
+                isError = true;
+                if($('#jumlahMe').hasClass("is-invalid") == false) {
+                  $('#jumlahMe').addClass("is-invalid");
+                  var text = $("<div></div>").text("Lengkapi bidang ini");
+                  text.addClass("invalid-feedback");
+                  text.attr('id', 'invalid-jumlahMe'); 
+                  $("#jumlahMe").after(text);
+                }
+              } else {
+                $("#jumlahMe").removeClass('is-invalid');
+                $('#invalid-jumlahMe').remove();
+              }
+            } else {
+              $("#jumlahMe").removeClass('is-invalid');
+              $('#invalid-jumlahMe').remove();
+            }
+
+            if($('#fileGrosseAktaName').val() == "") {
+              isError = true;
+              if($('#fileGrosseAkta').hasClass("is-invalid") == false) {
+                $('#fileGrosseAkta').addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-fileGrosseAkta'); 
+                $("#fileGrosseAkta").after(text);
+              }
+            } else {
+              $("#fileGrosseAkta").removeClass('is-invalid');
+              $('#invalid-fileGrosseAkta').remove();
+            }
+
+            if($('#fileBastName').val() == "") {
+              isError = true;
+              if($('#fileBast').hasClass("is-invalid") == false) {
+                $('#fileBast').addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-fileBast'); 
+                $("#fileBast").after(text);
+              }
+            } else {
+              $("#fileBast").removeClass('is-invalid');
+              $('#invalid-fileBast').remove();
+            }
+
+            if($('#fileLampiranTeknisName').val() == "") {
+              isError = true;
+              if($('#fileLampiranTeknis').hasClass("is-invalid") == false) {
+                $('#fileLampiranTeknis').addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-fileLampiranTeknis'); 
+                $("#fileLampiranTeknis").after(text);
+              }
+            } else {
+              $("#fileLampiranTeknis").removeClass('is-invalid');
+              $('#invalid-fileLampiranTeknis').remove();
+            }
+            
+            if(isError == false) {
+              $.ajax({
+                url: `{{ route('MasterApungsController.countNoRequest') }}`,
+                type: "get", 
+                success: function(data) {
+                  // generate no request
+                  const tanggal = new Date();
+                  let strTanggal = tanggal.toString();
+                  const strDay = strTanggal.substring(8, 10);
+                  let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                  "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  let bulan;
+                  for(let i = 0; i < bulanChar.length; i++) {
+                    if(strTanggal.substring(4,7) == bulanChar[i]) {
+                      bulan = (i+1);
+                    }
+                  }
+                  const year = strTanggal.substring(11,15);
+                  const resultDate = year + bulan + strDay;
+                  const runNum = '000'.substr( String(data).length ) + (data);
+                  const no_request = `ALATAP${resultDate}${runNum}`;
+
+                  $.ajax({
+                    url:`{{ route('MasterApungsController.store') }}`,
+                    type:'get', 
+                    data: {
+                      entity: $("#entity").val(),
+                      kepemilikanAset: $('#kepemilikanAset').find(":selected").text() == 'Select' ? '' : $('#kepemilikanAset').find(':selected').text(),
+                      kodeKepemilikanAset: $('#kodeKepemilikanAset').val(), 
+                      lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val(), 
+                      lokasiFisikAset: $("#lokasiFisikAset").val(),
+                      klasifikasi: $("#klasifikasi").find(":selected").text(),
+                      jenisKapal: $("#jenisKapal").find(":selected").text() == 'Select' ? '' : $('#jenisKapal').find(':selected').text().substr(6), 
+                      kodeJenisKapal: $("#jenisKapal").val(),
+                      namaKapal: $("#namaKapal").val(), 
+                      existingEquipmentDescription: $("#existingEquipmentDescription").val(),
+                      notes: $("#notes").val(),
+                      localAssetNumber: $("#localAssetNumber").val(),
+                      manufacturer: $("#manufacturer").val(),
+                      countryOfOrigin: $("#countryOfOrigin").val(), 
+                      manufacturerYear: $("#manufacturerYear").val(),
+                      acquisitionYear: $("#acquisitionYear").val(),
+                      tipeMe: $("#tipeMe").val(), 
+                      dayaMe: $("#dayaMe").val(), 
+                      tipeAe: $("#tipeAe").val(), 
+                      dayaAe: $("#dayaAe").val(),
+                      jenispropulsi: $("#jenispropulsi").val(),
+                      merkpropulsi: $("#merkpropulsi").val(),
+                      jumlahAe: $("#jumlahAe").val(),
+                      jumlahMe: $("#jumlahMe").val(),
+                      fileGrosseAktaName: $("#fileGrosseAktaName").val(),
+                      fileBastName: $("#fileBastName").val(),
+                      fileLampiranTeknisName: $("#fileLampiranTeknisName").val(),
+                      fileSpesifikasiDetailKapalName: $("#fileSpesifikasiDetailKapalName").val(),
+                      status: "DIAJUKAN",
+                      no_request: no_request 
+                    },
+                    success: function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                        html: `<strong>${data.message}</strong>`, 
+                        icon:'success',
+                        confirmButtonText: "Lanjutkan",
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      }).then(()=>{
+                        window.location.assign(`{{ route('MasterApungsController.index', ['outstanding']) }}`);
+                      });
+                    }, 
+                    error: function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                        html: `<strong>${data.responseJSON.message}</strong>`, 
+                        icon: "error",
+                        confirmButtonText: "Baik", 
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      });
+                    }
+                  });
+                } 
+              });
+            }
+          }
+        });
+      });
+
+      $('#draft').click(function() {
+        Swal.fire({
+          title: "<span style='color:#EDAD51;'>Simpan sebagai draf</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          imageUrl: "/media/peralatan/draft.svg",
+          showCancelButton: true,
+          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            
+            var isError = false;
+            
+            if(/[A-z0-9]/.test($("#jenisKapal").val()) == false) {
+              isError = true;
+              $('#carouselAddBongkarMuat').carousel(0);
+              $('#btn-page-kedua').removeClass('btn-primary');
+              $('#btn-page-kedua').addClass('btn-secondary');
+              $('#teks-spesification').removeClass('text-primary');
+              $('#teks-spesification').addClass('text-secondary');
+              $('#progress-page').css('width', '0%');
+              $('#submit').css('display', 'none');
+              $('#next-form').css('display', '');
+              if($("#jenisKapal").hasClass("is-invalid") == false) {
+                $("#jenisKapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jenisKapal');  
+                $("#jenisKapal").after(text);
+              }
+            } else {
+              $("#jenisKapal").removeClass('is-invalid');
+              $('#invalid-jenisKapal').remove();
+            }
+
+            if(/[A-z0-9]/.test($("#namaKapal").val()) == false) {
+              isError = true;
+              $('#carouselAddBongkarMuat').carousel(0);
+              $('#btn-page-kedua').removeClass('btn-primary');
+              $('#btn-page-kedua').addClass('btn-secondary');
+              $('#teks-spesification').removeClass('text-primary');
+              $('#teks-spesification').addClass('text-secondary');
+              $('#progress-page').css('width', '0%');
+              $('#submit').css('display', 'none');
+              $('#next-form').css('display', '');
+              if($("#namaKapal").hasClass("is-invalid") == false) {
+                $("#namaKapal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-namaKapal');  
+                $("#namaKapal").after(text);
+              }
+            } else {
+              $("#namaKapal").removeClass('is-invalid');
+              $('#invalid-namaKapal').remove();
+            }
+            
+            if(isError == false) {
+              $.ajax({
+                url: `{{ route('MasterApungsController.countNoRequest') }}`,
+                type: "get", 
+                success: function(data) {
+                  // generate no request
+                  const tanggal = new Date();
+                  let strTanggal = tanggal.toString();
+                  const strDay = strTanggal.substring(8, 10);
+                  let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                  "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  let bulan;
+                  for(let i = 0; i < bulanChar.length; i++) {
+                      if(strTanggal.substring(4,7) == bulanChar[i]) {
+                          bulan = (i+1);
+                      }
+                  }
+                  const year = strTanggal.substring(11,15);
+                  const resultDate = year + bulan + strDay;
+                  const runNum = '000'.substr( String(data).length ) + (data);
+                  const no_request = `ALATAP${resultDate}${runNum}`;
+                  $("#no_request").val(no_request);
+                  $("#existingEquipmentDescriptionValue").val($("#existingEquipmentDescription").val());
+                  $("#status").val("DRAFT");
+                  $("#addBongkarMuat").submit();
+                  // insert data into table 
+                  $.ajax({
+                    url:`{{ route('MasterApungsController.store') }}`,
+                    type:'get', 
+                    data: {
+                      entity: $("#entity").val(),
+                      kepemilikanAset: $('#kepemilikanAset').find(":selected").text() == 'Select' ? '' : $('#kepemilikanAset').find(":selected").text(),
+                      kodeKepemilikanAset: $('#kodeKepemilikanAset').val(), 
+                      lokasiKepemilikanAset: $("#lokasiKepemilikanAset").val(), 
+                      lokasiFisikAset: $("#lokasiFisikAset").val(),
+                      klasifikasi: $("#klasifikasi").find(":selected").text(),
+                      jenisKapal: $("#jenisKapal").find(":selected").text() == 'Select' ? '' : $("#jenisKapal").find(":selected").text().substr(6), 
+                      kodeJenisKapal: $("#jenisKapal").val(),
+                      namaKapal: $("#namaKapal").val(), 
+                      existingEquipmentDescription: $("#existingEquipmentDescription").val(),
+                      notes: $("#notes").val(), 
+                      // kodeAlat: $("#kodeAlat").val(),
+                      localAssetNumber: $("#localAssetNumber").val(),
+                      manufacturer: $("#manufacturer").val(),
+                      countryOfOrigin: $("#countryOfOrigin").val(), 
+                      manufacturerYear: $("#manufacturerYear").val(),
+                      acquisitionYear: $("#acquisitionYear").val(),
+                      tipeMe: $("#tipeMe").val(), 
+                      dayaMe: $("#dayaMe").val(), 
+                      tipeAe: $("#tipeAe").val(), 
+                      dayaAe: $("#dayaAe").val(),
+                      jenispropulsi: $("#jenispropulsi").val(),
+                      merkpropulsi: $("#merkpropulsi").val(),
+                      jumlahAe: $("#jumlahAe").val(),
+                      jumlahMe: $("#jumlahMe").val(),
+                      fileGrosseAktaName: $("#fileGrosseAktaName").val(),
+                      fileBastName: $("#fileBastName").val(),
+                      fileLampiranTeknisName: $("#fileLampiranTeknisName").val(),
+                      fileSpesifikasiDetailKapalName: $("#fileSpesifikasiDetailKapalName").val(),
+                      status: "DRAFT",
+                      no_request: no_request 
+                    },
+                    success:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                        html: `<stong>${data.message}</strong>`, 
+                        icon:'success',
+                        confirmButtonText: "Lanjutkan",
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      }).then(()=>{
+                        window.location.assign(`{{ route('MasterApungsController.index', ['outstanding']) }}`);
+                      });
+                    }, 
+                    error: function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                        html: `<strong>${data.responseJSON.message}</strong>`, 
+                        icon:'error',
+                        confirmButtonText: "Baik",
+                        confirmButtonColor: "#045299",
+                        allowOutsideClick: false
+                      });
+                    }
+                  });
+                } 
+              });
+            }
+          }
+        });
+      });
+
+      $('#kepemilikanAset').change(function() {
+        $('#kodeKepemilikanAset').val($(this).val());
+      });
+
+      var arrayEquipmentDes = { kodeAlat:'', manYear:'', lokasiFisik:'', dayaMe:'', jenisPropulsi:''};
+      $('#jenisKapal').change(function() {
+        var jenisKapal = $(this).find(':selected').text();
+        arrayEquipmentDes.kodeAlat = jenisKapal;
+        var kodeJenisKapal = $(this).val();
+        $('#existingEquipmentDescription').val(`${arrayEquipmentDes.kodeAlat}, ${arrayEquipmentDes.manYear}, ${arrayEquipmentDes.dayaMe}, ${arrayEquipmentDes.jenisPropulsi}`);
+        $('#kodeJenisKapal').val(kodeJenisKapal);
+      });
+
+      $('#manufacturerYear').keyup( function() {
+        $(this).val($(this).val().replace(/\D/g,''));
+        if($("#manufacturerYear").val().length < 4) {
+          isError = true;
+          if($("#manufacturerYear").hasClass("is-invalid") == false) {
+            $("#manufacturerYear").addClass("is-invalid");
+            var text = $("<div></div>").text("Tahun harus 4 digit");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-manufacturerYear');  
+            $("#manufacturerYear").after(text);
+          }
+        } else {
+          $("#manufacturerYear").removeClass('is-invalid');
+          $('#invalid-manufacturerYear').remove();
+          arrayEquipmentDes.manYear = $(this).val();
+          $('#existingEquipmentDescription').val(`${arrayEquipmentDes.kodeAlat}, ${arrayEquipmentDes.manYear}, ${arrayEquipmentDes.dayaMe}, ${arrayEquipmentDes.jenisPropulsi}`);
+        }
+      });
+
+      $('#acquisitionYear').keyup( function() {
+        $(this).val($(this).val().replace(/\D/g,''));
+        if($("#acquisitionYear").val().length < 4) {
+          if($("#acquisitionYear").hasClass("is-invalid") == false) {
+            $("#acquisitionYear").addClass("is-invalid");
+            var text = $("<div></div>").text("Tahun harus 4 digit");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-acquisitionYear');  
+            $("#acquisitionYear").after(text);
+          }
+        } else {
+          $("#acquisitionYear").removeClass('is-invalid');
+          $('#invalid-acquisitionYear').remove();
+        }
+      });
+
+      $("#jenisKapal").change(function() {
+        if($(this).val() == "KPD" || $(this).val() == "KTD") {
+          $("#labelLocalAsset").html("Local Asset Number");
+          $("#labelTipeMe").html("Merk/Tipe ME<span style='color:red'>*</span>");
+          $("#labelDayaAe").html("Daya AE (Horsepower)<span style='color:red'>*</span>");
+          $("#labelDayaMe").html("Daya ME (Horsepower)<span style='color:red'>*</span>");
+          $("#labelMerkPropulsi").html("Merk propulsi<span style='color:red'>*</span>");
+          $("#labelJenisPropulsi").html("Jenis Propulsi<span style='color:red'>*</span>");
+          $("#labelEquipmentDescription").html("Existing Equipment Description<span style='color:red'>*</span>");
+          $("#labelTipeAe").html("Merk/Tipe AE<span style='color:red'>*</span>");
+          $("#labelJumlahAe").html("Jumlah AE<span style='color:red'>*</span>");
+          $("#labelJumlahMe").html("Jumlah ME<span style='color:red'>*</span>");
+        } else {
+          $("#labelLocalAsset").html("Local Asset Number");
+          $("#labelTipeMe").html("Merk/Tipe ME");
+          $("#labelDayaAe").html("Daya AE (Horsepower)");
+          $("#labelDayaMe").html("Daya ME (Horsepower)");
+          $("#labelMerkPropulsi").html("Merk propulsi");
+          $("#labelJenisPropulsi").html("Jenis Propulsi");
+          $("#labelEquipmentDescription").html("Existing Equipment Description");
+          $("#labelTipeAe").html("Merk/Tipe AE");
+          $("#labelJumlahAe").html("Jumlah AE");
+          $("#labelJumlahMe").html("Jumlah ME");
+        }
+      });
+
+      $("#dayaMe").keyup(function(){
+        arrayEquipmentDes.dayaMe = $(this).val();
+        $('#existingEquipmentDescription').val(`${arrayEquipmentDes.kodeAlat}, ${arrayEquipmentDes.manYear}, ${arrayEquipmentDes.dayaMe}, ${arrayEquipmentDes.jenisPropulsi}`);
+      });
+
+      $("#jenispropulsi").change(function(){
+        arrayEquipmentDes.jenisPropulsi = $(this).val();
+        $('#existingEquipmentDescription').val(`${arrayEquipmentDes.kodeAlat}, ${arrayEquipmentDes.manYear}, ${arrayEquipmentDes.dayaMe}, ${arrayEquipmentDes.jenisPropulsi}`);
+      });
+
+      $(".crsl-one").click(function() {
+        $('#btn-page-kedua').removeClass('btn-primary');
+        $('#btn-page-kedua').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#submit').css('display', 'none');
+        $('#next-form').css('display', '');
+      });
+
+      $(".crsl-two").click(function() {
+        $('#btn-page-kedua').removeClass('btn-secondary');
+        $('#btn-page-kedua').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#submit').css('display', '');
+        $('#next-form').css('display', 'none');
+      });
+
+    });
+
+    function desimal2digits (value, ele, evt) {
+      const myArray = value.split(",");
+      if (myArray[1]){
+        let numberDecimal = myArray[1];
+        if (numberDecimal.length > 1){
+          evt.preventDefault();
+          swal.fire("Dibatalkan", "2 digit decimal", "error");
+        }
+      }
+      return true;
+    }
+
+    // auto pemisah ribuan dan desimal
+    function tipeNumber(value, ele) {
+      let newVal = value.replace(/[^0-9\-.,]/g, "");
+      if(!/[0-9]/.test(newVal)) {
+        newVal = newVal.replace(/[.,]/g, "");
+      }
+      if(!value.includes(".")) {
+        var parts = newVal.toString().split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : "");
+      } else {
+        newVal = newVal.toString().replace(/[.]/g,"");
+        var parts = newVal.split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : ""); 
+      }
+    }
+</script>
+
+
+@end

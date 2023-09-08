@@ -1,0 +1,142 @@
+<style>
+
+    .filter-group {
+    display: flex;
+    align-items: center;
+    }
+    .custom-dot {
+        font-size: 25px; 
+        position: relative;
+        margin-bottom: 30px;
+        padding: 10px;
+        /* line-height: 0.1; */
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+</style>
+<div class="modal fade" tabindex="-1" id="kt_modal_filter">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header row">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <div class="d-flex justify-content-center">
+                        <h3 class="modal-title">Filter</h3>
+                    </div>
+                </div>
+                <div class="col">
+                    <!--begin::Close-->
+                    <div class="d-flex justify-content-end">
+                        <div class="float-end btn btn-icon btn-sm btn-active-light-primary" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fs-6 text-danger fa fa-close"></i>
+                        </div>
+                    </div>
+                    <!--end::Close-->
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="filter-group">
+                    <strong><a href="#">Select All</a></strong>
+                    <strong><span class="custom-dot text-primary mx-2">.</span></strong>
+                    <strong><a href="#" class="text-muted">Reset</a></strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="my-5">
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="no-aset">
+                            <label class="form-check-label" for="no-aset">
+                                No. Aset
+                            </label>
+                        </div>
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="nama-aset">
+                            <label class="form-check-label" for="nama-aset">
+                                Nama Aset
+                            </label>
+                        </div>
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="aset-kelas">
+                            <label class="form-check-label" for="aset-kelas">
+                                Aset Kelas
+                            </label>
+                        </div>
+                    </div>
+                    <div class="my-5">
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="cabang">
+                            <label class="form-check-label" for="cabang">
+                                Cabang
+                            </label>
+                        </div>
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="tanggal-perolehan">
+                            <label class="form-check-label" for="tanggal-perolehan">
+                                Tanggal Perolehan
+                            </label>
+                        </div>
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="harga-perolehan">
+                            <label class="form-check-label" for="harga-perolehan">
+                                Harga Perolehan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="my-5">
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="akumulasi-penyusutan">
+                            <label class="form-check-label" for="akumulasi-penyusutan">
+                                Akumulasi Penyusutan
+                            </label>
+                        </div>
+                        <div class="form-check mb-7">
+                            <input class="form-check-input" type="checkbox" value="" id="nilai-buku">
+                            <label class="form-check-label" for="nilai-buku">
+                                Nilai Buku
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="filter_button" onclick="filterFunction()" data-bs-dismiss="modal" class="btn btn-outline-primary border border-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function filterFunction() {
+        const columns = [
+            { checkbox: $('#no-aset'), column: 1 },
+            { checkbox: $('#nama-aset'), column: 2 },
+            { checkbox: $('#aset-kelas'), column: 3 },
+            { checkbox: $('#cabang'), column: 4 },
+            { checkbox: $('#tanggal-perolehan'), column: 5 },
+            { checkbox: $('#harga-perolehan'), column: 6 },
+            { checkbox: $('#akumulasi-penyusutan'), column: 7 },
+            { checkbox: $('#nilai-buku'), column: 8 },
+        ];
+
+        let allUnchecked = true;
+
+        columns.forEach((item) => {
+            if (item.checkbox.prop('checked')) {
+            t.column(item.column).visible(true);
+            allUnchecked = false;
+            } else {
+            t.column(item.column).visible(false);
+            }
+        });
+
+        if (allUnchecked) {
+            for (let i = 1; i <= 8; i++) {
+            t.column(i).visible(true);
+            }
+        }
+    }
+</script>
+

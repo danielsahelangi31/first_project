@@ -1,0 +1,429 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="d-flex flex-lg-column ">  
+              <div class="d-flex align-items-center  ">                    
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="19" cy="19" r="19" fill="#045299"/>
+                    <path d="M16.1875 24.625V26.875M12.8125 11.125H19.5625C19.8609 11.125 20.147 11.2435 20.358 11.4545C20.569 11.6655 20.6875 11.9516 20.6875 12.25V26.7344C20.6875 26.7717 20.6727 26.8074 20.6463 26.8338C20.6199 26.8602 20.5842 26.875 20.5469 26.875H11.6875V12.25C11.6875 11.9516 11.806 11.6655 12.017 11.4545C12.228 11.2435 12.5141 11.125 12.8125 11.125V11.125ZM21.25 16.75H25.1875C25.4859 16.75 25.772 16.8685 25.983 17.0795C26.194 17.2905 26.3125 17.5766 26.3125 17.875V26.875H20.6875V17.3125C20.6875 17.1633 20.7468 17.0202 20.8523 16.9148C20.9577 16.8093 21.1008 16.75 21.25 16.75Z" stroke="white" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.4479 25.1828C13.3314 25.198 13.2131 25.1764 13.1095 25.1209C13.0059 25.0655 12.9223 24.979 12.8704 24.8736C12.8185 24.7682 12.8009 24.6492 12.82 24.5333C12.8392 24.4173 12.8942 24.3103 12.9773 24.2273C13.0603 24.1442 13.1673 24.0892 13.2833 24.07C13.3992 24.0509 13.5182 24.0685 13.6236 24.1204C13.729 24.1723 13.8155 24.2559 13.8709 24.3595C13.9264 24.4631 13.948 24.5814 13.9328 24.6979C13.9167 24.8209 13.8604 24.9351 13.7727 25.0227C13.6851 25.1104 13.5709 25.1667 13.4479 25.1828ZM13.4479 22.3703C13.3314 22.3855 13.2131 22.3639 13.1095 22.3084C13.0059 22.253 12.9223 22.1665 12.8704 22.0611C12.8185 21.9557 12.8009 21.8367 12.82 21.7208C12.8392 21.6048 12.8942 21.4978 12.9773 21.4148C13.0603 21.3317 13.1673 21.2767 13.2833 21.2575C13.3992 21.2384 13.5182 21.256 13.6236 21.3079C13.729 21.3598 13.8155 21.4434 13.8709 21.547C13.9264 21.6506 13.948 21.7689 13.9328 21.8854C13.9167 22.0084 13.8604 22.1226 13.7727 22.2102C13.6851 22.2979 13.5709 22.3542 13.4479 22.3703ZM13.4479 19.5578C13.3314 19.573 13.2131 19.5514 13.1095 19.4959C13.0059 19.4405 12.9223 19.354 12.8704 19.2486C12.8185 19.1432 12.8009 19.0242 12.82 18.9083C12.8392 18.7923 12.8942 18.6853 12.9773 18.6023C13.0603 18.5192 13.1673 18.4642 13.2833 18.445C13.3992 18.4259 13.5182 18.4435 13.6236 18.4954C13.729 18.5473 13.8155 18.6309 13.8709 18.7345C13.9264 18.8381 13.948 18.9564 13.9328 19.0729C13.9167 19.1959 13.8604 19.3101 13.7727 19.3977C13.6851 19.4854 13.5709 19.5417 13.4479 19.5578ZM13.4479 16.7453C13.3314 16.7605 13.2131 16.7389 13.1095 16.6834C13.0059 16.628 12.9223 16.5415 12.8704 16.4361C12.8185 16.3307 12.8009 16.2117 12.82 16.0958C12.8392 15.9798 12.8942 15.8728 12.9773 15.7898C13.0603 15.7067 13.1673 15.6517 13.2833 15.6325C13.3992 15.6134 13.5182 15.631 13.6236 15.6829C13.729 15.7348 13.8155 15.8184 13.8709 15.922C13.9264 16.0256 13.948 16.1439 13.9328 16.2604C13.9167 16.3834 13.8604 16.4976 13.7727 16.5852C13.6851 16.6729 13.5709 16.7292 13.4479 16.7453ZM13.4479 13.9328C13.3314 13.948 13.2131 13.9264 13.1095 13.8709C13.0059 13.8155 12.9223 13.729 12.8704 13.6236C12.8185 13.5182 12.8009 13.3992 12.82 13.2833C12.8392 13.1673 12.8942 13.0603 12.9773 12.9773C13.0603 12.8942 13.1673 12.8392 13.2833 12.82C13.3992 12.8009 13.5182 12.8185 13.6236 12.8704C13.729 12.9223 13.8155 13.0059 13.8709 13.1095C13.9264 13.2131 13.948 13.3314 13.9328 13.4479C13.9167 13.5709 13.8604 13.6851 13.7727 13.7727C13.6851 13.8604 13.5709 13.9167 13.4479 13.9328ZM16.2604 22.3703C16.1439 22.3855 16.0256 22.3639 15.922 22.3084C15.8184 22.253 15.7348 22.1665 15.6829 22.0611C15.631 21.9557 15.6134 21.8367 15.6325 21.7208C15.6517 21.6048 15.7067 21.4978 15.7898 21.4148C15.8728 21.3317 15.9798 21.2767 16.0958 21.2575C16.2117 21.2384 16.3307 21.256 16.4361 21.3079C16.5415 21.3598 16.628 21.4434 16.6834 21.547C16.7389 21.6506 16.7605 21.7689 16.7453 21.8854C16.7292 22.0084 16.6729 22.1226 16.5852 22.2102C16.4976 22.2979 16.3834 22.3542 16.2604 22.3703ZM16.2604 19.5578C16.1439 19.573 16.0256 19.5514 15.922 19.4959C15.8184 19.4405 15.7348 19.354 15.6829 19.2486C15.631 19.1432 15.6134 19.0242 15.6325 18.9083C15.6517 18.7923 15.7067 18.6853 15.7898 18.6023C15.8728 18.5192 15.9798 18.4642 16.0958 18.445C16.2117 18.4259 16.3307 18.4435 16.4361 18.4954C16.5415 18.5473 16.628 18.6309 16.6834 18.7345C16.7389 18.8381 16.7605 18.9564 16.7453 19.0729C16.7292 19.1959 16.6729 19.3101 16.5852 19.3977C16.4976 19.4854 16.3834 19.5417 16.2604 19.5578ZM16.2604 16.7453C16.1439 16.7605 16.0256 16.7389 15.922 16.6834C15.8184 16.628 15.7348 16.5415 15.6829 16.4361C15.631 16.3307 15.6134 16.2117 15.6325 16.0958C15.6517 15.9798 15.7067 15.8728 15.7898 15.7898C15.8728 15.7067 15.9798 15.6517 16.0958 15.6325C16.2117 15.6134 16.3307 15.631 16.4361 15.6829C16.5415 15.7348 16.628 15.8184 16.6834 15.922C16.7389 16.0256 16.7605 16.1439 16.7453 16.2604C16.7292 16.3834 16.6729 16.4976 16.5852 16.5852C16.4976 16.6729 16.3834 16.7292 16.2604 16.7453ZM16.2604 13.9328C16.1439 13.948 16.0256 13.9264 15.922 13.8709C15.8184 13.8155 15.7348 13.729 15.6829 13.6236C15.631 13.5182 15.6134 13.3992 15.6325 13.2833C15.6517 13.1673 15.7067 13.0603 15.7898 12.9773C15.8728 12.8942 15.9798 12.8392 16.0958 12.82C16.2117 12.8009 16.3307 12.8185 16.4361 12.8704C16.5415 12.9223 16.628 13.0059 16.6834 13.1095C16.7389 13.2131 16.7605 13.3314 16.7453 13.4479C16.7292 13.5709 16.6729 13.6851 16.5852 13.7727C16.4976 13.8604 16.3834 13.9167 16.2604 13.9328ZM19.0729 25.1828C18.9564 25.198 18.8381 25.1764 18.7345 25.1209C18.6309 25.0655 18.5473 24.979 18.4954 24.8736C18.4435 24.7682 18.4259 24.6492 18.445 24.5333C18.4642 24.4173 18.5192 24.3103 18.6023 24.2273C18.6853 24.1442 18.7923 24.0892 18.9083 24.07C19.0242 24.0509 19.1432 24.0685 19.2486 24.1204C19.354 24.1723 19.4405 24.2559 19.4959 24.3595C19.5514 24.4631 19.573 24.5814 19.5578 24.6979C19.5417 24.8209 19.4854 24.9351 19.3977 25.0227C19.3101 25.1104 19.1959 25.1667 19.0729 25.1828ZM19.0729 22.3703C18.9564 22.3855 18.8381 22.3639 18.7345 22.3084C18.6309 22.253 18.5473 22.1665 18.4954 22.0611C18.4435 21.9557 18.4259 21.8367 18.445 21.7208C18.4642 21.6048 18.5192 21.4978 18.6023 21.4148C18.6853 21.3317 18.7923 21.2767 18.9083 21.2575C19.0242 21.2384 19.1432 21.256 19.2486 21.3079C19.354 21.3598 19.4405 21.4434 19.4959 21.547C19.5514 21.6506 19.573 21.7689 19.5578 21.8854C19.5417 22.0084 19.4854 22.1226 19.3977 22.2102C19.3101 22.2979 19.1959 22.3542 19.0729 22.3703ZM19.0729 19.5578C18.9564 19.573 18.8381 19.5514 18.7345 19.4959C18.6309 19.4405 18.5473 19.354 18.4954 19.2486C18.4435 19.1432 18.4259 19.0242 18.445 18.9083C18.4642 18.7923 18.5192 18.6853 18.6023 18.6023C18.6853 18.5192 18.7923 18.4642 18.9083 18.445C19.0242 18.4259 19.1432 18.4435 19.2486 18.4954C19.354 18.5473 19.4405 18.6309 19.4959 18.7345C19.5514 18.8381 19.573 18.9564 19.5578 19.0729C19.5417 19.1959 19.4854 19.3101 19.3977 19.3977C19.3101 19.4854 19.1959 19.5417 19.0729 19.5578Z" fill="white"/>
+                    <path d="M19.3983 16.5841C19.6173 16.3651 19.6164 16.0092 19.3963 15.7891C19.1763 15.569 18.8203 15.5681 18.6013 15.7871C18.3824 16.0061 18.3832 16.362 18.6033 16.5821C18.8234 16.8022 19.1793 16.8031 19.3983 16.5841Z" fill="white"/>
+                    <path d="M19.0729 13.9328C18.9564 13.948 18.8381 13.9264 18.7345 13.8709C18.6309 13.8155 18.5473 13.729 18.4954 13.6236C18.4435 13.5182 18.4259 13.3992 18.445 13.2833C18.4642 13.1673 18.5192 13.0603 18.6023 12.9773C18.6853 12.8942 18.7923 12.8392 18.9083 12.82C19.0242 12.8009 19.1432 12.8185 19.2486 12.8704C19.354 12.9223 19.4405 13.0059 19.4959 13.1095C19.5514 13.2131 19.573 13.3314 19.5578 13.4479C19.5417 13.5709 19.4854 13.6851 19.3977 13.7727C19.3101 13.8604 19.1959 13.9167 19.0729 13.9328ZM24.0623 24.0623C23.9511 24.0623 23.8423 24.0953 23.7498 24.1571C23.6573 24.2189 23.5852 24.3068 23.5426 24.4096C23.5001 24.5123 23.4889 24.6254 23.5106 24.7346C23.5323 24.8437 23.5859 24.9439 23.6646 25.0226C23.7432 25.1012 23.8435 25.1548 23.9526 25.1765C24.0617 25.1982 24.1748 25.1871 24.2776 25.1445C24.3804 25.1019 24.4682 25.0298 24.53 24.9373C24.5918 24.8448 24.6248 24.7361 24.6248 24.6248C24.6248 24.4756 24.5656 24.3326 24.4601 24.2271C24.3546 24.1216 24.2115 24.0623 24.0623 24.0623ZM24.0623 21.2498C23.9511 21.2498 23.8423 21.2828 23.7498 21.3446C23.6573 21.4064 23.5852 21.4943 23.5426 21.5971C23.5001 21.6998 23.4889 21.8129 23.5106 21.9221C23.5323 22.0312 23.5859 22.1314 23.6646 22.2101C23.7432 22.2887 23.8435 22.3423 23.9526 22.364C24.0617 22.3857 24.1748 22.3746 24.2776 22.332C24.3804 22.2894 24.4682 22.2173 24.53 22.1248C24.5918 22.0323 24.6248 21.9236 24.6248 21.8123C24.6248 21.6631 24.5656 21.5201 24.4601 21.4146C24.3546 21.3091 24.2115 21.2498 24.0623 21.2498ZM24.0623 18.4373C23.9511 18.4373 23.8423 18.4703 23.7498 18.5321C23.6573 18.5939 23.5852 18.6818 23.5426 18.7846C23.5001 18.8873 23.4889 19.0004 23.5106 19.1096C23.5323 19.2187 23.5859 19.3189 23.6646 19.3976C23.7432 19.4762 23.8435 19.5298 23.9526 19.5515C24.0617 19.5732 24.1748 19.5621 24.2776 19.5195C24.3804 19.4769 24.4682 19.4048 24.53 19.3123C24.5918 19.2198 24.6248 19.1111 24.6248 18.9998C24.6248 18.8506 24.5656 18.7076 24.4601 18.6021C24.3546 18.4966 24.2115 18.4373 24.0623 18.4373ZM21.8123 24.0623C21.7011 24.0623 21.5923 24.0953 21.4998 24.1571C21.4073 24.2189 21.3352 24.3068 21.2926 24.4096C21.2501 24.5123 21.2389 24.6254 21.2606 24.7346C21.2823 24.8437 21.3359 24.9439 21.4146 25.0226C21.4932 25.1012 21.5935 25.1548 21.7026 25.1765C21.8117 25.1982 21.9248 25.1871 22.0276 25.1445C22.1304 25.1019 22.2182 25.0298 22.28 24.9373C22.3418 24.8448 22.3748 24.7361 22.3748 24.6248C22.3748 24.4756 22.3156 24.3326 22.2101 24.2271C22.1046 24.1216 21.9615 24.0623 21.8123 24.0623ZM21.8123 21.2498C21.7011 21.2498 21.5923 21.2828 21.4998 21.3446C21.4073 21.4064 21.3352 21.4943 21.2926 21.5971C21.2501 21.6998 21.2389 21.8129 21.2606 21.9221C21.2823 22.0312 21.3359 22.1314 21.4146 22.2101C21.4932 22.2887 21.5935 22.3423 21.7026 22.364C21.8117 22.3857 21.9248 22.3746 22.0276 22.332C22.1304 22.2894 22.2182 22.2173 22.28 22.1248C22.3418 22.0323 22.3748 21.9236 22.3748 21.8123C22.3748 21.6631 22.3156 21.5201 22.2101 21.4146C22.1046 21.3091 21.9615 21.2498 21.8123 21.2498ZM21.8123 18.4373C21.7011 18.4373 21.5923 18.4703 21.4998 18.5321C21.4073 18.5939 21.3352 18.6818 21.2926 18.7846C21.2501 18.8873 21.2389 19.0004 21.2606 19.1096C21.2823 19.2187 21.3359 19.3189 21.4146 19.3976C21.4932 19.4762 21.5935 19.5298 21.7026 19.5515C21.8117 19.5732 21.9248 19.5621 22.0276 19.5195C22.1304 19.4769 22.2182 19.4048 22.28 19.3123C22.3418 19.2198 22.3748 19.1111 22.3748 18.9998C22.3748 18.8506 22.3156 18.7076 22.2101 18.6021C22.1046 18.4966 21.9615 18.4373 21.8123 18.4373Z" fill="white"/>
+                </svg>              
+                  <h2 class="mx-3">Master Company</h2>     
+                </div>                                          
+            </div>
+        </div>
+    </div>
+  </div>
+
+  {{--  mini dashboard  --}}
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="row justify-content-center">
+              <div style="padding:10px;width:260.5px;height:153px;background:white;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;margin-left:30px;">
+                <div style="display:flex;padding:0 10px;">
+                  <div style="width:50%;">
+                    <a href="{{route('master_company.index')}}">
+                    <p style="margin:15px 0 -1px 0;font-size:20px;">Overall</p>
+                    </a>
+                  </div>
+                  <div style="width:50%;">
+                    <img src="/media/peralatan/approve.svg" alt="Overall" width="80" height="74">
+                  </div>
+                </div>
+                <hr>
+                <div style="display:flex;margin-top:-5px;">
+                  <div style="width:50%;text-align:center;">
+                    {{countData.active}}<br>
+                    <a href="{{route('master_company.index')}}?status=active">
+                    <span style="color:#8CE02C;"><u>Aktif</u></span>
+                    </a>
+                  </div>
+                  <div style="width:50%;text-align:center;border-left:1px solid #C0C0C0;">
+                    {{countData.non_active}}<br>
+                    <a href="{{route('master_company.index')}}?status=non-active">
+                    <span style="color:red;"><u>Non-Aktif</u></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+                <div style="padding:10px;background:white;width:270px;height:153px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;margin-left:30px;">
+                  <div style="display:flex;padding:0 10px;">
+                    <div style="width:50%;">
+                      <a href="{{route('master_company.index')}}?status=draft"><p style="margin:15px 0 -1px 0;font-size:16px;font-style:bold;">Outstanding</p></a>
+                    </div>
+                    <div style="width:50%;margin-top:10px;">
+                      <img src="/media/peralatan/request.svg" alt="draft" width="100" height="60">
+                    </div>
+                  </div>
+                  <hr>
+                  <div style="display:flex;margin-top:-5px;justify-content:center;">
+                    <div style="width:33%;text-align:center;">
+                      {{countData.draft}}<br>
+                      <a href="{{route('master_company.index')}}?status=draft">
+                      <span style="color:#EDAD51;"><u>Draft</u></span>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <div class="card mb-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">      
+      <div class="card-body border-top p-9">
+        <div class="row my-5 ">
+          <div class="col-lg-4">
+              <div class="form-group">
+                  <div class="input-icon">
+                  <input style="background-image:url(/media/peralatan/search_icon.svg);background-position:5% 45%;background-repeat:no-repeat;text-indent:40px;" id="search" type="text" class="form-control" placeholder="Search..."/>
+                </div>
+                <span><i class="flaticon2-search-1 icon-md"></i></span>
+              </div>
+          </div>
+        </div>
+        <div class="card-title m-0">
+          @can('access','create-master-company')
+          <div class="btn" style="float: right;">
+            <a href="{{route('master_company.create')}}" class="btn btn-primary">
+              <i class="fa fa-plus"></i> Add New
+            </a>
+          </div>
+          @end        
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+
+          <!--begin: Datatable -->
+          <div class="my_datatable" id="kt_datatable">
+              <table id="example" style="border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #B6EAFF;" id="example" class="table table-striped table-row-bordered gy-5 gs-7 border border-gray-300 display">
+            <thead>
+              <tr>
+                <th style="text-align:center;">No</th>
+                <th style="text-align:center;">Company Code</th>
+                <th style="text-align:center;">Company Name</th>
+                <th style="text-align:center;">Profit Center</th>
+                <th style="text-align:center;">SAP Code</th>
+                <th style="text-align:center;">Company Group</th>
+                <th style="text-align:center;">Status</th>
+                <th style="text-align:center;">Action</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: white">
+              @each(data in data)
+                <tr>
+                    <td></td>
+                    <td>
+                      @if(data.code_company === null)
+                        -
+                      @else
+                      {{data.code_company}}
+                      @endif
+                    </td>
+                    <td>{{data.company_name}}</td>
+                    <td>
+                      @if(data.profit_center === null)
+                        -
+                      @else
+                      {{data.profit_center}}
+                      @endif
+                    </td>
+                    <td>
+                      @if(data.sap_code === null)
+                        -
+                      @else
+                      {{data.sap_code}}
+                      @endif
+                    </td>
+                    <td>
+                      @if(data.company_group === null)
+                        -
+                      @else
+                      {{data.company_group}}
+                      @endif
+                    </td>
+                    <td>
+                      @if(data.status == 'active')
+                      <div style="text-align:center;width:100px;background:rgba(140, 224, 44, 0.2);padding:2px 0;color:#8CE02C;border-radius:5px;">Active</div>
+                      @elseif(data.status == 'non-active')
+                      <div style="text-align:center;width:100px;background:rgba(192, 192, 192, 0.2);padding:2px 0;color:#C0C0C0;border-radius:5px;">Inactive</div>
+                      @elseif(data.status == 'draft')
+                      <div style="text-align:center;width:100px;background:rgba(237, 173, 81, 0.2);padding:2px 0;color:#EDAD51;border-radius:5px;">Draft</div>
+                      @end
+                    </td>
+                    <td>
+                    @can('access','view-master-company')
+                      <div class="btn-group mx-1" data-bs-toggle="tooltip" title="View">
+                        <a href="{{route('CompanyDetail', {id: data.id})}}">
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.98808 3.9375C6.248 3.9375 3.43726 5.5234 1.22453 8.6952C1.16137 8.78673 1.12675 8.89493 1.12506 9.00612C1.12338 9.11731 1.15468 9.22651 1.21503 9.31992C2.91519 11.9813 5.68832 14.0625 8.98808 14.0625C12.252 14.0625 15.0821 11.9749 16.7854 9.30762C16.8443 9.21604 16.8757 9.10943 16.8757 9.00053C16.8757 8.89162 16.8443 8.78502 16.7854 8.69344C15.0782 6.05672 12.2274 3.9375 8.98808 3.9375Z" stroke="url(#paint0_linear_1040_19418)" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11.8125C10.5533 11.8125 11.8125 10.5533 11.8125 9C11.8125 7.4467 10.5533 6.1875 9 6.1875C7.4467 6.1875 6.1875 7.4467 6.1875 9C6.1875 10.5533 7.4467 11.8125 9 11.8125Z" stroke="url(#paint1_linear_1040_19418)" stroke-width="1.125" stroke-miterlimit="10"/>
+                            <defs>
+                            <linearGradient id="paint0_linear_1040_19418" x1="9.00033" y1="3.9375" x2="9.00033" y2="14.0625" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00A3FF"/>
+                            <stop offset="1" stop-color="#22A7F2"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_1040_19418" x1="9" y1="6.1875" x2="9" y2="11.8125" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00A3FF"/>
+                            <stop offset="1" stop-color="#22A7F2"/>
+                            </linearGradient>
+                            </defs>
+                            </svg>
+                        </a>
+                      </div>
+                    @end
+                    @can('access','edit-master-company')
+                      <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Edit">
+                        <a href="{{route('master_company.show', {id: data.id})}}" class="mx-3" type="button">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_452_18216)">
+                            <path d="M18.8167 4.62427L15.5556 1.34649C15.3401 1.13208 15.0485 1.01172 14.7445 1.01172C14.4405 1.01172 14.1489 1.13208 13.9334 1.34649L2.37225 12.8909L1.3167 17.4465C1.28029 17.613 1.28153 17.7856 1.32035 17.9516C1.35917 18.1176 1.43458 18.2728 1.54107 18.4059C1.64756 18.539 1.78243 18.6466 1.93585 18.7209C2.08927 18.7952 2.25735 18.8343 2.42781 18.8354C2.50724 18.8434 2.58727 18.8434 2.6667 18.8354L7.27225 17.7798L18.8167 6.24649C19.0311 6.03099 19.1515 5.73937 19.1515 5.43538C19.1515 5.13139 19.0311 4.83976 18.8167 4.62427ZM6.7167 16.7798L2.40003 17.6854L3.38337 13.452L12.0334 4.83538L15.3667 8.16871L6.7167 16.7798ZM16.1111 7.36316L12.7778 4.02982L14.7111 2.1076L17.9889 5.44093L16.1111 7.36316Z" fill="url(#paint0_linear_452_18216)"/>
+                            </g>
+                            <defs>
+                            <linearGradient id="paint0_linear_452_18216" x1="10.2209" y1="1.01172" x2="10.2209" y2="18.8414" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00A3FF"/>
+                            <stop offset="1" stop-color="#22A7F2"/>
+                            </linearGradient>
+                            <clipPath id="clip0_452_18216">
+                            <rect width="20" height="20" fill="white"/>
+                            </clipPath>
+                            </defs>
+                            </svg>
+                        </a>
+                      </div>
+                    @end
+                    <div class="btn-group mx-1" >
+                      @if(data.status === 'active')  
+                      @can('access', 'activate-master-company')
+                      <a data-bs-toggle="tooltip" title="Active" class="show_confirm_update_inactive" type="button" data-id="{{data.id}}">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17.5 10C17.5 5.85938 14.1406 2.5 10 2.5C5.85938 2.5 2.5 5.85938 2.5 10C2.5 14.1406 5.85938 17.5 10 17.5C14.1406 17.5 17.5 14.1406 17.5 10Z" stroke="url(#paint0_linear_1040_19439)" stroke-width="1.2063" stroke-miterlimit="10"/>
+                          <path d="M12.5 12.5L7.5 7.5M7.5 12.5L12.5 7.5" stroke="url(#paint1_linear_1040_19439)" stroke-width="1.2063" stroke-linecap="round" stroke-linejoin="round"/>
+                          <defs>
+                          <linearGradient id="paint0_linear_1040_19439" x1="10" y1="2.5" x2="10" y2="17.5" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#00A3FF"/>
+                          <stop offset="1" stop-color="#22A7F2"/>
+                          </linearGradient>
+                          <linearGradient id="paint1_linear_1040_19439" x1="10" y1="7.5" x2="10" y2="12.5" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#00A3FF"/>
+                          <stop offset="1" stop-color="#22A7F2"/>
+                          </linearGradient>
+                          </defs>
+                          </svg>                          
+                      </a>
+                      @end
+                    @elseif(data.status === 'non-active')
+                    @can('access', 'activate-master-company')
+                    <a data-bs-toggle="tooltip" title="Non-Active" class="show_confirm_update" type="button" data-id="{{data.id}}">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 10C17.5 5.85938 14.1406 2.5 10 2.5C5.85938 2.5 2.5 5.85938 2.5 10C2.5 14.1406 5.85938 17.5 10 17.5C14.1406 17.5 17.5 14.1406 17.5 10Z" stroke="url(#paint0_linear_1040_19412)" stroke-width="1.0625" stroke-miterlimit="10"/>
+                        <path d="M13.75 6.875L8.5 13.125L6.25 10.625" stroke="url(#paint1_linear_1040_19412)" stroke-width="1.0625" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>;
+                          <linearGradient id="paint0_linear_1040_19412" x1="10" y1="2.5" x2="10" y2="17.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00A3FF"/>
+                            <stop offset="1" stop-color="#22A7F2"/>
+                          </linearGradient>
+                          <linearGradient id="paint1_linear_1040_19412" x1="10" y1="6.875" x2="10" y2="13.125" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00A3FF"/>
+                            <stop offset="1" stop-color="#22A7F2"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </a>
+                    @end
+                    @elseif(data.status === 'draft')
+                    @can('access', 'delete-master-company')
+                    <a data-bs-toggle="tooltip" title="Delete" class="show_confirm" type="button" data-id="{{data.id}}">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.33341 4.16667H11.6667C11.6667 3.72464 11.4912 3.30072 11.1786 2.98816C10.866 2.67559 10.4421 2.5 10.0001 2.5C9.55805 2.5 9.13413 2.67559 8.82157 2.98816C8.50901 3.30072 8.33341 3.72464 8.33341 4.16667ZM7.08341 4.16667C7.08341 3.78364 7.15886 3.40437 7.30543 3.05051C7.45201 2.69664 7.66685 2.37511 7.93769 2.10427C8.20852 1.83343 8.53006 1.61859 8.88392 1.47202C9.23779 1.32544 9.61706 1.25 10.0001 1.25C10.3831 1.25 10.7624 1.32544 11.1162 1.47202C11.4701 1.61859 11.7916 1.83343 12.0625 2.10427C12.3333 2.37511 12.5482 2.69664 12.6947 3.05051C12.8413 3.40437 12.9167 3.78364 12.9167 4.16667H17.7084C17.8742 4.16667 18.0331 4.23251 18.1504 4.34973C18.2676 4.46694 18.3334 4.62591 18.3334 4.79167C18.3334 4.95743 18.2676 5.1164 18.1504 5.23361C18.0331 5.35082 17.8742 5.41667 17.7084 5.41667H16.6084L15.6334 15.5092C15.5586 16.2825 15.1985 17.0002 14.6231 17.5224C14.0478 18.0445 13.2987 18.3336 12.5217 18.3333H7.47841C6.70163 18.3334 5.95266 18.0442 5.37754 17.5221C4.80241 16.9999 4.44236 16.2823 4.36758 15.5092L3.39175 5.41667H2.29175C2.12599 5.41667 1.96702 5.35082 1.84981 5.23361C1.7326 5.1164 1.66675 4.95743 1.66675 4.79167C1.66675 4.62591 1.7326 4.46694 1.84981 4.34973C1.96702 4.23251 2.12599 4.16667 2.29175 4.16667H7.08341ZM8.75008 8.125C8.75008 7.95924 8.68423 7.80027 8.56702 7.68306C8.44981 7.56585 8.29084 7.5 8.12508 7.5C7.95932 7.5 7.80035 7.56585 7.68314 7.68306C7.56593 7.80027 7.50008 7.95924 7.50008 8.125V14.375C7.50008 14.5408 7.56593 14.6997 7.68314 14.8169C7.80035 14.9342 7.95932 15 8.12508 15C8.29084 15 8.44981 14.9342 8.56702 14.8169C8.68423 14.6997 8.75008 14.5408 8.75008 14.375V8.125ZM11.8751 7.5C12.0408 7.5 12.1998 7.56585 12.317 7.68306C12.4342 7.80027 12.5001 7.95924 12.5001 8.125V14.375C12.5001 14.5408 12.4342 14.6997 12.317 14.8169C12.1998 14.9342 12.0408 15 11.8751 15C11.7093 15 11.5504 14.9342 11.4331 14.8169C11.3159 14.6997 11.2501 14.5408 11.2501 14.375V8.125C11.2501 7.95924 11.3159 7.80027 11.4331 7.68306C11.5504 7.56585 11.7093 7.5 11.8751 7.5ZM5.61175 15.3892C5.6567 15.853 5.87279 16.2835 6.21789 16.5968C6.56299 16.91 7.01237 17.0834 7.47841 17.0833H12.5217C12.9878 17.0834 13.4372 16.91 13.7823 16.5968C14.1274 16.2835 14.3435 15.853 14.3884 15.3892L15.3534 5.41667H4.64675L5.61175 15.3892Z" fill="url(#paint0_linear_455_18468)"/>
+                        <defs>
+                        <linearGradient id="paint0_linear_455_18468" x1="10.0001" y1="1.25" x2="10.0001" y2="18.3333" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00A3FF"/>
+                        <stop offset="1" stop-color="#22A7F2"/>
+                        </linearGradient>
+                        </defs>
+                        </svg>
+                    </a>
+                    @end
+                        @endif
+                      </div>
+                  </td>
+                </tr>
+              @end
+              </tbody>
+            </table>
+          </div>
+
+          <!--end: Datatable -->
+        </div>
+        <!--end::Notice-->
+      </div>      
+    </div>    
+  </div>
+</div>
+<script>
+      $('.show_confirm').click(function(event) {
+      var id = $(this).attr("data-id");        
+      Swal.fire({
+          title: `Hapus`,
+          text: `Apakah Anda Yakin`,
+          iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.0312 19.0312L22.4297 73.4062C22.5911 76.5481 24.8766 78.8438 27.8672 78.8438H59.1328C62.1353 78.8438 64.3783 76.5481 64.5703 73.4062L67.9688 19.0312" stroke="#FF0000" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.5938 19.0312H73.4062H13.5938Z" fill="#FF0000"/>
+          <path d="M13.5938 19.0312H73.4062" stroke="#FF0000" stroke-width="5.4375" stroke-miterlimit="10" stroke-linecap="round"/>
+          <path d="M32.625 19.0313V12.2344C32.6234 11.6984 32.7278 11.1674 32.9322 10.6719C33.1366 10.1764 33.437 9.72622 33.816 9.34722C34.195 8.96822 34.6451 8.66789 35.1406 8.4635C35.6361 8.25911 36.1671 8.1547 36.7031 8.15627H50.2969C50.8329 8.1547 51.3639 8.25911 51.8594 8.4635C52.3548 8.66789 52.805 8.96822 53.184 9.34722C53.5631 9.72622 53.8634 10.1764 54.0678 10.6719C54.2722 11.1674 54.3766 11.6984 54.375 12.2344V19.0313M43.5 29.9063V67.9688M31.2656 29.9063L32.625 67.9688M55.7344 29.9063L54.375 67.9688" stroke="#FF0000" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          `,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya",
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              icon: 'border-0',
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+        if (result.isConfirmed) {       
+          $.ajax({
+            url: '/master-company/delete/' + id,
+            type: "GET",
+            success: function(response) { 
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>",
+                html: `<strong>Data Telah dihapus</strong>`,
+                icon:'success',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+              }).then(() => {
+                window.location.reload()
+              })
+            },
+            error: function(data) {
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Gagal</span>", 
+                html: `<strong>Menghapus data gagal</strong>`,
+                icon:'error',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+              });
+            }                       
+            });
+        }
+      })
+    })
+
+      $('.show_confirm_update').click(function(event) {
+      var id = $(this).attr("data-id");        
+      Swal.fire({
+          title: `Aktifkan`,
+          text: `Apakah Anda Yakin`,
+          icon: `error`,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya",
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+        if (result.isConfirmed) {       
+          $.ajax({
+            url: '/master-company/status/' + id,
+            type: "GET",
+            success: function(response) { 
+              window.location.reload();
+            }                       
+            });
+            
+        } 
+      })
+    })
+
+      $('.show_confirm_update_inactive').click(function(event) {
+      var id = $(this).attr("data-id");        
+      Swal.fire({
+          title: `Tidak Aktif`,
+          text: `Apakah Anda Yakin`,
+          icon: `error`,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya",
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }          
+      }).then((result) => {
+        if (result.isConfirmed) {       
+          $.ajax({
+            url: '/master-company/status/' + id,
+            type: "GET",
+            success: function(response) { 
+              window.location.reload();
+            }                       
+            });
+            
+        } 
+      })
+    })
+
+     $(document).ready(function () {
+        var t = $('#example').DataTable({
+            ordering: false,
+            "search": {
+            "caseInsensitive": false
+            }	
+        });
+
+        $('#search').on( 'keyup', function () {
+        t.search( this.value ).draw();
+        });
+
+        $(document).on('click','#active-company', function () {
+        t.search( $(this).attr("data-active"),true, false ).draw();
+        });
+
+        $(document).on('click','#inactive-company', function () {
+        t.search( $(this).attr("data-active"),true, false ).draw();
+        });
+
+        $(document).on('click','#all-company', function () {
+        t.search( $(this).attr("data-active"),true, false ).draw();
+        });
+
+        t.on('order.dt search.dt', function () {
+            let i = 1;
+    
+            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+    });
+
+</script>
+ <style>
+  td {
+    text-align:center;
+  }
+  tr {
+    text-align:center;
+  }
+  .bg-hover:hover {
+    background-color: blue;
+  }
+ </style>
+
+@end

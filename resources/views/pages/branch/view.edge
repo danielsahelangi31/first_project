@@ -1,0 +1,605 @@
+@layout('layout/index')
+
+@section('content')
+<style>
+	/* Timeline */
+.timeline,
+.timeline-horizontal {
+  list-style: none;
+  padding: 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 40px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -1.5px;
+}
+.timeline .timeline-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline .timeline-item:before,
+.timeline .timeline-item:after {
+  content: "";
+  display: table;
+}
+.timeline .timeline-item:after {
+  clear: both;
+}
+.timeline .timeline-item .timeline-badge {
+  color: #fff;
+  width: 54px;
+  height: 54px;
+  line-height: 52px;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #7c7c7c;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline .timeline-item .timeline-badge i,
+.timeline .timeline-item .timeline-badge .fa,
+.timeline .timeline-item .timeline-badge .glyphicon {
+  top: 2px;
+  left: 0px;
+}
+.timeline .timeline-item .timeline-badge.primary {
+  background-color: #1f9eba;
+}
+.timeline .timeline-item .timeline-badge.info {
+  background-color: #5bc0de;
+}
+.timeline .timeline-item .timeline-badge.success {
+  background-color: #59ba1f;
+}
+.timeline .timeline-item .timeline-badge.warning {
+  background-color: #d1bd10;
+}
+.timeline .timeline-item .timeline-badge.danger {
+  background-color: #ba1f1f;
+}
+.timeline .timeline-item .timeline-panel {
+  position: relative;
+  width: 46%;
+  float: left;
+  right: 16px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline-item .timeline-panel:before {
+  position: absolute;
+  top: 26px;
+  right: -16px;
+  display: inline-block;
+  border-top: 16px solid transparent;
+  border-left: 16px solid #c0c0c0;
+  border-right: 0 solid #c0c0c0;
+  border-bottom: 16px solid transparent;
+  content: " ";
+}
+.timeline .timeline-item .timeline-panel .timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p,
+.timeline .timeline-item .timeline-panel .timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p + p {
+  margin-top: 5px;
+}
+.timeline .timeline-item:last-child:nth-child(even) {
+  float: right;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel {
+  float: right;
+  left: 16px;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-horizontal {
+  list-style: none;
+  position: relative;
+  padding: 20px 0px 20px 0px;
+  display: inline-block;
+}
+.timeline-horizontal:before {
+  height: 3px;
+  top: auto;
+  bottom: 26px;
+  left: 56px;
+  right: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item {
+  display: table-cell;
+  height: 280px;
+  width: 20%;
+  min-width: 320px;
+  float: none !important;
+  padding-left: 0px;
+  padding-right: 20px;
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+.timeline-horizontal .timeline-item .timeline-panel {
+  top: auto;
+  bottom: 64px;
+  display: inline-block;
+  float: none !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item .timeline-panel:before {
+  top: auto;
+  bottom: -16px;
+  left: 28px !important;
+  right: auto;
+  border-right: 16px solid transparent !important;
+  border-top: 16px solid #c0c0c0 !important;
+  border-bottom: 0 solid #c0c0c0 !important;
+  border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline-item:before,
+.timeline-horizontal .timeline-item:after {
+  display: none;
+}
+.timeline-horizontal .timeline-item .timeline-badge {
+  top: auto;
+  bottom: 0px;
+  left: 43px;
+}
+
+</style>
+<div class="content flex-row-fluid" id="kt_content">
+
+  <div class="card mb-5 mt-5 mb-xl-10 bg-white">
+    <div class="card-header">
+      <div class="card-title">
+        <span class="svg-icon svg-icon-3x me-7">
+
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19" cy="19" r="19" fill="#045299"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M22.0852 22.6968L22.7027 23.3871C22.1941 23.7686 21.6673 24.1136 21.177 24.3679C20.632 24.6585 20.1053 24.8764 19.5968 24.9673L19.4333 16.1396H20.4687C20.5596 16.2305 20.6866 16.285 20.832 16.285C21.1226 16.285 21.3769 16.0488 21.3769 15.74C21.3769 15.4494 21.1407 15.1951 20.832 15.1951C20.6685 15.1951 20.5051 15.2677 20.4142 15.3949H19.4334L19.4153 14.196C19.9603 14.0143 20.3416 13.5058 20.3416 12.8882C20.3416 12.1254 19.7241 11.5078 18.9612 11.5078C18.1983 11.5078 17.5808 12.1254 17.5808 12.8882C17.5808 13.4876 17.9804 14.0144 18.5071 14.196L18.489 15.3949H17.4536C17.3628 15.2677 17.1993 15.1951 17.0359 15.1951C16.7452 15.1951 16.4909 15.4312 16.4909 15.74C16.4909 16.0307 16.7271 16.285 17.0359 16.285C17.1812 16.285 17.2902 16.2305 17.3991 16.1396H18.489L18.3252 24.9491C17.8166 24.8582 17.308 24.6403 16.745 24.3497C16.2545 24.0773 15.7278 23.7503 15.2192 23.3689L15.8368 22.6786L13.2756 21.8068L13.9478 24.7674L14.7107 23.9137C15.4191 24.4404 16.1275 24.9128 16.745 25.2941C17.3808 25.6756 17.9075 25.948 18.4161 26.057L18.961 26.4023L19.4877 26.0572C19.9963 25.9482 20.5231 25.6756 21.1588 25.2943C21.7763 24.9128 22.4847 24.4406 23.1931 23.9139L23.956 24.7676L24.628 21.825L22.0852 22.6968ZM18.961 13.5604C18.5795 13.5604 18.2707 13.2516 18.2707 12.8701C18.2707 12.4886 18.5795 12.1799 18.961 12.1799C19.3425 12.1799 19.6512 12.4887 19.6512 12.8701C19.6512 13.2697 19.3425 13.5604 18.961 13.5604Z" fill="white"/>
+            </svg>
+        </span>
+        <h2 class="text-black">Master Pelabuhan</h2>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="content flex-row-fluid" id="kt_content">
+    <div class="card mb-5 mb-xl-10 bg-white">
+      <div class="card-header">
+        <div class="card-title">
+          <h3 class="text-primary">View Informasi Pelabuhan</h3>
+        </div>
+
+      </div>
+      <form action="{{ route('master.branch.update',{id:branch.id}) }}?_method=PUT" id="form-data" method="post">
+        <input type="hidden" name="_method" value="PUT"/>
+        <input type="hidden" name="reference_id" value="{{branch.reference_id ??''}}"/>
+      <div class="card-body border-top p-9">
+        {{--  <input type="hidden" class="form-control form-sm" name="country_id" id="country_id" value="ID" />  --}}
+          {{ csrfField() }}
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Negara</label>
+              <select name="country_id" data-control="select2"  class="form-select"  onchange="countryCode(this.value)" disabled>
+                <option value=""></option>
+                @each(row in country)
+                <option value="{{row.id}}" {{(row.id ==  branch.city?.country?.id)?'selected':''}}>{{row.country_name}}</option>
+                @end
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Provinsi</label>
+              <select name="postalcode_id" class="form-control" id="postalcode_id">
+
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Nama Pelabuhan</label>
+              <input type="text" class="form-control form-sm" name="port_name" value="{{branch.port_name??''}}" id="port_name"
+                disabled/>
+
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Status/Kelas</label>
+              <select name="kelas_pelabuhan_id" id="kelas_pelabuhan_id" data-control="select2"
+                class="form-control form-select" disabled>
+                <option value=""></option>
+                @each(kelasPelabuhan in KelasPelabuhans)
+                <option value="{{kelasPelabuhan.id}}" {{(kelasPelabuhan.id == branch.kelas_pelabuhan_id)?'selected':''}}>{{kelasPelabuhan.name}}</option>
+                @end
+
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Kode Pelabuhan<span class="text-danger">*</span> <small id="selectCountryAction" style="display:none">Pilih Dari Master</small> <small id="createContryAction">Buat Baru</small></label>
+              <div id="select-country">
+                <select name="port_code" class="form-control" data-control="select2"  id="port_code" disabled>
+                  <option value=""></option>
+                  @each(row in city)
+                  <option value="{{row.id}}" {{(row.id ==  branch.city?.id)?'selected':''}}>({{row.country.country_code}}{{row.city_code}}){{row.city_name}}</option>
+                  @end
+                </select>
+              </div>
+              <div id="create-country" style="display:none">
+                <div class="row">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control form-sm" name="country_code" id="country_code"
+                     disabled/>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control form-sm" name="country_name" id="country_name"
+                    disabled/>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Perairan Pelabuhan </label>
+              <select name="perairan_pelabuhan_id" class="form-control form-select" id="perairan_pelabuhan_id" data-control="select2"
+            disabled>
+              <option value=""></option>
+                @each(perairanPelabuhan in perairanPelabuhans)
+                <option value="{{perairanPelabuhan.id}}" {{(perairanPelabuhan.id == branch.perairan_pelabuhan_id)?'selected':''}}>{{perairanPelabuhan.name}}</option>
+                @end
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Nama Regional</label>
+              <select name="regional_id" class="form-control form-select" id="regional_id" data-control="select2" disabled>
+                <option value=""></option>
+                @each(regional in regionals)
+                <option value="{{regional.id}}" {{(regional.id == branch.regional_id)?'selected':''}}>({{regional.code}}) {{regional.name}}</option>
+                @end
+              </select>
+
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold"> DLKR (m2)</label>
+              <input type="text" class="form-control form-sm" name="luas_perairan" value="{{branch.luas_perairan??''}}" id="luas_perairan"
+                 disabled/>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold"> DLKP (m2)</label>
+              <input type="text" class="form-control form-sm" name="luas_daratan"  value="{{branch.luas_daratan??''}}" id="luas_daratan"
+                disabled/>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              {{--  <label class="form-label fw-bold required">Nama Cabang</label>
+              <input type="text" class="form-control form-sm" name="name" value="{{branch.name}}" id="name" placeholder="Cabang" />  --}}
+
+              <label class="form-label fw-bold required">Cabang Lokasi Kerja</label>
+              <select  class="form-control form-select" name="header_branch_id" id="header_branch_id"  data-control="select2"  disabled>
+                <option value=""></option>
+                @each(item in headerBranch)
+                <option value="{{item.id}}" {{(item.id == branch.header_branch_id)?'selected':''}}>{{item.name}}</option>
+                @end
+              </select>
+
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Kode Perairan</label>
+                <select name="kode_perairan" id="kode_perairan" data-control="select2"
+                data-placeholder="Pilih Kode Perairan" class="form-control form-select"  >
+                <option></option>
+                @each(kodePerairan in kodePerairans)
+                <option value="{{kodePerairan.id}}" {{(kodePerairan.id == branch.kode_perairan)?'selected':''}}>{{kodePerairan.name}}</option>
+                @end
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Jenis Pelabuhan </label>
+              <select name="jenis_pelabuhan_id" id="jenis_pelabuhan_id" data-control="select2"
+                 class="form-control form-select" disabled>
+                <option></option>
+                @each(jenisPelabuhan in jenisPelabuhans)
+                <option value="{{jenisPelabuhan.id}}" {{(jenisPelabuhan.id == branch.jenis_pelabuhan_id)?'selected':''}}>{{jenisPelabuhan.name}}</option>
+                @end
+
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold required">Koordinat </label>
+              <input type="text" class="form-control form-sm" name="lng" value="{{branch.lng??''}}" id="lng"  disabled/>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">&nbsp;</label>
+              <input type="text" class="form-control form-sm" name="lat" value="{{branch.lat??''}}" id="lat"  disabled/>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold required">Kode UN/LOCODE</label>
+                <input type="text" class="form-control form-sm" value="{{branch.kode_kemenhub??''}}" name="kode_kemenhub" id="kode_kemenhub" disabled
+              disabled/>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold required">Kedalaman Alur  (-mLWS)</label>
+              <input type="text" class="form-control form-sm" value="{{branch.kedalaman_min??''}}" name="kedalaman_min" id="kedalaman_min"
+              disabled/>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold ">&nbsp;</label>
+              <input type="text" class="form-control form-sm" value="{{branch.kedalaman_max??''}}" name="kedalaman_max" id="kedalaman_max"
+               disabled/>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+                     <div class="col-md-6">
+                       <label class="form-label fw-bold required">Rencana induk pelabuhan</label>
+                      <br>
+                      @if(branch.rencana_induk_file)
+                     <a target="_blank" href="{{route('downloadFile',{id:branch.rencana_induk_file??''})}}">{{branch.rencana_induk_file??''}}</a>
+                     @end
+                   </div>
+   <div class="col-md-3">
+                                       <label class="form-label fw-bold ">Panjang Alur (nmi)</label>
+                                      <input type="number" class="form-control form-sm"  name="panjang_alur"  id="panjang_alur" onkeypress="checkDecimal(this.value)"
+                                      placeholder="Panjang Alur" value="{{branch.panjang_alur??''}}" disabled />
+                                    </div>
+                                      <div class="col-md-3">
+                                                  <label class="form-label fw-bold ">Lebar Alur (m)</label>
+                                                  <input type="number" class="form-control form-sm"  name="lebar_alur"  id="lebar_alur" onkeypress="checkDecimal(this.value)"
+                                                  placeholder="Lebar Alur" value="{{branch.lebar_alur??''}}" disabled />
+                                                </div>
+                    </div>
+<div class="row mb-10">
+                                                              <div class="col-md-6">
+                                                                <label class="form-label fw-bold ">Alamat Pelabuhan</label>
+                                                                 <textarea  class="form-control form-sm"  name="address"  id="address"
+                                                                                          placeholder="Alamat Pelabuhan" disabled>{{branch.address??''}}</textarea>
+                                                              </div>
+                                                              </div>
+
+      </div>
+
+    </form>
+
+    </div>
+    @if(branch.schema_id)
+    <div class="card mb-5 mb-xl-10 bg-white">
+
+      <div class="card-body">
+        <div id="formHistoryAproval">
+          @include('pages.approval_history.history')
+        </div>
+        <div id="formAprovalLog">
+          @include('pages.approval_history.log')
+        </div>
+      </div>
+
+ </div>
+ @end
+
+ <div class="card mb-5 mb-xl-10 bg-white">
+
+  <div class="card-footer ">
+    <div class="d-flex d-flex py-6 px-9 py-6 px-9">
+      <a type="button" class="btn btn-outline btn-outline-primary   me-2" href="{{route('master.branch.index')}}">Kembali</a>
+    </div>
+  </div>
+</div>
+  </div>
+
+</div>
+
+
+@end
+@section('js')
+<script>
+  function dateFormat(inputDate, format) {
+        //parse the input date
+        const date = new Date(inputDate);
+
+        //extract the parts of the date
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const hours = date.getHours()
+        const minute = date.getMinutes()
+
+        //replace the month
+        format = format.replace("MM", month.toString().padStart(2,"0"));
+
+        //replace the year
+        if (format.indexOf("yyyy") > -1) {
+            format = format.replace("yyyy", year.toString());
+        } else if (format.indexOf("yy") > -1) {
+            format = format.replace("yy", year.toString().substr(2,2));
+        }
+
+        //replace the day
+        format = format.replace("dd", day.toString().padStart(2,"0"));
+
+        //replace the hours
+        format = format.replace("hh", hours.toString().padStart(2,"0"));
+
+         //replace the time
+         format = format.replace("mm", minute.toString().padStart(2,"0"));
+
+        return format;
+    }
+  function countryCode(countryId, selectedId = null) {
+       if (countryId == null || countryId == '') return;
+       let id = countryId
+       $('#port_code')
+                 .find('option')
+                 .remove()
+                 .end()
+       $.ajax({
+           url: '/getCity/' + id,
+           type: "GET",
+           success: function(response) {
+            $('#port_code')
+                 .append(`
+                         <option></option>
+                     `)
+               response.forEach(element => {
+                 $('#port_code')
+                 .append(`
+                 <option value="${element.id}">(${element.country.country_code}${element.city_code}) ${element.city_name}</option>
+                     `)
+
+             });
+
+           }
+           });
+
+     }
+
+  $('#postalcode_id').select2({
+    placeholder: "Pilih Provinsi",
+    allowClear: true,
+    ajax: {
+      url: "{{route('select2.postalcode')}}",
+      dataType: 'json',
+      type: "GET",
+      data: function (params) {
+        var query = {
+          search: params.term,
+        }
+        // Query parameters will be ?search=[term]&page=[page]
+        return query;
+      },
+      processResults: function (data) {
+        return {
+          results: $.map(data, function (item) {
+            return {
+              text: item.village + ',' + item.subdistrict + ',' + item.city + ',' + item.province + ' (' + item.post_code + ')',
+              id: item.id
+            }
+          })
+        };
+      }
+    }
+  });
+
+
+
+  $('#postalcode_id')
+    .empty()
+    .append($("<option/>")
+        .val("{{branch.postalcode_id}}")
+        .text("{{branch.postalcode?branch.postalcode.province :''}}"))
+    .val("{{branch.postalcode_id}}")
+    .trigger("change");
+
+    @if (branch.approvalHeader)
+    var approvalSequence={{branch.approvalHeader.approval_sequence}};
+    @else
+    var approvalSequence=0;
+    @end
+    @if(branch.schema_id)
+    $.getJSON('{{route('approval.approvalPath',{id:branch.schema_id})}}', function (res) {
+          $("#detailHistory").empty();
+                $.each(res, function (index, val) {
+                  var icon = '/media/svg/approval/approved.svg'
+                  var mandatory='Mandatory';
+                  let next_approval='';
+                  if (val.mandatory==0){
+                     mandatory='Optional';
+                  }
+                  if (val.approval_order == approvalSequence +1){
+                    var iconCollor = 'warning'
+                    next_approval='Next Approval';
+                  }else{
+                    var iconCollor = 'primary'
+                  }
+
+                    var detailHIstory = `<li class="timeline-item formdetailHistory">
+                                  <div class="timeline-badge `+iconCollor+`"><i class="glyphicon glyphicon-check"></i></div>
+                                  <div class="timeline-panel">
+                                      <div class="timeline-heading">
+                                          <div class="row align-items-center">
+                                            <div class="col-4">
+                                              <img alt="Logo" src="`+icon+`" class="theme-light-show h-20px h-lg-60px" />
+                                            </div>
+                                            <div class="col-8">
+
+                                              <p><small class="text-muted next-text-all">`+next_approval+`</small></p>
+                                              <p><strong>`+val.role.name+`</strong></p>
+                                              <p><small class="text-muted">`+mandatory+`</small></p>
+                                              <p><small class="text-muted">Approval Level `+val.approval_order+`</small></p>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>`
+                    $("#detailHistory").append(detailHIstory);
+
+                  })
+        })
+
+        $.getJSON('{{route('approval.logApproval',{id:branch.request_no})}}', function (res) {
+          $("#formLogApproval").empty();
+          $.each(res, function (index, val) {
+            if(val.action == 'APPROVED'){
+                        var icon = '<span class="badge bg-success">Disetujui</span>'
+                    }else if(val.action == 'REJECTED'){
+                        var icon = '<span class="badge bg-danger">Ditolak</span>'
+                    }else if(val.action == 'SUBMITED'){
+                        var icon = '<span class="badge bg-primary">Diajukan</span>'
+                    }else if(val.action == 'UPDATED'){
+                        var icon = '<span class="badge bg-info">Diubah</span>'
+                    }
+                    let remark='';
+                  if (val.remark!=null){
+                     remark=val.remark;
+                  }
+                  var created_at = new Date(val.created_at)
+                  var logHeader = `<p class="card-text formapprovallog">`+dateFormat(created_at, 'dd-MM-yyyy hh:mm')+` - `+val.user.name+` : `+remark+` `+icon+` </p>`
+                  $("#formLogApproval").append(logHeader);
+                })
+        })
+
+        @end
+</script>
+@end

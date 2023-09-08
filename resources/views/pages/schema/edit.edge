@@ -1,0 +1,240 @@
+@layout('layout/index')
+
+@section('content')
+
+<div class="content flex-row-fluid" id="kt_content">
+  <!--begin::Navbar-->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="d-flex flex-lg-column ">  
+              <div class="d-flex align-items-center  ">                    
+                <svg class="mx-3" width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="19" cy="19" r="19" fill="#045299"/>
+                  <path d="M19.6195 17.1307C19.1525 17.0845 18.6827 17.1839 18.2743 17.4151C17.866 17.6463 17.5391 17.9981 17.3384 18.4223C17.1377 18.8464 17.0731 19.3223 17.1532 19.7846C17.2334 20.247 17.4546 20.6733 17.7864 21.0051C18.1182 21.3369 18.5445 21.558 19.0068 21.6382C19.4692 21.7184 19.945 21.6538 20.3692 21.4531C20.7934 21.2524 21.1452 20.9255 21.3764 20.5171C21.6076 20.1088 21.7069 19.639 21.6608 19.172C21.6082 18.6485 21.3763 18.1593 21.0043 17.7872C20.6322 17.4152 20.143 17.1832 19.6195 17.1307V17.1307ZM25.0998 19.3957C25.0983 19.6431 25.0802 19.8901 25.0454 20.135L26.6532 21.3961C26.7232 21.4541 26.7704 21.5351 26.7863 21.6246C26.8023 21.7142 26.786 21.8064 26.7403 21.8851L25.2193 24.5168C25.1731 24.5947 25.1009 24.6537 25.0154 24.6836C24.9299 24.7135 24.8366 24.7122 24.752 24.68L23.1552 24.037C23.0671 24.002 22.9718 23.9893 22.8776 24.0002C22.7834 24.011 22.6935 24.0451 22.6157 24.0993C22.372 24.2671 22.1159 24.4161 21.8497 24.5452C21.766 24.5859 21.6936 24.6466 21.6389 24.7219C21.5841 24.7972 21.5488 24.8848 21.536 24.977L21.2967 26.6801C21.2809 26.77 21.2345 26.8517 21.1652 26.9112C21.0959 26.9707 21.0081 27.0043 20.9168 27.0062H17.8748C17.785 27.0046 17.6984 26.9725 17.6293 26.9152C17.5602 26.8579 17.5127 26.7787 17.4946 26.6907L17.2556 24.9901C17.2422 24.8969 17.206 24.8085 17.1501 24.7327C17.0943 24.6568 17.0206 24.596 16.9356 24.5555C16.6696 24.4272 16.4144 24.2777 16.1724 24.1085C16.0949 24.0546 16.0052 24.0208 15.9114 24.0102C15.8176 23.9996 15.7226 24.0124 15.635 24.0477L14.0386 24.6903C13.954 24.7225 13.8607 24.7239 13.7752 24.6941C13.6898 24.6643 13.6175 24.6053 13.5713 24.5274L12.0502 21.8958C12.0045 21.8171 11.9882 21.7248 12.0041 21.6353C12.0201 21.5457 12.0673 21.4648 12.1374 21.4068L13.4962 20.3399C13.5707 20.2808 13.6292 20.204 13.6665 20.1166C13.7037 20.0291 13.7186 19.9338 13.7096 19.8391C13.6968 19.6908 13.689 19.5429 13.689 19.3946C13.689 19.2463 13.6965 19.1005 13.7096 18.9554C13.7176 18.8613 13.702 18.7668 13.6643 18.6802C13.6266 18.5937 13.568 18.5179 13.4937 18.4596L12.1356 17.3928C12.0667 17.3345 12.0204 17.2538 12.005 17.1648C11.9896 17.0759 12.006 16.9843 12.0513 16.9062L13.5723 14.2746C13.6185 14.1967 13.6907 14.1376 13.7762 14.1077C13.8617 14.0779 13.955 14.0792 14.0396 14.1113L15.6364 14.7543C15.7245 14.7894 15.8199 14.8021 15.914 14.7912C16.0082 14.7803 16.0982 14.7463 16.1759 14.6921C16.4196 14.5243 16.6757 14.3752 16.942 14.2461C17.0257 14.2054 17.0981 14.1448 17.1528 14.0695C17.2075 13.9942 17.2428 13.9066 17.2556 13.8144L17.495 12.1113C17.5107 12.0213 17.5571 11.9396 17.6264 11.8801C17.6957 11.8207 17.7835 11.7871 17.8748 11.7852H20.9168C21.0066 11.7867 21.0932 11.8188 21.1623 11.8761C21.2314 11.9335 21.2789 12.0126 21.297 12.1006L21.536 13.8012C21.5494 13.8944 21.5857 13.9829 21.6415 14.0587C21.6973 14.1345 21.771 14.1953 21.8561 14.2358C22.122 14.3642 22.3772 14.5137 22.6193 14.6828C22.6967 14.7368 22.7864 14.7705 22.8802 14.7812C22.9741 14.7918 23.069 14.7789 23.1566 14.7437L24.753 14.101C24.8376 14.0688 24.9309 14.0675 25.0164 14.0973C25.1019 14.1271 25.1741 14.1861 25.2203 14.2639L26.7414 16.8956C26.7871 16.9742 26.8035 17.0665 26.7875 17.1561C26.7715 17.2456 26.7243 17.3266 26.6542 17.3846L25.2954 18.4515C25.2206 18.5104 25.1618 18.587 25.1242 18.6745C25.0866 18.7619 25.0715 18.8574 25.0802 18.9522C25.092 19.0994 25.0998 19.2474 25.0998 19.3957Z" stroke="white" stroke-width="1.13802" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
+                  <h2 class="mx-3">Schema Aplications</h2>     
+                </div>                                          
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <form class="" action="{{route('updateSchema')}}" method="POST">
+    {{ csrfField() }}
+    <div class="card mb-5 mb-xl-10 bg-white">
+
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div class="row">        
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Schema Name</label>
+              <input type="text" name="schema_name" value="{{schema.schema_name}}" class="form-control"
+                placeholder="Schema Name">
+              @if(flashMessages.has('errors.schema_name'))
+              <p> {{ flashMessages.get('errors.schema_name') }} </p>
+              @end
+            </div>
+            <div class="col-md-6 mb-8">
+              <label class="form-label fw-bold">Master Data</label>         
+              <select name="master_type_id" class="form-control" data-control="select2" id="master_type_id">
+                @each(row in master_type)
+                <option value="{{ row.id }}" {{(row.id == schema.master_type_id)?'selected':''}}>
+                  {{row.master_name}}</option>
+                @end
+              </select>
+              @if(flashMessages.has('errors.schema_name'))
+              <p> {{ flashMessages.get('errors.schema_name') }} </p>
+              @end
+            </div>
+            <div class="col-6 mb-8">
+              <label class="form-label fw-bold">Submiter</label>
+              <select name="role" data-control="select2" class="form-control">
+                @each(row in roleEntity)
+                    <option value="{{ row.id }}" {{(row.id == schema.role_id)?'selected':''}}>{{row.name}}</option>
+                    @end
+              </select>
+              @if(flashMessages.has('errors.schema_name'))
+              <p> {{ flashMessages.get('errors.schema_name') }} </p>
+              @end
+            </div>
+            <input type="hidden" name="schema_id" id="schema_id" value="{{id}}">
+            <input type="hidden" value="0" id="lastSequence"> 
+            </div>               
+        </div>      
+      </div>    
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">    
+      <div class="card-body">
+        <div class="form-group row">    
+          <div class="col-6 col-lg-4">
+            <label>Role Name:</label>
+            <select name="role_id" class="form-control"  id="role_id" data-control="select2" data-placeholder="Select Position" id="selectPosition" >
+              <option value=""></option>
+              @each(row in roleEntity)
+              <option data-name="{{row.entity.jobTitle.name}}" data-titleAlias="{{row.entity.title_alias}}" data-entityName="{{row.entity.masterCompany.company_name}}"  value="{{ row.id }}">{{row.name}} </option>
+              @end
+            </select>
+            <input type="hidden" id="selectResult">
+            <input type="hidden" id="selectName">
+            <input type="hidden" id="selectEntityName">
+            <input type="hidden" id="selecttitleALias">
+          </div>
+          <div class="col-3 col-lg-1">
+            <label></label>
+            <input type="button" class="form-control add-row btn btn-primary" value="add"
+              placeholder="Enter contact number" />
+          </div>
+          <div class="col-3 col-lg-1">
+            <label></label>
+            <input type="button" class="form-control delete-row btn btn-danger" value="Delete"
+              placeholder="Enter contact number" />
+          </div>
+        </div>  
+        <div class="separator my-10"></div>
+        <div class="form-group row">
+          <div class="kt-portlet__body kt-portlet__body--fit">                                 
+            <div class="my_datatable" id="kt_datatable">
+              <table id="example" class="display w-100 table table-hover table-striped">
+                <thead class="bg-light-primary">
+                  <tr>                  
+                    <th width="5%" class="text-center"><input type="checkbox" name="select-all" id="select-all"/></th>
+                    <th width="20%">Approval Order</th>
+                    <th width="15%">Role Name </th>
+                    <th width="15%">Position </th>
+                    <th width="15%">Entity Name </th>
+                    <th width="15%">Alias</th>
+                    <th width="15%">Mandatory</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @each((appovalList, index) in appovalList)
+                    @set('index',index +1 )
+                    <tr>
+                      <td align='center'><input type="checkbox" name="record"></td>
+                      <td>
+                        {{--  Approval {{appovalList.approval_order}}
+                        <input type='hidden' name='approval[{{appovalList.approval_order}}][approval_order]' value="{{appovalList.approval_order}}">  --}}
+                        <select name='approval[{{index}}][approval_order]' class="form-control" required>
+                          <option value="">Select Approval</option>
+                          <option value="1" {{(appovalList.approval_order === 1) ? 'selected' : ''}}>Approval 1</option>
+                          <option value="2" {{(appovalList.approval_order === 2) ? 'selected' : ''}}>Approval 2</option>
+                          <option value="3" {{(appovalList.approval_order === 3) ? 'selected' : ''}}>Approval 3</option>
+                          <option value="4" {{(appovalList.approval_order === 4) ? 'selected' : ''}}>Approval 4</option>
+                          <option value="5" {{(appovalList.approval_order === 5) ? 'selected' : ''}}>Approval 5</option>  
+                          
+                          <option value="6" {{(appovalList.approval_order === 6) ? 'selected' : ''}}>Approval 6</option>
+                          <option value="7" {{(appovalList.approval_order === 7) ? 'selected' : ''}}>Approval 7</option>
+                          <option value="8" {{(appovalList.approval_order === 8) ? 'selected' : ''}}>Approval 8</option>
+                          <option value="9" {{(appovalList.approval_order === 9) ? 'selected' : ''}}>Approval 9</option>
+                          <option value="10" {{(appovalList.approval_order === 10) ? 'selected' : ''}}>Approval 10</option>  
+                        </select>
+                      </td>
+                      <td>{{appovalList.role.name}} 
+                        <input type='hidden' name='approval[{{index}}][role_id]' value="{{appovalList.role_id}}">
+                        <input type='hidden' name='approval[{{index}}][schema_id]' value="{{id}}">                       
+                      </td>
+                      <td>{{appovalList.role.entity.jobTitle.name}} </td>
+                      <td>{{appovalList.role.entity.masterCompany.company_name}}</td>
+                      <td>{{appovalList.role.entity.title_alias}}</td>                     
+                      <td><input type='checkbox' value='1'  name='approval[{{index}}][mandatory]' {{(appovalList.mandatory === 1) ? 'checked' : ''}}></td>
+                    </tr>
+                  @end                                 
+                </tbody>
+              </table>
+            </div>
+    
+            <!--end: Datatable -->
+          </div>
+          <div class="card-footer" style="float: right;">
+            <button type="submit" class="btn btn-primary" style="float:right;">Save</button>
+          </div>    
+        </div>    
+      </div>
+    </div>
+  </form>
+</div>
+<script>  
+ $('#select-all').click(function(event) {   
+    if(this.checked) {        
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+
+ $(function(){
+  $("#role_id").change(function(){
+    var valSelect = $("#role_id option:selected").text()    
+    var name = $("#role_id option:selected").attr("data-name")
+    var entityName = $("#role_id option:selected").attr("data-entityName")
+    var titleAlias = $("#role_id option:selected").attr("data-titleAlias")
+    $("#selectResult").val(valSelect)
+    $("#selectName").val(name)
+    $("#selectEntityName").val(entityName)
+    $("#selecttitleALias").val(titleAlias)
+
+  })
+ })
+  $(document).ready(function(){
+      $(".add-row").click(function(){        
+        var role_id = $("#role_id").val();
+        var lastsequence =  parseInt($("#lastSequence").val());
+        if(role_id != ''){
+          var rowTr = $("#example tr").length;           
+          console.log(rowTr)
+          if(rowTr === 1){
+            var rowCount = $("#example tr").length; 
+            $("#lastSequence").val(rowCount) 
+          }else if(lastsequence === 0){            
+            $("#lastSequence").val(rowTr)
+            var lastsequence =  parseInt($("#lastSequence").val());
+            var rowCount = lastsequence 
+            $("#lastSequence").val(rowCount)
+          }else{            
+            var lastsequence =  parseInt($("#lastSequence").val());
+            var rowCount = lastsequence + 1
+            $("#lastSequence").val(rowCount)   
+          }
+                                                 
+                  
+          var name = 'Approval '+ rowCount           
+          var positionSelect = $("#selectResult").val();
+          var selectName = $("#selectName").val();
+          var selectEntityName = $("#selectEntityName").val();
+          var selectTitleAlias = $("#selecttitleALias").val();
+          var selectRole = "<select name='approval["+ rowCount +"][approval_order]' class='form-control'><option value=''>Select Approval</option><option value='1'>Approval 1</option><option value='2'>Approval 2</option><option value='3'>Approval 3</option><option value='4'>Approval 4</option><option value='5'>Approval 5</option><option value='6'>Approval 6</option><option value='7'>Approval 7</option><option value='8'>Approval 8</option><option value='9'>Approval 9</option><option value='10'>Approval 10</option></select>"
+          var schema_id = $("#schema_id").val();
+          var markup = "<tr><td align='center'><input type='checkbox' name='record'></td><td>" + selectRole + "</td><td>"+ positionSelect+"<input type='hidden' name='approval["+rowCount+"][role_id]' value="+ role_id +"><input type='hidden' name='approval["+rowCount+"][schema_id]' value="+ schema_id +"></td><td>"+ selectName +"</td><td>"+ selectEntityName +"</td><td>"+ selectTitleAlias +"</td><td><input type='checkbox' value='1' name='approval["+rowCount+"][mandatory]' checked></td></tr>";
+          $("table tbody").append(markup);
+        }else{
+          Swal.fire({
+                text: "Position Belum Di pilih",
+                icon: "info",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn btn-primary"
+                }
+              });
+        }        
+          
+      });
+      
+      // Find and remove selected table rows
+      $(".delete-row").click(function(){
+          $("table tbody").find('input[name="record"]').each(function(){
+            if($(this).is(":checked")){
+                  $(this).parents("tr").remove();
+              }
+          });
+      });
+  });    
+</script>
+@end

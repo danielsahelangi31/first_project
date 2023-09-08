@@ -1,0 +1,203 @@
+@layout('layout/index')
+@section('toolbar')
+
+@end
+@section('content')
+<!--begin::Navbar-->
+<div class="content flex-row-fluid" id="kt_content">
+
+    <div class="card mt-5 mb-xl-10 bg-white">
+        <div id="kt_account_settings_signin_method" class="collapse show">
+
+            <div class="card-body border-top p-9">
+                <div class="d-flex flex-lg-column">
+                    <h2>Regional Management</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+        <div id="kt_account_settings_signin_method" class="collapse show">
+            <div class="card-body border-top p-9">
+                <div class="row my-5 ">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Search..." />
+                                <span><i class="flaticon2-search-1 icon-md"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5 justify-content-lg-between">
+                    <div class="col-lg-2">
+                        <select class="form-control form-select form-select-sm  selectpicker" data-size="4">
+                            <option>Field Search</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+
+                        </select>
+                    </div>
+                    <div class="col-lg-3 d-flex flex-lg-end ">
+                        @can('access','create-regional')
+                        <button class="btn btn-primary btn-sm btn-add" data-bs-toggle="modal" data-bs-target="#form-modal">
+                            <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                        fill="currentColor" />
+                                    <rect x="10.8891" y="17.8033" width="12" height="2" rx="1"
+                                        transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                                    <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                                </svg>
+                            </span>
+                            Add
+                            New</button>
+                        @end
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin: Datatable -->
+                        <div class="my_datatable" id="kt_datatable">
+                            <table id="example"
+                                class="table table-striped table-row-bordered gy-5 gs-7 border border-gray-300 display">
+                                <thead class="fw-semibold fs-6 text-gray-800 bg-light-primary">
+                                    <tr>
+                                        <th>Regional ID</th>
+                                        <th>Head Office</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @each(regional in regionals)
+                                    <tr>
+                                        <th>{{regional.id}}</th>
+                                        <th>{{regional.headOffice.name}}</th>
+                                        <th>{{regional.name}}</th>
+                                        <th>{{regional.code}}</th>
+                                        <th>
+                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                                data-kt-menu-flip="top-end">
+                                                Actions
+                                                <span class="svg-icon svg-icon-5 m-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                            <path
+                                                                d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                                                fill="currentColor" fill-rule="nonzero"
+                                                                transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                data-kt-menu="true" style="">
+                                                <!--begin::Menu item-->
+                                                @can('access','edit-regional')
+                                                <div class="menu-item px-3">
+                                                    <a href="#" data-edit="{{route('master.regional.edit',{id:regional.id})}}"
+                                                        data-update="{{route('master.regional.update',{id:regional.id})}}"
+                                                        class="menu-link px-3 btn-edit" data-bs-toggle="modal"
+                                                        data-bs-target="#form-modal">
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                                @end
+                                                <!--end::Menu item-->
+                                                @can('access','delete-regional')
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{route('master.regional.destroy',{id:regional.id})}}" class="menu-link px-3"
+                                                        data-kt-docs-table-filter="delete_row">
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                                @end
+                                                <!--end::Menu item-->
+                                            </div>
+
+                                        </th>
+                                    </tr>
+                                    @end
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="kt_account_settings_signin_method" class="collapse show">
+            <div class="card-body border-top p-9">
+                <div class="d-flex flex-md-column-fluid flex-sm-column-fluid">
+                    {{-- start select pagination --}}
+                    <div class="d-flex flex-row bg-white flex-start">
+                        <span class="text-5 fw-bold me-4 align-self-center">Rows to Display</span>
+                        <select class="form-select-sm border-secondary" aria-label="Select example">
+                            <option value="1">5 rows</option>
+                            <option value="2">10 rows</option>
+                            <option value="3">20 rows</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex flex-row-fluid bg-white flex-end">
+                        <ul class="pagination pagination-sm">
+                            <li class="page-item previous disabled">
+                                <span class="page-link page-text">Previous</span></span>
+                            </li>
+                            <li class="page-item "><a href="#" class="page-link">1</a></li>
+                            <li class="page-item active"><a href="#" class="page-link">2</a></li>
+                            <li class="page-item "><a href="#" class="page-link">3</a></li>
+                            <li class="page-item "><a href="#" class="page-link">...</a></li>
+                            <li class="page-item "><a href="#" class="page-link">6</a></li>
+                            <li class="page-item next">
+                                <a class="page-link page-text" href="#">Next</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    {{-- end pagination --}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@include('pages/regional/modal/modal_form_regional')
+@end
+
+@section('js')
+<script>
+     $(document).on('click', '.btn-add', function () {
+        $('#modal-title').text('Add Regional')
+        $('#form-role')[0].reset()
+        $('#form-role').attr({ 'action': '{{route('master.regional.store')}}'})
+    })
+    $(document).on('click', '.btn-edit', function () {
+        $('#modal-title').text('Edit Regional')
+        $('#form-role')[0].reset()
+        $('#form-role').attr({ 'action': $(this).attr('data-update')})
+
+        $.getJSON($(this).attr('data-edit'), function (res) {
+            $('#name').val(res.name)
+            $('#code').val(res.code)
+            $('#head_office_id').val(res.head_office_id)
+        })
+    })
+</script>
+@end

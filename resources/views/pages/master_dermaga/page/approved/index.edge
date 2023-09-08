@@ -1,0 +1,288 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* body content start */
+  #search {
+    background-image:url("/media/peralatan/search_icon.svg");
+    background-position:5% 45%;
+    background-repeat:no-repeat;
+    text-indent:40px;
+  }
+  /* body content end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  @include('pages/master_dermaga/component/header.edge')
+  
+  @include('pages/master_dermaga/component/mini_dashboard.edge')
+
+  <!--body content start-->
+  <div class="card mb-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">      
+      <div class="card-body border-top p-9">
+        <div class="card-title m-0">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" id="search" class="form-control mb-5" placeholder="Search">
+            </div>
+            <div class="col-md-8 mb-6">
+              @can("access", "create-dermaga")
+              <a href="{{ route('MasterDermagasController.add') }}" class="btn btn-primary float-end" style="margin-left:20px;">
+                <i class="fa fa-plus"></i> Add New
+              </a>
+              @endcan
+              @can("access", "export-data-dermaga")
+              <button id="excel" class="btn btn-outline-primary border border-primary" style="float:right">
+                <img src="/media/peralatan/export.svg"> Export Master
+              </button>
+              @endcan
+            </div>
+          </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+          <!--begin: Datatable -->
+          <div id="kt_datatable">
+            <table id="example" class="row-border">
+              <thead style="background: rgba(182, 234, 255, 0.2);">
+                <tr>
+                  <th>No</th>
+                  <th>Kode Dermaga</th>
+                  <th>Nama Dermaga</th>
+                  <th>Nama Pelabuhan</th>
+                  <th>Nama Terminal</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(data in dermaga)
+                  <tr>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.kode_dermaga) ? '-' : data.kode_dermaga }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_dermaga) ? '-' : data.nama_dermaga }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_pelabuhan) ? '-' : data.nama_pelabuhan }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_terminal) ? '-' : data.nama_terminal }}</td>
+                    <td class="d-flex justify-content-center">
+                      @if(data.status == "AKTIF") 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(140, 224, 44, 0.2);padding:2px 0;color:#8CE02C;border-radius:5px;">Aktif</div>
+                      @elseif(data.status == "NONAKTIF") 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(192, 192, 192, 0.2);padding:2px 0;color:#C0C0C0;border-radius:5px;">Non-Aktif</div>
+                      @endif
+                    </td>
+                    <td>
+                      @if(data.status == "AKTIF")
+                        <a style="margin-left:20px;" href="{{ route('MasterDermagasController.view', [data.id]) }}"><img src="/media/peralatan/eye.svg" data-bs-toggle="tooltip" data-bs-title="view"></a>
+                        @can("access", "edit-dermaga")
+                          @if(data.is_edit == 1)
+                          <a style="margin-left:10px;" onclick="isEdit()"><img src="/media/peralatan/edit.svg" data-bs-toggle="tooltip" data-bs-title="edit"></a>
+                          @else
+                          <a style="margin-left:10px;" href="{{ route('MasterDermagasController.edit', [data.id]) }}"><img src="/media/peralatan/edit.svg" data-bs-toggle="tooltip" data-bs-title="edit"></a>
+                          @endif
+                        @endcan
+                        <input type="hidden" class="idnonaktif" value="{{data.id}}">
+                        @can("access", "activate-dermaga")
+                        <a style="margin-left:10px;" onmouseover="this.style.cursor='pointer'" class="nonaktif"><img src="/media/peralatan/nonaktif.svg" data-bs-toggle="tooltip" data-bs-title="non-active"></a>
+                        @endcan
+                      @elseif(data.status == "NONAKTIF")
+                        <a style="margin-left:20px;" href="{{ route('MasterDermagasController.view', [data.id]) }}"><img src="/media/peralatan/eye.svg" data-bs-toggle="tooltip" data-bs-title="view"></a>
+                        <input type="hidden" class="idaktif" value="{{data.id}}"> 
+                        @can("access", "activate-dermaga")
+                        <a style="margin-left:10px;" onmouseover="this.style.cursor='pointer'" class="aktif"><img src="/media/peralatan/aktif.svg" data-bs-toggle="tooltip" data-bs-title="active"></a>
+                        @endcan
+                      @endif
+                    </td>
+                  </tr>
+                  @endeach
+              </tbody>
+            </table>
+          </div>
+          <!--end: Datatable -->
+        </div>
+      </div>      
+    </div>    
+  </div>
+  <!-- body content end -->
+</div>
+
+<script>
+  $(document).ready(function () {   
+    var t = $('#example').DataTable({
+      searching: true,
+      ordering: false,
+      language: {
+        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+        lengthMenu: 'Rows to display <select>' +
+          '<option value="10">10</option>' +
+          '<option value="25">25</option>' +
+          '<option value="50">50</option>' +
+          '<option value="100">100</option>' +
+          '</select>'
+      }					
+    });
+
+    // styling datatable
+    $('#example').css('border', '1px solid rgba(192, 192, 192, 0.5)');
+    $('#example').css('border-radius', '5px');
+    $('#example thead tr th').css('text-align', 'center');
+
+    // untuk cari data melalui input search
+    $('#search').keyup(function(){
+      t.search($(this).val(), true, false).draw();
+    });
+
+    // export data excel 
+    $("#excel").click(function() {
+      window.location.assign("{{ route('MasterDermagasController.writeExcel') }}");
+    }); 
+
+    // untuk hover export master 
+    $("#excel").mouseover(function() {
+      $(this).html("<img src='/media/peralatan/export_hover.svg'> Export Master"); 
+    });
+
+    // untuk mouseleave export master 
+    $("#excel").mouseleave(function() {
+      $(this).html("<img src='/media/peralatan/export.svg'> Export Master"); 
+    });
+
+    // ketika ada request dari notification
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const search = urlParams.get('q')
+    if (search !==null){
+      t.search(search).draw();
+    }
+
+    t.on('order.dt search.dt', function () {
+        let i = 1;
+
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
+
+  });
+
+  // pesan ketika data aktif ingin diedit namun sedang dalam proses approve 
+  function isEdit() {
+    Swal.fire({
+      title:"<span style='color:#FF0000;'>Tidak bisa edit data</span>", 
+      html: "<strong>Data sedang dalam proses approval</strong>", 
+      imageUrl: "/media/peralatan/gagal_upload.svg",
+      confirmButtonText: "Baik",
+      confirmButtonColor: "#045299",
+      allowOutsideClick: false
+    })
+  }
+
+  // untuk nonaktifkan data 
+  var btnNonaktif = document.querySelectorAll('.nonaktif');
+  var nonaktif = document.querySelectorAll('.idnonaktif');
+  for(let i = 0; i < btnNonaktif.length; i++) {
+    btnNonaktif[i].addEventListener('click', function() {
+      Swal.fire({
+        title:"<span style='color:#FF0000;'>Tidak Aktif</span>", 
+        html: "<strong>Apakah anda yakin ?</strong>", 
+        icon: "error",
+        showCancelButton: true,
+        cancelButtonText: "Tidak", 
+        confirmButtonText: "Ya",
+        confirmButtonColor: "#045299",
+        reverseButtons: true,
+        allowOutsideClick: false
+      }).then((result)=>{
+        if(result.isConfirmed == true) {
+          var link = nonaktif[i].value;
+          $.ajax({
+            url:`/master-dermaga/nonaktif/${link}`,
+            type:'get',
+            beforeSend: function() {
+              blockUI.block();
+            },
+            success:function(data) {
+              blockUI.release();
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: "<strong>Data telah dinonaktifkan</strong>",
+                icon:'success',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Lanjutkan',
+                allowOutsideClick: false
+              }).then(()=>{
+                window.location.assign(`{{ route('MasterDermagasController.index', ['nonaktif']) }}`);
+              });
+            },
+            error: function() {
+              blockUI.release();
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Gagal</span>", 
+                html: "<strong>Data gagal dinonaktifkan</strong>",
+                icon:'error',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Baik',
+                allowOutsideClick: false
+              });
+            }
+          });
+        }
+      });
+    })
+  }
+
+  // untuk aktifkan data 
+  var btnAktif = document.querySelectorAll('.aktif');
+  var aktif = document.querySelectorAll('.idaktif');
+  for(let i = 0; i < btnAktif.length; i++) {
+    btnAktif[i].addEventListener('click', function() {
+      Swal.fire({
+        title:"<span style='color:#8CE02C;'>Aktifkan</span>", 
+        html: "<strong>Apakah anda yakin ?</strong>", 
+        icon: "success",
+        showCancelButton: true,
+        cancelButtonText: "Tidak", 
+        confirmButtonText: "Ya",
+        confirmButtonColor: "#045299",
+        reverseButtons: true,
+        allowOutsideClick: false
+      }).then((result)=>{
+        if(result.isConfirmed == true) {
+          var link = aktif[i].value;
+          $.ajax({
+            url:`/master-dermaga/aktif/${link}`,
+            type:'get',
+            beforeSend: function() {
+              blockUI.block();
+            },
+            success:function() {
+              blockUI.release();
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                html: "<strong>Data berhasil diaktifkan</strong>",
+                icon:'success', 
+                confirmButtonText: "Lanjutkan",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              }).then(()=>{
+                window.location.assign(`{{ route('MasterDermagasController.index', ['aktif']) }}`);
+              });
+            },
+            error:function() {
+              blockUI.release();
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Gagal</span>", 
+                html: "<strong>Data gagal diaktifkan</strong>",
+                icon:'error', 
+                confirmButtonText: "Baik",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              });
+            }
+          });
+        }
+      });
+    })
+  }
+</script>
+
+@end

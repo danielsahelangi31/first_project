@@ -1,0 +1,1345 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* css form start */
+  .title-form {
+    color:#045299;
+    padding-bottom:30px;
+  }
+
+  #kirim {
+    float:right;
+    display:none;
+  }
+
+  #kembali {
+    float:right;
+    margin-right:10px;
+  }
+
+  #draf {
+    float:right;
+    margin-right:20px;
+  }
+  /* css form end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header -->
+  @include('pages/master_dermaga/component/header.edge')
+  
+  <!-- stepper -->
+  @include('pages/master_dermaga/component/stepper.edge')
+
+  <!-- form start -->
+  <div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselDermaga" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h4 class="title-form">Add General Information</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-pelabuhan">Nama Pelabuhan<span style="color:red;">*</span></label>
+                    <select id="nama-pelabuhan" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="kode-area-labuh">Kode Area Labuh</label>
+                    <input type="text" id="kode-area-labuh" class="form-control input-kode" placeholder="Kode Area Labuh">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-terminal">Nama Terminal<span style="color:red;">*</span></label>
+                    <select id="nama-terminal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jenis-perairan">Jenis Perairan</label>
+                    <select id="jenis-perairan" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="nama-dermaga">Nama Dermaga<span style="color:red;">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Penulisan untuk nama dermaga auto UPPERCASE. cth : TANJUNG PRIOK">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                      <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="nama-dermaga" class="form-control" placeholder="cth : TANJUNG PRIOK">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="tipe-layanan-utama">Tipe Layanan Utama<span style="color:red;">*</span></label>
+                    <select id="tipe-layanan-utama" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jenis-dermaga">Jenis Dermaga<span style="color:red;">*</span></label>
+                    <select id="jenis-dermaga" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="zonasi">Zonasi</label>
+                    <input type="text" id="zonasi" class="form-control" placeholder="Zonasi">
+                  </div>
+                  <div class="col-6">
+                    <label id="label-jenis-konstruksi" class="form-label fw-bold" for="jenis-konstruksi">Jenis Konstruksi</label>
+                    <select id="jenis-konstruksi" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Layanan Dermaga<span style="color:red;">*</span></label>
+                    <div id="form-layanan-dermaga" class="d-flex flex-row mt-4">
+                      <div class="form-check me-8">
+                        <input class="form-check-input" type="checkbox" value="0" id="layanan-labuh" onclick="checkBox(this)">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Labuh
+                        </label>
+                      </div>
+                      <div class="form-check me-8">
+                        <input class="form-check-input" type="checkbox" value="0" id="layanan-tambat" onclick="checkBox(this)">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Tambat
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label id="label-pemilik" class="form-label fw-bold" for="pemilik">Pemilik</label>
+                    <input type="text" id="pemilik" class="form-control" placeholder="cth : PT ...">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="kode-dermaga-inaportnet">Kode Dermaga Inaportnet</label>
+                    <input type="text" id="kode-dermaga-inaportnet" class="form-control input-kode">
+                  </div>
+
+                  <div class="col-6">
+                    <div class="col-12">
+                      <label id="label-status-milik" class="form-label fw-bold" for="status-milik">Status Milik</label>
+                      <select id="status-milik" class="form-select" data-control="select2" data-placeholder="Select">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <br />
+                    <div class="col-12">
+                      <label class="form-label fw-bold" for="dokumen-pendukung">Dokumen Pendukung<span style="color:red;">*</span></label>
+                      <input id="dokumen-pendukung" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg, .pdf" placeholder="Dokumen Pendukung" >
+                      <input name="dokumen-pendukung-file" type="text" value="" hidden>
+                      <span class="form-text">*Max Size: 2 Mb, Format: PDF/JPG/JPEG/PNG</span>
+                      <span class="error-msg"></span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-6">
+                          <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control koordinat longitude" name="longitude[]" placeholder="(LS) cth : 09°49'25" maxlength="9">
+                            <span class="input-group-text" id="basic-addon2">LS</span>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold" for="latitude">Koordinat Bujur</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control koordinat latitude" name="latitude[]" placeholder="(BT) cth : 106°49'00" maxlength="10">
+                              <span class="input-group-text" id="basic-addon2">BT</span>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="col-12">
+                      <div class="row" id="add-long-lat">
+                        <div class="col-6">
+                          <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control koordinat longitude" name="longitude[]" placeholder="(LS) cth : 09°49'25" maxlength="9">
+                            <span class="input-group-text" id="basic-addon2">LS</span>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label fw-bold" for="latitude">Koordinat Bujur</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control koordinat latitude" name="latitude[]" placeholder="(BT) cth : 106°49'00" maxlength="10">
+                              <span class="input-group-text" id="basic-addon2">BT</span>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="row">
+                        <div class="col-2">
+                          <div class="input-group">
+                            <button class="btn btn-outline-primary border border-primary btn-sm crsl-one add-coordinate">+ Add</button>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="input-group">
+                            <button class="btn btn-outline border border-danger btn-color-danger btn-sm delete-coordinate">
+                              <span class="bi-trash-fill"></span>
+                              Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">Add Spesifikasi</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="panjang">Panjang/Length (m)</label>
+                    <input type="text" id="panjang" class="form-control" placeholder="Panjang/Length (meter)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jarak-station-tunda">Jarak Station Kapal Tunda (nmi)<span style="color:red;">*</span></label>
+                    <input type="text" id="jarak-station-tunda" class="form-control desimal" placeholder="Jarak Station Kapal Tunda (nmi)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="lebar">Lebar/Width (m)</label>
+                    <input type="text" id="lebar" class="form-control" placeholder="Lebar/Width (meter)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="jarak-station-pandu">Jarak Station Pandu (nmi)<span style="color:red;">*</span></label>
+                    <input type="text" id="jarak-station-pandu" class="form-control desimal" placeholder="Jarak Station Pandu (nmi)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-awal">Kade Meter Awal</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 300,05">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kade-meter-awal" class="form-control kade" placeholder="cth : 300,05" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-akhir">Kade Meter Akhir</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 500,05">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kade-meter-akhir" class="form-control kade" placeholder="cth : 500,05" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="overhang-start">Overhang Allowed at Start (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Panjang kapal yang melebihi ujung awal dermaga">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                          <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="overhang-at-start" class="form-control" placeholder="overhang allowed at start (meter)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kedalaman-minimal">Kedalaman Minimal (-mLWS)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan 2 digit angka desimal (,) Contoh: -1000,07">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kedalaman-minimal" class="form-control kedalaman" placeholder="cth : -1000,07" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kedalaman-maximal">Kedalaman Maximal (-mLWS)<span style="color:red">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Format penulisan 2 digit angka desimal (,) Contoh: -2000,07">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="kedalaman-maximal" class="form-control kedalaman" placeholder="cth : -2000,07" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="overhang-end">Overhang Allowed at End (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                          data-bs-content="Panjang kapal yang melebihi ujung akhir dermaga">
+                      <span class="badge rounded-pill bg-light border border-secondary">
+                          <span class="text-black">?</span>
+                      </span>
+                    </span>
+                    <input type="text" id="overhang-at-end" class="form-control" placeholder="overhang allowed at end (meter)" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kade-meter-awal">Elevasi Dermaga (m)</label>
+                        <input type="text" id="elevasi-dermaga-minimal" class="form-control" placeholder="Minimal Elevasi Dermaga" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold invisible" for="kade-meter-akhir">Elevasi Dermaga (m)</label>
+                        <input type="text" id="elevasi-dermaga-maximal" class="form-control" placeholder="Maximal Elevasi Dermaga" onkeyup="tipeNumber(this.value, this)" onkeypress="desimal2digits(this.value, this, event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold" for="mob-demob">Mob / Demob (menit)<span style="color:red">*</span></label>
+                    <input type="text" id="mob-demob" class="form-control" placeholder="Mob / Demob (menit)" onkeyup="tipeNumber(this.value, this)">
+                  </div>
+                </div>    
+              </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" id="kirim" class="btn btn-primary">
+                <span class="indicator-label">
+                  Submit
+                </span>
+                <span class="indicator-progress">
+                    Mohon tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+              </button>
+              <button id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+              <button id="kembali" class="btn btn-outline-primary border border-primary crsl-one" data-bs-target="#carouselDermaga" data-bs-slide-to="0">Back</a>
+              <button type="button" id="draf" class="btn btn-warning">
+                <span class="indicator-label">
+                  Save as Draft
+                </span>
+                <span class="indicator-progress">
+                    Mohon tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+              </button>
+              <button id="batal" class="btn btn-outline-primary border border-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>
+  <!-- form end -->
+</div>
+
+<script>
+ 
+    $(document).ready(function() {
+      
+      // standarisasi input teks
+      $(":text").keyup(function() {
+        const teksUp = String($(this).val()).toUpperCase();
+        $(this).val(teksUp);
+      });
+
+      // standarisasi input kode 
+      $(".input-kode").keyup(function() {
+        $(this).val($(this).val().replace(" ",''));
+      });
+
+      // standarisasi form select
+      // $(".form-select").select2({
+      //     minimumResultsForSearch: 7
+      // });
+
+      // standarisasi option value nama pelabuhan
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.namaPelabuhan')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#nama-pelabuhan').append(`<option id="${el.port_name}" value="${el.city.country.country_code}${el.city.city_code}">${el.port_name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+      
+      // standarisasi option value nama terminal
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.namaTerminal')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#nama-terminal').append(`<option class="nama-term" value="${el.code}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value tipe layanan utama 
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.tipeLayananUtama')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#tipe-layanan-utama').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });              
+          
+
+      // filter nama terminal
+      $('#nama-pelabuhan').change(function(){
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "{{route('select2.namaTerminal')}}",
+          data:{
+            nama_pelabuhan: $(this).find(":selected").attr("id")
+          },
+          success: function(data){
+            $('.nama-term').remove();
+            data.map((el)=>{
+              $('#nama-terminal').append(`<option class="nama-term" value="${el.code}">${el.name.toUpperCase()}</option>`);              
+            });
+          }
+        })
+      });
+
+      // standarisasi option value jenis perairan 
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.jenisPerairanDm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#jenis-perairan').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value jenis dermaga 
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.jenisDermagaDm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#jenis-dermaga').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value jenis konstruksi 
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.jenisKonstruksiDm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#jenis-konstruksi').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // standarisasi option value status milik 
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "{{route('select2.statusMilikDm')}}",
+        success: function(data){
+          data.map((el)=>{
+            $('#status-milik').append(`<option value="${el.name.toUpperCase()}">${el.name.toUpperCase()}</option>`);              
+          });
+        }
+      });
+
+      // rules jenis dermaga
+      $("#jenis-dermaga").change(function() {
+        if(["DERMAGA UMUM", "DERMAGA KHUSUS (DUKS)"].includes($(this).val())) {
+          $("#label-pemilik").html("Pemilik<span style='color:red'>*</span>");
+          $("#label-status-milik").html("Status Milik<span style='color:red'>*</span>");
+          $("#label-jenis-konstruksi").html("Jenis Konstruksi<span style='color:red'>*</span>");
+          $("#kode-area-labuh").prop("disabled", true);
+          $("#layanan-labuh").prop("checked", false);
+          $("#layanan-labuh").val(0);
+          $("#layanan-tambat").prop("checked", true);
+          $("#layanan-tambat").val(1);
+        } else {
+          $("#label-pemilik").html("Pemilik");
+          $("#label-status-milik").html("Status Milik");
+          $("#label-jenis-konstruksi").html("Jenis Konstruksi");
+          $("#kode-area-labuh").prop("disabled", false);
+          if($(this).val() == "AREA LABUH") {
+            $("#layanan-labuh").prop("checked", true);
+            $("#layanan-labuh").val(1);
+          } else {
+            $("#layanan-labuh").prop("checked", false);
+            $("#layanan-labuh").val(0);
+          }
+          if($(this).val() == "DERMAGA DOCKING") {
+            $("#layanan-tambat").prop("checked", true);
+            $("#layanan-tambat").val(1);
+          } else {
+            $("#layanan-tambat").prop("checked", false);
+            $("#layanan-tambat").val(0);
+          }
+        }
+      });
+
+      //upload dokumen pendukung
+      uploadFile('dokumen-pendukung');
+      
+      // koordinat lintang dan bujur
+      $(".koordinat").keyup(function(){
+        $(this).val($(this).val().replace(/[A-z!@#$%\^&*\(\)_\-+=\{\}\[\]|\\:;<>.?/]/g,""));
+      });
+        
+      // masking koordinat lintang
+      $(document).on('keyup', '.longitude', function(){
+        var longitude_format = $(this)
+        let formaterVal = longitude_format. val().replace(/\D/g, "");
+        formaterVal = formaterVal.substring(0, 6);
+        formaterVal = formaterVal.replace(/(\d{2})(\d{2})(\d{2})/, "$1°$2'$3\"");
+        $(this).val(formaterVal)
+      });
+
+      // masking koordinat bujur
+      $(document).on('keyup', '.latitude', function(){
+        var latitude_format = $(this)
+        let formaterVal = latitude_format.val().replace(/\D/g, "");
+        formaterVal = formaterVal.substring(0, 7);
+        formaterVal = formaterVal.replace(/(\d{3})(\d{2})(\d{2})/, "$1°$2'$3\"");
+        $(this).val(formaterVal)
+      });
+
+      // tambah koordinat
+      $(document).on('click','.add-coordinate',function(e){
+            e.preventDefault()
+            $('#add-long-lat').append(`
+                      <div class="col-6 longitude-group">
+                        <label class="form-label fw-bold" for="latitude">Koordinat Lintang</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control koordinat longitude" name="longitude[]" placeholder="(LS) cth : 09°49'25" maxlength="9">
+                          <span class="input-group-text" id="basic-addon2">LS</span>
+                        </div>
+                      </div>
+                      <div class="col-6 latitude-group">
+                        <label class="form-label fw-bold" for="latitude">Koordinat Bujur</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control koordinat latitude" name="latitude[]" placeholder="(BT) cth : 106°49'00" maxlength="10">
+                            <span class="input-group-text" id="basic-addon2">BT</span>
+                        </div>
+                      </div>
+            `)
+      });
+
+      //remove koordinat
+      $(document).on('click', '.delete-coordinate', function (e) {
+        e.preventDefault()
+        $("#add-long-lat .longitude-group").last().remove();
+        $("#add-long-lat .latitude-group").last().remove();
+      });
+
+      // validasi kade meter
+      $(".kade").change(function() {
+        if ($("#kade-meter-awal").val() != "" && $("#kade-meter-akhir").val() != "") {
+          if ($("#kade-meter-awal").val() > $("#kade-meter-akhir").val()) {
+            Swal.fire({
+              title: "<span style='color:#FF0000;'>Error</span>", 
+              html: "<strong>Kade meter awal harus lebih kecil dari kade meter akhir</strong>",
+              icon: 'error',
+              confirmButtonText: "Baik",
+              confirmButtonColor: "#045299",
+              allowOutsideClick: false
+            });
+          }
+        }
+      });
+
+      // autominus kedalaman minimal & maximal
+      $(".kedalaman").keyup(function() {
+        $(this).val($(this).val().replace(/[A-z!@#$%\^&*\(\)_\-+=\{\}\[\]|\\:;<>.?/]/g,""));
+        if($(this).val().length >= 1) {
+          $(this).val("-" + $(this).val());
+        }
+      });
+
+      // validasi min & max kedalaman
+      $(".kedalaman").change(function() {
+        if($("#kedalaman-minimal").val() != "" && $("#kedalaman-maximal").val() != "") {
+          if(parseFloat($("#kedalaman-minimal").val()) < parseFloat($("#kedalaman-maximal").val())) {
+            Swal.fire({
+              title: "<span style='color:#FF0000;'>Error</span>", 
+              html: "<strong>Kedalaman minimal harus lebih besar dari kedalaman maximal</strong>",
+              icon: 'error',
+              confirmButtonText: "Baik",
+              confirmButtonColor: "#045299",
+              allowOutsideClick: false
+            })
+          }
+        }
+      });
+
+      // ketika tombol batal ditekan
+      $('#batal').click(function() {
+        Swal.fire({
+          title: "<span style='color:#FF0000;'>Batal?</span>", 
+          html: "<strong>Apakah anda yakin ?</strong>",
+          icon: 'error',
+          showCancelButton: true, 
+          cancelButtonText: "Tidak",
+          confirmButtonText: "Iya",
+          confirmButtonColor: "#045299",
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            window.location.assign(`{{ route('MasterDermagasController.index') }}`); 
+          }
+        });
+      });
+
+      // ketika tombol kembali ditekan
+      $("#kembali").click(function() {
+        $('#ball-step-2').removeClass('btn-primary');
+        $('#ball-step-2').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#kirim').css('display', 'none');
+        $("#selanjutnya").css('display', '');
+      });
+
+      // ketika tombol simpan draf ditekan
+      $('#draf').click(function() {
+        Swal.fire({
+          title: "<span style='color:#EDAD51;'>Simpan sebagai draf</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          imageUrl: "/media/peralatan/draft.svg",
+          showCancelButton: true,
+          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            var isError = false;
+            
+            if($("#nama-pelabuhan").val() == "") {
+              isError = true;
+              if($("#nama-pelabuhan").next().hasClass("is-invalid") == false) {
+                $("#nama-pelabuhan").next().addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-pelabuhan');  
+                $("#nama-pelabuhan").next().after(text);
+              }
+            } else {
+              $("#nama-pelabuhan").next().removeClass('is-invalid');
+              $('#invalid-nama-pelabuhan').remove();
+            }
+
+            if($("#nama-terminal").val() == "") {
+              isError = true;
+              if($("#nama-terminal").next().hasClass("is-invalid") == false) {
+                $("#nama-terminal").next().addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-terminal');  
+                $("#nama-terminal").next().after(text);
+              }
+            } else {
+              $("#nama-terminal").next().removeClass('is-invalid');
+              $('#invalid-nama-terminal').remove();
+            }
+
+            if(/[A-z0-9]/.test($("#nama-dermaga").val()) == false) {
+              isError = true;
+              if($("#nama-dermaga").hasClass("is-invalid") == false) {
+                $("#nama-dermaga").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-nama-dermaga');  
+                $("#nama-dermaga").after(text);
+              }
+            } else {
+              $("#nama-dermaga").removeClass('is-invalid');
+              $('#invalid-nama-dermaga').remove();
+            }
+
+            if($("#jenis-dermaga").val() == "") {
+              isError = true;
+              if($("#jenis-dermaga").next().hasClass("is-invalid") == false) {
+                $("#jenis-dermaga").next().addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jenis-dermaga');  
+                $("#jenis-dermaga").next().after(text);
+              }
+            } else {
+              $("#jenis-dermaga").next().removeClass('is-invalid');
+              $('#invalid-jenis-dermaga').remove();
+            }
+            
+            if($("#dokumen-pendukung").val() == "") {
+              isError = true;
+              if($("#dokumen-pendukung").next().hasClass("is-invalid") == false) {
+                $("#dokumen-pendukung").next().addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-dokumen-pendukung');  
+                $("#dokumen-pendukung").next().after(text);
+              }
+            } else {
+              $("#dokumen-pendukung").next().removeClass('is-invalid');
+              $('#invalid-dokumen-pendukung').remove();
+            }
+
+            var button = document.querySelector("#draf");
+
+            if(isError == false) {
+              $.ajax({
+                url: "{{ route('MasterDermagasController.countNoRequest') }}",
+                type: "get", 
+                success: function(data) {
+                  // generate no request
+                  let tanggal = new Date();
+                  let strTanggal = tanggal.toString();
+                  const strDay = strTanggal.substring(8, 10);
+                  let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                  "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  let bulan;
+                  for(let i = 0; i < bulanChar.length; i++) {
+                      if(strTanggal.substring(4,7) == bulanChar[i]) {
+                          bulan = (i+1);
+                      }
+                  }
+                  let year = strTanggal.substring(11,15);
+                  let resultDate = year + bulan + strDay;
+                  const runNum = '000'.substr( String(data).length ) + (data);
+                  const no_request = `DMG-${$("#nama-pelabuhan").find(":selected").text()}-${resultDate}${runNum}`;
+                  
+                  // insert data into table 
+                  $.ajax({
+                    url:"{{ route('MasterDermagasController.store') }}",
+                    type:'get', 
+                    data: {
+                      kode_pelabuhan: $("#nama-pelabuhan").val(), 
+                      nama_pelabuhan: $("#nama-pelabuhan").find(":selected").text(),
+                      kode_terminal: $("#nama-terminal").val(), 
+                      nama_terminal: $("#nama-terminal").find(":selected").text(),
+                      nama_dermaga: $("#nama-dermaga").val(), 
+                      jenis_dermaga: $("#jenis-dermaga").val(),
+                      jenis_konstruksi: $("#jenis-konstruksi").val(),
+                      pemilik: $("#pemilik").val(), 
+                      status_milik: $("#status-milik").val(), 
+                      kode_area_labuh: $("#kode-area-labuh").val(),
+                      jenis_perairan: $("#jenis-perairan").val(),
+                      tipe_layanan_utama: $("#tipe-layanan-utama").val(),
+                      zonasi: $("#zonasi").val(),
+                      layanan_labuh: $("#layanan-labuh").val(),
+                      layanan_tambat: $("#layanan-tambat").val(),
+                      coordinates: coordinates() ? coordinates() : [],
+                      dokumen_pendukung : $("input[name='dokumen-pendukung-file']").val() ? $("input[name='dokumen-pendukung-file']").val() : '',
+                      kode_dermaga_inaportnet: $("#kode-dermaga-inaportnet").val(),
+                      panjang: $("#panjang").val(),
+                      lebar: $("#lebar").val(),
+                      kade_meter_awal: $("#kade-meter-awal").val(),
+                      kade_meter_akhir: $("#kade-meter-akhir").val(),
+                      kedalaman_minimal: $("#kedalaman-minimal").val(),
+                      kedalaman_maximal: $("#kedalaman-maximal").val(),
+                      elevasi_dermaga_minimal: $("#elevasi-dermaga-minimal").val(),
+                      elevasi_dermaga_maximal: $("#elevasi-dermaga-maximal").val(),
+                      jarak_station_tunda: $("#jarak-station-tunda").val(),
+                      jarak_station_pandu: $("#jarak-station-pandu").val(),
+                      overhang_at_start: $("#overhang-at-start").val(),
+                      overhang_at_end: $("#overhang-at-end").val(),
+                      mob_demob: $("#mob-demob").val(),
+                      no_request: no_request,
+                      status: "DRAFT"
+                    },
+                    beforeSend: function() {
+                      button.setAttribute("data-kt-indicator", "on");
+                    },
+                    success:function(data) {
+                      button.removeAttribute("data-kt-indicator");
+                      Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                        html: `<stong>${data.message}</strong>`, 
+                        icon:'success',
+                        confirmButtonText: "Lanjutkan",
+                        confirmButtonColor: "#045299",
+                        reverseButtons: true,
+                        allowOutsideClick: false
+                      }).then(()=>{
+                        window.location.assign("{{ route('MasterDermagasController.index', ['draft']) }}");
+                      });
+                    }, 
+                    error:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                        html: `<strong>${data.responseJSON.message}</strong>`, 
+                        icon:'error',
+                        confirmButtonText: "Baik",
+                        confirmButtonColor: "#045299",
+                        reverseButtons: true,
+                        allowOutsideClick: false
+                      });
+                    }
+                  });
+                } 
+              });
+            }
+          }
+        });
+      });
+
+      // ketika tombol selanjutnya ditekan & validasai mandatory stepper 1 
+      $("#selanjutnya").click(function() {
+        var isError = false;
+            
+        if($("#nama-pelabuhan").val() == "") {
+          isError = true;
+          if($("#nama-pelabuhan").next().hasClass("is-invalid") == false) {
+            $("#nama-pelabuhan").next().addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-nama-pelabuhan');  
+            $("#nama-pelabuhan").next().after(text);
+          }
+        } else {
+          $("#nama-pelabuhan").next().removeClass('is-invalid');
+          $('#invalid-nama-pelabuhan').remove();
+        }
+
+        if($("#nama-terminal").val() == "") {
+          isError = true;
+          if($("#nama-terminal").next().hasClass("is-invalid") == false) {
+            $("#nama-terminal").next().addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-nama-terminal');  
+            $("#nama-terminal").next().after(text);
+          }
+        } else {
+          $("#nama-terminal").next().removeClass('is-invalid');
+          $('#invalid-nama-terminal').remove();
+        }
+
+        if(/[A-z0-9]/.test($("#nama-dermaga").val()) == false) {
+          isError = true;
+          if($("#nama-dermaga").hasClass("is-invalid") == false) {
+            $("#nama-dermaga").addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-nama-dermaga');  
+            $("#nama-dermaga").after(text);
+          }
+        } else {
+          $("#nama-dermaga").removeClass('is-invalid');
+          $('#invalid-nama-dermaga').remove();
+        }
+
+        if($("#jenis-dermaga").val() == "") {
+          isError = true;
+          if($("#jenis-dermaga").next().hasClass("is-invalid") == false) {
+            $("#jenis-dermaga").next().addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-jenis-dermaga');  
+            $("#jenis-dermaga").next().after(text);
+          }
+        } else {
+          $("#jenis-dermaga").next().removeClass('is-invalid');
+          $('#invalid-jenis-dermaga').remove();
+        }
+
+        if($("#layanan-labuh").val() ==  0 && $("#layanan-tambat").val() ==  0) {
+          isError = true;
+          if($("#invalid-layanan-dermaga").length == 0) {
+            var text = $("<div></div>").text("Pililah salah satu");
+            text.css("color", "#f1416c");
+            text.css("margin-top", "12px");
+            text.attr('id', 'invalid-layanan-dermaga');  
+            $("#form-layanan-dermaga").after(text);
+          }
+        } else {
+          $('#invalid-layanan-dermaga').remove();
+        }
+
+        if($("#label-jenis-konstruksi").text().includes("*")) {
+          if($("#jenis-konstruksi").val() == "") {
+            isError = true;
+            if($("#jenis-konstruksi").next().hasClass("is-invalid") == false) {
+              $("#jenis-konstruksi").next().addClass("is-invalid");
+              var text = $("<div></div>").text("Lengkapi bidang ini");
+              text.addClass("invalid-feedback");
+              text.attr('id', 'invalid-jenis-konstruksi');  
+              $("#jenis-konstruksi").next().after(text);
+            }
+          } else {
+            $("#jenis-konstruksi").next().removeClass('is-invalid');
+            $('#invalid-jenis-konstruksi').remove();
+          }
+        }
+
+        if($("#label-pemilik").text().includes("*")) {
+          if(/[A-z0-9]/.test($("#pemilik").val()) == false) {
+            isError = true;
+            if($("#pemilik").hasClass("is-invalid") == false) {
+              $("#pemilik").addClass("is-invalid");
+              var text = $("<div></div>").text("Lengkapi bidang ini");
+              text.addClass("invalid-feedback");
+              text.attr('id', 'invalid-pemilik');  
+              $("#pemilik").after(text);
+            }
+          } else {
+            $("#pemilik").removeClass('is-invalid');
+            $('#invalid-pemilik').remove();
+          }
+        }
+
+        if($("#label-status-milik").text().includes("*")) {
+          if($("#status-milik").val() == "") {
+            isError = true;
+            if($("#status-milik").next().hasClass("is-invalid") == false) {
+              $("#status-milik").next().addClass("is-invalid");
+              var text = $("<div></div>").text("Lengkapi bidang ini");
+              text.addClass("invalid-feedback");
+              text.attr('id', 'invalid-status-milik');  
+              $("#status-milik").next().after(text);
+            }
+          } else {
+            $("#status-milik").next().removeClass('is-invalid');
+            $('#invalid-status-milik').remove();
+          }
+        }
+
+        if($("#dokumen-pendukung").val() == "") {
+          isError = true;
+          if($("#dokumen-pendukung").next().hasClass("is-invalid") == false) {
+            $("#dokumen-pendukung").next().addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-dokumen-pendukung');  
+            $("#dokumen-pendukung").next().after(text);
+          }
+        } else {
+          $("#dokumen-pendukung").next().removeClass('is-invalid');
+          $('#invalid-dokumen-pendukung').remove();
+        }
+
+        if($("#tipe-layanan-utama").val() == "") {
+          isError = true;
+          if($("#tipe-layanan-utama").next().hasClass("is-invalid") == false) {
+            $("#tipe-layanan-utama").next().addClass("is-invalid");
+            var text = $("<div></div>").text("Lengkapi bidang ini");
+            text.addClass("invalid-feedback");
+            text.attr('id', 'invalid-tipe-layanan-utama');  
+            $("#tipe-layanan-utama").next().after(text);
+          }
+        } else {
+          $("#tipe-layanan-utama").next().removeClass('is-invalid');
+          $('#invalid-tipe-layanan-utama').remove();
+        }
+
+        if(isError == false) {
+          $("#carouselDermaga").carousel(1); 
+          $('#ball-step-2').removeClass('btn-secondary');
+          $('#ball-step-2').addClass('btn-primary');
+          $('#teks-spesification').removeClass('text-secondary');
+          $('#teks-spesification').addClass('text-primary');
+          $('#progress-page').css('width', '100%');
+          $('#kirim').css('display', 'block');
+          $(this).css('display', 'none');
+        }
+      });
+      
+      // ketika tombol kirim ditekan
+      $('#kirim').click(function() {
+        Swal.fire({
+          title: "<span style='color:#8CE02C;'>Dikirim</span>",
+          html: '<strong>Apakah anda yakin ?</strong>', 
+          icon: 'success',
+          showCancelButton: true,
+          cancelButtonText: "Tidak",
+          confirmButtonText: 'Iya', 
+          confirmButtonColor: '#045299',
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          
+          if(result.isConfirmed == true) {
+
+            var isError = false;
+
+            if ($("#kade-meter-awal").val() != "" && $("#kade-meter-akhir").val() != "") {
+              if ($("#kade-meter-awal").val() > $("#kade-meter-akhir").val()) {
+                isError = true;
+                Swal.fire({
+                  title: "<span style='color:#FF0000;'>Error</span>", 
+                  html: "<strong>Kade meter awal harus lebih kecil dari kade meter akhir</strong>",
+                  icon: 'error',
+                  confirmButtonText: "Baik",
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                });
+              }
+            }
+
+            if(/[A-z0-9]/.test($("#kedalaman-minimal").val()) == false) {
+              isError = true;
+              if($("#kedalaman-minimal").hasClass("is-invalid") == false) {
+                $("#kedalaman-minimal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-kedalaman-minimal');  
+                $("#kedalaman-minimal").after(text);
+              }
+            } else {
+              $("#kedalaman-minimal").removeClass('is-invalid');
+              $('#invalid-kedalaman-minimal').remove();
+            }
+
+            if(/[A-z0-9]/.test($("#kedalaman-maximal").val()) == false) {
+              isError = true;
+              if($("#kedalaman-maximal").hasClass("is-invalid") == false) {
+                $("#kedalaman-maximal").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-kedalaman-maximal');  
+                $("#kedalaman-maximal").after(text);
+              }
+            } else {
+              $("#kedalaman-maximal").removeClass('is-invalid');
+              $('#invalid-kedalaman-maximal').remove();
+            }
+
+            if($("#kedalaman-minimal").val() != "" && $("#kedalaman-maximal").val() != "") {
+              if(parseFloat($("#kedalaman-minimal").val()) < parseFloat($("#kedalaman-maximal").val())) {
+                isError = true;
+                Swal.fire({
+                  title: "<span style='color:#FF0000;'>Error</span>", 
+                  html: "<strong>Kedalaman minimal harus lebih besar dari kedalaman maximal</strong>",
+                  icon: 'error',
+                  confirmButtonText: "Baik",
+                  confirmButtonColor: "#045299",
+                  allowOutsideClick: false
+                })
+              }
+            }
+
+            if(/[A-z0-9\-]/.test($("#jarak-station-tunda").val()) == false) {
+              isError = true;
+              if($("#jarak-station-tunda").hasClass("is-invalid") == false) {
+                $("#jarak-station-tunda").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jarak-station-tunda');  
+                $("#jarak-station-tunda").after(text);
+              }
+            } else {
+              $("#jarak-station-tunda").removeClass('is-invalid');
+              $('#invalid-jarak-station-tunda').remove();
+            }
+
+            if(/[A-z0-9\-]/.test($("#jarak-station-pandu").val()) == false) {
+              isError = true;
+              if($("#jarak-station-pandu").hasClass("is-invalid") == false) {
+                $("#jarak-station-pandu").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-jarak-station-pandu');  
+                $("#jarak-station-pandu").after(text);
+              }
+            } else {
+              $("#jarak-station-pandu").removeClass('is-invalid');
+              $('#invalid-jarak-station-pandu').remove();
+            }
+
+            if(/[A-z0-9\-]/.test($("#mob-demob").val()) == false) {
+              isError = true;
+              if($("#mob-demob").hasClass("is-invalid") == false) {
+                $("#mob-demob").addClass("is-invalid");
+                var text = $("<div></div>").text("Lengkapi bidang ini");
+                text.addClass("invalid-feedback");
+                text.attr('id', 'invalid-mob-demob');  
+                $("#mob-demob").after(text);
+              }
+            } else {
+              $("#mob-demob").removeClass('is-invalid');
+              $('#invalid-mob-demob').remove();
+            }
+
+            if(isError == false) {
+              $.ajax({
+                url: "{{ route('MasterDermagasController.countNoRequest') }}",
+                type: "get", 
+                success: function(data) {
+                  // generate no request
+                  let tanggal = new Date();
+                  let strTanggal = tanggal.toString();
+                  const strDay = strTanggal.substring(8, 10);
+                  let bulanChar = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", 
+                                  "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  let bulan;
+                  for(let i = 0; i < bulanChar.length; i++) {
+                      if(strTanggal.substring(4,7) == bulanChar[i]) {
+                          bulan = (i+1);
+                      }
+                  }
+                  let year = strTanggal.substring(11,15);
+                  let resultDate = year + bulan + strDay;
+                  const runNum = '000'.substr( String(data).length ) + (data);
+                  const no_request = `DMG-${$("#nama-pelabuhan").find(":selected").text()}-${resultDate}${runNum}`;
+                  
+                  // insert data into table 
+                  $.ajax({
+                    url: "{{ route('MasterDermagasController.store') }}",
+                    type:'get', 
+                    data: {
+                      kode_pelabuhan: $("#nama-pelabuhan").val(), 
+                      nama_pelabuhan: $("#nama-pelabuhan").find(":selected").text(),
+                      kode_terminal: $("#nama-terminal").val(), 
+                      nama_terminal: $("#nama-terminal").find(":selected").text(),
+                      nama_dermaga: $("#nama-dermaga").val(), 
+                      jenis_dermaga: $("#jenis-dermaga").val(),
+                      jenis_konstruksi: $("#jenis-konstruksi").val(),
+                      pemilik: $("#pemilik").val(), 
+                      status_milik: $("#status-milik").val(), 
+                      kode_area_labuh: $("#kode-area-labuh").val(),
+                      jenis_perairan: $("#jenis-perairan").val(),
+                      tipe_layanan_utama: $("#tipe-layanan-utama").val(),
+                      zonasi: $("#zonasi").val(),
+                      layanan_labuh: $("#layanan-labuh").val(),
+                      layanan_tambat: $("#layanan-tambat").val(),
+                      coordinates: coordinates() ? coordinates() : [],
+                      dokumen_pendukung : $("input[name='dokumen-pendukung-file']").val() ? $("input[name='dokumen-pendukung-file']").val() : '',
+                      kode_dermaga_inaportnet: $("#kode-dermaga-inaportnet").val(),
+                      panjang: $("#panjang").val(),
+                      lebar: $("#lebar").val(),
+                      kade_meter_awal: $("#kade-meter-awal").val(),
+                      kade_meter_akhir: $("#kade-meter-akhir").val(),
+                      kedalaman_minimal: $("#kedalaman-minimal").val(),
+                      kedalaman_maximal: $("#kedalaman-maximal").val(),
+                      elevasi_dermaga_minimal: $("#elevasi-dermaga-minimal").val(),
+                      elevasi_dermaga_maximal: $("#elevasi-dermaga-maximal").val(),
+                      jarak_station_tunda: $("#jarak-station-tunda").val(),
+                      jarak_station_pandu: $("#jarak-station-pandu").val(),
+                      overhang_at_start: $("#overhang-at-start").val(),
+                      overhang_at_end: $("#overhang-at-end").val(),
+                      mob_demob: $("#mob-demob").val(),
+                      no_request: no_request,  
+                      status: "DIAJUKAN"
+                    },
+                    success:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                        html: `<strong>${data.message}</strong>`, 
+                        icon:'success',
+                        confirmButtonText: "Lanjutkan",
+                        confirmButtonColor: "#045299",
+                        reverseButtons: true,
+                        allowOutsideClick: false
+                      }).then(()=>{
+                        window.location.assign("{{ route('MasterDermagasController.index', ['diajukan']) }}");
+                      });
+                    },
+                    error:function(data) {
+                      Swal.fire({
+                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                        html: `<strong>${data.responseJSON.message}</strong>`, 
+                        icon: "error",
+                        confirmButtonText: "Baik", 
+                        confirmButtonColor: "#045299",
+                        reverseButtons: true,
+                        allowOutsideClick: false
+                      })
+                    }
+                  });
+                } 
+              });
+            }
+          }
+        });
+      });
+
+    });
+
+    // function desimal2digits(event, value){
+    //   console.log(value);
+    //   if(/[^0-9.]/.test(value)) {
+    //     event.preventDefault(); 
+    //   } else {
+    //     const myArray = value.split(".");
+    //     if (myArray[1]){
+    //       let numberDecimal = myArray[1];
+    //       if (numberDecimal.length > 1) {
+    //         event.preventDefault();
+    //       }
+    //     }
+    //     return true;
+    //   }
+    // }
+
+    // standarisasi 2 angka di belakang koma 
+    // function desimal2digits(evt, ele) {
+    //   var theEvent = evt || window.event;
+    //   var key = theEvent.keyCode || theEvent.which;
+    //   key = String.fromCharCode( key );
+    //   var value = ele.value + key;
+    //   var regex = /^\d+(.\d{0,2})?$/;
+    //   if( !regex.test(value) ) {
+    //     theEvent.returnValue = false;
+    //     if(theEvent.preventDefault) theEvent.preventDefault();
+    //   }
+    // }
+
+    function desimal2digits (value, ele, evt) {
+      const myArray = value.split(",");
+      if (myArray[1]){
+        let numberDecimal = myArray[1];
+        if (numberDecimal.length > 1){
+          evt.preventDefault();
+          swal.fire("Dibatalkan", "2 digit decimal", "error");
+        }
+      }
+      return true;
+    }
+
+    // auto pemisah ribuan dan desimal
+    function tipeNumber(value, ele) {
+      let newVal = value.replace(/[^0-9\-.,]/g, "");
+      if(!/[0-9]/.test(newVal)) {
+        newVal = newVal.replace(/[.,]/g, "");
+      }
+      if(!value.includes(".")) {
+        var parts = newVal.toString().split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : "");
+      } else {
+        newVal = newVal.toString().replace(/[.]/g,"");
+        var parts = newVal.split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        ele.value = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : ""); 
+      }
+    }
+
+    // aksi untuk checkbox
+    function checkBox(e) {
+      if(e.checked) {
+        e.value = 1;
+      } else {
+        e.value = 0;
+      }
+    }
+
+    function coordinates() {
+      let dataCoordinates = []
+      let longitude =  Array.from(document.querySelectorAll("input[name='longitude[]']"), input => input.value);
+      let latitude =  Array.from(document.querySelectorAll("input[name='latitude[]']"), input => input.value);
+      
+      longitude.forEach((val, index) => {
+        if(val != ''){
+          dataCoordinates.push(
+            {
+              'longitude' : val,
+              'latitude' : latitude[index],
+              'line_number' : index+1
+            }
+          )
+          }
+        });
+      return dataCoordinates
+    }
+
+    function progressUpload(element,name,percentage){
+        var progress = `
+        <div class="uploadProgress-${name} progress my-2" style="height: 10px;">
+            <div class="progress-bar bg-primary text-white" role="progressbar" style="width: ${percentage}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${percentage}%</div>
+        </div>
+        `
+        $(element).after(progress)
+    }
+
+    function uploadFile (fieldname){
+        $(`#${fieldname}`).change(function(){
+            var file_data = $(`#${fieldname}`).prop('files')[0];
+            var field_input = $(`#${fieldname}`).attr('name');
+            var form_data = new FormData();
+            form_data.append('inputFile',file_data);
+            form_data.append('fieldInput',field_input);
+            if(file_data.size > 2097152) {
+              $(this).val('');
+              return Swal.fire({
+                html:'Ukuran file melebihi 2mb',
+                icon: 'error',
+                buttonsStyling: false,
+                confirmButton: 'Ok',
+                customClass: {
+                  confirmButton: 'btn btn-primary',
+                }
+              })
+            };
+            $.ajax({
+                url:"/master-dermaga/uploadFile",
+                type:"post",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData:false,
+                xhr: function() {
+                    var xhr = $.ajaxSettings.xhr();
+                    xhr.upload.onprogress = function(e) {
+                        var percentage = Math.floor(e.loaded / e.total *100);
+                        $('div').remove(`.uploadProgress-${fieldname}`);
+                        progressUpload(`#${fieldname}`,`${fieldname}`,percentage)
+                    };
+                    return xhr;
+                },
+                success: function (data) {
+                    console.log("success",data)
+                    $(`#${fieldname}`).css('border-color', '#045299');
+                    $(`#${fieldname}`).css('color', '#045299');
+                    $(`input[name="${fieldname}-file"]`).val(data == undefined ? "" : data)
+                },
+                error: function (error) {
+                    console.log(error)
+                    $(`#${fieldname}`).val('');
+                    $(`#${fieldname}`).css('border-color', '#045299');
+                    $(`#${fieldname}`).css('color', '#045299');
+                    if(error.statusText == "Request Entity Too Large"){
+                        Swal.fire({
+                            html: `File yang dipilih lebih dari 2 MB`,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            }          
+                        })
+                    } else {
+                        Swal.fire({
+                            html: `${error.statusText}`,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            }          
+                        })
+                    }
+                }
+            })
+        })
+    }
+</script>
+
+@endsection

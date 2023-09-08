@@ -1,0 +1,256 @@
+@layout('layout/index')
+@section('content')
+
+<div class="content flex-row-fluid" id="kt_content">
+    <!-- header 1 start -->
+    <div class="card my-5 mb-xl-10 bg-white">
+        {{--  <div class="collapse show">  --}}
+        <div class="card-body p-9 my-3">
+            <div class="row">
+                <div class="col-md-4">
+                <div class="d-flex">
+                    <img src="/media/peralatan/vendor-icon.svg" style="margin-top:-10px;">
+                    <h2 style="margin-left:30px;">Master Data Vendor</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+        {{--  </div>  --}}
+    </div>
+    <!-- header 1 end -->
+
+    <!-- form start -->
+    <form id="form-submit" method="POST">
+        {{ csrfField() }}
+        <div class="card mb-5 mb-xl-10 bg-white"> 
+            <!--begin::Card body-->
+            <div class="card-body border-top p-md-9">
+                @if(vendor?.jenisVendor?.name == 'Vendor VMS')
+                    @!component('pages/master_vendor/component/form_bp',{
+                        title: 'Edit',
+                        usable_info: 'disabled',
+                        usable_account: '',
+                        isEdit: true,
+                        vendor: vendor,
+                        jn_vendor: jn_vendor,
+                        display: vendor?.jenisVendor?.name == 'Vendor VMS' ? '' : ''
+                    })                  
+                @else
+                    @!component('pages/master_vendor/component/form_bp',{
+                        title: 'Edit',
+                        usable_info: '',
+                        usable_account: '',
+                        isEdit: true,
+                        vendor: vendor,
+                        jn_vendor: jn_vendor,
+                        display: vendor?.jenisVendor?.name == 'Vendor VMS' ? '' : ''
+                    })
+                @endif
+                    {{--  <div class="form-group row">
+                        <h6 class="title-form">Information Vendor</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                {{--  begin:: nama perusahaan  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Nama Perusahaan</label>
+                                    <input id="nm_perusahaan" name="nm_perusahaan" type="text" class="form-control" maxlength="50" placeholder="Nama Perusahaan">
+                                </div>
+                                {{--  end:: nama perusahaan  --}}
+
+                                {{--  begin:: kode vendor  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Kode Vendor</label>
+                                    <input disabled id="kd_vendor" name="kd_vendor" type="text" class="form-control" placeholder="Kode Vendor">
+                                </div>
+                                {{--  end:: kode vendor  --}}
+
+                                {{--  begin:: Nomor Npwp  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Nomor NPWP</label>
+                                    <input id="no_npwp" name="no_npwp" type="text" class="form-control" maxlength="15" placeholder="Nomor NPWP">
+                                </div>
+                                {{--  end:: Nomor Npwp  --}}
+
+                                {{--  begin:: Alamat  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Alamat</label>
+                                    <textarea id="address" name="address" class="form-control" placeholder="Alamat" rows="3" maxlength="200" style="resize: none"></textarea>
+                                </div>
+                                {{--  end:: Alamat  --}}
+                            </div>
+                            <div class="col-6">
+                                {{--  begin:: Kota  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Kota</label>
+                                    <select id="id_postal_code" name="id_postal_code" class="form-control">
+                                        <option value="">Jakarta Utara</option>
+                                    </select>
+                                </div>
+                                {{--  end:: Kota  --}}
+
+                                {{--  begin:: Nomor Telepon  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Nomor Telepon</label>
+                                    <input id="no_telp" name="no_telp" type="text" class="form-control" maxlength="20" placeholder="Nomor Telepon">
+                                </div>
+                                {{--  end:: Nomor Telepon  --}}
+
+                                {{--  begin:: Email  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Email</label>
+                                    <input id="email" name="email" type="email" class="form-control" maxlength="50" placeholder="Email">
+                                </div>
+                                {{--  end:: Email  --}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h6 class="title-form">Bank Account</h4>
+                            <div class="col-6">
+                                {{--  begin:: Nama Bank  --}}
+                                <div class="my-4" style="margin-top:5%;">
+                                    <label class="form-label">Nama Bank</label>
+                                    <input id="nm_bank" name="nm_bank" type="text" class="form-control" maxlength="15" placeholder="Nama Bank">
+                                </div>
+                                {{--  end:: Nama Bank  --}}
+                                
+                                {{--  begin:: Nomor Rekening  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Nomor Rekening</label>
+                                    <input id="no_rek" name="no_rek" type="text" class="form-control" maxlength="30" placeholder="Nomor Rekening">
+                                </div>
+                                {{--  end:: Nomor Rekening  --}}
+                            </div>
+                            <div class="col-6">
+                                {{--  begin:: Account Holder  --}}
+                                <div class="my-5">
+                                    <label class="form-label">Account Holder</label>
+                                    <input id="account_holder" name="account_holder" type="text" class="form-control" maxlength="50" placeholder="Account Holder">
+                                </div>
+                                {{--  end:: Account Holder  --}}
+
+                                {{--  begin:: Email  --}}
+                                <div class="my-4">
+                                    <label class="form-label">Buku Tabungan</label>
+                                    <input id="saving_book" name="saving_book" type="file" class="form-control" maxlength="50" placeholder="Email">
+                                </div>
+                                {{--  end:: Email  --}}
+                            </div>
+                        </div>
+                    </div>  --}}
+                    <hr style="margin-top:5%;">
+                    <div class="row mt-4">
+                        <div class="col-6">
+                        <button type="button" id="batal" class="btn btn-outline-primary border border-primary">Batal</button>
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="button" id="draf" class="btn btn-warning me-5">Simpan Draft</button>
+                            <button type="button" id="kirim" class="btn btn-primary">Kirim</button>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+    </form>
+    <!-- form end -->
+</div>
+@end
+
+@section('js')
+<script src="/js/custom/mst_vendor/renewal.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        const table = new DataTable('#bank_table');
+        let newRow = `
+        <tr>
+            <td>
+                <select name="nm_bank" class="nm_bank form-control">
+                    <option value="">Select</option>
+                </select>
+            </td>
+            <td>
+                <input name="account_holder" type="text" class="account_holder form-control" maxlength="50" onkeydown="return /[A-Za-z\.,]/i.test(event.key)" placeholder="Account Holder">
+            </td>
+            <td>
+                <input name="no_rek" type="text" class="no_rek form-control" maxlength="30" onkeypress="return /[0-9]/i.test(event.key)" placeholder="Nomor Rekening">
+            </td>
+            <td>
+                <input name="saving_book" type="file" class="saving_book form-control" maxlength="50" placeholder="Email">
+            </td>
+            <td class="d-flex justify-content-center align-items-center">
+                <a class ="min_row"><img src="/media/peralatan/minus.svg" data-bs-toggle="tooltip" data-bs-title="minus"></a>
+            </td>
+        </tr>
+        `;
+        // $('#bank_table tbody').on( 'click', 'a.add_row', function () {
+        //     table.row.add($(newRow)).draw(false);
+        // } );
+        $('#add_row').on( 'click' , function () {
+            table.row.add($(newRow)).draw(false);
+            // $('.nm_bank').select2({});
+        } );
+
+        $('#bank_table tbody').on( 'click', 'a.min_row', function () {
+            table
+                .row( $(this).parents('tr') )
+                .remove()
+                .draw(false);
+        } );
+        //get value city
+        $('#id_postal_code').select2({
+            placeholder: "Select a Kota",
+            allowClear: true,
+            ajax: {
+                url: "{{route('select2.city')}}",
+                dataType: 'json',
+                type: "GET",
+                data: function (params) {
+                    var query = {
+                    search: params.term,
+                    }
+                    // Query parameters will be ?search=[term]&page=[page]
+                    return query;
+                },
+                processResults: function (data) {
+                console.log(data)
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                        text: item.city,
+                        id: item.id
+                        }
+                    })
+                };
+                }
+            }
+        });
+
+        // get value bank
+        $('.nm_bank').select2({
+            placeholder: "Select a bank",
+            allowClear: true,
+            ajax: {
+                url: "{{route('select2.bank')}}",
+                dataType: 'json',
+                type: "GET",
+                data: function (params) {
+                    var query = {
+                    search: params.term,
+                    }
+                    // Query parameters will be ?search=[term]&page=[page]
+                    return query;
+                },
+                processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                        text: item.name,
+                        id: item.name
+                        }
+                    })
+                };
+                }
+            }
+        });
+    })  
+</script>
+@end

@@ -1,0 +1,180 @@
+@layout('layout/index')
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+
+  <div class="card mt-5 mb-xl-10 bg-white">
+      <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+          <div class="d-flex align-items-center">
+            <img alt="Logo" width="38" height="38" src="/media/svg/pelindo-logo/entity-icon.svg" />
+              <h2 class="mx-2">Entity Management</h2>
+          </div>
+      </div>
+      </div>
+  </div>
+  <!--begin::Navbar-->
+
+  <div class="card mb-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">      
+      <div class="card-body border-top p-9">
+        <div class="row my-5 ">
+          <div class="col-lg-4">
+              <div class="form-group">
+                  <div class="input-icon">
+                  <input style="background-image:url(/media/peralatan/search_icon.svg);background-position:5% 45%;background-repeat:no-repeat;text-indent:40px;" id="search" type="text" class="form-control" placeholder="Search..."/>
+                </div>
+                <span><i class="flaticon2-search-1 icon-md"></i></span>
+              </div>
+          </div>
+        </div>
+        <div class="card-title m-0">
+          <div class="col-lg-3 d-flex flex-lg-end mb-5" style="float: right;">
+            <a href="{{route('entity.create')}}" class="btn btn-primary ">
+              <i class="fa fa-plus"></i> Add
+            </a>
+          </div>        
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+
+          <!--begin: Datatable -->
+          <div class="my_datatable" id="kt_datatable">
+              <table style="border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #B6EAFF;" id="example" class="table table-striped table-row-bordered gy-5 gs-7 border border-gray-300 display">
+            <thead class="fw-semibold fs-6 text-gray-800" >
+              <tr>
+                <th>No</th>
+                <th>Entity Group</th>
+                <th>Entity Name</th>
+                <th>Job Position</th>
+                <th>Job Alias</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: white">
+              @each(data in data)
+              <tr data-id="{data.id}">
+                  <td></td>
+                  <td>{{data.location_name}}</td>
+                  <td>{{data.entity_name}}</td>
+                  <td>{{data.job_title}} || {{data.departement}}</td>
+                  <td >{{data.alias}}</td>
+                <td>
+                  @can('access', 'edit-entity')
+                  <div class="btn-group max-auto"  role="group" aria-label="Third group">
+                    <a data-bs-toggle="tooltip" title="Edit" href="{{route('entity.show', {id: data.id})}}" type="button">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.58 4.546L17.6667 0.612662C17.4081 0.355372 17.0582 0.210937 16.6934 0.210938C16.3286 0.210938 15.9786 0.355372 15.72 0.612662L1.8467 14.466L0.580038 19.9327C0.536342 20.1325 0.53784 20.3396 0.584422 20.5388C0.631004 20.7379 0.721494 20.9242 0.84928 21.0839C0.977067 21.2437 1.13892 21.3728 1.32302 21.462C1.50712 21.5512 1.70882 21.5981 1.91337 21.5993C2.00868 21.609 2.10473 21.609 2.20004 21.5993L7.72671 20.3327L21.58 6.49266C21.8373 6.23407 21.9818 5.88412 21.9818 5.51933C21.9818 5.15454 21.8373 4.80459 21.58 4.546ZM7.06004 19.1327L1.88004 20.2193L3.06004 15.1393L13.44 4.79933L17.44 8.79933L7.06004 19.1327ZM18.3334 7.83266L14.3334 3.83266L16.6534 1.526L20.5867 5.526L18.3334 7.83266Z" fill="url(#paint0_linear_44_279)"/>
+                        <defs>
+                        <linearGradient id="paint0_linear_44_279" x1="11.2651" y1="0.210937" x2="11.2651" y2="21.6066" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00A3FF"/>
+                        <stop offset="1" stop-color="#22A7F2"/>
+                        </linearGradient>
+                        </defs>
+                      </svg>
+                    </a>
+                  </div>
+                  @end
+                  @can('access', 'delete-entity')
+                  <div class="btn-group mx-5" role="group" aria-label="Third group">
+                  <a data-bs-toggle="tooltip" title="Delete" class="show_confirm" type="button" data-id="{{data.id}}">
+                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 4H12C12 3.46957 11.7893 2.96086 11.4142 2.58579C11.0391 2.21071 10.5304 2 10 2C9.46957 2 8.96086 2.21071 8.58579 2.58579C8.21071 2.96086 8 3.46957 8 4ZM6.5 4C6.5 3.54037 6.59053 3.08525 6.76642 2.66061C6.94231 2.23597 7.20012 1.85013 7.52513 1.52513C7.85013 1.20012 8.23597 0.942313 8.66061 0.766422C9.08525 0.59053 9.54037 0.5 10 0.5C10.4596 0.5 10.9148 0.59053 11.3394 0.766422C11.764 0.942313 12.1499 1.20012 12.4749 1.52513C12.7999 1.85013 13.0577 2.23597 13.2336 2.66061C13.4095 3.08525 13.5 3.54037 13.5 4H19.25C19.4489 4 19.6397 4.07902 19.7803 4.21967C19.921 4.36032 20 4.55109 20 4.75C20 4.94891 19.921 5.13968 19.7803 5.28033C19.6397 5.42098 19.4489 5.5 19.25 5.5H17.93L16.76 17.611C16.6702 18.539 16.238 19.4002 15.5477 20.0268C14.8573 20.6534 13.9583 21.0004 13.026 21H6.974C6.04186 21.0001 5.1431 20.653 4.45295 20.0265C3.7628 19.3999 3.33073 18.5388 3.241 17.611L2.07 5.5H0.75C0.551088 5.5 0.360322 5.42098 0.21967 5.28033C0.0790175 5.13968 0 4.94891 0 4.75C0 4.55109 0.0790175 4.36032 0.21967 4.21967C0.360322 4.07902 0.551088 4 0.75 4H6.5ZM8.5 8.75C8.5 8.55109 8.42098 8.36032 8.28033 8.21967C8.13968 8.07902 7.94891 8 7.75 8C7.55109 8 7.36032 8.07902 7.21967 8.21967C7.07902 8.36032 7 8.55109 7 8.75V16.25C7 16.4489 7.07902 16.6397 7.21967 16.7803C7.36032 16.921 7.55109 17 7.75 17C7.94891 17 8.13968 16.921 8.28033 16.7803C8.42098 16.6397 8.5 16.4489 8.5 16.25V8.75ZM12.25 8C12.4489 8 12.6397 8.07902 12.7803 8.21967C12.921 8.36032 13 8.55109 13 8.75V16.25C13 16.4489 12.921 16.6397 12.7803 16.7803C12.6397 16.921 12.4489 17 12.25 17C12.0511 17 11.8603 16.921 11.7197 16.7803C11.579 16.6397 11.5 16.4489 11.5 16.25V8.75C11.5 8.55109 11.579 8.36032 11.7197 8.21967C11.8603 8.07902 12.0511 8 12.25 8ZM4.734 17.467C4.78794 18.0236 5.04724 18.5403 5.46137 18.9161C5.87549 19.292 6.41475 19.5001 6.974 19.5H13.026C13.5853 19.5001 14.1245 19.292 14.5386 18.9161C14.9528 18.5403 15.2121 18.0236 15.266 17.467L16.424 5.5H3.576L4.734 17.467Z" fill="url(#paint0_linear_44_277)"/>
+                      <defs>
+                      <linearGradient id="paint0_linear_44_277" x1="10" y1="0.5" x2="10" y2="21" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#00A3FF"/>
+                      <stop offset="1" stop-color="#22A7F2"/>
+                      </linearGradient>
+                      </defs>
+                    </svg> 
+                  </a>
+                  </div>
+                  @end                    
+                </td> 
+              </tr>
+              @end
+              </tbody>
+            </table>
+          </div>
+
+          <!--end: Datatable -->
+        </div>
+        <!--end::Notice-->
+      </div>      
+    </div>    
+  </div>
+</div>
+<script>
+    $('.show_confirm').click(function(event) {
+      var id = $(this).attr("data-id");        
+      Swal.fire({
+          title: `Hapus`,
+          text: `Apakah Anda Yakin?`,
+          iconHtml: `<svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.0312 19.0312L22.4297 73.4062C22.5911 76.5481 24.8766 78.8438 27.8672 78.8438H59.1328C62.1353 78.8438 64.3783 76.5481 64.5703 73.4062L67.9688 19.0312" stroke="#FF0000" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.5938 19.0312H73.4062H13.5938Z" fill="#FF0000"/>
+          <path d="M13.5938 19.0312H73.4062" stroke="#FF0000" stroke-width="5.4375" stroke-miterlimit="10" stroke-linecap="round"/>
+          <path d="M32.625 19.0313V12.2344C32.6234 11.6984 32.7278 11.1674 32.9322 10.6719C33.1366 10.1764 33.437 9.72622 33.816 9.34722C34.195 8.96822 34.6451 8.66789 35.1406 8.4635C35.6361 8.25911 36.1671 8.1547 36.7031 8.15627H50.2969C50.8329 8.1547 51.3639 8.25911 51.8594 8.4635C52.3548 8.66789 52.805 8.96822 53.184 9.34722C53.5631 9.72622 53.8634 10.1764 54.0678 10.6719C54.2722 11.1674 54.3766 11.6984 54.375 12.2344V19.0313M43.5 29.9063V67.9688M31.2656 29.9063L32.625 67.9688M55.7344 29.9063L54.375 67.9688" stroke="#FF0000" stroke-width="5.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          `,
+          buttonsStyling: false,
+          showCancelButton: true,
+          confirmButtonText: "Iya",
+          cancelButtonText: 'Tidak',
+          reverseButtons: true,
+          customClass: {
+              icon: 'border-0',
+              confirmButton: "btn btn-primary",
+              cancelButton: 'btn btn-danger'
+          }
+      }).then((result) => {
+        if (result.isConfirmed) {       
+          $.ajax({
+            url: '/deleteLocation/' + id,
+            type: "GET",
+            success: function(response) { 
+              Swal.fire({
+                title: "<span style='color:#8CE02C;'>Sukses</span>",
+                html: `<strong>Data Berhasil Dihapus</strong>`,
+                icon:'success',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+            }).then(() => {
+              window.location.reload()
+            })
+            },
+            error: function(data) {
+              Swal.fire({
+                title: "<span style='color:#FF0000;'>Gagal</span>", 
+                html: `<strong>gagal menghapus data</strong>`,
+                icon:'error',
+                confirmButtonColor: '#045299',
+                confirmButtonText: 'Oke',
+                allowOutsideClick: false
+            });
+            }                       
+            });
+            
+        } 
+      })
+    })
+
+     $(document).ready(function () {
+        var t = $('#example').DataTable({
+            ordering: false,					
+        });
+
+        $('#search').on( 'keyup', function () {
+        t.search( this.value ).draw();
+        });
+
+        t.on('order.dt search.dt', function () {
+            let i = 1;
+    
+            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+    });
+
+</script>
+
+@end

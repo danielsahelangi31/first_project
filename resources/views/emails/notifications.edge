@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notifikasi</title>
+</head>
+<body>
+    <h3>Yth, {{data.name}}</h3>
+    <h3>{{data.message}}</h3>
+    <p>Master Data: {{data.masterData}}</p>
+    <p>Institusi: {{data.institusi}}</p>
+    <p>Nama Aplikasi: {{data.appName}}</p>
+    <p>Nama: {{data.name}}</p>
+    <p>email: {{data.email}}</p>
+    <p>No Handphone: {{data.phone}}</p><br>
+    @if(data.status === true)
+    <p>Anda dapat melakukan integrasi Master Data menggunakan token api di bawah ini. </p>
+    <p>Token: {{data.token}}</p>
+    @elseif(data.status === false)
+    <p>Catatan: {{data.messages}}</p>
+    @endif
+</body>
+</html>

@@ -1,0 +1,104 @@
+<style>
+    /* header 2 start */
+  .box-total-data {
+    padding:10px;
+    width:300px;
+    height:153px;
+    background:white;
+    box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius:10px;
+    margin-left:100px;
+  }
+  .box-part-side-1 {
+    display:flex;
+    padding:0 10px;
+  }
+  .box-part-side-2 {
+    display:flex;
+    margin-top:-5px;
+  }
+  .box-title {
+    margin:25px 0 -1px 0;
+    font-size:16px;
+    color:#4B4A4A;
+    font-weight:bold;
+  }
+  .box-side-1 {
+    width:50%;
+  }
+  .box-side-2-a {
+    width:50%;
+    text-align:center;
+  }
+  #box-side-2-ba {
+    width:34%;
+    text-align:center;
+  }
+  .box-side-2-bb {
+    width:33%;
+    text-align:center;
+    border-left:1px solid #C0C0C0;
+  } 
+  /* header 2 end */
+</style>
+
+<div class="card mt-5 mb-xl-10 bg-white">
+  <div id="kt_account_settings_signin_method" class="collapse show">
+    <div class="card-body border-top p-9">
+      <div class="d-flex justify-content-center">
+        <div class="box-total-data">
+          <div class="box-part-side-1">
+            <div class="box-side-1">
+              <a href="" onmouseover="this.style.cursor='pointer'">
+                <p class="box-title"><b>Total Data</b></p>
+              </a>
+            </div>
+            <div class="box-side-1">
+              <img src="/media/peralatan/approve.svg" alt="approve" width="80" height="74">
+            </div>
+          </div>
+          <hr>
+          <div class="box-part-side-2">
+            <div class="box-side-2-a">
+              {{ aktif }}<br>
+              <a href="{{ route('MasterDermagasController.index', ['aktif']) }}" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Aktif</u></a>
+            </div>
+            <div class="box-side-2-a" style="border-left:1px solid #C0C0C0;">
+              {{ nonaktif }}<br>
+              <a href="{{ route('MasterDermagasController.index', ['nonaktif']) }}" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Non-Aktif</u></a>
+            </div>
+          </div>
+        </div>
+        @can('access', 'outstanding-dermaga')
+        <div class="box-total-data">
+          <div class="box-part-side-1">
+            <div class="box-side-1">
+              <a href="{{ route('MasterDermagasController.index', ['outstanding']) }}" onmouseover="this.style.cursor='pointer'">
+                <p class="box-title">Outstanding</p>
+              </a>
+            </div>
+            <div class="box-side-1" style="margin-top:10px;">
+              <img src="/media/peralatan/request.svg" alt="request" width="100" height="60">
+            </div>
+          </div>
+          <hr>
+          <div class="box-part-side-2">
+            <div id="box-side-2-ba">
+              {{ diajukan }}<br>
+              <a href="{{ route('MasterDermagasController.index', ['diajukan']) }}" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Diajukan</u></a>
+            </div>
+            <div class="box-side-2-bb">
+              {{ ditolak }}<br>
+              <a href="{{ route('MasterDermagasController.index', ['ditolak']) }}" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Ditolak</u></a>
+            </div>
+            <div class="box-side-2-bb">
+              {{ draft }}<br>
+              <a href="{{ route('MasterDermagasController.index', ['draft']) }}" onmouseover="this.style.cursor='pointer'" style="color:#EDAD51;"><u>Draft</u></a>
+            </div>
+          </div>
+        </div>
+        @endcan
+      </div>
+    </div>
+  </div>
+</div>

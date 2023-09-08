@@ -1,0 +1,1186 @@
+@layout('layout/index')
+@section('content')
+<style>
+
+  /* body content start */
+  #search {
+    background-image:url("/media/peralatan/search_icon.svg");
+    background-position:5% 45%;
+    background-repeat:no-repeat;
+    text-indent:40px;
+  }
+  /* body content end */
+
+  /* begin: modal approval */
+  .header-desc {
+    margin-left:20px;
+    padding:5px 0 0 20px;
+    border-left:1px solid #C0C0C0;
+  }
+  #form-wrapper {
+    height:600px;
+    overflow-y:scroll;
+  }
+  .timeline,
+  .timeline-horizontal {
+    list-style: none;
+    padding: 20px;
+    position: relative;
+  }
+  .timeline:before {
+    top: 40px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 3px;
+    background-color: #eeeeee;
+    left: 50%;
+    margin-left: -1.5px;
+  }
+  .timeline .timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .timeline .timeline-item:before,
+  .timeline .timeline-item:after {
+    content: "";
+    display: table;
+  }
+  .timeline .timeline-item:after {
+    clear: both;
+  }
+  .timeline .timeline-item .timeline-badge {
+    color: #fff;
+    width: 54px;
+    height: 54px;
+    line-height: 52px;
+    font-size: 22px;
+    text-align: center;
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    margin-left: -25px;
+    background-color: #7c7c7c;
+    border: 3px solid #ffffff;
+    z-index: 100;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  .timeline .timeline-item .timeline-badge i,
+  .timeline .timeline-item .timeline-badge .fa,
+  .timeline .timeline-item .timeline-badge .glyphicon {
+    top: 2px;
+    left: 0px;
+  }
+  .timeline .timeline-item .timeline-badge.primary {
+    background-color: #1f9eba;
+  }
+  .timeline .timeline-item .timeline-badge.info {
+    background-color: #5bc0de;
+  }
+  .timeline .timeline-item .timeline-badge.success {
+    background-color: #59ba1f;
+  }
+  .timeline .timeline-item .timeline-badge.warning {
+    background-color: #d1bd10;
+  }
+  .timeline .timeline-item .timeline-badge.danger {
+    background-color: #ba1f1f;
+  }
+  .timeline .timeline-item .timeline-panel {
+    position: relative;
+    width: 46%;
+    float: left;
+    right: 16px;
+    border: 1px solid #c0c0c0;
+    background: #ffffff;
+    border-radius: 2px;
+    padding: 20px;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  }
+  .timeline .timeline-item .timeline-panel:before {
+    position: absolute;
+    top: 26px;
+    right: -16px;
+    display: inline-block;
+    border-top: 16px solid transparent;
+    border-left: 16px solid #c0c0c0;
+    border-right: 0 solid #c0c0c0;
+    border-bottom: 16px solid transparent;
+    content: " ";
+  }
+  .timeline .timeline-item .timeline-panel .timeline-title {
+    margin-top: 0;
+    color: inherit;
+  }
+  .timeline .timeline-item .timeline-panel .timeline-body > p,
+  .timeline .timeline-item .timeline-panel .timeline-body > ul {
+    margin-bottom: 0;
+  }
+  .timeline .timeline-item .timeline-panel .timeline-body > p + p {
+    margin-top: 5px;
+  }
+  .timeline .timeline-item:last-child:nth-child(even) {
+    float: right;
+  }
+  .timeline .timeline-item:nth-child(even) .timeline-panel {
+    float: right;
+    left: 16px;
+  }
+  .timeline .timeline-item:nth-child(even) .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+  }
+  .timeline-horizontal {
+    list-style: none;
+    position: relative;
+    padding: 20px 0px 20px 0px;
+    display: inline-block;
+  }
+  .timeline-horizontal:before {
+    height: 3px;
+    top: auto;
+    bottom: 26px;
+    left: 56px;
+    right: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .timeline-horizontal .timeline-item {
+    display: table-cell;
+    height: 280px;
+    width: 20%;
+    min-width: 320px;
+    float: none !important;
+    padding-left: 0px;
+    padding-right: 20px;
+    margin: 0 auto;
+    vertical-align: bottom;
+  }
+  .timeline-horizontal .timeline-item .timeline-panel {
+    top: auto;
+    bottom: 64px;
+    display: inline-block;
+    float: none !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .timeline-horizontal .timeline-item .timeline-panel:before {
+    top: auto;
+    bottom: -16px;
+    left: 28px !important;
+    right: auto;
+    border-right: 16px solid transparent !important;
+    border-top: 16px solid #c0c0c0 !important;
+    border-bottom: 0 solid #c0c0c0 !important;
+    border-left: 16px solid transparent !important;
+  }
+  .timeline-horizontal .timeline-item:before,
+  .timeline-horizontal .timeline-item:after {
+    display: none;
+  }
+  .timeline-horizontal .timeline-item .timeline-badge {
+    top: auto;
+    bottom: 0px;
+    left: 43px;
+  }
+  #kembali {
+    float:right;
+    margin-right:10px;
+  }
+  /* end: modal approval */
+</style>
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header -->
+  @include('pages/master_dermaga/component/header.edge')
+  
+  <!-- mini dashboard -->
+  @include('pages/master_dermaga/component/mini_dashboard.edge')
+
+  <!-- begin: table data -->
+  <div class="card mb-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">      
+      <div class="card-body border-top p-9">
+        <div class="card-title m-0">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" id="search" class="form-control mb-5" placeholder="Search">
+            </div>
+            <div class="col-md-8 mb-6">
+              @can("access", "create-dermaga")
+              <a href="{{ route('MasterDermagasController.add') }}" class="btn btn-primary float-end" style="margin-left:20px;">
+                <i class="fa fa-plus"></i> Add New
+              </a>
+              @endcan
+              @can("access", "export-data-dermaga")
+              <button id="excel" class="btn btn-outline-primary border border-primary" style="float:right;">
+                <img src="/media/peralatan/export.svg"> Export Master
+              </button>
+              @endcan
+            </div>
+          </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+          <!--begin: Datatable -->
+          <div id="kt_datatable">
+            <table id="example" class="row-border">
+              <thead style="background: rgba(182, 234, 255, 0.2);">
+                <tr>
+                  <th>No</th>
+                  <th>Nomor Request</th>
+                  <th>Kode Dermaga</th>
+                  <th>Nama Dermaga</th>
+                  <th>Nama Pelabuhan</th>
+                  <th>Nama Terminal</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(data in dermaga)
+                  <tr>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.request_number) ? '-' : data.request_number }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.kode_dermaga) ? '-' : data.kode_dermaga }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_dermaga) ? '-' : data.nama_dermaga }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_pelabuhan) ? '-' : data.nama_pelabuhan }}</td>
+                    <td style="text-align:center;">{{ [null, 'null', ''].includes(data.nama_terminal) ? '-' : data.nama_terminal }}</td>
+                    <td class="d-flex justify-content-center">
+                      @if(data.status == "DRAFT")
+                        <div class="status" style="text-align:center;width:100px;background:rgba(237, 173, 81, 0.2);padding:2px 0;color:#EDAD51;border-radius:5px;">Draft</div>
+                      @elseif(data.status == "DIAJUKAN" || data.status == "UPDATE") 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(1, 195, 255, 0.2);padding:2px 0;color:#01C3FF;border-radius:5px;">Diajukan</div>
+                      @elseif(data.status == "AKTIF") 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(140, 224, 44, 0.2);padding:2px 0;color:#8CE02C;border-radius:5px;">Aktif</div>
+                      @elseif(data.status == "NONAKTIF") 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(192, 192, 192, 0.2);padding:2px 0;color:#C0C0C0;border-radius:5px;">Non-Aktif</div>
+                      @elseif(data.status == "DITOLAK")
+                        <div class="status" style="text-align:center;width:100px;background:rgba(255, 0, 0, 0.2);padding:2px 0;color:#FF0000;border-radius:5px;">Ditolak</div>
+                      @else 
+                        <div class="status" style="text-align:center;width:100px;background:rgba(140, 224, 44, 0.2);padding:2px 0;color:#8CE02C;border-radius:5px;">Approved</div>
+                      @endif
+                    </td>
+                    <td>
+                      @if(data.status == "DIAJUKAN" || data.status == "UPDATE")
+                        <a style="margin-left:20px;" href="{{ route('MasterDermagasController.view', [data.id]) }}"><img src="/media/peralatan/eye.svg" data-bs-toggle="tooltip" data-bs-title="view"></a>
+                        @can("access", "approval-dermaga")
+                        @set('isApprove', await isAllowedApprove(data.schema_id, data.request_number, roleId))
+                        @if(isApprove)
+                        <input type="hidden" class="idapprove" value="{{ data.request_number }}">
+                        <a style="margin-left:10px;" onmouseover="this.style.cursor='pointer'" data-bs-toggle="modal" data-bs-target="#ApproveModal" class="approve"><img src="/media/peralatan/approve_icon.svg" data-bs-toggle="tooltip" data-bs-title="approve"></a>
+                        @else
+                        <a style="margin-left:10px;"><img src="/media/peralatan/approve_hijau.svg" data-bs-toggle="tooltip" data-bs-title="approved"></a>
+                        @endif
+                        @endcan
+                      @elseif(data.status == "DRAFT")
+                        <a style="margin-left:20px;" href="{{ route('MasterDermagasController.view', [data.id]) }}"><img src="/media/peralatan/eye.svg" data-bs-toggle="tooltip" data-bs-title="view"></a>
+                        <input type="hidden" class="idkirim" value="{{ data.id }}">
+                        {{--  <a style="margin-left:10px;" class="kirim" onmouseover="this.style.cursor='pointer'"><img src="/media/peralatan/kirim_icon.svg" data-bs-toggle="tooltip" data-bs-title="submit"></a>  --}}
+                        @can("access", "edit-dermaga")
+                        <a style="margin-left:10px;" href="{{ route('MasterDermagasController.edit', [data.id]) }}"><img src="/media/peralatan/edit.svg" data-bs-toggle="tooltip" data-bs-title="edit"></a>
+                        @endcan
+                        <input type="hidden" class="idhapus" value="{{data.id}}">
+                        @can("access", "delete-dermaga")
+                        <a style="margin-left:10px;" onmouseover="this.style.cursor='pointer'" class="hapus"><img src="/media/peralatan/delete.svg" data-bs-toggle="tooltip" data-bs-title="delete"></a>
+                        @endcan
+                      @elseif(data.status == "DITOLAK")
+                        <a style="margin-left:20px;" href="{{ route('MasterDermagasController.view', [data.id]) }}"><img src="/media/peralatan/eye.svg" data-bs-toggle="tooltip" data-bs-title="view"></a>
+                        @can("access", "edit-dermaga")
+                        <a style="margin-left:10px;" href="{{ route('MasterDermagasController.edit', [data.id]) }}"><img src="/media/peralatan/edit.svg" data-bs-toggle="tooltip" data-bs-title="edit"></a>
+                        @endcan
+                        <input type="hidden" class="idhapus" value="{{data.id}}"> 
+                        @can("access", "delete-dermaga")
+                        <a style="margin-left:10px;" onmouseover="this.style.cursor='pointer'" class="hapus"><img src="/media/peralatan/delete.svg" data-bs-toggle="tooltip" data-bs-title="delete"></i></a>
+                        @endcan
+                      @endif
+                    </td>
+                  </tr>
+                  @endeach
+              </tbody>
+            </table>
+          </div>
+          <!--end: Datatable -->
+        </div>
+      </div>      
+    </div>    
+  </div>
+  <!-- end: table data -->
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade modal-xl" id="ApproveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">View Master Data Dermaga</h1>
+        <button type="button" id="tutupModalApprove" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <img src="/media/peralatan/circle-gear.svg" alt="" srcset="">
+          <div style="margin-left:20px;">
+            Requested By
+            <div class="d-flex">
+              <div style="padding-top:5px;">
+                <strong>Master Data Dermaga</strong><br>
+                <span class="name_request"></span>
+              </div>
+              <div class="header-desc">
+                <strong>Departemen</strong><br>
+                <span class="dept_request"></span>
+              </div>
+              <div class="header-desc">
+                <strong>Tanggal</strong><br>
+                <span class="date_request"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <h4>Detail Master Data Dermaga</h4>
+        @include('pages/master_dermaga/component/stepper.edge')
+        <div class="card mb-5 mb-xl-10 bg-white" id="form-wrapper">       
+          <div id="kt_account_settings_signin_method" class="collapse show">
+            <div class="card-body border-top p-9">
+              <div id="carouselDermaga" class="carousel slide" data-wrap="false" data-interval="false">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <h4 style="color:#045299;padding-bottom:30px;">View General Information</h4>
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="nama-pelabuhan">Nama Pelabuhan<span style="color:red;">*</span></label>
+                        <input type="text" id="nama-pelabuhan" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kode-area-labuh">Kode Area Labuh</label>
+                        <input type="text" id="kode-area-labuh" class="form-control input-kode" placeholder="Kode Area Labuh" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="nama-terminal">Nama Terminal<span style="color:red;">*</span></label>
+                        <input type="text" id="nama-terminal" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="jenis-perairan">Jenis Perairan</label>
+                        <input type="text" id="jenis-perairan" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="nama-dermaga">Nama Dermaga<span style="color:red;">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Penulisan untuk nama dermaga auto UPPERCASE. cth : TANJUNG PRIOK">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="nama-dermaga" class="form-control" placeholder="cth : TANJUNG PRIOK" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="tipe-layanan-utama">Tipe Layanan Utama<span style="color:red;">*</span></label>
+                        <input type="text" id="tipe-layanan-utama" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="jenis-dermaga">Jenis Dermaga<span style="color:red;">*</span></label>
+                        <input type="text" id="jenis-dermaga" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="zonasi">Zonasi</label>
+                        <input type="text" id="zonasi" class="form-control" placeholder="Zonasi" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label id="label-jenis-konstruksi" class="form-label fw-bold" for="jenis-konstruksi">Jenis Konstruksi</label>
+                        <input type="text" id="jenis-konstruksi" class="form-select" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold">Jenis Layanan Dermaga<span style="color:red;">*</span></label>
+                        <div id="form-layanan-dermaga" class="d-flex flex-row mt-4">
+                          <div class="form-check me-8">
+                            <input class="form-check-input" type="checkbox" id="layanan-labuh" onclick="checkBox(this)" disabled>
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Labuh
+                            </label>
+                          </div>
+                          <div class="form-check me-8">
+                            <input class="form-check-input" type="checkbox" id="layanan-tambat" onclick="checkBox(this)" disabled>
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Tambat
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label id="label-pemilik" class="form-label fw-bold" for="pemilik">Pemilik</label>
+                        <input type="text" id="pemilik" class="form-control" placeholder="cth : PT ..." disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="kode-dermaga-inaportnet">Kode Dermaga Inaportnet</label>
+                        <input type="text" id="kode-dermaga-inaportnet" class="form-control input-kode" disabled>
+                      </div>
+                      <div class="col-6">
+                        <div class="col-12">
+                          <label id="label-status-milik" class="form-label fw-bold" for="status-milik">Status Milik</label>
+                          <input type="text" id="status-milik" class="form-select" disabled>
+                        </div>
+                        <br />
+                        <div class="col-12">
+                          <label class="form-label fw-bold" for="dokumen-pendukung">Dokumen Pendukung</label>
+                          <label id="dokumen-pendukung-link"></label>
+                          <input id="dokumen-pendukung" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg, .pdf" disabled>
+                          <input name="dokumen_pendukung_file" type="text" value="" hidden>
+                          <span class="form-text">*Max Size: 2 Mb, Format: PDF/JPG/JPEG/PNG</span>
+                        </div>
+                      </div>
+                      <div class="col-6" id="koordinat">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <h4 style="color:#045299;padding-bottom:30px;">View Spesifikasi</h4>
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="panjang">Panjang/Length (m)</label>
+                        <input type="text" id="panjang" class="form-control" placeholder="Panjang/Length (meter)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="jarak-station-tunda">Jarak Station Kapal Tunda (nmi)<span style="color:red;">*</span></label>
+                        <input type="text" id="jarak-station-tunda" class="form-control desimal" placeholder="Jarak Station Kapal Tunda (nmi)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="lebar">Lebar/Width (m)</label>
+                        <input type="text" id="lebar" class="form-control" placeholder="Lebar/Width (meter)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="jarak-station-pandu">Jarak Station Pandu (nmi)<span style="color:red;">*</span></label>
+                        <input type="text" id="jarak-station-pandu" class="form-control desimal" placeholder="Jarak Station Pandu (nmi)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="form-label fw-bold" for="kade-meter-awal">Kade Meter Awal</label>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 300,05">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                            </span>
+                            <input type="text" id="kade-meter-awal" class="form-control" placeholder="cth : 300,05" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label fw-bold" for="kade-meter-akhir">Kade Meter Akhir</label>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="Format penulisan menggunakan 2 digit angka desimal (,) Contoh: 500,05">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                            </span>
+                            <input type="text" id="kade-meter-akhir" class="form-control" placeholder="cth : 500,05" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="overhang-start">Overhang Allowed at Start (m)</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Panjang kapal yang melebihi ujung awal dermaga">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="overhang-at-start" class="form-control" placeholder="overhang allowed at start (meter)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="form-label fw-bold" for="kedalaman-minimal">Kedalaman Minimal (-mLWS)<span style="color:red">*</span></label>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="Format penulisan menggunakan tanda negatif (-) dan 2 digit angka desimal (,) Contoh: -1000,07">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                            </span>
+                            <input type="text" id="kedalaman-minimal" class="form-control" placeholder="cth : -1000,07" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label fw-bold" for="kedalaman-maximal">Kedalaman Maximal (-mLWS)<span style="color:red">*</span></label>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                  data-bs-content="Format penulisan menggunakan tanda negatif (-) dan 2 digit angka desimal (,) Contoh: -2000,07">
+                              <span class="badge rounded-pill bg-light border border-secondary">
+                                  <span class="text-black">?</span>
+                              </span>
+                            </span>
+                            <input type="text" id="kedalaman-maximal" class="form-control" placeholder="cth : -2000,07" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="overhang-end">Overhang Allowed at End (m)</label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                              data-bs-content="Panjang kapal yang melebihi ujung akhir dermaga">
+                          <span class="badge rounded-pill bg-light border border-secondary">
+                              <span class="text-black">?</span>
+                          </span>
+                        </span>
+                        <input type="text" id="overhang-at-end" class="form-control" placeholder="overhang allowed at end (meter)" disabled>
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="form-label fw-bold" for="kade-meter-awal">Elevasi Dermaga (m)</label>
+                            <input type="text" id="elevasi-dermaga-minimal" class="form-control" placeholder="Minimal Elevasi Dermaga" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label fw-bold invisible" for="kade-meter-akhir">Elevasi Dermaga (m)</label>
+                            <input type="text" id="elevasi-dermaga-maximal" class="form-control" placeholder="Maximal Elevasi Dermaga" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label fw-bold" for="mob-demob">Mob / Demob (menit)<span style="color:red">*</span></label>
+                        <input type="text" id="mob-demob" class="form-control" placeholder="Mob / Demob (menit)" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{--  <hr style="margin-top:5%;">  --}}
+        <div class="row">
+          <div class="col-12">
+            <button id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+            <button id="kembali" class="btn btn-outline-primary border border-primary crsl-one" data-bs-target="#carouselDermaga" data-bs-slide-to="0">Back</button>
+          </div>
+        </div>
+        <hr>
+        <div id="formHistoryAproval">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12" id="formApprovalPath">
+                <div class="page-header text-center">
+                  <h4>Approval Path</h4>
+                </div>
+                <div style="display:inline-block;width:100%;overflow-y:auto;">
+                  <ul class="timeline timeline-horizontal">                 
+                    <div id="detailHistory">
+                    </div>                
+                  </ul>
+                </div>
+              </div>
+            </div>   
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="color:#FF0000;">Log Approval</h4>
+            <hr>
+            <div id="logApproval"></div>
+            <label for="noteApproval" class="form-label">Notes<span style="color:red;">*</span></label>
+            <textarea class="form-control" id="noteApprovalReject" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="submit-reject">Reject</button>
+        <input type="hidden" id="id-submit-approve" value="">
+        <button class="btn btn-primary" id="submit-approve">Approve</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<script>
+    $(document).ready(function () {
+
+      var t = $('#example').DataTable({
+          searching: true,
+          ordering: false,
+          language: {
+            info: "Showing _START_ to _END_ of _TOTAL_ entries",
+            lengthMenu: 'Rows to display <select>' +
+              '<option value="10">10</option>' +
+              '<option value="25">25</option>' +
+              '<option value="50">50</option>' +
+              '<option value="100">100</option>' +
+              '</select>'
+          }					
+      });
+
+      $('#example').css('border', '1px solid rgba(192, 192, 192, 0.5)');
+      $('#example').css('border-radius', '5px');
+      $('#example thead tr th').css('text-align', 'center');
+
+      // ketika ada request dari notification
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const search = urlParams.get('q')
+      if (search !==null){
+        t.search(search).draw();
+      }
+
+      t.on('order.dt search.dt', function () {
+          let i = 1;
+  
+          t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+              this.data(i++);
+          });
+      }).draw();
+
+      $("#excel").click(function() {
+        window.location.assign("{{ route('MasterDermagasController.writeExcel') }}");
+      });
+
+      // untuk hover export master 
+      $("#excel").mouseover(function() {
+        $(this).html("<img src='/media/peralatan/export_hover.svg'> Export Master"); 
+      });
+
+      // untuk mouseleave export master 
+      $("#excel").mouseleave(function() {
+        $(this).html("<img src='/media/peralatan/export.svg'> Export Master"); 
+      });
+
+      $('#search').keyup(function(){
+        t.search($(this).val(), true, false).draw();
+      });
+
+      $('#tutupModalApprove').click(function() {
+        $(".formdetailHistory").remove();
+        $(".log-approval-list-child").remove();
+      });
+
+      $('#ApproveModal').modal({backdrop: 'static', keyboard: false});
+
+    });
+
+    $("#submit-approve").click(function() {
+      Swal.fire({
+        title:"<span style='color:#8CE02C;'>Disetujui</span>", 
+        html: "<strong>Apakah anda yakin ?</strong>", 
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Tidak", 
+        confirmButtonText: "Iya",
+        confirmButtonColor: "#045299",
+        reverseButtons: true,
+        allowOutsideClick: false
+      }).then((result)=>{
+        if(result.isConfirmed == true) {
+          var isError = false; 
+
+          if(/[A-z0-9]/.test($("#noteApprovalReject").val()) == false) {
+            isError = true;
+            if($('#noteApprovalReject').hasClass("is-invalid") == false) {
+              $('#noteApprovalReject').addClass("is-invalid");
+              var text = $("<div></div>").text("Lengkapi bidang ini");
+              text.addClass("invalid-feedback");
+              text.attr('id', 'invalid-noteApprovalReject'); 
+              $("#noteApprovalReject").after(text);
+            }
+          } else {
+            $("#noteApprovalReject").removeClass('is-invalid');
+            $('#invalid-noteApprovalReject').remove();
+          }
+
+          if(isError == false) {
+            $.ajax({
+              url:`/master-dermaga/approve`,
+              type:'get',
+              data: {
+                no_request : $('#id-submit-approve').val(),
+                status: "APPROVE",
+                notes : $("#noteApprovalReject").val()
+              },
+              success:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                  html: `<strong>${data.message}</strong>`,
+                  icon:'success',
+                  confirmButtonColor: '#045299',
+                  confirmButtonText: 'Lanjutkan',
+                  reverseButtons: true,
+                  allowOutsideClick: false
+                }).then(()=>{
+                  if(data.approval_sequence == data.total_approve) { 
+                    window.location.assign(`{{ route('MasterDermagasController.index') }}`);
+                  } else {
+                    window.location.assign(`{{ route('MasterDermagasController.index', ['diajukan']) }}`);
+                  }
+                });
+              },
+              error:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#FF0000;'>Gagal</span>", 
+                  html: `<strong>${data.responseJSON.message}</strong>`,
+                  icon:'error',
+                  confirmButtonColor: '#045299',
+                  confirmButtonText: 'Oke',
+                  allowOutsideClick: false
+                });
+              }
+            });
+          }
+        }
+      });
+    });
+
+    $("#submit-reject").click(function() {
+      console.log($("#id-submit-approve").val());
+      Swal.fire({
+        title:"<span style='color:#FF0000;'>Ditolak</span>", 
+        html: "<strong>Apakah anda yakin ?</strong>", 
+        icon: "error",
+        showCancelButton: true,
+        cancelButtonText: "Tidak", 
+        confirmButtonText: "Iya",
+        confirmButtonColor: "#045299",
+        reverseButtons: true,
+        allowOutsideClick: false
+      }).then((result)=>{
+        if(result.isConfirmed == true) {
+          var isError = false; 
+
+          if(/[A-z0-9]/.test($("#noteApprovalReject").val()) == false) {
+            isError = true;
+            if($('#noteApprovalReject').hasClass("is-invalid") == false) {
+              $('#noteApprovalReject').addClass("is-invalid");
+              var text = $("<div></div>").text("Lengkapi bidang ini");
+              text.addClass("invalid-feedback");
+              text.attr('id', 'invalid-noteApprovalReject'); 
+              $("#noteApprovalReject").after(text);
+            }
+          } else {
+            $("#noteApprovalReject").removeClass('is-invalid');
+            $('#invalid-noteApprovalReject').remove();
+          }
+
+          if(isError == false) {
+            $.ajax({
+              url:`/master-dermaga/reject`,
+              type:'get',
+              data: {
+                no_request: $('#id-submit-approve').val(),
+                status: "REJECT", 
+                notes : $('#noteApprovalReject').val()
+              },
+              success:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                  html: `<strong>${data.message}</strong>`,
+                  icon:'success',
+                  confirmButtonColor: '#045299',
+                  confirmButtonText: 'Lanjutkan',
+                  reverseButtons: true,
+                  allowOutsideClick: false
+                }).then(()=>{
+                  window.location.assign(`{{ route('MasterDermagasController.index', ['ditolak']) }}`);
+                });
+              },
+              error:function(data) {
+                Swal.fire({
+                  title: "<span style='color:#FF0000;'>Gagal</span>", 
+                  html: `<strong>${data.responseJSON.message}</strong>`,
+                  icon:'error',
+                  confirmButtonColor: '#045299',
+                  confirmButtonText: 'Oke',
+                  reverseButtons: true,
+                  allowOutsideClick: false
+                });
+              }
+            }); 
+          }
+        }
+      });
+    });
+    
+    // untuk hapus data
+    var btnHapus = document.querySelectorAll('.hapus');
+    var hapus = document.querySelectorAll('.idhapus');
+    var labelStatus = document.querySelectorAll('.status');
+    for(let i = 0; i < btnHapus.length; i++) {
+      btnHapus[i].addEventListener('click', function() {
+        Swal.fire({
+          title:"<span style='color:#FF0000;'>Hapus</span>", 
+          html: "<strong>Apakah Anda Yakin ?</strong>", 
+          imageUrl: "/media/peralatan/trash-outline.svg",
+          showCancelButton: true,
+          cancelButtonText: "Tidak", 
+          confirmButtonText: "Iya",
+          confirmButtonColor: "#045299",
+          reverseButtons: true,
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed == true) {
+            var link = hapus[i].value;
+            $.ajax({
+              url:`/master-dermaga/delete/${link}`,
+              type:'get',
+              beforeSend: function() {
+                blockUI.block();
+              },
+              success:function(data) {
+                blockUI.release();
+                Swal.fire({
+                  title: "<span style='#8CE02C'>Hapus</span>", 
+                  html: "<strong>Data berhasil dihapus</strong>",
+                  icon:'success',
+                  confirmButtonText: 'Lanjutkan', 
+                  confirmButtonColor: '#045299',
+                  reverseButtons: true,
+                  allowOutsideClick: false
+                }).then(()=>{
+                  if(labelStatus[i].innerHTML == "Draft") {
+                    window.location.assign(`{{ route('MasterDermagasController.index', ['draft']) }}`);
+                  } else if(labelStatus[i].innerHTML == "Ditolak") {
+                    window.location.assign(`{{ route('MasterDermagasController.index', ['ditolak']) }}`);
+                  }
+                });
+              },
+              error:function() {
+                blockUI.release();
+                Swal.fire({
+                  title: "<span style='#FF0000'>Gagal</span>", 
+                  html: "<strong>Data gagal dihapus</strong>",
+                  icon:'error',
+                  confirmButtonText: 'Baik', 
+                  confirmButtonColor: '#045299',
+                  allowOutsideClick: false
+                });
+              }
+            });
+          }
+        });
+      })
+    }
+
+    // untuk pop up approve data 
+    var btnApprove = document.querySelectorAll('.approve');
+    var approve = document.querySelectorAll('.idapprove');
+    for(let i = 0; i < btnApprove.length; i++) {
+      btnApprove[i].addEventListener('click', function() {
+        clearApproval();
+        document.getElementById('id-submit-approve').value = approve[i].value;
+        $.ajax({
+          url: "{{ route('MasterDermagasController.modalData') }}",
+          type: "get",
+          data: {
+            no_request: approve[i].value
+          },
+          success: function(data) {
+            $('#nama-pelabuhan').val(`${data.dermaga.nama_pelabuhan == null || data.dermaga.nama_pelabuhan == 'null' ? '' : data.dermaga.nama_pelabuhan}`);
+            $('#nama-terminal').val(`${data.dermaga.nama_terminal == null || data.dermaga.nama_terminal == 'null' ? '' : data.dermaga.nama_terminal}`);
+            $('#nama-dermaga').val(`${data.dermaga.nama_dermaga == null || data.dermaga.nama_dermaga == 'null' ? '' : data.dermaga.nama_dermaga}`);
+            $('#jenis-dermaga').val(`${data.dermaga.jenis_dermaga == null || data.dermaga.jenis_dermaga == 'null' ? '' : data.dermaga.jenis_dermaga}`);
+            $('#jenis-konstruksi').val(`${data.dermaga.jenis_konstruksi == null || data.dermaga.jenis_konstruksi == 'null' ? '' : data.dermaga.jenis_konstruksi}`);
+            $('#pemilik').val(`${data.dermaga.pemilik == null || data.dermaga.pemilik == 'null' ? '' : data.dermaga.pemilik}`);
+            $('#status-milik').val(`${data.dermaga.status_milik == null || data.dermaga.status_milik == 'null' ? '' : data.dermaga.status_milik}`);
+            $('#kode-area-labuh').val(`${data.dermaga.kode_area_labuh == null || data.dermaga.kode_area_labuh == 'null' ? '' : data.dermaga.kode_area_labuh}`);
+            $('#jenis-perairan').val(`${data.dermaga.jenis_perairan == null || data.dermaga.jenis_perairan == 'null' ? '' : data.dermaga.jenis_perairan}`);
+            $('#tipe-layanan-utama').val(`${data.dermaga.tipe_layanan_utama == null || data.dermaga.tipe_layanan_utama == 'null' ? '' : data.dermaga.tipe_layanan_utama}`);
+            $('#zonasi').val(`${data.dermaga.zonasi == null || data.dermaga.zonasi == 'null' ? '' : data.dermaga.zonasi}`);
+            if(data.dermaga.layanan_tambat == 1) {
+              $('#layanan-tambat').prop("checked", true);
+            } else {
+              $('#layanan-tambat').prop("checked", false);
+            }
+            if(data.dermaga.layanan_labuh == 1) {
+              $('#layanan-labuh').prop("checked", true);
+            } else {
+              $('#layanan-labuh').prop("checked", false);
+            }
+            if (data.dermaga.dokumen_pendukung != null){
+              $('#dokumen-pendukung-link').html(`<a target="_blank" href="/download-file/${data.dermaga.dokumen_pendukung}">Previous File</a>`)
+            }
+            $('#kode-dermaga-inaportnet').val(`${data.dermaga.kode_dermaga_inaportnet == null || data.dermaga.kode_dermaga_inaportnet == 'null' ? '' : data.dermaga.kode_dermaga_inaportnet}`);
+            if (data.dermaga_coordinates != ''){
+            $.each(data.dermaga_coordinates, function (index, val) {
+              $('#koordinat').append(`<div class="row">
+                                      <div class="col-6">
+                                        <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" name="longitude[]" placeholder="(LS) cth : 09°49'25" value=${val.longitude} disabled>
+                                          <span class="input-group-text" id="basic-addon2">LS</span>
+                                        </div>
+                                      </div>
+                                      <div class="col-6">
+                                        <label class="form-label fw-bold">Koordinat Bujur</label>
+                                        <div class="input-group">
+                                        <input type="text"class="form-control" name="latitude[]" placeholder="(BT) cth : 106°49'00" value=${val.latitude} disabled>
+                                          <span class="input-group-text" id="basic-addon2">BT</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <br />`)
+            });
+          } else {
+              $('#koordinat').html( `<div class="row">
+                                        <div class="col-6">
+                                          <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                                          <div class="input-group">
+                                            <input type="text" class="form-control" name="longitude[]" placeholder="(LS) cth : 09°49'25" disabled>
+                                            <span class="input-group-text" id="basic-addon2">LS</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-6">
+                                          <label class="form-label fw-bold">Koordinat Bujur</label>
+                                          <div class="input-group">
+                                            <input type="text"class="form-control" name="latitude[]" placeholder="(BT) cth : 106°49'00" disabled>
+                                            <span class="input-group-text" id="basic-addon2">BT</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <br />
+                                      <div class="row">
+                                        <div class="col-6">
+                                          <label class="form-label fw-bold" for="longitude">Koordinat Lintang</label>
+                                          <div class="input-group">
+                                            <input type="text" class="form-control" name="longitude[]" placeholder="(LS) cth : 09°49'25" disabled>
+                                            <span class="input-group-text" id="basic-addon2">LS</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-6">
+                                          <label class="form-label fw-bold">Koordinat Bujur</label>
+                                          <div class="input-group">
+                                            <input type="text"class="form-control" name="latitude[]" placeholder="(BT) cth : 106°49'00" disabled>
+                                            <span class="input-group-text" id="basic-addon2">BT</span>
+                                          </div>
+                                        </div>
+                                      </div>`);
+            }
+            $('#panjang').val(`${data.dermaga.panjang == null || data.dermaga.panjang == 'null' ? '' : data.dermaga.panjang}`);
+            $('#lebar').val(`${data.dermaga.lebar == null || data.dermaga.lebar == 'null' ? '' : data.dermaga.lebar}`);
+            $('#kade-meter-awal').val(`${data.dermaga.kade_meter_awal == null || data.dermaga.kade_meter_awal == 'null' ? '' : data.dermaga.kade_meter_awal}`);
+            $('#kade-meter-akhir').val(`${data.dermaga.kade_meter_akhir == null || data.dermaga.kade_meter_akhir == 'null' ? '' : data.dermaga.kade_meter_akhir}`);
+            $('#kedalaman-minimal').val(`${data.dermaga.kedalaman_minimal == null || data.dermaga.kedalaman_minimal == 'null' ? '' : data.dermaga.kedalaman_minimal}`);
+            $('#kedalaman-maximal').val(`${data.dermaga.kedalaman_maximal == null || data.dermaga.kedalaman_maximal == 'null' ? '' : data.dermaga.kedalaman_maximal}`);
+            $('#elevasi-dermaga-minimal').val(`${data.dermaga.elevasi_dermaga_minimal == null || data.dermaga.elevasi_dermaga_minimal == 'null' ? '' : data.dermaga.elevasi_dermaga_minimal}`);
+            $('#elevasi-dermaga-maximal').val(`${data.dermaga.elevasi_dermaga_maximal == null || data.dermaga.elevasi_dermaga_maximal == 'null' ? '' : data.dermaga.elevasi_dermaga_maximal}`);
+            $('#jarak-station-tunda').val(`${data.dermaga.jarak_station_tunda == null || data.dermaga.jarak_station_tunda == 'null' ? '' : data.dermaga.jarak_station_tunda}`);
+            $('#jarak-station-pandu').val(`${data.dermaga.jarak_station_pandu == null || data.dermaga.jarak_station_pandu == 'null' ? '' : data.dermaga.jarak_station_pandu}`);
+            $('#overhang-at-start').val(`${data.dermaga.overhang_at_start == null || data.dermaga.overhang_at_start == 'null' ? '' : data.dermaga.overhang_at_start}`);
+            $('#overhang-at-end').val(`${data.dermaga.overhang_at_end == null || data.dermaga.overhang_at_end == 'null' ? '' : data.dermaga.overhang_at_end}`);
+            $('#mob-demob').val(`${data.dermaga.mob_demob == null || data.dermaga.mob_demob == 'null' ? '' : data.dermaga.mob_demob}`);
+            $('.name_request').html(`${data.name_request}`); 
+            $('.date_request').html(`${data.date_request}`); 
+            $('.dept_request').html(`${data.dept_request}`);
+
+            // rules jenis dermaga halaman edit
+            if(["dermaga umum", "dermaga khusus (duks)"].includes($("#jenis-dermaga").val().toLowerCase())) {
+              $("#label-pemilik").html("Pemilik<span style='color:red'>*</span>");
+              $("#label-status-milik").html("Status Milik<span style='color:red'>*</span>");
+              $("#label-jenis-konstruksi").html("Jenis Konstruksi<span style='color:red'>*</span>");
+              // $("#kode-area-labuh").prop("disabled", true);
+              // $("#layanan-labuh").prop("checked", false);
+              // $("#layanan-labuh").val(0);
+              // $("#layanan-tambat").prop("checked", true);
+              // $("#layanan-tambat").val(1);
+            } else {
+              $("#label-pemilik").html("Pemilik");
+              $("#label-status-milik").html("Status Milik");
+              $("#label-jenis-konstruksi").html("Jenis Konstruksi");
+              // $("#kode-area-labuh").prop("disabled", false);
+              // if($("#jenis-dermaga").attr("data-placeholder") == "Area Labuh") {
+              //   $("#layanan-labuh").prop("checked", true);
+              //   $("#layanan-labuh").val(1);
+              // } else {
+              //   $("#layanan-labuh").prop("checked", false);
+              //   $("#layanan-labuh").val(0);
+              // }
+              // $("#layanan-tambat").prop("checked", false);
+              // $("#layanan-tambat").val(0);
+            }
+
+            var element = [];
+            var element2 = [];
+            let namaUser = "";
+            // generate approval path
+            for(let x = 0; x < data.app_lists.length; x++) {
+              element[x] = `<li class="timeline-item formdetailHistory">
+                    <div id="path-ball-${data.app_lists[x].approval_order}" class="timeline-badge ${x == 0 ? 'warning' : '' }">
+                      <i class="glyphicon glyphicon-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                      <div class="timeline-heading">
+                        <div class="row align-items-center">
+                          <div class="col-4">
+                            <img alt="Logo" src="/media/svg/approval/approved.svg" class="theme-light-show h-20px h-lg-60px">
+                          </div>
+                          <div class="col-8">
+                            <span id="validation-${data.app_lists[x].approval_order}">${x == 0 ? 'Next Approve' : '' }</span><br>
+                            <strong>${data.app_lists[x].role.name}</strong><br>
+                            <span class="text-muted">${data.app_lists[x].mandatory == 1 ? 'Mandatory' : 'Optional'}</span><br>
+                            <span class="text-muted">Approval level ${data.app_lists[x].approval_order}</span>                                                                                                                                    
+                          </div>                                            
+                        </div>
+                      </div>                                     
+                    </div>
+                  </li>`;
+            }
+            $("#detailHistory").first().append(element);
+
+            // generate log approval
+            for(let i = 0; i < data.app_detail.length; i++) {
+              let strTanggal = data.app_detail[i].created_at.toString();
+              let strDay = strTanggal.substring(8, 10);
+              let bulan;
+              switch(strTanggal.substring(5,7)) {
+                case "01": bulan = "Januari"; break;
+                case "02": bulan = "Febuari"; break;
+                case "03": bulan = "Maret"; break;
+                case "04": bulan = "April"; break;
+                case "05": bulan = "Mei"; break;
+                case "06": bulan = "Juni"; break;
+                case "07": bulan = "Juli"; break;
+                case "08": bulan = "Agustus"; break;
+                case "09": bulan = "September"; break;
+                case "10": bulan = "Oktober"; break;
+                case "11": bulan = "November"; break;
+                case "12": bulan = "Desember"; break;
+              }
+              let year = strTanggal.substring(0, 4);
+              let jam = parseInt(strTanggal.substring(11, 13)) + 7;
+              if(jam >= 24) {
+                strDay = parseInt(strDay) + 1;
+              }
+              let menit = strTanggal.substring(14, 16);
+              let resultDate = `${strDay} ${bulan} ${year} ${jam}.${menit}`;
+              const status = data.app_detail[i].action;
+              const notes = [null, 'null', ''].includes(data.app_detail[i].remark) ? '' : data.app_detail[i].remark;
+              if(status == "APPROVE") {
+                element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(140, 224, 44, 0.2);color:#8CE02C;padding:5px 10px;">Disetujui</span></p>`;
+                $.ajax({
+                  url: `{{ route('MasterDermagasController.approvalOrder') }}`,
+                  async: false, 
+                  type: "get",
+                  data: {
+                    role_id: data.app_detail[i].role_id,
+                    schema_id: data.schema_id
+                  }, 
+                  success: function(order) {
+                    $(`#path-ball-${order}`).attr("class", "timeline-badge success");
+                    $(`#validation-${order}`).html("");
+                    $(`#path-ball-${parseInt(order)+1}`).attr("class", "timeline-badge warning");
+                    $(`#validation-${parseInt(order)+1}`).html("Next Approve");
+                  }
+                });
+              } else if(status == "REJECT") {
+                element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(255, 0, 0, 0.2);color:#FF0000;padding:5px 10px;">Ditolak</span></p>`;
+                $.ajax({
+                  url: `{{ route('MasterDermagasController.approvalOrder') }}`,
+                  async: false, 
+                  type: "get",
+                  data: {
+                    role_id: data.app_detail[i].role_id,
+                    schema_id: data.schema_id
+                  }, 
+                  success: function(order) {
+                    $(`#path-ball-${order}`).attr("class", "timeline-badge danger");
+                    $(`#validation-${order}`).html("");
+                    $(`#path-ball-${data.app_lists[0].approval_order}`).attr("class", "timeline-badge warning");
+                    $(`#validation-${data.app_lists[0].approval_order}`).html("Next Approve");
+                  }
+                });
+              } else if(status == "DIAJUKAN") {
+                element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(1, 195, 255, 0.2);color:#01C3FF;padding:5px 10px;">Diajukan</span></p>`;
+              } else if(status == "UPDATE") {
+                element2[i] = `<p class="log-approval-list-child">${data.app_detail[i].name} - ${resultDate} : ${notes} <span style="background:rgba(65, 100, 223, 0.2);color:#4164DF;padding:5px 10px;">Diubah</span></p>`;
+              }
+            };
+            $("#logApproval").first().append(element2);
+
+            if(data.done_approve.length != 0) {
+              $("#submit-approve").css('display', 'none');
+              $("#submit-reject").css('display', 'none');
+            }
+          }
+        })
+      })
+    }
+
+    // ketika ball step 1 ditekan
+    $("#ball-step-1").click(function() {
+      $("#carouselDermaga").carousel(0);
+      $('#ball-step-2').removeClass('btn-primary');
+      $('#ball-step-2').addClass('btn-secondary');
+      $('#teks-spesification').removeClass('text-primary');
+      $('#teks-spesification').addClass('text-secondary');
+      $('#progress-page').css('width', '0%');
+      $("#selanjutnya").css('display', '');
+    });
+
+    // ketika ball step 2 ditekan
+    $("#ball-step-2").click(function() {
+      $("#carouselDermaga").carousel(1); 
+      $('#ball-step-2').removeClass('btn-secondary');
+      $('#ball-step-2').addClass('btn-primary');
+      $('#teks-spesification').removeClass('text-secondary');
+      $('#teks-spesification').addClass('text-primary');
+      $('#progress-page').css('width', '100%');
+      $("#selanjutnya").css('display', 'none');
+    });
+
+    // ketika tombol kembali ditekan
+    $("#kembali").click(function() {
+        $('#ball-step-2').removeClass('btn-primary');
+        $('#ball-step-2').addClass('btn-secondary');
+        $('#teks-spesification').removeClass('text-primary');
+        $('#teks-spesification').addClass('text-secondary');
+        $('#progress-page').css('width', '0%');
+        $('#kirim').css('display', 'none');
+        $("#selanjutnya").css('display', '');
+      });
+
+      // ketika tombol selanjutnya
+      $("#selanjutnya").click(function() {
+        $("#carouselDermaga").carousel(1); 
+        $('#ball-step-2').removeClass('btn-secondary');
+        $('#ball-step-2').addClass('btn-primary');
+        $('#teks-spesification').removeClass('text-secondary');
+        $('#teks-spesification').addClass('text-primary');
+        $('#progress-page').css('width', '100%');
+        $('#kirim').css('display', 'block');
+        $(this).css('display', 'none');
+      });
+      
+      function clearApproval(){
+        $('#nama-pelabuhan').val('');
+        $('#nama-terminal').val('');
+        $('#nama-dermaga').val('');
+        $('#jenis-dermaga').val('');
+        $('#jenis-konstruksi').val('');
+        $('#pemilik').val('');
+        $('#status-milik').val('');
+        $('#kode-area-labuh').val('');
+        $('#jenis-perairan').val('');
+        $('#tipe-layanan-utama').val('');
+        $('#zonasi').val('');
+        $('#layanan-tambat').prop("checked", false);
+        $('#layanan-labuh').prop("checked", false);
+        $('#dokumen-pendukung-link').html('');
+        $('#koordinat').html('');
+        $('#kode-dermaga-inaportnet').val('');
+        $('#panjang').val('');
+        $('#lebar').val('');
+        $('#kade-meter-awal').val('');
+        $('#kade-meter-akhir').val('');
+        $('#kedalaman-minimal').val('');
+        $('#kedalaman-maximal').val('');
+        $('#elevasi-dermaga-minimal').val('');
+        $('#elevasi-dermaga-maximal').val('');
+        $('#jarak-station-tunda').val('');
+        $('#jarak-station-pandu').val('');
+        $('#overhang-at-start').val('');
+        $('#overhang-at-end').val('');
+        $('.name_request').html('');
+        $('.date_request').html('');
+        $('.dept_request').html('');
+      }
+</script>
+
+@end

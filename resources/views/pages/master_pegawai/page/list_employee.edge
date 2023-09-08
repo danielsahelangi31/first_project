@@ -1,0 +1,623 @@
+@layout('layout/index')
+@section('content')
+<style>
+
+  /* body content start */
+  #search {
+    background-image:url("/media/peralatan/search_icon.svg");
+    background-position:5% 45%;
+    background-repeat:no-repeat;
+    text-indent:40px;
+  }
+  /* body content end */
+
+
+  /* arrcodion start */
+  .arrcodion {
+    border: 1px solid #045299;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    /* transition: 0.4s; */
+  }
+
+  .panel {
+    padding: 10px;
+    /* display: none; */
+    /* line-height: 0px; */
+    /* transition: height 0.2s; */
+    /* max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out; */
+  }
+  /* arrcodion end */
+
+  ol {
+  list-style: none;
+}
+
+/* body {
+   margin: 50px 0 100px; 
+  font-family: "Inter", sans-serif;
+} */
+
+.chart-container {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.chart-container * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.rectangle {
+  position: relative;
+  padding: 10px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* level 1 */
+.level-1 {
+  width: 10%;
+  margin: 0 auto 40px;
+  font-size: 14px;
+  /* background: var(--level-1); */
+}
+
+.level-1::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: gray;
+}
+
+.level-1.no-before::before {
+  content: none;
+}
+
+
+.level-2-wrapper {
+  position: relative;
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: 60% 40%;
+}
+  
+.level-2-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 31.2%;
+  width: 49.7%;
+  height: 0.5px;
+  background: gray;
+}
+
+.level-2-wrapper::after {
+  display: none;
+  content: "";
+  position: absolute;
+  left: -20px;
+  bottom: -20px;
+  width: calc(100% + 20px);
+  height: 0;
+  background: gray;
+}
+
+.level-2-wrapper li {
+  position: relative;
+}
+  
+.level-2-wrapper > .level-2-li-1::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 52%;
+  /* transform: translateX(-50%); */
+  width: 1px;
+  height: 20px;
+  background: gray;
+}
+
+.level-2-wrapper > .level-2-li-2::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 52.2%;
+  /* transform: translateX(-50%); */
+  width: 1px;
+  height: 20px;
+  background: gray;
+}
+  
+.level-2-a {
+  width: 10%;
+  margin: 0 auto 40px;
+  margin-left: 47%;
+  margin-bottom: 40px;
+  font-size: 12px;
+  /* background: var(--level-2); */
+}
+
+.level-2-b {
+  width: 16%;
+  margin-top: 0;
+  margin-left: 45%; 
+  margin-bottom: 40px;
+  font-size: 12px;
+  /* background: var(--level-2); */
+}
+  
+.level-2-a::before, .level-2-b::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: gray;
+}
+  
+.level-2::after {
+  display: none;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-100%, -50%);
+  width: 20px;
+  height: 2px;
+  background: var(--black);
+}
+  
+  
+/* LEVEL-3 STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-3-wrapper-1 {
+  position: relative;
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-column-gap: 10px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.level-3-wrapper-2 {
+  position: relative;
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-column-gap: 10px;
+  width: 90%;
+  margin: 0 auto;
+}
+  
+.level-3-wrapper-1::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: calc(13% - 4px);
+  width: calc(77% + 15px);
+  height: 1px;
+  background: gray;
+}
+
+.level-3-wrapper-2::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: calc(13% - 2px);
+  width: calc(77% + 18px);
+  height: 1px;
+  background: gray;
+}
+  
+.level-3-wrapper-1 > li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 0.5px;
+  height: 20px;
+  background: gray;
+}
+
+.level-3-wrapper-2 > li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 0.5px;
+  height: 20px;
+  background: gray;
+}
+
+.level-3-a {
+  margin: 0 auto 20px;
+  width: 48%;
+  font-size: 12px;
+  /* background: var(--level-3); */
+}
+
+.level-3-a:nth-child(2):before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  height: 20px;
+  width: 0.5px;
+  background: gray;
+}
+
+.level-3-a:nth-child(2):after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 10px;
+  width: 0.5px;
+  background: gray;
+}
+
+.level-3-b {
+  margin:0 auto 20px;
+  width: 70%;
+  font-size: 12px;
+  /* background: var(--level-3); */
+}
+  
+  
+  /* LEVEL-4 STYLES
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-4-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-gap: 10px;
+}
+  
+  .level-4-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 23.1%;
+    width: 49.5%;
+    height: 1px;
+    background: gray;
+  }
+  
+  /* .level-4-wrapper li + li {
+    margin-top: 20px;
+  } */
+  
+  .level-4 {
+    /* background: var(--level-4); */
+    font-size: 8px;
+  }
+  
+  .level-4::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 0.5px;
+    height: 10px;
+    background: gray;
+  }
+
+</style>
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header -->
+  @include('pages/master_pegawai/component/header.edge')
+
+  <!-- begin: table data -->
+  <div class="card mb-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">      
+      <div class="card-body border-top p-9">
+        <div class="card mb-4 bg-primary text-white">
+          <div class="d-flex">
+            <div class="w-75" style="padding:50px">
+              <h1 class="nama-perusahaan text-white">{{ company }}</h1>
+              <p>Jumlah karyawan : {{ jumlah_pegawai }}</p>
+            </div>
+            <div class="w-25 pt-4">
+              <img src="/media/pegawai/img-employee.svg" class="opacity-25">
+            </div>
+          </div>
+        </div>
+        <div class="card-title m-0">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" id="search" class="form-control mb-5" placeholder="Search">
+            </div>
+            <div class="col-md-8">
+              <button id="list-employee" class="btn btn-primary border border-primary float-end">
+                <i class="fa fa-list-ul"></i>
+                List Employee
+              </button>
+              <button id="list-company" class="btn btn-outline-primary border border-primary float-end" style="margin-right:2rem">
+                <i class="fa fa-list-ul" style="color:#045299"></i>
+                <span style="color:#045299">List Company</span>
+              </button>
+              <button id="main-page" type="button" class="btn btn-outline-primary border border-primary float-end" style="margin-right:2rem">
+                <i class="fa fa-th-large" style="color:#045299"></i>
+                <span style="color:#045299">Hierarchy Organization</span>
+              </button>
+              <button id="filter-employee" type="button" data-bs-toggle="modal" data-bs-target="#modal-filter-employee" class="btn btn-outline-primary border border-primary float-end" style="margin-right:2rem">
+                <i class="fa fa-filter" style="color:#045299"></i>
+                <span style="color:#045299">Filter</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+          <!--begin: Datatable -->
+          <div id="kt_datatable">
+            <table id="example" class="row-border">
+                <thead style="background: rgba(182, 234, 255, 0.2);">
+                  <tr>
+                    <th>No</th>
+                    <th>Pernr</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Placement</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+          </div>
+          <!--end: Datatable -->
+        </div>
+      </div>      
+    </div>    
+  </div>
+  <!-- end: table data -->
+
+</div>
+
+<!-- modal filter employee -->
+<div class="modal fade" tabindex="-1" id="modal-filter-employee">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Filter</h3>
+
+            <!--begin::Close-->
+            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+            </div>
+            <!--end::Close-->
+        </div>
+
+        <div class="modal-body">
+            <a onclick="return selectAll('selectAll')" style="color:#045299;">Select All</a>
+            <span style="color:#045299;font-size:30px;">.</span>
+            <a onclick="return selectAll('')" style="color:#C0C0C0;">Reset</a>
+            <div class="row" style="margin-top:20px;">
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="direktur-utama" />
+                  <label class="form-check-label" for="check1">
+                      Direktur Utama
+                  </label>
+                </div>
+                <div class="form-check" style="margin-top:20px;">
+                  <input class="form-check-input" type="checkbox" value="" id="general-manager" />
+                  <label class="form-check-label" for="check2">
+                      General Manager
+                  </label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="asisten-manager" />
+                  <label class="form-check-label" for="check3">
+                      Asisten Manager
+                  </label>
+                </div>
+                <div class="form-check" style="margin-top:20px;">
+                  <input class="form-check-input" type="checkbox" value="" id="departement-head" />
+                  <label class="form-check-label" for="check4">
+                      Departement Head
+                  </label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="division-head" />
+                  <label class="form-check-label" for="check3">
+                      Division Head
+                  </label>
+                </div>
+                <div class="form-check" style="margin-top:20px;">
+                  <input class="form-check-input" type="checkbox" value="" id="officer" />
+                  <label class="form-check-label" for="check4">
+                      Officer
+                  </label>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a id="oke-filter" class="btn btn-outline-primary border border-primary" data-bs-dismiss="modal">Oke</a>
+            {{--  <button type="button" class="btn btn-outline-primary border border-primary">Oke</button>  --}}
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var t = $('#example').DataTable({
+          searching: true,
+          processing: true,
+          serverSide: true,
+          stateSave: true,
+          ordering: false,
+          ajax: {
+            url: '/master-pegawai/data-list-employee/{{ pbtxt }}'
+          },
+          columns: [
+            { data: 'nomor'},
+            { data: 'pernr'},
+            { data: 'cname'},
+            { data: 'pktxt'},
+            { data: 'btrtx'},
+          ],
+          columnDefs:[
+            {
+              targets: [0, 2, 3, 4],
+              createdCell: function(td, cellData, rowData) {
+                $(td).css('text-align', 'center');
+              }
+            },
+            {
+              targets: 1,
+              visible: false
+            }
+          ],
+          ordering: false,
+          info: true,
+          language: {
+            info: "Showing _START_ to _END_ of _TOTAL_ entries",
+            lengthMenu: 'Rows to display <select>' +
+              '<option value="10">10</option>' +
+              '<option value="25">25</option>' +
+              '<option value="50">50</option>' +
+              '<option value="100">100</option>' +
+              '</select>'
+          }					
+      });
+
+      $('#example').on('click', 'tbody tr', function() {
+        const pernr = t.rows($(this).index()).data()[0]['pernr'];
+        window.location.assign(`/master-pegawai/detail-employee/${pernr}/{{ pbtxt }}`);
+      })
+
+      $('#example').on('mouseover', 'tbody tr', function() {
+        $(this).css("cursor", "pointer");
+        $(this).css("background-color", "#42C2FF");
+        $(this).css("color", "#045299");
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(1)`).css('text-decoration', 'underline');
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(2)`).css('text-decoration', 'underline');
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(3)`).css('text-decoration', 'underline');
+      });
+
+      $('#example').on('mouseleave', 'tbody tr', function() {
+        $(this).css("background-color", "#FFF");
+        $(this).css("color", "black");
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(1)`).css('text-decoration', 'none');
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(2)`).css('text-decoration', 'none');
+        $(`#example tbody tr:eq(${$(this).index()}) td:eq(3)`).css('text-decoration', 'none');
+      });
+
+      $("#search").keyup(function() {
+        t.search($(this).val()).draw()
+      });
+
+      $("#oke-filter").click(function(){
+        const params = [];
+        if($("#direktur-utama:checked").length == 1) {
+          params.push('direktur utama');
+        }
+        
+        if($("#general-manager:checked").length == 1) {
+          params.push('general manager');
+        }
+        
+        if($("#asisten-manager:checked").length == 1) {
+          params.push('asisten manager');
+        }
+        
+        if($("#departement-head:checked").length == 1) {
+          params.push('departement head');
+        }
+
+        if($("#division-head:checked").length == 1) {
+          params.push('division head');
+        }
+
+        if($("#officer:checked").length == 1) {
+          params.push('officer');
+        }
+
+        t.search(params).draw();
+      });
+
+      $('#example').css('border', '1px solid rgba(192, 192, 192, 0.5)');
+      $('#example').css('border-radius', '5px');
+      $('#example thead tr th').css('text-align', 'center');
+
+      // ketika ada request dari notification
+      // const queryString = window.location.search;
+      // const urlParams = new URLSearchParams(queryString);
+      // const search = urlParams.get('q')
+      // if (search !==null){
+      //   t.search(search).draw();
+      // }
+
+      
+      $("#list-employee").click(function() {
+        window.location.assign("{{ route('MasterPegawaisController.listEmployee') }}")
+      });
+
+      $("#list-company").click(function() {
+        window.location.assign("{{ route('MasterPegawaisController.listCompany') }}")
+      });
+
+      $("#main-page").click(function() {
+        window.location.assign("{{ route('MasterPegawaisController.main') }}")
+      });
+      
+      
+      $(".btn-outline-primary").mouseover(function() {
+        const idName = $(this).attr("id");
+        $(`#${idName} i`).css("color", "#fff");
+        $(`#${idName} span`).css("color", "#fff");
+      });
+
+      $(".btn-outline-primary").mouseleave(function() {
+        const idName = $(this).attr("id");
+        $(`#${idName} i`).css("color", "#045299");
+        $(`#${idName} span`).css("color", "#045299");
+      });
+
+      $(".panel").slideUp();
+      
+      // arrcodion
+      for(let i = 0; i < $(".arrcodion").length; i++) {
+        $(`.arrcodion:eq(${i})`).click(function() {
+
+          $(`.panel:eq(${i})`).toggleClass("active");
+
+          $(`.panel:eq(${i})`).slideToggle(200);
+          // if($(`.panel:eq(${i})`).hasClass("active")) {
+          //   $(`.panel:eq(${i})`).slideDown("slow", "swing");
+          // } else {
+          //   $(`.panel:eq(${i})`).slideUp("slow", "swing");
+          // }
+        });
+      }
+
+    });
+      
+</script>
+
+@end

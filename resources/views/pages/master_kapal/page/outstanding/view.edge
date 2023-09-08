@@ -1,0 +1,1111 @@
+@layout('layout/index')
+@section('content')
+<style>
+  /* css header 2 start */
+  #progress-trans {
+    width:75px;
+    height:1px;
+    margin:20px -85px 0 10px;
+    z-index:1;
+  }
+  
+  #progress-page {
+    width:100%;
+    transition:width 1s;
+  }
+
+  #progress-page1 {
+    width:100%;
+    transition:width 1s;
+  }
+
+  .ball-step {
+    width:3rem;
+    height:3rem;
+  }
+
+  .titik-progress {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 5px;
+  }
+
+  #titik-progress-awal {
+    width:5px;
+    height:1px;
+    margin:20px 0 0 10px;
+  }
+
+  #titik-progress-akhir {
+    width:5px;
+    height:1px;
+    margin:20px 10px 0 5px;
+  }
+
+  /* css header 2 end */
+  
+  /* css form start */
+  .title-form {
+    color:#045299;
+    padding-bottom:30px;
+  }
+
+  #kirim {
+    float:right;
+    display:none;
+  }
+
+  #kembali {
+    display: none;
+  }
+
+  #kembali {
+    float:right;
+    margin-right:20px;
+  }
+
+  #draf {
+    float:right;
+    margin-right:20px;
+  }
+
+  #batal {
+    float:left;
+    margin-right:20px;
+  }
+
+  :input {
+    disabled: true;
+  }
+
+  /* Timeline */
+  .timeline,
+    .timeline-horizontal {
+    list-style: none;
+    padding: 20px;
+    position: relative;
+    }
+    .timeline:before {
+    top: 40px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 3px;
+    background-color: #eeeeee;
+    left: 50%;
+    margin-left: -1.5px;
+    }
+    .timeline .timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+    }
+    .timeline .timeline-item:before,
+    .timeline .timeline-item:after {
+    content: "";
+    display: table;
+    }
+    .timeline .timeline-item:after {
+    clear: both;
+    }
+    .timeline .timeline-item .timeline-badge {
+    color: #fff;
+    width: 54px;
+    height: 54px;
+    line-height: 52px;
+    font-size: 22px;
+    text-align: center;
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    margin-left: -25px;
+    background-color: #7c7c7c;
+    border: 3px solid #ffffff;
+    z-index: 100;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    }
+    .timeline .timeline-item .timeline-badge i,
+    .timeline .timeline-item .timeline-badge .fa,
+    .timeline .timeline-item .timeline-badge .glyphicon {
+    top: 2px;
+    left: 0px;
+    }
+    .timeline .timeline-item .timeline-badge.primary {
+    background-color: #1f9eba;
+    }
+    .timeline .timeline-item .timeline-badge.info {
+    background-color: #5bc0de;
+    }
+    .timeline .timeline-item .timeline-badge.success {
+    background-color: #59ba1f;
+    }
+    .timeline .timeline-item .timeline-badge.warning {
+    background-color: #d1bd10;
+    }
+    .timeline .timeline-item .timeline-badge.danger {
+    background-color: #ba1f1f;
+    }
+    .timeline .timeline-item .timeline-panel {
+    position: relative;
+    width: 46%;
+    float: left;
+    right: 16px;
+    border: 1px solid #c0c0c0;
+    background: #ffffff;
+    border-radius: 2px;
+    padding: 20px;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+    }
+    .timeline .timeline-item .timeline-panel:before {
+    position: absolute;
+    top: 26px;
+    right: -16px;
+    display: inline-block;
+    border-top: 16px solid transparent;
+    border-left: 16px solid #c0c0c0;
+    border-right: 0 solid #c0c0c0;
+    border-bottom: 16px solid transparent;
+    content: " ";
+    }
+    .timeline .timeline-item .timeline-panel .timeline-title {
+    margin-top: 0;
+    color: inherit;
+    }
+    .timeline .timeline-item .timeline-panel .timeline-body > p,
+    .timeline .timeline-item .timeline-panel .timeline-body > ul {
+    margin-bottom: 0;
+    }
+    .timeline .timeline-item .timeline-panel .timeline-body > p + p {
+    margin-top: 5px;
+    }
+    .timeline .timeline-item:last-child:nth-child(even) {
+    float: right;
+    }
+    .timeline .timeline-item:nth-child(even) .timeline-panel {
+    float: right;
+    left: 16px;
+    }
+    .timeline .timeline-item:nth-child(even) .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+    }
+    .timeline-horizontal {
+    list-style: none;
+    position: relative;
+    padding: 20px 0px 20px 0px;
+    display: inline-block;
+    }
+    .timeline-horizontal:before {
+    height: 3px;
+    top: auto;
+    bottom: 26px;
+    left: 56px;
+    right: 0;
+    width: 100%;
+    margin-bottom: 20px;
+    }
+    .timeline-horizontal .timeline-item {
+    display: table-cell;
+    height: 280px;
+    width: 20%;
+    min-width: 320px;
+    float: none !important;
+    padding-left: 0px;
+    padding-right: 20px;
+    margin: 0 auto;
+    vertical-align: bottom;
+    }
+    .timeline-horizontal .timeline-item .timeline-panel {
+    top: auto;
+    bottom: 64px;
+    display: inline-block;
+    float: none !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    margin-bottom: 20px;
+    }
+    .timeline-horizontal .timeline-item .timeline-panel:before {
+    top: auto;
+    bottom: -16px;
+    left: 28px !important;
+    right: auto;
+    border-right: 16px solid transparent !important;
+    border-top: 16px solid #c0c0c0 !important;
+    border-bottom: 0 solid #c0c0c0 !important;
+    border-left: 16px solid transparent !important;
+    }
+    .timeline-horizontal .timeline-item:before,
+    .timeline-horizontal .timeline-item:after {
+    display: none;
+    }
+    .timeline-horizontal .timeline-item .timeline-badge {
+    top: auto;
+    bottom: 0px;
+    left: 43px;
+    }
+/* timeline */
+  /* css form end */
+</style>
+
+<div class="content flex-row-fluid" id="kt_content">
+  
+  <!-- header 1 start -->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="d-flex">
+                <img src="/media/kapal/master-vessel.svg" style="margin-top:-10px;">
+                <h2 style="margin-left:30px;">Master Kapal</h2>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- header 1 end -->
+
+  <!-- header 2 start -->
+  <div class="card mt-5 mb-xl-10 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+      <div class="card-body border-top p-9">
+        <div class="d-flex justify-content-center mb-2">
+          <a id="ball-step-1" class="btn btn-md btn-primary" style="border; border-radius:100%;">1</a>
+          <div id="progress-trans" class="progress bg-transparent">
+            <div id="progress-page" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="titik-progress-awal" class="bg-secondary"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div id="titik-progress-akhir" class="bg-secondary"></div>
+          <a id="ball-step-2" class="btn btn-md btn-primary" style="border; border-radius:100%;">2</a>
+          <div id="progress-trans" class="progress bg-transparent">
+            <div id="progress-page1" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="titik-progress-awal" class="bg-secondary"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div class="bg-secondary titik-progress"></div>
+          <div id="titik-progress-akhir" class="bg-secondary"></div>
+          <a id="ball-step-3" class="btn btn-md btn-primary" style="border; border-radius:100%;">3</a>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <div class="text-primary mx-lg-5 fw-bold">
+            <span class="float-end" style="">General Information</span>
+          </div>
+          <div class="fw-bold mx-lg-5">
+            <span id="teks-spesification" class="text-primary">Spesifikasi</span>
+          </div>
+          <div class="fw-bold mx-lg-5">
+            <span id="teks-spesification1" class="text-primary">Dokumen Pendukung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- header 2 end -->
+
+  <!-- form start -->
+  <form id="form-submit" action="{{route('MasterVesselsController.store')}}" method="POST">
+    {{ csrfField() }}
+  <div class="card mb-5 mb-xl-10 bg-white"> 
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <!--begin::Card body-->
+        <div class="card-body border-top p-9">
+          <div id="carouselKapal" class="carousel slide" data-wrap="false" data-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <h4 class="title-form">General Information</h4>
+                <div class="row g-3">
+                  {{--  <div class="col-6">
+                    <label class="form-label fw-bold">Kode Kapal</label>
+                  </div>  --}}
+                  <input type="text" id="status" name="status" value="{{kapal.status}}" hidden>
+                  <input type="text" id="nama-kapal-alias" name="nama-kapal-alias" value="{{kapal.nm_kapal_alias}}" hidden>
+                  <input type="text" id="id-kapal" value="{{kapal.id}}" hidden>
+                  <input type="text" name="kd-kapal" id="kd-kapal" class="form-control input-kode" value="{{kapal.kd_kapal}}" hidden>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="form-label fw-bold">Prefix<span style="color:red;">*</span></label>
+                        <select disabled id="prefix-kapal" name="prefix-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                          <option value="">Select</option>
+                          @each(item in data.prefixNamaKapal)
+                            <option
+                            @if(item.name == data.prefixNama)
+                              selected
+                            @endif
+                            value="{{item.name}}">{{item.name}}</option>
+                          @endeach
+                        </select>
+                      </div>
+                      <div class="col-10">
+                        <label class="form-label fw-bold">Nama Kapal<span style="color:red;">*</span></label>
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                        data-bs-content="Standar penulisan:
+                        [MV/MT/BG]. [NAMA KAPAL] [NOMOR, jika ada]
+                        Penulisan nama UPPERCASE">
+                        <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                        </span>
+                        <input disabled type="text" id="nama-kapal" value="{{data.namaKapal}}" name="nama-kapal" class="form-control" placeholder="cth: Butterfly">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Kapal<span style="color:red;">*</span></label>
+                    <select disabled id="jenis-kapal" name="jenis-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.jenisKapal)
+                        <option
+                        @if(item == data.typeJenisKapal?.jn_kapal)
+                        selected
+                        @endif
+                        value="{{item}}">{{item}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                          <label class="form-label fw-bold">Nama Negara<span style="color:red;">*</span></label>
+                          <select disabled id="nama-negara" name="nama-negara" onchange="selectCountry(this.value, 'country-id')" name="nama-negara" class="form-select" data-control="select2" data-placeholder="Select">
+                            <option value="">Select</option>
+                            @each(item in country)
+                              <option
+                              @if(item.country_code_3_digits == kapal.country_id)
+                              selected
+                              @endif
+                              value="{{item.country_code_3_digits}}">{{item.country_name}}</option>
+                            @endeach
+                          </select>                        
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label fw-bold">Kode Bendera<span style="color:red;">*</span></label>
+                          <select disabled id="country-id" name="country-id" disabled class="form-select" data-placeholder="Select">
+                              <option value="">Select</option>
+                              @each(item in country)
+                              <option
+                              @if(item.country_code_3_digits == kapal.country_id)
+                              selected
+                              @endif
+                              value="{{item.country_code_3_digits}}">{{item.country_code}}</option>
+                              @endeach
+                          </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Tipe Kapal<span style="color:red;">*</span></label>
+                    <select disabled id="tipe-kapal" name="tipe-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.typeKapal)
+                      <option 
+                      @if(item.tipe_kapal == data.existTypeKapal)
+                      selected
+                      @endif
+                      value="{{item.tipe_kapal}}">{{item.tipe_kapal}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Call Sign</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Penulisan nama UPPERCASE dan 
+                    ALFANUMERIC cth : AA11">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" value="{{data.call_sign ? data.call_sign : ''}}" id="call-sign" maxlength="4" name="call-sign" class="form-control input-kode" placeholder="cth: AA11">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Spesifik Kapal<span style="color:red;">*</span></label>
+                    <select disabled id="spesifik-kapal" name="spesifik-kapal" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.spesifikKapal)
+                      <option
+                      @if(item.id == kapal.vessel_type_id)
+                      selected
+                      @endif
+                      value="{{item.id}}">{{item.spesifik_kapal}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">No IMO</label>
+                    <input disabled type="text" onkeypress="return /[0-9]/i.test(event.key)" value="{{kapal.no_imo ? kapal.no_imo : ''}}" id="no-imo" name="no-imo" class="form-control" placeholder="cth: 887111">
+                </div>
+                <div class="col-6">
+                  <label class="form-label fw-bold">Informasi Tambahan Tipe Kapal</label>
+                  <select disabled id="info-tambahan" name="info-tambahan" class="form-select" data-control="select2" multiple data-live-search="true" data-placeholder="Select">
+                    <option value="">Select</option>
+                    @each(item in data.typeAdditional)
+                    <option
+                    @each(additional in data.kdAdditional)
+                    @if(item.kd_additonal_info == additional?.kd_additional_info)
+                    selected
+                    @endif
+                    @endeach
+                    value="{{item.kd_additonal_info}}">{{item.name}}</option>
+                    @endeach
+                  </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">MMSI<span style="color:red;">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="MMSI ( Maritime Mobile Service Identity.
+                    type text: alphanumeric, cth: AaBb12@!">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" id="mmsi" name="mmsi" value="{{kapal.mmsi ? kapal.mmsi : ''}}" class="form-control" placeholder="Maritime Mobile Service Identity">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Pelayaran<span style="color:red;">*</span></label>
+                    <select disabled id="jenis-pelayaran" name="jenis-pelayaran" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.jenisPelayaran)
+                      <option 
+                      @if(item.kd_jenis_pelayaran == kapal.jn_pelayaran)
+                      selected
+                      @endif
+                      value="{{item.kd_jenis_pelayaran}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                    {{--  <label class="form-label fw-bold">Catatan Jenis Kapal</label>
+                    <textarea disabled type="text" id="catatan-jenis" name="catatan-jenis" class="form-control" placeholder="Notes">{{kapal.catatan_jn_kapal ? kapal.catatan_jn_kapal : ''}}</textarea>  --}}
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Pemilik<span style="color:red;">*</span></label> 
+                    <input disabled type="text" value="{{kapal.nm_pemilik ? kapal.nm_pemilik : ''}}" id="nama-pemilik" name="nama-pemilik" class="form-control" placeholder="Nama Pemilik">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Trayek<span style="color:red;">*</span></label> 
+                    <select disabled id="trayek" name="trayek" data-selected="Tramper" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.trayek)
+                      <option
+                      @if(item.kd_trayek == kapal.trayek)
+                      selected
+                      @endif
+                      value="{{item.kd_trayek}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Nama Pemilik Lama</label> 
+                    <input disabled type="text" id="pemilik-lama" value="{{kapal.nm_pemilik_lama ? kapal.nm_pemilik_lama : ''}}" name="pemilik-lama" class="form-control" placeholder="Nama Pemilik Lama">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Tahun Pembuatan<span style="color:red;">*</span></label> 
+                    <select disabled id="tahun-pembuatan" name="tahun-pembuatan" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.tahun)
+                      <option
+                      @if(item == kapal.th_pembuatan)
+                      selected
+                      @endif
+                      value="{{item}}">{{item}}</option>
+                      @end
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Status Kepemilikan Kapal<span style="color:red;">*</span></label>
+                    <select disabled id="status-kepemilikan" name="status-kepemilikan" class="form-select" data-control="select2" data-placeholder="Select">
+                      <option value="">Select</option>
+                      @each(item in data.statusKapal)
+                      <option 
+                      @if(item.id == kapal.st_kapal)
+                      selected
+                      @endif
+                      value="{{item.id}}">{{item.name}}</option>
+                      @endeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">No Tanda Pendaftaran</label>
+                    <input type="text" disabled name="no-tanda-pendaftaran" value="{{kapal.no_tanda_pendaftaran ? kapal.no_tanda_pendaftaran : ''}}" id="no-tanda-pendaftaran" class="form-control" placeholder="No Tanda Pendaftaran">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode History Kapal</label>
+                    <input disabled type="text" name="kode-history-kapal" value="{{kapal.kd_history_kapal ? kapal.kd_history_kapal : ''}}" id="kode-history-kapal" onkeypress="return /[0-9]/i.test(event.key)" maxlength="5" minlength="5" class="form-control" placeholder="Kode History Kapal">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kode Kapal Inaportnet</label>
+                    <input disabled type="text" id="kode-kapal-inaportnet" value="{{data.kd_kapal_inaportnet ? data.kd_kapal_inaportnet : ''}}" class="form-control" placeholder="Kode Kapal Inaportnet">
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">Spesifikasi</h4>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas GT (Ton)<span style="color:red">*</span></label>
+                    <input disabled type="text" id="kapasitas-gt" value="{{kapal.specificVessel.kp_gt || kapal.specificVessel.kp_gt == 0 ? kapal.specificVessel.kp_gt : ''}}" onkeypress="return /[0-9]/i.test(event.key)" name="kapasitas-gt" class="form-control" placeholder="Gross Register Tonnage (ton)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Draft Maximum (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" value="{{kapal.specificVessel.dr_maximum || kapal.specificVessel.dr_maximum == 0 ? kapal.specificVessel.dr_maximum : ''}}" onkeypress="setTwoNumberDecimal(event, this)" id="draft-maximum" name="draft-maximum" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas DWT (Ton)<span style="color:red">*</span></label>
+                    <input disabled type="text" value="{{kapal.specificVessel.kp_dwt || kapal.specificVessel.kp_dwt == 0 ? kapal.specificVessel.kp_dwt : ''}}" onkeypress="return /[0-9]/i.test(event.key)" id="kapasitas-dwt" name="kapasitas-dwt" class="form-control" placeholder="Dead Weight Tonnage (ton)">
+                  </div>
+                  <div class="col-6"> 
+                    <label class="form-label fw-bold">Draft Depan(m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" value="{{kapal.specificVessel.dr_depan || kapal.specificVessel.dr_depan == 0 ? kapal.specificVessel.dr_depan : ''}}" onkeypress="setTwoNumberDecimal(event, this)" id="draft-depan" name="draft-depan" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas BRT (Ton)</label>
+                    <input disabled type="text" value="{{kapal.specificVessel.kp_brt || kapal.specificVessel.kp_brt == 0 ? kapal.specificVessel.kp_brt : ''}}" onkeypress="return  /[0-9]/i.test(event.key)" id="kapasitas-brt" name="kapasitas-brt" class="form-control" placeholder="Bruto Register Tonnage (ton)">
+                  </div>              
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Draft Belakang (m)</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" value="{{kapal.specificVessel.dr_belakang || kapal.specificVessel.dr_belakang == 0 ? kapal.specificVessel.dr_belakang : ''}}" onkeypress="setTwoNumberDecimal(event, this)" id="draft-belakang" name="draft-belakang" class="form-control" placeholder="cth: 10,00">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Kapasitas NRT (Ton)</label>
+                    <input disabled type="text" id="kapasitas-nrt" onkeypress="return /[0-9]/i.test(event.key)" value="{{kapal.specificVessel.kp_nrt || kapal.specificVessel.kp_nrt == 0 ? kapal.specificVessel.kp_nrt : ''}}" name="kapasitas-nrt" class="form-control" placeholder="Net Register Tonnage (ton)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Max Speed (Knot)</label>
+                    <input disabled type="text" id="max-speed" name="max-speed" value="{{kapal.specificVessel.max_speed || kapal.specificVessel.max_speed == 0 ? kapal.specificVessel.max_speed : ''}}" onkeypress="return /[0-9]/i.test(event.key)" class="form-control" placeholder="Kecepatan Maximum Kapal">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Panjang Kapal/LOA (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" id="panjang-loa" value="{{kapal.specificVessel.kp_loa || kapal.specificVessel.kp_loa == 0 ? kapal.specificVessel.kp_loa : ''}}" onkeypress="setTwoNumberDecimal(event, this)" name="panjang-loa" class="form-control" placeholder="Length Over All (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jumlah Palka/Tangki/Ruang Muat<span style="color:red">*</span></label>
+                    <input disabled type="number" id="jumlah-palka" value="{{kapal.specificVessel.jm_palka || kapal.specificVessel.jm_palka == 0 ? kapal.specificVessel.jm_palka : ''}}" name="jumlah-palka" class="form-control" placeholder="cth: 100">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Lebar Kapal (m)<span style="color:red">*</span></label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                    data-bs-content="Menggunakan format decimal dengan 
+                    ketentuan dua digit angka dibelakang koma.
+                    cth: 10,00">
+                    <span class="badge rounded-pill bg-light border border-secondary"><span class="text-black">?</span></span>
+                    </span>
+                    <input disabled type="text" value="{{kapal.specificVessel.kp_lebar || kapal.specificVessel.kp_lebar == 0 ? kapal.specificVessel.kp_lebar : ''}}" onkeypress="setTwoNumberDecimal(event, this)" id="lebar-kapal" name="lebar-kapal" class="form-control" placeholder="Lebar Kapal (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jumlah Derek</label>
+                    <input disabled type="number" id="jumlah-derek" value="{{kapal.specificVessel.jm_derek || kapal.specificVessel.jm_derek == 0 ? kapal.specificVessel.jm_derek : ''}}" name="jumlah-derek" class="form-control" placeholder="cth: 100">
+                  </div>
+                  <div class="col-6">
+                      <label class="form-label fw-bold">Tinggi Kapal (m)<span style="color:red">*</span></label>
+                      <input disabled type="text" id="tinggi-kapal" value="{{kapal.specificVessel.kp_tinggi || kapal.specificVessel.kp_tinggi == 0 ? kapal.specificVessel.kp_tinggi : ''}}" onkeypress="setTwoNumberDecimal(event, this)" name="tinggi-kapal" class="form-control" placeholder="Tinggi Kapal (m)">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Jenis Derek</label>
+                    <input disabled type="text" id="jenis-derek" value="{{kapal.specificVessel.jn_derek ? kapal.specificVessel.jn_derek : ''}}" name="jenis-derek" class="form-control" placeholder="Jenis Derek">
+                  </div>
+                  <div class="col-6">
+                    <label style="display: none;" class="form-label fw-bold" id="label-horse-power">Horse Power</label>
+                    <input style="display: none;" type="text" disabled maxlength="8" onkeypress="return /[0-9]/i.test(event.key)" value="{{kapal.specificVessel.horse_power || kapal.specificVessel.horse_power == 0 ? kapal.specificVessel.horse_power : ''}}" id="horse-power" name="horse-power" class="form-control" placeholder="Horse Power">
+                  </div>
+                </div>    
+              </div>
+              <div class="carousel-item">
+                <h4 class="title-form">Dokumen Pendukung</h4>
+                <div class="row g-3">
+                    <div class="col-6 mb-5">
+                      <span class="form-label fs-4 fw-bold">Dokumen Surat Ukur</span>
+                    </div>
+                    <div class="col-6 mb-5">
+                      <span class="form-label fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Milik</span>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">No. Surat Ukur<span style="color:red">*</span></label>
+                        <input disabled type="text" value="{{kapal.supportDocumentVessel.no_surat_ukur ? kapal.supportDocumentVessel.no_surat_ukur : ''}}" id="no-surat-ukur" name="no-surat-ukur" class="form-control" placeholder="Nomor Surat Ukur Kapal">
+                    </div>
+                    <div class="col-6">                  
+                      <label class="form-label fw-bold">No. PPKM</label>
+                      <input disabled type="text" id="no-ppkm" value="{{kapal.supportDocumentVessel.no_ppkm ? kapal.supportDocumentVessel.no_ppkm : ''}}" name="no-ppkm" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Milik">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Jenis Surat Ukur<span style="color:red">*</span></label>
+                      <select disabled id="jenis-surat-ukur" name="jenis-surat-ukur" class="form-select" data-control="select2" data-placeholder="Select">
+                        <option value="">Select</option>
+                        @each(item in data.jenisSuratUkur)
+                        <option
+                        @if(item.id == kapal.supportDocumentVessel?.jn_surat_ukur)
+                          selected
+                        @endif
+                        value="{{item.id}}">{{item.name}}</option>
+                        @endeach
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Upload PPKM</label>
+                      @if(kapal.supportDocumentVessel?.surat_ppkm)
+                      <a href="{{data.url_surat_ppkm}}" target="_blank">Preview File</a>
+                      @endif
+                      <input disabled type="text" id="surat-ppkm" name="surat-ppkm" value="{{kapal.supportDocumentVessel?.surat_ppkm ? kapal.supportDocumentVessel.surat_ppkm : ""}}" class="form-control" placeholder="dokumenPPKM.pdf">
+                      <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                      <input type="text" name="surat-ppkm-file" id="surat-ppkm-file" value="{{kapal.supportDocumentVessel?.surat_ppkm ? kapal.supportDocumentVessel.surat_ppkm : ""}}" hidden>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Upload Surat Ukur<span style="color:red">*</span></label>
+                        @if(kapal.supportDocumentVessel?.surat_ukur)
+                        <a href="{{data.url_surat_ukur}}" target="_blank">Preview File</a>
+                        @endif
+                        <input disabled type="text" id="surat-ukur" name="surat-ukur" value="{{kapal.supportDocumentVessel?.surat_ukur ? kapal.supportDocumentVessel.surat_ukur : ''}}" class="form-control" placeholder="dokumensuratukur.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-ukur-file" name="surat-ukur-file" value="{{kapal.supportDocumentVessel?.surat_ukur ? kapal.supportDocumentVessel.surat_ukur : ''}}" hidden>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Terbit PPKM</label>
+                      <input disabled type="date" id="terbit-ppkm" value="{{kapal.supportDocumentVessel?.tgl_terbit_ppkm ? new Date(kapal.supportDocumentVessel?.tgl_terbit_ppkm).toLocaleDateString('af-ZA') : ''}}" name="terbit-ppkm" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Tanggal Surat Ukur<span style="color:red">*</span></label>
+                        <input disabled type="date" id="tanggal-surat-ukur" value="{{kapal.supportDocumentVessel?.tgl_surat_ukur ? new Date(kapal.supportDocumentVessel?.tgl_surat_ukur).toLocaleDateString('af-ZA') : ''}}" name="tanggal-surat-ukur" class="form-control" placeholder="19 January 2023">
+                    </div>      
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Berlaku PPKM</label>
+                      <input disabled type="date" id="berlaku-ppkm" name="berlaku-ppkm" class="form-control" value="{{kapal.supportDocumentVessel?.tgl_berlaku_ppkm ? new Date(kapal.supportDocumentVessel?.tgl_berlaku_ppkm).toLocaleDateString('af-ZA') : ''}}" placeholder="dokumenPPKA.pdf">
+                    </div>
+                    <div class="col-6 mt-5">
+                      <span class="form-label mt-5 fs-4 fw-bold">Dokumen Pemberitahuan Keagenan Kapal Asing</span>
+                    </div>
+                    <div class="col-6 mt-5">
+                      <span class="form-label mt-5 fs-4 fw-bold">Dokumen Surat Penetapan Maritime Mobile Service Identity</span>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold">No. PPKA</label>
+                        <input disabled type="text" id="no-ppka" name="no-ppka" value="{{kapal.supportDocumentVessel?.no_ppka ? kapal.supportDocumentVessel?.no_ppka : ''}}" class="form-control" placeholder="Nomor Pemberitahuan Keagenan Kapal Asing">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Upload Surat Penetapan MMSI</label>
+                      @if(kapal.supportDocumentVessel?.surat_mmsi)
+                        <a href="{{data.url_surat_mmsi}}" target="_blank">Preview File</a>
+                      @endif
+                      <input disabled type="text" id="doc-mmsi" name="doc-mmsi" class="form-control" value="{{kapal.supportDocumentVessel?.surat_mmsi ? kapal.supportDocumentVessel.surat_mmsi : ''}}" placeholder="dokumenPPKA.pdf">
+                      <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                      <input type="text" id="doc-mmsi-file" name="doc-mmsi-file" value="{{kapal.supportDocumentVessel?.surat_mmsi ? kapal.supportDocumentVessel.surat_mmsi : ''}}" hidden>
+                    </div> 
+                    <div class="col-6">
+                        <label class="form-label fw-bold">Upload PPKA</label>
+                        @if(kapal.supportDocumentVessel?.surat_ppka)
+                          <a href="{{data.url_surat_ppka}}" target="_blank">Preview File</a>
+                        @endif
+                        <input disabled type="text" id="surat-ppka" name="surat-ppka" value="{{kapal.supportDocumentVessel?.surat_ppka ? kapal.supportDocumentVessel.surat_ppka : ''}}" class="form-control" placeholder="dokumenPPKA.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-ppka-file" value="{{kapal.supportDocumentVessel?.surat_ppka ? kapal.supportDocumentVessel.surat_ppka : ''}}" name="surat-ppka-file" hidden>
+                    </div> 
+                    <div class="col-6">
+                      <span class="form-label my-5 fs-4 fw-bold">Dokumen Surat Tanda Pendaftaran Inaportnet</span>
+                      <div>
+                        <label class="form-label fw-bold">Upload Surat Tanda Pendaftaran Inaportnet</label>
+                        @if(kapal.supportDocumentVessel?.surat_pendaftaran)
+                        <a href="{{data.url_surat_pendaftaran}}" target="_blank">Previous File</a>
+                        @endif
+                        <input type="text" value="{{kapal.supportDocumentVessel?.surat_pendaftaran ? kapal.supportDocumentVessel.surat_pendaftaran : ''}}" id="surat-tanda-pendaftaran" name="surat-tanda-pendaftaran" class="form-control" placeholder="surat-tanda-pendaftaran.pdf">
+                        <span class="text-muted">*Max Size: 2Mb, Format: PDF</span>
+                        <input type="text" id="surat-tanda-pendaftaran-file" value="{{kapal.supportDocumentVessel?.surat_pendaftaran ? kapal.supportDocumentVessel.surat_pendaftaran : ''}}" name="surat-tanda-pendaftaran-file" hidden>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Terbit PPKA</label>
+                      <input disabled type="date" id="terbit-ppka" name="terbit-ppka" value="{{kapal.supportDocumentVessel?.tgl_terbit_ppka ? new Date(kapal.supportDocumentVessel?.tgl_terbit_ppka).toLocaleDateString('af-ZA') : ''}}" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                      <label class="form-label fw-bold">Tanggal Berlaku PPKA</label>
+                      <input disabled type="date" id="berlaku-ppka" name="berlaku-ppka" value="{{kapal.supportDocumentVessel?.tgl_berlaku_ppka ? new Date(kapal.supportDocumentVessel?.tgl_berlaku_ppka).toLocaleDateString('af-ZA') : ''}}" class="form-control" placeholder="cth: 12 January 2023">
+                    </div>
+                    @if(kapal?.status == "REQUEST" || kapal?.status =="REJECT")
+                      <hr style="margin-top:5%;">
+                      <div class="card-body">
+                          <div id="formHistoryAproval">
+                          @include('pages.approval_history.history')
+                          </div>                
+                          <div id="formAprovalLog">
+                          @include('pages.approval_history.log')
+                          </div> 
+                      </div>
+                    @endif
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr style="margin-top:5%;">
+          
+          <div class="row">
+            <div class="col-12">
+              <button type="button" id="selanjutnya" class="btn btn-primary" style="float:right;">Next</button>
+              <button type="button" id="kembali" class="btn btn-outline-primary border border-primary">Back</a>
+              <button type="button" class="btn btn-outline-primary border border-primary" id="batal">Back to Main</button>
+            </div>
+          </div>
+        </div>
+        <!--end::Card body-->
+    </div>
+  </div>
+</form>
+
+  <!-- form end -->
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {   
+      //horse power
+      var prefixKapal = $('#prefix-kapal').val() ? $('#prefix-kapal').val() : '';
+      if(prefixKapal == 'TB') {
+        $('#horse-power').show()
+        $('#label-horse-power').show()
+      }
+
+      // standarisasi uppercase
+      $(":text").keyup(function() {
+        const teksUp = String($(this).val()).toUpperCase();
+        $(this).val(teksUp);
+      });
+      
+      //batal
+      $('#batal').click(function() {
+        @if(kapal?.status == 'REQUEST')
+        window.location.assign(`/master-kapal?request=outstanding&status=REQUEST`);
+        @elseif(kapal?.status == 'DRAFT')
+        window.location.assign(`/master-kapal?request=outstanding&status=DRAFT`);
+        @elseif(kapal?.status == 'REJECT')
+        window.location.assign(`/master-kapal?request=outstanding&status=REJECT`);
+        @end
+      });
+  
+      var carouselVal = 0;
+      // kembali
+      $("#kembali").click(function() {
+        if(carouselVal === 1) {
+          //one step
+          carouselVal -= 1
+          $("#carouselKapal").carousel(0); 
+          $(this).css('display', 'none');
+        } else if (carouselVal === 2) {
+          //two step
+          carouselVal -= 1
+          $("#carouselKapal").carousel(1); 
+          $('#kirim').css('display', 'none');
+          $("#selanjutnya").css('display', '');
+        }
+      });
+  
+      // next
+      var isErrors = false
+      $("#selanjutnya").click(function() {
+        var isError = false;
+        if(carouselVal === 0) {
+          if (isErrors === false) {
+            carouselVal += 1;
+            $("#carouselKapal").carousel(1); 
+            $("#kembali").css('display', 'block');
+          } else {
+          }
+        } else if(carouselVal === 1) {
+          if (isErrors === false) {
+            carouselVal += 1;
+            $("#carouselKapal").carousel(2); 
+            $('#kirim').css('display', 'block');
+            $(this).css('display', 'none');
+          } else {
+          }
+        }
+      });
+
+      //steper button
+      $("#ball-step-1").click(function() {
+          carouselVal = 0
+          $("#carouselKapal").carousel(0);
+          $('#kembali').css('display', 'none');
+          $("#selanjutnya").css('display', '');
+      })
+
+      $("#ball-step-2").click(function() {
+          carouselVal = 1
+          $("#carouselKapal").carousel(1); 
+          $("#kembali").css('display', 'block');
+          $("#selanjutnya").css('display', '');
+      })
+
+      $("#ball-step-3").click(function() {
+          carouselVal = 2
+          $("#carouselKapal").carousel(2); 
+          $('#selanjutnya').css('display', 'none');
+          $("#kembali").css('display', 'block');
+      })
+
+      $('select[name="jenis-kapal"]').change(function(){
+        var jenis_kapal = $('#jenis-kapal').val()
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "{{route('select2.tipeKapal')}}",
+          data:{
+            jenisKapal: jenis_kapal
+          },
+          success: function(data){
+            $('.tipe-kapal').find('option').remove().end();
+            data.map((el)=>{
+              $('select[name="tipe-kapal"]').append(`<option class="tipe-kapal-data" value="${el.tipe_kapal}">${el.tipe_kapal}</option>`)
+              
+            });
+          }
+        })
+      })
+
+      $('select[name="tipe-kapal"]').change(function(){
+        var tipeKapal = $('#tipe-kapal').val()
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "{{route('select2.spesifikKapal')}}",
+          data:{
+            tipeKapal: tipeKapal
+          },
+          success: function(data){
+            $('.spesifik-kapal-data').remove();
+            data.map((el)=>{
+              $('select[name="spesifik-kapal"]').append(`<option class="spesifik-kapal-data" value="${el.id}">${el.spesifik_kapal}</option>`)
+            });
+          }
+        })
+      })
+
+      // $('select[name="country-id"]').change(function(){
+      //   var kodeBendera = $('#country-id').find('option:selected').text();
+      //   $('select[name="nama-negara"] option').hide()
+      //   $('select[name="nama-negara"] option[value="'+${kodeBendera}+'"]').show()
+      // })
+      
+      numberFormaterShow('kapasitas-gt');
+      numberFormaterShow('kapasitas-dwt');
+      numberFormaterShow('kapasitas-nrt');
+      numberFormaterShow('kapasitas-brt');
+
+      function numberFormaterShow(id) {
+        let val = $(`#${id}`).val()
+        let number = val
+        let result
+        if(number.includes('.')) {
+          let replaceDot = Number.parseFloat(number).toFixed(2).replace(/[.]/g, ',')
+          let parts = replaceDot.split('.')
+          const numberPart = parts[0];
+          const decimalPart = parts[1];
+          const thousands = /\B(?=(\d{3})+(?!\d))/g;
+          result = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : "");
+        } else {
+            newVal = number.toString().replace(/[.]/g,"");
+            var parts = newVal.split(".");
+            const numberPart = parts[0];
+            const decimalPart = parts[1];
+            const thousands = /\B(?=(\d{3})+(?!\d))/g;
+            result = numberPart.replace(thousands, ".") + (decimalPart ? "," + decimalPart : ""); 
+        }
+        $(`#${id}`).val(`${result}`)
+      }
+
+
+      function progressUpload(element,name,percentage){
+        var progress = `
+        <div class="uploadProgress-${name} progress my-2" style="height: 10px;">
+            <div class="progress-bar bg-primary text-white" role="progressbar" style="width: ${percentage}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${percentage}%</div>
+        </div>
+        `
+        $(element).after(progress)
+      }
+
+      jQuery(function($) {
+        $('#nama-negara').on('change', function() {
+          var sel = $('option:selected', this).val();
+          $('#country-id option').filter(function(index, el) {
+            return el.value == sel;
+          }).prop('selected', true);
+        });
+      }); 
+
+
+    //approval
+    function dateFormat(inputDate, format) {
+            //parse the input date
+            const date = new Date(inputDate);
+
+            //extract the parts of the date
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();  
+            const hours = date.getHours()  
+            const minute = date.getMinutes()  
+
+            //replace the month
+            format = format.replace("MM", month.toString().padStart(2,"0"));        
+
+            //replace the year
+            if (format.indexOf("yyyy") > -1) {
+                format = format.replace("yyyy", year.toString());
+            } else if (format.indexOf("yy") > -1) {
+                format = format.replace("yy", year.toString().substr(2,2));
+            }
+
+            //replace the day
+            format = format.replace("dd", day.toString().padStart(2,"0"));
+
+            //replace the hours
+            format = format.replace("hh", hours.toString().padStart(2,"0"));
+
+            //replace the time
+            format = format.replace("mm", minute.toString().padStart(2,"0"));
+            
+            return format;
+        }
+    @if(kapal?.status == "REQUEST" || kapal?.status == "REJECT")
+            $.getJSON('{{route('approval.approvalHeader',{id:kapal?.no_request})}}', function (res) {                            
+                console.log(res)                          
+                if(res.status == 'request'){                
+                $("#approvalRequest").hide(); 
+
+                }
+                else{                                      
+                var created_at = new Date(res.approvalHeader.created_at)
+                $('#nameUser').text(res.approvalHeader.user.name) 
+                $('#DeptRequest').text(res.approvalHeader.user.role.entity.departement)  
+                $('#tanggalRequest').text(dateFormat(created_at, 'dd-MM-yyyy hh:mm'))
+                $('.next-text-all').empty();
+                $('.timeline-badge').removeClass("warning");
+                $('.timeline-badge').addClass( "success");
+                if (res.approvalHeader.approval_sequence==0){
+                    $('.badge-1').removeClass("secondary");
+                    $('.badge-1').addClass( "warning");
+                    $('.status-1').html( "Next Approve");
+                }else{
+                    var nextSequence=parseInt(res.approvalHeader.approval_sequence) + 1;
+                    $( ".badge-"+res.approvalHeader.approval_sequence).removeClass( "secondary" );
+                    $(  `.badge-${nextSequence}`).addClass( "warning" );
+                    $('.badge-'+res.approvalHeader.approval_sequence).addClass( "secondary");
+                    $('.status-'+res.approvalHeader.approval_sequence).addClass( `status-${nextSequence}`);
+                    $(  `.status-${nextSequence}`).html( "Next Approve" );
+                    $('.status-'+res.approvalHeader.approval_sequence).html("");
+
+                }
+                }                                             
+            })
+
+            $.getJSON('{{route('approval.approvalPath',{id:kapal?.schema_id})}}', function (res) {                            
+                $("#detailHistory").empty();
+                $.each(res, function (index, val) {
+                    var icon = '/media/svg/approval/approved.svg'
+                    var mandatory='Mandatory';
+                    let nextApproval='';
+                    if (val.mandatory==0){
+                        mandatory='Optional';
+                    }
+                    if (val.approval_order==1){
+                    var iconCollor = 'warning'
+                    nextApproval='Next Approval';
+                    }else{
+                    var iconCollor = 'secondary'
+                    }
+                    var detailHIstory = `
+                    <li class="timeline-item formdetailHistory">
+                    <div class="badge-${ val.approval_order} timeline-badge `+iconCollor+`"><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                            <img alt="Logo" src="`+icon+`" class="theme-light-show h-20px h-lg-60px" />
+                            </div>
+                            <div class="col-8">
+                            <p><small class="text-muted next-text-all status-${ val.approval_order} text-muted">${nextApproval}</small></p>   
+                            <p><strong>`+val.role.name+`</strong></p>
+                            <p><small class="text-muted">`+mandatory+`</small></p>   
+                            <p><small class="text-muted">Approval Level `+val.approval_order+`</small></p> 
+                            </div>                                            
+                        </div>
+                        </div>                                     
+                    </div>
+                    </li>`
+                    $("#detailHistory").append(detailHIstory);
+            
+                })                                             
+            })
+
+            $.getJSON('{{route('approval.logApproval',{id:kapal.no_request})}}', function (res) {      
+                $("#formLogApproval").empty();                      
+                $.each(res, function (index, val) {
+                  let remark = val.remark ? val.remark : '';
+                    if(val.action == 'APPROVED'){  
+                        var icon = '<span style="background:rgba(140, 224, 44, 0.2);color:#8CE02C;padding:5px 10px;">Disetujui</span>'                        
+                    }else if(val.action == 'REJECTED'){       
+                        var icon = '<span style="background:rgba(255, 0, 0, 0.2);color:#FF0000;padding:5px 10px;">Ditolak</span>'                                      
+                    }else if(val.action == 'SUBMITED'){       
+                        var icon = '<span style="background:rgba(1, 195, 255, 0.2);color:#01C3FF;padding:5px 10px;">Diajukan</span>'                                      
+                    }else if(val.action == 'UPDATED'){       
+                        var icon = '<span style="background:rgba(65, 100, 223, 0.2);color:#4164DF;padding:5px 10px;">Diubah</span>'                                      
+                    }
+                    var created_at = new Date(val.created_at)        
+                    var logHeader = `<p class="card-text formapprovallog">`+dateFormat(created_at, 'dd-MM-yyyy hh:mm')+` - `+val.user.name+` : `+remark+` `+icon+` </p>`
+                    $("#formLogApproval").append(logHeader);  
+                })                                      
+            })
+        @end
+  });
+
+      
+  function setTwoNumberDecimal(evt, ele) {
+      var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode( key );
+        var value = ele.value + key;
+        var regex = /^\d+(.\d{0,2})?$/;
+        if( !regex.test(value) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+  }
+
+  function selectCountry(val, idSelector) {
+      if(val == null || val == '') return;
+      var idCountry = val
+      $(`#${idSelector} option[data-value='" + ${idCountry} +"']`)
+      .attr("selected","selected");
+      $(`#${idSelector}`).attr('data-control', "select2")
+  }
+</script>
+@endsection

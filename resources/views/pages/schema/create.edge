@@ -1,0 +1,314 @@
+@layout('layout/index')
+@section('toolbar')
+<div class="toolbar py-5 py-lg-5" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack flex-wrap">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column me-3">
+            <!--begin::Title-->
+            <h1 class="d-flex text-dark fw-bold my-1 fs-3">Add Schema Aplication</h1>           
+        </div>
+    </div>
+    <!--end::Container-->
+</div>
+@end
+@section('content')
+<div class="content flex-row-fluid" id="kt_content">
+    <div class="card mb-5 mb-xl-10 bg-white">       
+        <div id="kt_account_settings_signin_method" class="collapse show">            
+            <div class="card-body border-top p-9">
+                <form  id="schema_form" action="{{route('schema.store')}}" method="post">
+                    {{ csrfField() }}
+                    <div class="row">
+                      <div class="col-md-6 mb-8" id="schemaType">
+                          <label class="form-label fw-bold">Placement<span class="text-danger">*</span></label>                                      
+                          <select name="placement" data-control="select2"  data-placeholder="Select Placement" class="form-select" id="schema_type" onclick="selectedOptionPlacement(this.value)">
+                              <option value=""></option>
+                              <option value="sl">Singgle Location</option>                           
+                              <option value="ml">Multiple Location</option>                           
+                          </select>                                             
+                      </div>
+                      <div class="col-md-6 mb-8" id="location" style="display:none;">
+                        <label class="form-label fw-bold">Location</label>                                      
+                        <select name="location" data-control="select2"  data-placeholder="Select location" class="form-select" id="location_id" onchange="locationId(this.value)">
+                            <option value=""></option>
+                            @each(row in location)                              
+                            <option value="{{row.id}}">{{row.name}}</option>                           
+                            @end
+                        </select>                                             
+                      </div>
+                    
+                        <div class="col-md-6 mb-8">
+                        <label class="form-label fw-bold">Schema Name</label>
+                        <input type="text" name="schema_name" class="form-control" placeholder="Schema Name">
+                        @if(flashMessages.has('errors.schema_name'))
+                        <p> {{ flashMessages.get('errors.schema_name') }} </p>
+                        @end
+                        </div>
+                        <div class="col-md-6 mb-8">
+                        <label class="form-label fw-bold">Master Data</label>                                      
+                            <select name="master_type_id" data-control="select2"  data-placeholder="Select Master Type" class="form-select" id="master_type_id" >
+                            <option value=""></option>
+                            @each(master_type in master_type)
+                            <option value="{{ master_type.id }}">{{master_type.master_name}}</option>
+                            @end
+                            </select>                      
+                        @if(flashMessages.has('errors.master_data'))
+                        <p> {{ flashMessages.get('errors.master_data') }} </p>
+                        @end
+                        </div>
+                        <div class="col-6 mb-8" id="submitterSl" style="display:none;">
+                          <label class="form-label fw-bold">Submiter</label>
+                          <select name="role_id_sl" data-control="select2" data-placeholder="Select Submitter" class="form-select" id="role_id_sl" >
+                          <option value=""></option>
+                              @each(row in roleEntity)
+                              <option value="{{ row.id }}">{{row.name}}</option>
+                              @end
+                          </select>
+                          @if(flashMessages.has('errors.submitter'))
+                          <p> {{ flashMessages.get('errors.submitter') }} </p>
+                          @end
+                        </div>
+                        <div class="col-6 mb-8" id="submitterMl" style="display:none;">
+                          <label class="form-label fw-bold">Submiter</label>
+                          <select name="submitterMl" data-control="select2" data-placeholder="Select Submitter" data-allow-clear="true" multiple="multiple" class="form-select" id="selectSubmitterMl" >
+                            <option value=""></option>                              
+                          </select>
+                          @if(flashMessages.has('errors.submitter'))
+                          <p> {{ flashMessages.get('errors.submitter') }} </p>
+                          @end
+                        </div> 
+                    
+
+                        <div class="col-6 mb-8" id="submitterPossitionMl" style="display:none;">
+                          <label class="form-label fw-bold">Position Submiter</label>
+                          <select name="id_job_title_submitter" data-control="select2" data-placeholder="Position Submitter" data-allow-clear="true"  class="form-select" id="id_job_title_submitter" >
+                            <option value=""></option>                      
+                            @each(item in jobTitles)
+                            <option value="{{item.id}}">{{item.name}}</option>  
+                            @end        
+                          </select>
+                        </div> 
+                        <input type="hidden" value="0" id="lastSequence"> 
+                    </div> 
+                    
+                    <div class="card mb-5 mb-xl-10 bg-white" >    
+                      <div class="card-body" id="formApproval" style="display:none;">
+                        <div class="form-group row">    
+                          <div class="col-6 col-lg-4">
+                            <label>Position Name:</label>
+                            <select name="role_id" class="form-control"  id="job_id" data-control="select2" data-placeholder="Select Position" >
+                              <option value=""></option>
+                              @each(row in jobTitles)
+                              <option data-name="{{row.name}}"  value="{{ row.id }}">{{row.name}} </option>
+                              @end
+                            </select>
+                            <input type="hidden" id="selectResult">
+                            <input type="hidden" id="selectName">
+                            <input type="hidden" id="selectEntityName">
+                            <input type="hidden" id="selecttitleALias">
+                          </div>
+                          <div class="col-3 col-lg-1">
+                            <label></label>
+                            <input type="button" class="form-control add-row btn btn-primary" value="add"
+                              placeholder="Enter contact number" />
+                          </div>
+                          <div class="col-3 col-lg-1">
+                            <label></label>
+                            <input type="button" class="form-control delete-row btn btn-danger" value="Delete"
+                              placeholder="Enter contact number" />
+                          </div>
+                        </div>  
+                        <div class="separator my-10"></div>
+                        <div class="form-group row">
+                          <div class="kt-portlet__body kt-portlet__body--fit">                                 
+                            <div class="my_datatable" id="kt_datatable">
+                              <table id="example" class="display w-100 table table-hover table-striped">
+                                <thead class="bg-light-primary">
+                                  <tr>                  
+                                    <th width="5%" class="text-center"><input type="checkbox" name="select-all" id="select-all"/></th>
+                                    <th width="20%">Approval Order</th>
+                
+                                    <th width="15%">Position </th>
+                                    <th width="15%">location </th>
+                       
+                                    <th width="15%">Mandatory</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                                                
+                                </tbody>
+                              </table>
+                            </div>                    
+                            <!--end: Datatable -->
+                          </div>                            
+                        </div>    
+                      </div>
+                      <div class="card-footer" style="float: right;">
+                        <button type="submit" class="btn btn-primary" style="float:right;">Save</button>
+                      </div>  
+                    </div>                                     
+                    
+                  </form>
+            </div>            
+        </div>        
+    </div>
+</div>
+<script>
+  $(function(){
+    $("#schema_type").change(function(){
+    console.log('hai')
+    var selectVal = $("#schema_type option:selected").val() 
+    if (selectVal == 'sl') {
+      $("#schema_form").attr("action", "{{route('schema.store')}}"); //Will set it
+          $("#location").hide(); 
+          $("#submitterMl").hide(); 
+          $("#submitterSl").show();        
+          $("#formApproval").hide(); 
+          $('#submitterPossitionMl').hide();
+      } else {
+        $("#schema_form").attr("action", "{{route('schema.multiStore')}}"); //Will set it
+          $("#location").show(); 
+          $("#submitterMl").show();
+          $("#submitterSl").hide();  
+          $("#formApproval").show();       
+          $('#submitterPossitionMl').show();   
+      }
+
+    })
+  })
+
+  function locationId(locationId, selectedId = null) {
+       
+        if (locationId == null || locationId == '') return;       
+        let id = locationId
+        $('#selectSubmitterMl')
+                  .find('option')
+                  .remove()
+                  .end()
+        $.ajax({
+            url: '/getEntity/' + id,
+            type: "GET",
+            success: function(response) { 
+              console.log(response)
+                response.forEach(element => {
+                  $('#selectSubmitterMl')                 
+                  .append(`
+                          <option value="${element.id}">${element.name}</option>
+                      `)
+                  
+              });
+           
+            }                       
+            });
+
+      }
+</script>
+<script>  
+  $('#select-all').click(function(event) {   
+     if(this.checked) {        
+         $(':checkbox').each(function() {
+             this.checked = true;                        
+         });
+     } else {
+         $(':checkbox').each(function() {
+             this.checked = false;                       
+         });
+     }
+ });
+ 
+ 
+
+
+  $(function(){
+   $("#job_id").change(function(){
+     var name = $("#job_id option:selected").attr("data-name")
+     $("#selectName").val(name)
+   })
+  })
+   $(document).ready(function(){
+   
+       $(".add-row").click(function(){        
+         var job_id = $("#job_id").val();
+         
+         var lastsequence =  parseInt($("#lastSequence").val());
+         if(job_id != ''){
+           var rowTr = $("#example tr").length;           
+           console.log(rowTr)
+           if(rowTr === 1){
+             var rowCount = $("#example tr").length; 
+             $("#lastSequence").val(rowCount) 
+           }else if(lastsequence === 0){            
+             $("#lastSequence").val(rowTr)
+             var lastsequence =  parseInt($("#lastSequence").val());
+             var rowCount = lastsequence 
+             $("#lastSequence").val(rowCount)
+           }else{            
+             var lastsequence =  parseInt($("#lastSequence").val());
+             var rowCount = lastsequence + 1
+             $("#lastSequence").val(rowCount)   
+           }
+           
+
+           var name = 'Approval '+ rowCount           
+           var selectName = $("#selectName").val();           
+           var locationApproval =  "<select name='approval["+rowCount+"][approval_location]' class='form-select locationApproval'></option>"     
+           var selectRole = "<select name='approval["+rowCount+"][approval_order]' class='form-select'><option value=''>Select Approval</option><option value='1'>Approval 1</option><option value='2'>Approval 2</option><option value='3'>Approval 3</option><option value='4'>Approval 4</option><option value='5'>Approval 5</option></select>"
+           var markup = "<tr><td align='center'><input type='checkbox' name='record'></td><td>" + selectRole + "</td><td>"+ selectName+"<input type='hidden' name='approval["+rowCount+"][id_job_title]' value="+ job_id +"></td><td>"+ locationApproval +"</td><td><input type='checkbox' value='1' name='approval["+rowCount+"][mandatory]'></td></tr>";
+           $("table tbody").append(markup);
+          let locationSchema=$('#location_id').val();
+          console.log(locationSchema);
+           $('.locationApproval').select2({
+              placeholder: "Select Entity",
+              allowClear: true,
+              ajax: {
+                url: "{{route('select2.entityLocation')}}",
+                dataType: 'json',
+                type: "GET",
+                data: function (params) {
+                  var query = {
+                    search: params.term,
+                    location_id:locationSchema
+                  }
+                  // Query parameters will be ?search=[term]&page=[page]
+                  return query;
+                },
+                processResults: function (data) {
+                  return {
+                    results: $.map(data, function (item) {
+                      return {
+                        text: item.name,
+                        id: item.id
+                      }
+                    })
+                  };
+                }
+              }
+            });
+         }else{
+           Swal.fire({
+                 text: "Position Belum Di pilih",
+                 icon: "info",
+                 buttonsStyling: false,
+                 confirmButtonText: "Ok, got it!",
+                 customClass: {
+                   confirmButton: "btn btn-primary"
+                 }
+               });
+         }        
+           
+       });
+       
+       // Find and remove selected table rows
+       $(".delete-row").click(function(){
+           $("table tbody").find('input[name="record"]').each(function(){
+             if($(this).is(":checked")){
+                   $(this).parents("tr").remove();
+               }
+           });
+       });
+   });    
+ </script>
+
+
+@end

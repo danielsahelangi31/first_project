@@ -1,0 +1,57 @@
+<div class="modal fade modal-lg" tabindex="-1" id="form-modal">
+    <div class="modal-dialog">
+        <form method="POST"  action="{{route('master.regional.store')}}" id="form-role">
+            {{ csrfField() }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">Add Regional Management</h3>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="mb-10">
+                                <label for="exampleFormControlInput1" class="required form-label">Head Office</label>
+                                <select name="head_office_id" id="head_office_id" class="form-control form-select  selectpicker ">
+                                    <option value=""> Choose</option>
+                                    @each(headOffice in headOffices)
+                                    <option value="{{headOffice.id}}">{{headOffice.name}}</option>
+                                    @end
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="mb-10">
+                                <label for="exampleFormControlInput1" class="required form-label">Name</label>
+                                <input type="text" class="form-control form-sm" name="name" id="name" placeholder="Head Office Name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="mb-10">
+                                <label for="exampleFormControlInput1" class="required form-label">Code</label>
+                                <input type="text" class="form-control form-sm" name="code" id="code" placeholder="Code"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline btn-outline-primary "
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submit-button">Save</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

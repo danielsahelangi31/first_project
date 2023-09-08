@@ -1,0 +1,82 @@
+<div class="scroll h-300px px-5">
+    <div class="card-header mb-5">
+        <h3 class="card-title text-primary">Informasi Master Terminal</h3>
+    </div>
+    <div class="row mb-10">
+        <div class="col-md-6">
+          <label class="form-label fw-bold required">Pelabuhan</label>
+          <input type="text" name="branch" id="branch" class="form-control form-sm"  readonly />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold required">Jenis Terminal</label>
+          <input type="text" class="form-control form-sm" placeholder="Minimum" name="jenis_terminal" id="jenis_terminal" readonly/>
+        </div>
+      </div>
+
+
+      <div class="row mb-10">
+        <div class="col-md-6">
+          <label class="form-label fw-bold required">Nama Terminal</label>
+          <input type="text" class="form-control form-sm"  placeholder="Nama Terminal"  name="name" id="name_terminal" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Luas Wilayah (m2)</label>
+          <input type="text" class="form-control form-sm"  placeholder="Luas (m2)" name="luas" id="luas" readonly/>
+        </div>
+      </div>
+
+      <div class="row mb-10">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Panjang Dermaga</label>
+          <input type="text" class="form-control form-sm"   name="jumlah_tambat" id="jumlah_tambat" readonly/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold required">Kedalaman Kolam (m)</label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="number" class="form-control form-sm" placeholder="Minimum" name="kedalaman_min" id="kedalaman_min" readonly/>
+            </div>
+            <div class="col-md-6">
+              <input type="number" class="form-control form-sm"  placeholder="Maximum" name="kedalaman_max" id="kedalaman_max" readonly/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    <div class="row mb-10">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Izin Operasi</label>
+              <br>
+             <span id="izin_operasi_file"></span>
+            </div>
+            <div class="col-md-6">
+               <label class="form-label fw-bold">Berita Acara Serah Terima Terminal</label>
+                          <br>
+                         <span id="bast_file"></span>
+
+            </div>
+          </div>
+
+          <div class="row mb-10">
+                <div class="col-md-6">
+                 <label class="form-label fw-bold ">Koordinat</label>
+                 <div class="row">
+                  <div class="col-md-6">
+                  <input type="text" class="form-control form-sm"   placeholder="Longtitude Lintang (LS) " name=""lng id="lng" readonly />
+                  </div>
+
+                  <div class="col-md-6">
+                  <input type="text" class="form-control form-sm"   placeholder="Latitude Bujur (LT)" name="lat"  id="lat" readonly/>
+                  </div>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                <label class="form-label fw-bold required">Alamat</label>
+     <textarea class="form-control form-sm"   placeholder="Alamat" name="address" id="address" readonly/></textarea>
+                </div>
+              </div>
+
+</div>

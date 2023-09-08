@@ -1,0 +1,867 @@
+@layout('layout/index')
+
+@section('toolbar')
+
+@end
+@section('content')
+<style>
+	/* Timeline */
+.timeline,
+.timeline-horizontal {
+  list-style: none;
+  padding: 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 40px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -1.5px;
+}
+.timeline .timeline-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline .timeline-item:before,
+.timeline .timeline-item:after {
+  content: "";
+  display: table;
+}
+.timeline .timeline-item:after {
+  clear: both;
+}
+.timeline .timeline-item .timeline-badge {
+  color: #fff;
+  width: 54px;
+  height: 54px;
+  line-height: 52px;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #7c7c7c;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline .timeline-item .timeline-badge i,
+.timeline .timeline-item .timeline-badge .fa,
+.timeline .timeline-item .timeline-badge .glyphicon {
+  top: 2px;
+  left: 0px;
+}
+.timeline .timeline-item .timeline-badge.primary {
+  background-color: #1f9eba;
+}
+.timeline .timeline-item .timeline-badge.info {
+  background-color: #5bc0de;
+}
+.timeline .timeline-item .timeline-badge.success {
+  background-color: #59ba1f;
+}
+.timeline .timeline-item .timeline-badge.warning {
+  background-color: #d1bd10;
+}
+.timeline .timeline-item .timeline-badge.danger {
+  background-color: #ba1f1f;
+}
+.timeline .timeline-item .timeline-panel {
+  position: relative;
+  width: 46%;
+  float: left;
+  right: 16px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline-item .timeline-panel:before {
+  position: absolute;
+  top: 26px;
+  right: -16px;
+  display: inline-block;
+  border-top: 16px solid transparent;
+  border-left: 16px solid #c0c0c0;
+  border-right: 0 solid #c0c0c0;
+  border-bottom: 16px solid transparent;
+  content: " ";
+}
+.timeline .timeline-item .timeline-panel .timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p,
+.timeline .timeline-item .timeline-panel .timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p + p {
+  margin-top: 5px;
+}
+.timeline .timeline-item:last-child:nth-child(even) {
+  float: right;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel {
+  float: right;
+  left: 16px;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-horizontal {
+  list-style: none;
+  position: relative;
+  padding: 20px 0px 20px 0px;
+  display: inline-block;
+}
+.timeline-horizontal:before {
+  height: 3px;
+  top: auto;
+  bottom: 26px;
+  left: 56px;
+  right: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item {
+  display: table-cell;
+  height: 280px;
+  width: 20%;
+  min-width: 320px;
+  float: none !important;
+  padding-left: 0px;
+  padding-right: 20px;
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+.timeline-horizontal .timeline-item .timeline-panel {
+  top: auto;
+  bottom: 64px;
+  display: inline-block;
+  float: none !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item .timeline-panel:before {
+  top: auto;
+  bottom: -16px;
+  left: 28px !important;
+  right: auto;
+  border-right: 16px solid transparent !important;
+  border-top: 16px solid #c0c0c0 !important;
+  border-bottom: 0 solid #c0c0c0 !important;
+  border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline-item:before,
+.timeline-horizontal .timeline-item:after {
+  display: none;
+}
+.timeline-horizontal .timeline-item .timeline-badge {
+  top: auto;
+  bottom: 0px;
+  left: 43px;
+}
+
+</style>
+<!--begin::Navbar-->
+<div class="content flex-row-fluid" id="kt_content">
+
+    <div class="card mb-5 mt-5 mb-xl-10 bg-white">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="svg-icon svg-icon-3x me-7">
+
+
+<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <circle cx="19" cy="19" r="19" fill="#045299"/>
+  <mask id="mask0_3557_173555" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="10" y="10" width="19" height="19">
+  <rect x="10" y="10" width="18.5" height="18.5" fill="url(#pattern0)"/>
+  </mask>
+  <g mask="url(#mask0_3557_173555)">
+  <rect x="7.60938" y="7.61328" width="21.4839" height="21.4839" fill="white"/>
+  </g>
+  <defs>
+  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+  <use xlink:href="#image0_3557_173555" transform="scale(0.00195312)"/>
+  </pattern>
+  <image id="image0_3557_173555" width="512" height="512" xlink:href="data:image/png;base64,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"/>
+  </defs>
+  </svg>
+
+            </span>
+            <h2 class="text-black">Master Terminal</h2>
+          </div>
+
+        </div>
+    </div>
+    <div class="row g-5 g-xl-8">
+      <div class="card mt-5 mb-xl-10 bg-white">
+        <div id="kt_account_settings_signin_method" class="collapse show">
+
+            <div class="card-body border-top p-9">
+              <div class="d-flex justify-content-center">
+
+
+                <div style="padding:10px;width:260.5px;height:153px;background:white;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;margin-left:30px;">
+                  <div style="display:flex;padding:0 10px;">
+                    <div style="width:50%;">
+                      <a href="{{route('master.terminal.index')}}">
+                      <p style="margin:15px 0 -1px 0;font-size:20px;">Total Data</p>
+                      </a>
+                    </div>
+                    <div style="width:50%;">
+                      <img src="/media/peralatan/approve.svg" alt="approve" width="80" height="74">
+                    </div>
+                  </div>
+                  <hr>
+                  <div style="display:flex;margin-top:-5px;">
+                    <div style="width:50%;text-align:center;">
+                      {{active}}<br>
+                      <a href="{{route('master.terminal.index')}}?status=ACTIVE">
+
+                      <span style="color:#8CE02C;"><u>Aktif</u></span>
+                      </a>
+                    </div>
+                    <div style="width:50%;text-align:center;border-left:1px solid #C0C0C0;">
+                      {{inactive}}<br>
+                      <a href="{{route('master.terminal.index')}}?status=INACTIVE">
+                      <span style="color:red;"><u>Non-Aktif</u></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+@can('access','outstanding-terminal')
+                  <div style="padding:10px;background:white;width:270px;height:153px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;margin-left:30px;">
+                    <div style="display:flex;padding:0 10px;">
+                      <div style="width:50%;">
+                        <a href="{{route('master.terminal.index')}}?status=OUTSTANDING">
+                        <p style="margin:15px 0 -1px 0;font-size:16px;font-style:bold;">Outstanding</p>
+                        </a>
+                      </div>
+                      <div style="width:50%;margin-top:10px;">
+                        <img src="/media/peralatan/request.svg" alt="request" width="100" height="60">
+                      </div>
+                    </div>
+                    <hr>
+                    <div style="display:flex;margin-top:-5px;">
+                      <div style="width:34%;text-align:center;">
+                        {{requestApproval}}<br>
+                        <a href="{{route('master.terminal.index')}}?status=REQUEST">
+                        <span style="color:#8CE02C;"><u>Diajukan</u></span>
+                        </a>
+                      </div>
+                      <div style="width:33%;text-align:center;border-left:1px solid #C0C0C0;">
+                        {{reject}}<br>
+                        <a href="{{route('master.terminal.index')}}?status=REJECT">
+                        <span style="color:red;"><u>Ditolak</u></span>
+                        </a>
+                      </div>
+                      <div style="width:33%;text-align:center;border-left:1px solid #C0C0C0;">
+                        {{draft}}<br>
+                        <a href="{{route('master.terminal.index')}}?status=DRAFT">
+                        <span style="color:#EDAD51;"><u>Draft</u></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+@end
+              </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+
+    <div class="card mb-5 mb-xl-10 bg-white">
+        <div id="kt_account_settings_signin_method" class="collapse show">
+            <div class="card-body border-top p-9">
+                <div class="row my-5 ">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <input type="text" id="search" class="form-control" placeholder="Search..." />
+                                <span><i class="flaticon2-search-1 icon-md"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-5 justify-content-lg-between">
+                    <div class="col-lg-2"></div>
+
+                      <div class="col-lg-3 d-flex flex-lg-end ">
+                        <a href="{{route('master.terminal.export')}}" class="btn btn-light border border-primary text-primary mx-3">
+                          <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_1681_99861)">
+                            <path d="M9.25 9.1875H11.3281C12.832 9.1875 14.0625 8.60754 14.0625 7.12031C14.0625 5.63309 12.6133 5.11137 11.4375 5.05313C11.1944 2.72727 9.49609 1.3125 7.5 1.3125C5.61328 1.3125 4.39813 2.56457 4 3.80625C2.35938 3.96211 0.9375 4.78734 0.9375 6.49688C0.9375 8.20641 2.41406 9.1875 4.21875 9.1875H5.75M5.75 10.9402L7.5 12.6875L9.25 10.9402M7.5 6.125V12.2508" stroke="#045299" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_1681_99861">
+                            <rect width="14" height="14" fill="white" transform="translate(0.5)"></rect>
+                            </clipPath>
+                            </defs>
+                            </svg>
+                            Export Master
+                        </a>
+                          @can('access','create-terminal')
+                          <a href="{{route('master.terminal.create')}}" class="btn btn-primary">
+                            <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                    fill="currentColor" />
+                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1"
+                                    transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                            </svg>
+                        </span>
+                        Add
+                        New</a>
+
+                        @end
+                      </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin: Datatable -->
+                        <div class="my_datatable" id="kt_datatable">
+                            <table id="example" class="table table-striped table-row-bordered gy-5 gs-7 border border-gray-300 display">
+                                <thead class="fw-semibold fs-6 text-gray-800 bg-light-primary">
+                                    <tr>
+                                      @if (status !='ALL')
+                                      <th>No Request</th>
+                                      @end
+                                        <th>Kode Terminal</th>
+                                        <th>Nama Terminal</th>
+                                        <th>Jenis Terminal</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @each(item in terminals)
+                                    <tr>
+                                      @if (status !='ALL')
+                                      <th>{{item.request_no}}</th>
+                                      @end
+                                        <th>
+                                          @if (status =='ALL')
+                                          {{item.code}}
+                                          @else
+                                          -
+                                          @end
+
+                                        </th>
+                                        <th>{{item.name}}</th>
+                                        <th>{{item.jenisTerminal?item.jenisTerminal.name:''}}</th>
+                                        <th>
+                                          @if (status =='ALL')
+                                          @if (item.status=='ACTIVE')
+                                          <span class="badge badge-success">Aktif</span>
+                                          @else
+                                          <span class="badge badge-danger">Non Aktif</span>
+                                          @end
+                                          @else
+                                            @if (item.status=='REQUEST')
+                                            <span class="badge badge-success">Diajukan</span>
+                                            @elseif(item.status == 'DRAFT')
+                                            <span class="badge badge-warning">Draft</span>
+                                            @elseif(item.status == 'REJECT')
+                                            <span class="badge badge-danger">Ditolak</span>
+                                            @else
+                                            <span class="badge badge-success">{{item.status}}</span>
+                                            @end
+
+                                          @end
+                                        </th>
+                                          <th>
+                                            <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="view">
+                                              <a  href="{{route('master.terminal.view',{id:item.id})}}"
+                                                  class="menu-link px-3 btn-edit" >
+                                                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                      <path d="M8.98808 3.9375C6.248 3.9375 3.43726 5.5234 1.22453 8.6952C1.16137 8.78673 1.12675 8.89493 1.12506 9.00612C1.12338 9.11731 1.15468 9.22651 1.21503 9.31992C2.91519 11.9813 5.68832 14.0625 8.98808 14.0625C12.252 14.0625 15.0821 11.9749 16.7854 9.30762C16.8443 9.21604 16.8757 9.10943 16.8757 9.00053C16.8757 8.89162 16.8443 8.78502 16.7854 8.69344C15.0782 6.05672 12.2274 3.9375 8.98808 3.9375Z" stroke="url(#paint0_linear_3331_492579)" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                                      <path d="M9 11.8125C10.5533 11.8125 11.8125 10.5533 11.8125 9C11.8125 7.4467 10.5533 6.1875 9 6.1875C7.4467 6.1875 6.1875 7.4467 6.1875 9C6.1875 10.5533 7.4467 11.8125 9 11.8125Z" stroke="url(#paint1_linear_3331_492579)" stroke-width="1.125" stroke-miterlimit="10"/>
+                                                      <defs>
+                                                      <linearGradient id="paint0_linear_3331_492579" x1="9.00033" y1="3.9375" x2="9.00033" y2="14.0625" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#00A3FF"/>
+                                                      <stop offset="1" stop-color="#22A7F2"/>
+                                                      </linearGradient>
+                                                      <linearGradient id="paint1_linear_3331_492579" x1="9" y1="6.1875" x2="9" y2="11.8125" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#00A3FF"/>
+                                                      <stop offset="1" stop-color="#22A7F2"/>
+                                                      </linearGradient>
+                                                      </defs>
+                                                    </svg>
+
+                                              </a>
+                                           </div>
+                                            @if (item.status =='DRAFT' && auth.user.id==item.submitter|| item.status=='REJECT' && auth.user.id==item.submitter)
+                                            <!--begin::Menu item-->
+                                            @can('access','edit-terminal')
+                                            <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Edit Data">
+                                              <a href="{{route('master.terminal.edit',{id:item.id})}}" class="mx-3" type="button">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <g clip-path="url(#clip0_452_18216)">
+                                                  <path d="M18.8167 4.62427L15.5556 1.34649C15.3401 1.13208 15.0485 1.01172 14.7445 1.01172C14.4405 1.01172 14.1489 1.13208 13.9334 1.34649L2.37225 12.8909L1.3167 17.4465C1.28029 17.613 1.28153 17.7856 1.32035 17.9516C1.35917 18.1176 1.43458 18.2728 1.54107 18.4059C1.64756 18.539 1.78243 18.6466 1.93585 18.7209C2.08927 18.7952 2.25735 18.8343 2.42781 18.8354C2.50724 18.8434 2.58727 18.8434 2.6667 18.8354L7.27225 17.7798L18.8167 6.24649C19.0311 6.03099 19.1515 5.73937 19.1515 5.43538C19.1515 5.13139 19.0311 4.83976 18.8167 4.62427ZM6.7167 16.7798L2.40003 17.6854L3.38337 13.452L12.0334 4.83538L15.3667 8.16871L6.7167 16.7798ZM16.1111 7.36316L12.7778 4.02982L14.7111 2.1076L17.9889 5.44093L16.1111 7.36316Z" fill="url(#paint0_linear_452_18216)"/>
+                                                  </g>
+                                                  <defs>
+                                                  <linearGradient id="paint0_linear_452_18216" x1="10.2209" y1="1.01172" x2="10.2209" y2="18.8414" gradientUnits="userSpaceOnUse">
+                                                  <stop stop-color="#00A3FF"/>
+                                                  <stop offset="1" stop-color="#22A7F2"/>
+                                                  </linearGradient>
+                                                  <clipPath id="clip0_452_18216">
+                                                  <rect width="20" height="20" fill="white"/>
+                                                  </clipPath>
+                                                  </defs>
+                                                  </svg>
+                                              </a>
+                                            </div>
+                                            @end
+                                            <!--end::Menu item-->
+                                            @can('access','delete-terminal')
+                                            <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Delete">
+                                              <a href="#" data-url="{{route('master.terminal.destroy',{id:item.id})}}?_method=DELETE" class="mx-3 btn-delete" type="button">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <path d="M8.33317 4.16667H11.6665C11.6665 3.72464 11.4909 3.30072 11.1783 2.98816C10.8658 2.67559 10.4419 2.5 9.99984 2.5C9.55781 2.5 9.13389 2.67559 8.82133 2.98816C8.50877 3.30072 8.33317 3.72464 8.33317 4.16667ZM7.08317 4.16667C7.08317 3.78364 7.15861 3.40437 7.30519 3.05051C7.45176 2.69664 7.6666 2.37511 7.93744 2.10427C8.20828 1.83343 8.52981 1.61859 8.88368 1.47202C9.23754 1.32544 9.61682 1.25 9.99984 1.25C10.3829 1.25 10.7621 1.32544 11.116 1.47202C11.4699 1.61859 11.7914 1.83343 12.0622 2.10427C12.3331 2.37511 12.5479 2.69664 12.6945 3.05051C12.8411 3.40437 12.9165 3.78364 12.9165 4.16667H17.7082C17.8739 4.16667 18.0329 4.23251 18.1501 4.34973C18.2673 4.46694 18.3332 4.62591 18.3332 4.79167C18.3332 4.95743 18.2673 5.1164 18.1501 5.23361C18.0329 5.35082 17.8739 5.41667 17.7082 5.41667H16.6082L15.6332 15.5092C15.5584 16.2825 15.1982 17.0002 14.6229 17.5224C14.0476 18.0445 13.2984 18.3336 12.5215 18.3333H7.47817C6.70139 18.3334 5.95242 18.0442 5.37729 17.5221C4.80217 16.9999 4.44212 16.2823 4.36734 15.5092L3.3915 5.41667H2.2915C2.12574 5.41667 1.96677 5.35082 1.84956 5.23361C1.73235 5.1164 1.6665 4.95743 1.6665 4.79167C1.6665 4.62591 1.73235 4.46694 1.84956 4.34973C1.96677 4.23251 2.12574 4.16667 2.2915 4.16667H7.08317ZM8.74984 8.125C8.74984 7.95924 8.68399 7.80027 8.56678 7.68306C8.44957 7.56585 8.2906 7.5 8.12484 7.5C7.95908 7.5 7.80011 7.56585 7.6829 7.68306C7.56569 7.80027 7.49984 7.95924 7.49984 8.125V14.375C7.49984 14.5408 7.56569 14.6997 7.6829 14.8169C7.80011 14.9342 7.95908 15 8.12484 15C8.2906 15 8.44957 14.9342 8.56678 14.8169C8.68399 14.6997 8.74984 14.5408 8.74984 14.375V8.125ZM11.8748 7.5C12.0406 7.5 12.1996 7.56585 12.3168 7.68306C12.434 7.80027 12.4998 7.95924 12.4998 8.125V14.375C12.4998 14.5408 12.434 14.6997 12.3168 14.8169C12.1996 14.9342 12.0406 15 11.8748 15C11.7091 15 11.5501 14.9342 11.4329 14.8169C11.3157 14.6997 11.2498 14.5408 11.2498 14.375V8.125C11.2498 7.95924 11.3157 7.80027 11.4329 7.68306C11.5501 7.56585 11.7091 7.5 11.8748 7.5ZM5.6115 15.3892C5.65645 15.853 5.87254 16.2835 6.21764 16.5968C6.56275 16.91 7.01213 17.0834 7.47817 17.0833H12.5215C12.9875 17.0834 13.4369 16.91 13.782 16.5968C14.1271 16.2835 14.3432 15.853 14.3882 15.3892L15.3532 5.41667H4.6465L5.6115 15.3892Z" fill="url(#paint0_linear_3331_492533)"/>
+                                                  <defs>
+                                                  <linearGradient id="paint0_linear_3331_492533" x1="9.99984" y1="1.25" x2="9.99984" y2="18.3333" gradientUnits="userSpaceOnUse">
+                                                  <stop stop-color="#00A3FF"/>
+                                                  <stop offset="1" stop-color="#22A7F2"/>
+                                                  </linearGradient>
+                                                  </defs>
+                                                  </svg>
+                                              </a>
+                                            </div>
+                                            @end
+                                            @end
+                                            @if (status =='ALL')
+                                                @can('access','edit-terminal')
+                                                  @if (item.isedit==1)
+                                                  <a  onclick="isEdit()" class="mx-3" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Renewal">
+                                                    <img src="/media/peralatan/edit.svg" alt="" srcset="">
+                                                  </a>
+@else
+                                                <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="renewal">
+                                                    <a  href="{{route('master.terminal.renewal',{id:item.id})}}"
+                                                        class="menu-link px-3 btn-edit" >
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                          <g clip-path="url(#clip0_452_18216)">
+                                                          <path d="M18.8167 4.62427L15.5556 1.34649C15.3401 1.13208 15.0485 1.01172 14.7445 1.01172C14.4405 1.01172 14.1489 1.13208 13.9334 1.34649L2.37225 12.8909L1.3167 17.4465C1.28029 17.613 1.28153 17.7856 1.32035 17.9516C1.35917 18.1176 1.43458 18.2728 1.54107 18.4059C1.64756 18.539 1.78243 18.6466 1.93585 18.7209C2.08927 18.7952 2.25735 18.8343 2.42781 18.8354C2.50724 18.8434 2.58727 18.8434 2.6667 18.8354L7.27225 17.7798L18.8167 6.24649C19.0311 6.03099 19.1515 5.73937 19.1515 5.43538C19.1515 5.13139 19.0311 4.83976 18.8167 4.62427ZM6.7167 16.7798L2.40003 17.6854L3.38337 13.452L12.0334 4.83538L15.3667 8.16871L6.7167 16.7798ZM16.1111 7.36316L12.7778 4.02982L14.7111 2.1076L17.9889 5.44093L16.1111 7.36316Z" fill="url(#paint0_linear_452_18216)"/>
+                                                          </g>
+                                                          <defs>
+                                                          <linearGradient id="paint0_linear_452_18216" x1="10.2209" y1="1.01172" x2="10.2209" y2="18.8414" gradientUnits="userSpaceOnUse">
+                                                          <stop stop-color="#00A3FF"/>
+                                                          <stop offset="1" stop-color="#22A7F2"/>
+                                                          </linearGradient>
+                                                          <clipPath id="clip0_452_18216">
+                                                          <rect width="20" height="20" fill="white"/>
+                                                          </clipPath>
+                                                          </defs>
+                                                          </svg>
+                                                    </a>
+                                                </div>
+                                                @end
+                                                @end
+                                                @if (item.status=='ACTIVE')
+                                                @can('access','activate-terminal')
+                                                <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Set Inactive">
+                                                        <a href="#" data-url="{{route('master.terminal.inactive',{id:item.id})}}" class="mx-3 btn-active" type="button">
+                                                        <img src="/media/peralatan/nonaktif.svg" alt="" srcset="">
+                                                    </a>
+                                                </div>
+                                                @end
+                                                @else
+
+                                                    @can('access','activate-terminal')
+                                                    <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Set Active">
+                                                        <a href="#" data-url="{{route('master.terminal.active',{id:item.id})}}" class="mx-3 btn-active" type="button">
+                                                            <img src="/media/peralatan/aktif.svg" alt="" srcset="">
+                                                        </a>
+                                                    </div>
+                                                    @end
+                                                @end
+                                            @end
+
+                                            @if (item.status =='REQUEST')
+                                             @can('access','approval-terminal')
+                                            <div class="btn-group mx-1"  role="group" aria-label="Third group" data-bs-toggle="tooltip" title="Approval">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#approval-modal" class="menu-link px-3 btn-approve"
+                                                    data-request="{{item.request_no}}"
+                                                    data-kt-docs-table-filter="delete_row"
+                                                    data-detail="{{route('master.terminal.show',{id:item.request_no})}}"
+                                                    data-approval="{{route('approval.approvalHeader',{id:item.request_no})}}"
+                                                    data-approvalpath="{{route('approval.approvalPath',{id:item.schema_id})}}"
+                                                    data-logapproval="{{route('approval.logApproval',{id:item.request_no})}}">
+                                                      <img src="/media/peralatan/approve_icon.svg" alt="" srcset="">
+                                                </a>
+                                            </div>
+                                             @end
+                                            @end
+
+                                          </th>
+                                        {{--  <th>
+                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                                data-kt-menu-flip="top-end">
+                                                Actions
+                                                <span class="svg-icon svg-icon-5 m-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                            <path
+                                                                d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                                                fill="currentColor" fill-rule="nonzero"
+                                                                transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                data-kt-menu="true" style="">
+                                                @if (item.status =='DRAFT' && auth.user.id==item.submitter|| item.status=='REJECT' && auth.user.id==item.submitter)
+                                                    <!--begin::Menu item-->
+                                                    @can('access','edit-terminal')
+                                                    <div class="menu-item px-3">
+                                                        <a  href="{{route('master.terminal.edit',{id:item.id})}}"
+                                                            class="menu-link px-3 btn-edit" >
+                                                            Edit
+                                                        </a>
+                                                    </div>
+                                                    @end
+                                                    <!--end::Menu item-->
+                                                    @can('access','delete-terminal')
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" data-url="{{route('master.terminal.destroy',{id:item.id})}}?_method=DELETE" class="menu-link px-3 btn-delete">
+                                                            Delete
+                                                        </a>
+                                                    </div>
+                                                    @end
+                                                @end
+                                                @if (item.status =='REQUEST')
+                                                <div class="menu-item px-3">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#approval-modal" class="menu-link px-3 btn-approve"
+                                                        data-request="{{item.request_no}}"
+                                                        data-kt-docs-table-filter="delete_row"
+                                                        data-detail="{{route('master.terminal.show',{id:item.request_no})}}"
+                                                        data-approval="{{route('approval.approvalHeader',{id:item.request_no})}}"
+                                                        data-approvaldetail="{{route('approval.approvalHistoryDetail',{id:item.request_no})}}"
+                                                        data-nextapproval="{{route('master.terminal.approvalHistoryNext',{id:item.request_no})}}">
+                                                        Approval
+                                                    </a>
+                                                </div>
+                                                @end
+                                                @if (status =='ALL')
+                                                @can('access','edit-terminal')
+                                                <div class="menu-item px-3">
+                                                    <a  href="{{route('master.terminal.renewal',{id:item.id})}}"
+                                                        class="menu-link px-3 btn-edit" >
+                                                        Renewal
+                                                    </a>
+                                                </div>
+                                                @end
+                                                @end
+
+                                                <!--end::Menu item-->
+                                            </div>
+
+                                        </th>  --}}
+                                    </tr>
+                                    @end
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+@include('pages.master_terminal.component.approval')
+@end
+
+@section('js')
+<script>
+
+      $(document).on('click', '.btn-delete', function () {
+            let data = new FormData()
+            data.append('_method', 'DELETE')
+            swallRequest($(this).attr('data-url'), data, false, 'userdriver-table')
+        })
+
+        $(document).on('click', '.btn-active', function () {
+            let data = new FormData()
+
+            swallRequest($(this).attr('data-url'), data, false, 'userdriver-table')
+        })
+
+        $(document).on('click', '.approve-process', function () {
+          let remark=$('#remark').val();
+            console.log(remark);
+            if (remark === ''){
+              swal.fire("Dibatalkan", "Note Wajib Diisi", "error");
+              return false;
+            }
+            let data = new FormData()
+            data.append('remark', $('#remark').val());
+            data.append('request_no', $(this).attr('data-request'));
+            swallRequest($(this).attr('data-url'), data, false, false,"{{route('master.terminal.index')}}?status=REQUEST")
+        })
+
+        $(document).on('click', '.reject-process', function () {
+          let remark=$('#remark').val();
+            console.log(remark);
+            if (remark === ''){
+              swal.fire("Dibatalkan", "Note Wajib Diisi", "error");
+              return false;
+            }
+            let data = new FormData()
+            data.append('remark', $('#remark').val());
+            data.append('request_no', $(this).attr('data-request'));
+            swallRequest($(this).attr('data-url'), data, false, false,"{{route('master.terminal.index')}}?status=REQUEST")
+        })
+    $(document).ready(function(){
+
+        var t = $('#example').DataTable({
+            ordering: false  ,
+        });
+        $('#search').on( 'keyup', function () {
+        t.search( this.value ).draw();
+        });
+      $("#kt_accordion_1_body_1").on("hide.bs.collapse", function(){
+       $("#formSingleHistory").show();
+      });
+      $("#kt_accordion_1_body_1").on("show.bs.collapse", function(){
+        $("#formSingleHistory").hide();
+      });
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const search = urlParams.get('q')
+      if (search !==null){
+        t.search(search).draw();
+      }
+
+    });
+
+
+    function dateFormat(inputDate, format) {
+        //parse the input date
+        const date = new Date(inputDate);
+
+        //extract the parts of the date
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const hours = date.getHours()
+        const minute = date.getMinutes()
+
+        //replace the month
+        format = format.replace("MM", month.toString().padStart(2,"0"));
+
+        //replace the year
+        if (format.indexOf("yyyy") > -1) {
+            format = format.replace("yyyy", year.toString());
+        } else if (format.indexOf("yy") > -1) {
+            format = format.replace("yy", year.toString().substr(2,2));
+        }
+
+        //replace the day
+        format = format.replace("dd", day.toString().padStart(2,"0"));
+
+        //replace the hours
+        format = format.replace("hh", hours.toString().padStart(2,"0"));
+
+         //replace the time
+         format = format.replace("mm", minute.toString().padStart(2,"0"));
+
+        return format;
+    }
+
+    $(document).on('click', '.btn-approve', function () {
+
+        $(".approve-process").attr("data-request",$(this).attr('data-request'));
+        $(".reject-process").attr("data-request",$(this).attr('data-request'));
+        var approvalSequence=0;
+        clearApproval()
+        $.getJSON($(this).attr('data-detail'), function (res) {
+            $('#requested_name').text(res.user.name)
+            $('#requested_title').text(res.user.role.entity.title_alias+'-'+res.user.role.entity.masterCompany.company_name)
+            $('#departement').text(res.user.role.entity.jobTitle.departement)
+            var tanggalSubmit = new Date(res.created_at)
+            $('#tanggal_submit').text(dateFormat(tanggalSubmit, 'dd-MM-yyyy hh:mm'))
+            $('#branch').val(res.branch.port_name)
+            $('#jenis_terminal').val(res.jenisTerminal.name)
+            $('#name_terminal').val(res.name)
+            $('#luas').val(res.luas)
+            $('#jumlah_tambat').val(res.jumlah_tambat)
+            $('#kedalaman_max').val(res.kedalaman_max)
+            $('#kedalaman_min').val(res.kedalaman_min)
+
+            $('#lng').val(res.lng)
+            $('#lat').val(res.lat)
+            $('#address').val(res.address)
+
+            if (res.izin_operasi_file!=null){
+             $('#izin_operasi_file').html(`<a target="_blank" href="/download-file/${res.izin_operasi_file}">${res.izin_operasi_file}</a> `)
+           }
+
+            if (res.bast_file!=null){
+                        $('#bast_file').html(`<a target="_blank" href="/download-file/${res.bast_file}">${res.bast_file}</a> `)
+                      }
+
+        })
+        function clearApproval(){
+
+          $('#izin_operasi_file').html(``)
+        $('#bast_file').html(``)
+          $('#requested_name').text('')
+            $('#requested_title').text('')
+            $('#departement').text('')
+            $('#tanggal_submit').text('')
+            $('#branch').val('')
+            $('#jenis_terminal').val('')
+            $('#name_terminal').val('')
+            $('#luas').val('')
+            $('#jumlah_tambat').val('')
+            $('#kedalaman_max').val('')
+            $('#kedalaman_min').val('')
+       }
+
+       $.getJSON($(this).attr('data-approval'), function (res) {
+            if(res.status == 'request'){
+              $("#approvalRequest").hide();
+
+
+            }else{
+            var created_at = new Date(res.approvalHeader.created_at)
+            $('#nameUser').text(res.approvalHeader.user.name)
+            $('#DeptRequest').text(res.approvalHeader.user.role.entity.departement)
+            $('#tanggalRequest').text(dateFormat(created_at, 'dd-MM-yyyy hh:mm'))
+
+                $('.next-text-all').empty();
+                $('.timeline-badge').removeClass("warning");
+            $('.timeline-badge').addClass( "success");
+            if (res.approvalHeader.approval_sequence==0){
+              $('.badge-1').removeClass("secondary");
+              $('.badge-1').addClass( "warning");
+              $('.status-1').html( "Next Approve");
+            }else{
+              var nextSequence=parseInt(res.approvalHeader.approval_sequence) + 1;
+              $( ".badge-"+res.approvalHeader.approval_sequence).removeClass( "secondary" );
+              $(  `.badge-${nextSequence}`).addClass( "warning" );
+              $('.badge-'+res.approvalHeader.approval_sequence).addClass( "secondary");
+              $('.status-'+res.approvalHeader.approval_sequence).addClass( `status-${nextSequence}`);
+              $(  `.status-${nextSequence}`).html( "Next Approve" );
+              $('.status-'+res.approvalHeader.approval_sequence).html("");
+
+            }
+            }
+
+
+        })
+
+
+        $.getJSON($(this).attr('data-approvalpath'), function (res) {
+          $("#detailHistory").empty();
+
+                $.each(res, function (index, val) {
+                  var icon = '/media/svg/approval/approved.svg'
+                  var mandatory='Mandatory';
+                  let nextApproval='';
+                  if (val.mandatory==0){
+                     mandatory='Optional';
+                  }
+                  if (val.approval_order==1){
+                    var iconCollor = 'warning'
+                     nextApproval='Next Approval';
+                  }else{
+                    var iconCollor = 'secondary'
+                  }
+
+                    var detailHIstory = `<li class="timeline-item formdetailHistory">
+                                  <div class="badge-${ val.approval_order} timeline-badge `+iconCollor+`"><i class="glyphicon glyphicon-check"></i></div>
+                                  <div class="timeline-panel">
+                                      <div class="timeline-heading">
+                                          <div class="row align-items-center">
+                                            <div class="col-4">
+                                              <img alt="Logo" src="`+icon+`" class="theme-light-show h-20px h-lg-60px" />
+                                            </div>
+                                            <div class="col-8">
+
+                                              <p><small class="text-muted next-text-all next-text-${ val.approval_order}">`+nextApproval+`</small></p>
+                                              <p><strong>`+val.role.name+`</strong></p>
+                                              <p><small class="text-muted">`+mandatory+`</small></p>
+                                              <p><small class="text-muted">Approval Level `+val.approval_order+`</small></p>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>`
+                    $("#detailHistory").append(detailHIstory);
+
+                  })
+        });
+
+        $.getJSON($(this).attr('data-logapproval'), function (res) {
+          $("#formLogApproval").empty();
+          $.each(res, function (index, val) {
+            if(val.action == 'APPROVED'){
+                        var icon = '<span class="badge bg-success">Disetujui</span>'
+                    }else if(val.action == 'REJECTED'){
+                        var icon = '<span class="badge bg-danger">Ditolak</span>'
+                    }else if(val.action == 'SUBMITED'){
+                        var icon = '<span class="badge bg-primary">Diajukan</span>'
+                    }else if(val.action == 'UPDATED'){
+                        var icon = '<span class="badge bg-info">Diubah</span>'
+                    }
+                    let remark='';
+                  if (val.remark!=null){
+                     remark=val.remark;
+                  }
+                  var created_at = new Date(val.created_at)
+                  var logHeader = `<p class="card-text formapprovallog">`+dateFormat(created_at, 'dd-MM-yyyy hh:mm')+` - `+val.user.name+` : `+remark+` `+icon+` </p>`
+                  $("#formLogApproval").append(logHeader);
+                })
+
+        })
+
+    })
+      function isEdit() {
+              Swal.fire({
+                title:"<span style='color:#FF0000;'>Tidak bisa edit data</span>",
+                html: "<strong>Data sedang dalam proses approval</strong>",
+                imageUrl: "/media/peralatan/gagal_upload.svg",
+                confirmButtonText: "Baik",
+                confirmButtonColor: "#045299",
+                allowOutsideClick: false
+              })
+            }
+    </script>
+@end
