@@ -7,7 +7,10 @@ class ActionAset {
     // public async createRequestAset (asetHeaderPayload:HeaderAset) {
     //     let asetHeader:HeaderAset = asetHeaderPayload;        
     // }
-    public async getAllAset (asetName:String,startDate:String,endDate:String) {
+    public async getAllAset (no,start,end) {
+        let noAset = no;
+        let startDate = new Date(start);
+        let endDate = new Date(end);
         try {
             const dataAset = await AsetHeader.query()
             .select('id','no_aset','nama_aset','aset_kelas','nama_cabang','tgl_perolehan','hrg_perolehan','akumulasi_penyusutan','nilai_buku','created_at')
@@ -42,12 +45,12 @@ class ActionAset {
                 query.select('no_tgl_surat','rincian','usulan_penghapusan','keterangan','scan')
             })
             .where((builder) => {
-                if(startDate && endDate) {
-                    builder.whereBetween('created_at', [stratDate,endDate])
+                if(start && end) {
+                    builder.whereBetween('created_at', [startDate,endDate])
                 }
 
-                if(asetName) {
-                    builder.where('nama_aset','like', `%${asetName}%`);
+                if(no) {
+                    builder.where('no_aset','like', `${noAset}`);
                 }
             });
 

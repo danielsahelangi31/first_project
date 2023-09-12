@@ -1,0 +1,405 @@
+@layout('layout/index')
+@section('content')
+    <div class="content flex-row-fluid">
+        <!-- header 1 start -->
+        <div class="card mt-5 bg-white">
+            <div id="kt_account_settings_signin_method" class="collapse show">
+                <div class="card-body border-top p-9">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <img src="/media/aset/asset-icon.svg">
+                                <h2 class="ms-3 mt-2">Master Barang</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header 1 end -->
+        {{--  import stepper  --}}
+        @include('pages/master_barang/component/stepper.edge')
+        {{--  import stepper  --}}
+        {{--  form start  --}}
+        <form id="form-submit" action="" method="POST">
+        <div class="card mb-5 mt-5 bg-white">
+            <div class="card-body border-top p-9">
+                <div id="carousel-barang" class="carousel slide" data-wrap="false" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h4 class="title-form fw-bold text-primary">Stepper 1</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Kode Barang</label>
+                                        <input value="00001" disabled type="text" class="form-control" id="kd-barang" name="kd-barang">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Kode ISTC</label>
+                                        <input type="text" class="form-control" id="kd-istc" name="kd-istc">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Nama Barang</label>
+                                        <input type="text" class="form-control" id="nm-barang" name="nm-barang">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Kelompok Barang</label>
+                                        <input type="text" class="form-control" id="kelompok-barang" name="kelompok-barang">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Commodity</label>
+                                        <input type="text" class="form-control" id="commodity" name="commodity">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <div class="my-4">
+                                            <label class="form-label">Sifat</label>
+                                            <select name="sifat" id="sifat" class="form-select" data-control="select2" data-palceholder="Select">
+                                                <option value="">0 = Umum</option>
+                                                <option value="">1 = Mengganggu</option>
+                                                <option value="">2 = Merusak</option>
+                                                <option value="">3 = Berbahaya</option>
+                                            </select>
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Kode IMDG</label>
+                                            <select name="kd-imdg" id="kd-imdg" class="form-select" data-control="select2" data-palceholder="Select">
+                                                <option value="">0</option>
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                                <option value="">4</option>
+                                                <option value="">5</option>
+                                            </select>
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Description IMDG</label>
+                                            <select name="desc-imdg" id="desc-imdg" class="form-select" data-control="select2" data-palceholder="Select">
+                                                <option value="0">0 = -</option>
+                                                <option value="1">1 = Explosives</option>
+                                                <option value="2">2 = Gases</option>
+                                                <option value="3">3 = Flammable liquids</option>
+                                                <option value="4">4 = Flammable solids</option>
+                                                <option value="5">5 = Oxidising agents & organic peroxides</option>
+                                                <option value="6">6 = Toxins and infectious substances</option>
+                                                <option value="7">7 = Radioactive material</option>
+                                                <option value="8">8 = Corrosives</option>
+                                                <option value="9">9 = Miscellaneous dangerous goods</option>
+                                            </select>
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Jenis Masa Tambat</label>
+                                            <select name="jns_mstambat" id="jns_mstambat" class="form-select" data-control="select2" data-palceholder="Select">
+                                                <option value="null">Null</option>
+                                                <option value="CURAHCAIR">Curah Cair</option>
+                                                <option value="GENCARGO">Gencargo</option>
+                                                <option value="CURAHKRG">Curah Kering</option>
+                                                <option value="BAGCARGO">Bagcargo</option>
+                                                <option value="UNITIZED">Unitized</option>
+                                                <option value="LAIN">Lain</option>
+                                                <option value="CASE">Case</option>
+                                                <option value="PETIKEMAS">Petikemas</option>
+                                                <option value="PKEMAS10I">Petikemas 10 Isi</option>
+                                                <option value="PKEMAS10K">Petikemas 10 Kosong</option>
+                                                <option value="BREAKBULK">Breakbulk</option>
+                                                <option value="PALLET">Pallet</option>
+                                                <option value="HEWAN">Hewan</option>
+                                                <option value="BAL">Bal</option>
+                                                <option value="PKEMAS20I">Petikemas 20 Isi</option>
+                                                <option value="PKEMAS20K">Petikemas 20 Kosong</option>
+                                                <option value="PKEMAS40I">Petikemas 40 Isi</option>
+                                                <option value="PKEMAS40K">Petikemas 40 Kosong</option>
+                                                <option value="DRUM">Drum</option>
+                                                <option value="ROLL">Roll</option>
+                                                <option value="KAYULOG">Kayu Log</option>
+                                                <option value="NONPKALL">Non-Petikemas All</option>
+                                                <option value="ROL">Rol</option>
+                                                <option value="PKEMAS20C">Petikemas Chassis 20</option>
+                                                <option value="PKEMAS40C">Petikemas Chassis 40</option>
+                                                <option value="BESIPROD">Besi Produk</option>
+                                                <option value="LAON">Laon</option>
+                                            </select>
+                                        </div>
+                                        <div class="my-4">
+                                            <label class="form-label">Catatan</label>
+                                            <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="3" placeholder="Catatan"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <h4 class="title-form fw-bold text-primary">Stepper 2</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="my-4 kemasan-repeater">
+                                        <label class="form-label">Kemasan Barang</label>
+                                        <div class="input-group kemasan-filed">
+                                            <select class="form-select" name="kemasan-barang" data-palceholder="Select">
+                                                <option value="">Select</option>
+                                            </select>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-del-kemasan" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-add-kemasan" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                                        </div>
+                                    </div>
+                                    <div class="my-4 konversi-repeater">
+                                        <label class="form-label">Konversi Ke TON</label>
+                                        <div class="input-group konversi-field">
+                                            <input name="konversi" type="text" class="form-control" placeholder="Konversi ke TON">
+                                            <button class="btn btn-outline-secondary border border-secondary btn-del-konversi" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-add-konversi" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                                        </div>
+                                    </div>
+                                    <div class="my-4 dimensi-repeater">
+                                        <label class="form-label">Dimensi Luas</label>
+                                        <div class="input-group dimensi-field">
+                                            <input name="dimensi-luas" type="text" class="form-control" placeholder="Dimensi Luas">
+                                            <button class="btn btn-outline-secondary border border-secondary btn-del-dimensi" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-add-dimensi" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                                        </div>
+                                    </div>
+                                    <div class="my-4 satuan-repeater">
+                                        <label class="form-label">Satuan</label>
+                                        <div class="input-group satuan-field">
+                                            <select  class="form-select" name="satuan" data-palceholder="Select">
+                                                <option value="">Select</option>
+                                            </select>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-del-satuan" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                                            <button class="btn btn-outline-secondary border border-secondary btn-add-satuan" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                                        </div>
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Kelompok Commodity</label>
+                                        <input name="kelompok-commodity" type="text" class="form-control">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Jenis Commodity</label>
+                                        <input name="jenis-commodity" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="my-4">
+                                        <label class="form-label">Commodity Unggulan</label>
+                                        <select name="commodity-unggulan" id="commodity-unggulan" class="form-select" data-control="select2" data-palceholder="Select">
+                                            <option value="y">Y</option>
+                                            <option value="n">N</option>
+                                        </select>
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Sifat Barang TKBM</label>
+                                        <input name="barang-tkbm" type="text" class="form-control" placeholder="sifat barang tkbm">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">Jenis Kemasan TKBM</label>
+                                        <input name="kemasan-tkbm" type="text" class="form-control" placeholder="jenis kemasan tkbm">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">HSCODE</label>
+                                        <input name="hscode" type="text" class="form-control" placeholder="HSCODE">
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">TOESLAG</label>
+                                        <select name="toeslag" id="toeslag" class="form-select" data-control="select2" data-palceholder="Select">
+                                            <option value="barangBerbahayaLabel">Barang berbahaya dengan label</option>
+                                            <option value="barangBerbahayaTanpaLabel">Barang berbahaya tanpa label</option>
+                                            <option value="barangMengganggu">Barang mengganggu</option>
+                                            <option value="barangMerusak">Barang merusak</option>
+                                            <option value="barangSangatMengganggu">Barang sangat mengganggu</option>
+                                            <option value="barangUmum">Barang umum</option>
+                                        </select>
+                                    </div>
+                                    <div class="my-4">
+                                        <label class="form-label">SERVICE GROUP</label>
+                                        <select name="service-group" id="service-group" class="form-select" data-control="select2" data-palceholder="Select">
+                                            <option value="tidakMenggunakanAlat">Tidak Menggunakan Alat Khusus/Mekanis</option>
+                                            <option value="menggunakanAlat">Menggunakan Alat Khusus/Mekanis</option>
+                                            <option value="kendaraanAlatBerat">Kendaraan/Alat Berat</option>
+                                            <option value="palletUnitisasi">Pallet/Unitisasi</option>
+                                            <option value="hewanKambingBabi">Hewan (Kambing/Babi dan sejenisnya)</option>
+                                            <option value="petikemas20Kosong">Petikemas 20 Kosong</option>
+                                            <option value="petikemas40Kosong">Petikemas 40 Kosong</option>
+                                            <option value="petikemas20Isi">Petikemas 20 Isi</option>
+                                            <option value="petikemas40Isi">Petikemas 40 Isi</option>
+                                            <option value="hewanKerbauSapi">Hewan (Kerbau/Sapi/Kuda dan sejenisnya)</option>
+                                            <option value="petikemas10Isi">Petikemas 10 Isi</option>
+                                            <option value="petikemas10Kosong">Petikemas 10 Kosong</option>
+                                            <option value="petikemasChassis20">Petikemas Chassis 20</option>
+                                            <option value="petikemasChassis20Bermuatan">Petikemas Chassis 20 Bermuatan</option>
+                                            <option value="petikemas20OHOWOL">Petikemas 20 OH/OW/OL</option>
+                                            <option value="petikemas20ReeferIsi">Petikemas 20 Reefer Isi</option>
+                                            <option value="petikemas20ReeferKosong">Petikemas 20 Reefer Kosong</option>
+                                            <option value="petikemasChassis40">Petikemas Chassis 40</option>
+                                            <option value="petikemasChassis40Bermuatan">Petikemas Chassis 40 Bermuatan</option>
+                                            <option value="petikemas40OHOWOL">Petikemas 40 OH/OW/OL</option>
+                                            <option value="petikemas40ReeferIsi">Petikemas 40 Reefer Isi</option>
+                                            <option value="petikemas40ReeferKosong">Petikemas 40 Reefer Kosong</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin-top:5%;">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" id="kirim" class="btn btn-primary" style="float:right;display:none;">Kirim</button>
+                        <button type="button" id="selanjutnya" class="btn btn-primary mx-3" style="float:right;">Selanjutnya</button>
+                        <button type="button" id="kembali" class="btn btn-outline-primary border border-primary mx-3" style="float:right;display:none;">Kembali</a>
+                        <button type="button" id="draf" class="btn btn-warning" style=float:right;>Save As Draft</button>
+                            <button type="button" id="batal" class="btn btn-outline-primary border border-primary">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+        {{--  form end  --}}
+    </div>
+
+    <script type="text/javascript">
+        
+        //add field konversi
+        $('.konversi-repeater').on('click', '.btn-add-konversi', function() {
+            // $('.btn-add-konversi').remove();
+
+            var newField = `
+                <div class="my-4 konversi-field">
+                    <div class="input-group">
+                        <input name="konversi" type="text" class="form-control" placeholder="Konversi ke TON">
+                        <button class="btn btn-outline-secondary border border-secondary btn-del-konversi" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                        <button class="btn btn-outline-secondary border border-secondary btn-add-konversi" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                    </div>
+                </div>
+            `;
+
+            $('.konversi-repeater').append(newField);
+        });
+
+        $('.konversi-repeater').on('click', '.btn-del-konversi', function() {
+            if ($('.konversi-repeater .konversi-field').length > 1) {
+                $(this).closest('.konversi-field').remove();
+            }
+        });
+
+        //add field dimensi
+        $('.dimensi-repeater').on('click', '.btn-add-dimensi', function() {
+
+            var newField = `
+                <div class="my-4 dimensi-field">
+                    <div class="input-group">
+                        <input name="dimensi-luas" type="text" class="form-control" placeholder="Dimensi luas">
+                        <button class="btn btn-outline-secondary border border-secondary btn-del-dimensi" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                        <button class="btn btn-outline-secondary border border-secondary btn-add-dimensi" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                    </div>
+                </div>
+            `;
+
+            $('.dimensi-repeater').append(newField);
+        });
+
+        $('.dimensi-repeater').on('click', '.btn-del-dimensi', function() {
+            if ($('.dimensi-repeater .dimensi-field').length > 1) {
+                $(this).closest('.dimensi-field').remove();
+            }
+        });
+
+        //add field satuan
+        $('.satuan-repeater').on('click', '.btn-add-satuan', function() {
+
+            var newField = `
+                <div class="my-4 satuan-field">
+                    <div class="input-group">
+                        <select class="form-select" name="satuan" data-palceholder="Select">
+                            <option value="">Select</option>
+                        </select>
+                        <button class="btn btn-outline-secondary border border-secondary btn-del-satuan" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                        <button class="btn btn-outline-secondary border border-secondary btn-add-satuan" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                    </div>
+                </div>
+            `;
+
+            $('.satuan-repeater').append(newField);
+        });
+
+        $('.satuan-repeater').on('click', '.btn-del-satuan', function() {
+            if ($('.satuan-repeater .satuan-field').length > 1) {
+                $(this).closest('.satuan-field').remove();
+            }
+        });
+
+        //add field kemasan
+        $('.kemasan-repeater').on('click', '.btn-add-kemasan', function() {
+
+            var newField = `
+                <div class="my-4 kemasan-field">
+                    <div class="input-group">
+                        <select  class="form-select" name="kemasan" data-palceholder="Select">
+                            <option value="">Select</option>
+                        </select>
+                        <button class="btn btn-outline-secondary border border-secondary btn-del-kemasan" type="button"><img src="/media/icons/duotune/text/minus-icon.svg" alt="minus"></button>
+                        <button class="btn btn-outline-secondary border border-secondary btn-add-kemasan" type="button"><img src="/media/icons/duotune/text/plus-icon.svg" alt="plus"></button>
+                    </div>
+                </div>
+            `;
+
+            $('.kemasan-repeater').append(newField);
+        });
+
+        $('.kemasan-repeater').on('click', '.btn-del-kemasan', function() {
+            if ($('.kemasan-repeater .kemasan-field').length > 1) {
+                $(this).closest('.kemasan-field').remove();
+            }
+        });
+
+
+        //carousel
+        var carouselVal = 0;
+        // kembali
+        $("#kembali").click(function() {
+            carouselVal -= 1
+            $("#carousel-barang").carousel(0); 
+            $('#ball-step-2').removeClass('btn-primary');
+            $('#ball-step-2').addClass('btn-secondary');
+            $('#teks-spesification').removeClass('text-primary');
+            $('#teks-spesification').addClass('text-secondary');
+            $('#progress-page').css('width', '0%');
+            $(this).css('display', 'none');
+            $("#selanjutnya").css('display', 'block');
+            $("#kirim").css('display', 'none');
+        });
+
+        // next
+        $("#selanjutnya").click(function() {
+            carouselVal += 1;
+            $("#carousel-barang").carousel(1); 
+            $('#ball-step-2').removeClass('btn-secondary');
+            $('#ball-step-2').addClass('btn-primary');
+            $('#teks-spesification').removeClass('text-secondary');
+            $('#teks-spesification').addClass('text-primary');
+            $('#progress-page').css('width', '100%');
+            $("#kembali").css('display', 'block');
+            $("#kirim").css('display', 'block');
+            $(this).css('display', 'none');
+        });
+
+        //batal
+        $('#batal').click(function() {
+            Swal.fire({
+            title: "<span style='color:#FF0000;'>Batal?</span>", 
+            html: "<strong>Apakah anda yakin ?</strong>",
+            icon: 'warning',
+            showCancelButton: true, 
+            cancelButtonText: "Tidak",
+            confirmButtonText: "Iya",
+            confirmButtonColor: "#045299",
+            reverseButtons: true,
+            allowOutsideClick: false
+            }).then((result)=>{
+            if(result.isConfirmed == true) {
+                window.location.assign(`{{ route('MasterBarangController.index') }}`); 
+            }
+            });
+        });
+    </script>
+@end

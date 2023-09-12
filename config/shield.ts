@@ -121,7 +121,8 @@ export const csrf: ShieldConfig['csrf'] = {
     '/master-pegawai/insert-cuti-sppd',
     '/master-aset/insert',
     '/master-aset/update',
-    '/secure/vendor'
+    '/secure/vendor',
+    '/master-aset/api-master'
     ],
 
   /*

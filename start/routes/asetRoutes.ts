@@ -8,5 +8,5 @@ Route.group(()=> {
     Route.get('/view/:id', 'MasterAssetsController.view');
     Route.get('/updateStatus/:id', 'MasterAssetsController.updateStatus');
     Route.get('/create-excel', 'MasterAssetsController.createExcelData');
-    Route.get('/api-master', 'ApiMasterDataController.MasterAset');
+    Route.post('/api-master', 'ApiMasterDataController.MasterAset');
   }).prefix('master-aset');

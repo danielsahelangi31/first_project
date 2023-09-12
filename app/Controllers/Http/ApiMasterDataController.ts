@@ -1404,14 +1404,12 @@ export default class ApiMasterDataController {
         }
     }
 
-    public async MasterAset({response}:HttpContextContract) {
+    public async MasterAset({response,request}:HttpContextContract) {
         let errorCode = 500;
-
+        const {nm_aset,start_date,end_date} = request.body();        
+        
         try {
-            let asetName = "Supra";
-            let startDate = "08-31-2023";
-            let endDate = "12-12-2023";
-            let dataAset = await ActionAset.getAllAset(asetName,startDate,endDate);
+            let dataAset = await ActionAset.getAllAset(nm_aset,start_date,end_date);
             if(!dataAset || dataAset.length < 1){
                 errorCode = 404
                 throw new Error("Data aset not found");

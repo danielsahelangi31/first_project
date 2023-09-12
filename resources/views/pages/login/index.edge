@@ -44,7 +44,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="w-100">
+                    <div class="">
                         <button type="submit" id="kt_sign_in_submit" class="btn btn-primary w-100">
                             <span class="indicator-label">Sign In</span>
                         </button>
@@ -61,7 +61,9 @@
             </div>
         </div>
         <div class="col-12 col-md-7">
-            <img class="w-100" style="height: 100vh" src="media/login_image.png" alt="">
+            <div style="width: 100vw !important;" class="d-flex justify-content-center align-items-center">
+                <img src="media/login_image.png" alt="">
+            </div>
         </div>
     </div>
     @include('pages/login/modal/request_api')

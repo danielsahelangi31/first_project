@@ -252,7 +252,7 @@
             <div style="padding:10px;width:300px;height:153px;background:white;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;">
               <div style="display:flex;padding:0 10px;">
                 <div style="width:50%;">
-                  <a href="/master-kapal?request=active&status=all" onmouseover="this.style.cursor='pointer'">
+                  <a href="#" onmouseover="this.style.cursor='pointer'">
                     {{--  @if(!submitter && !approver)
                     <p style="margin:25px 0 -1px 0;font-size:20px;color:#4B4A4A;font-weight:bold;"><b>Approve</b></p>
                     @else   --}}
@@ -268,11 +268,11 @@
               <div style="display:flex;margin-top:-5px;">
                 <div style="width:50%;text-align:center;">
                   0<br>
-                  <a href="/master-kapal?request=active&status=ACTIVE" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Aktif</u></a>
+                  <a href="#" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Aktif</u></a>
                 </div>
                 <div style="width:50%;text-align:center;border-left:1px solid #C0C0C0;">
                   0<br>
-                  <a href="/master-kapal?request=active&status=INACTIVE" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Non-Aktif</u></a>
+                  <a href="#" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Non-Aktif</u></a>
                 </div>
               </div>
             </div>
@@ -280,7 +280,7 @@
             <div style="padding:10px;background:white;width:300px;height:153px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:10px;margin-left:100px;">
               <div style="display:flex;padding:0 10px;">
                 <div style="width:50%;">
-                  <a href="/master-kapal?request=outstanding&status=all" onmouseover="this.style.cursor='pointer'">
+                  <a href="#" onmouseover="this.style.cursor='pointer'">
                     <p style="margin:25px 0 -1px 0;font-size:16px;color:#4B4A4A;font-weight:bold;">Outstanding</p>
                   </a>
                 </div>
@@ -292,15 +292,15 @@
               <div style="display:flex;margin-top:-5px;">
                 <div style="width:34%;text-align:center;">
                   0<br>
-                  <a href="/master-kapal?request=outstanding&status=REQUEST" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Diajukan</u></a>
+                  <a href="#" onmouseover="this.style.cursor='pointer'" style="color:#8CE02C;"><u>Diajukan</u></a>
                 </div>
                 <div style="width:33%;text-align:center;border-left:1px solid #C0C0C0;">
                   0<br>
-                  <a href="/master-kapal?request=outstanding&status=REJECT" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Ditolak</u></a>
+                  <a href="#" onmouseover="this.style.cursor='pointer'" style="color:red;"><u>Ditolak</u></a>
                 </div>
                 <div style="width:33%;text-align:center;border-left:1px solid #C0C0C0;">
                   0<br>
-                  <a href="/master-kapal?request=outstanding&status=DRAFT" onmouseover="this.style.cursor='pointer'" style="color:#EDAD51;"><u>Draft</u></a>
+                  <a href="#" onmouseover="this.style.cursor='pointer'" style="color:#EDAD51;"><u>Draft</u></a>
                 </div>
               </div>
             </div>
@@ -316,29 +316,14 @@
         <div class="card-body border-top p-9">
           <!--begin::Email Address-->
           <div class="card-title m-0">
-              {{--  <div class="row">
-                <div class="col-md-4">
-                  <input style="background-image:url(/media/peralatan/search_icon.svg);background-position:5% 45%;background-repeat:no-repeat;text-indent:40px;" type="text" name="" id="search" class="form-control mb-5" placeholder="Search">
-                </div>
-              </div>  --}}
               <div class="row">
                 <div class="col-md-4">
-                  {{--  <select class="form-control" style="border:1px solid #045299;" id="kategori" data-control="select2" data-placeholder="{{ param == 'outstanding' ? 'Outstanding' : 'Approve' }}">
-                    <option value=""></option>
-                    <option value="Disetujui" onmouseover="this.style.background='#B6EAFF'">Approve</option>
-                    <option value="Tertunda" onmouseover="this.style.background='#B6EAFF'">Outstanding</option>
-                  </select>  --}}
                   <input style="background-image:url(/media/peralatan/search_icon.svg);background-position:5% 45%;background-repeat:no-repeat;text-indent:40px;" type="text" name="" id="search" class="form-control mb-5" placeholder="Search">
                 </div>
                 <div class="col-md-8 mb-6">
-                  {{--  @can("access", "create-kapal")
-                  <a href="{{ route('MasterVesselsController.add') }}" class="btn btn-primary float-end" style="margin-left:20px;">
+                  <a href="{{ route('MasterBarangController.add') }}" id="add-button" class="btn btn-primary mx-2" style="float:right;">
                     <i class="fa fa-plus"></i> Add New
                   </a>
-                  @endcan  --}}
-                  <button id="add-button" class="btn btn-primary mx-2" style="float:right;">
-                    <img src="/media/svg/files/filter-icon.svg" alt="" srcset=""> + Add New
-                  </button>
                   <button id="excel" class="btn btn-outline-primary border border-primary"  style="float:right;">
                     <img class="icon" src="/media/peralatan/export.svg" alt="" srcset=""> Export Master
                   </button>

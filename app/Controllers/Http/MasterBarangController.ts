@@ -8,4 +8,12 @@ export default class MasterBarangController {
             return error;
         }
     }
+
+    public async add({view}) {
+        try {
+            return view.render('pages/master_barang/pages/create.edge');
+        } catch (error) {
+            return error.message;
+        }
+    }
 }

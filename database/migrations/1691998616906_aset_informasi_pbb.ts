@@ -5,7 +5,7 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid("id");
+      table.uuid("id").primary();
       table.uuid("header_id").unsigned().references("id").inTable("aset_headers").onDelete("CASCADE");
       table.string("no_pbb");
       table.string("nilai_njop");

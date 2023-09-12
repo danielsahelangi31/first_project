@@ -1,0 +1,87 @@
+<style>
+    /* css header 2 start */
+    #progress-trans {
+        width:75px;
+        height:1px;
+        margin:20px -85px 0 10px;
+        z-index:1;
+    }
+
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+    }
+    
+    #progress-page {
+        width:0%;
+        transition:width 1s;
+    }
+
+    #progress-page1 {
+        width:0%;
+        transition:width 1s;
+    }
+
+    .ball-step {
+        width:3rem;
+        height:3rem;
+    }
+
+    .titik-progress {
+        width:5px;
+        height:1px;
+        margin:20px 0 0 5px;
+    }
+
+    #titik-progress-awal {
+        width:5px;
+        height:1px;
+        margin:20px 0 0 10px;
+    }
+
+    #titik-progress-akhir {
+        width:5px;
+        height:1px;
+        margin:20px 10px 0 5px;
+    }
+
+    /* css header 2 end */
+    
+</style>
+
+<!-- header 2 start -->
+<div class="card mt-5 bg-white">
+    <div id="kt_account_settings_signin_method" class="collapse show">
+        <div class="card-body border-top p-9">
+            <div class="d-flex justify-content-center mb-2">
+                <a id="ball-step-1" class="step-circle btn btn-md btn-primary">1</a>
+                <div id="progress-trans" class="progress bg-transparent">
+                <div id="progress-page" class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div id="titik-progress-awal" class="bg-secondary"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div class="bg-secondary titik-progress"></div>
+                <div id="titik-progress-akhir" class="bg-secondary"></div>
+                <a id="ball-step-2" class="step-circle btn btn-md btn-secondary">2</a>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <div class="text-primary me-10 fw-bold">
+                <span class="float-end" style="">Stepper 1</span>
+                </div>
+                <div class="fw-bold ms-10">
+                <span id="teks-spesification" class="text-secondary">Stepper 2</span>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<!-- header 2 end -->
