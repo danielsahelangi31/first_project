@@ -220,34 +220,116 @@
 <script src="/js/custom/mst_vendor/edit.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        function initSelect2Bank(element){
+            $(element).select2({
+                placeholder: "Select a bank",
+                allowClear: true,
+                ajax: {
+                    url: "{{route('select2.bank')}}",
+                    dataType: 'json',
+                    type: "GET",
+                    data: function (params) {
+                        var query = {
+                        search: params.term,
+                        }
+                        // Query parameters will be ?search=[term]&page=[page]
+                        return query;
+                    },
+                    processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                            text: item.name,
+                            id: item.name
+                            }
+                        })
+                    };
+                    }
+                }
+            });
+        }
         const table = new DataTable('#bank_table');
         let newRow = `
-        <tr>
-            <td>
-                <select name="nm_bank" class="nm_bank form-control">
-                    <option value="">Select</option>
-                </select>
-            </td>
-            <td>
-                <input name="account_holder" type="text" class="account_holder form-control" maxlength="50" onkeydown="return /[A-Za-z\.,]/i.test(event.key)" placeholder="Account Holder">
-            </td>
-            <td>
-                <input name="no_rek" type="text" class="no_rek form-control" maxlength="30" onkeypress="return /[0-9]/i.test(event.key)" placeholder="Nomor Rekening">
-            </td>
-            <td>
-                <input name="saving_book" type="file" class="saving_book form-control" maxlength="50" placeholder="Email">
-            </td>
-            <td class="d-flex justify-content-center align-items-center">
-                <a class ="min_row"><img src="/media/peralatan/minus.svg" data-bs-toggle="tooltip" data-bs-title="minus"></a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <select name="nm_bank" class="nm_bank form-control">
+                        <option value="">Select</option>
+                        @if(vendor?.bankAccount?.nm_bank)
+                            <option selected value="{{vendor?.bankAccount?.nm_bank}}">{{vendor?.bankAccount?.nm_bank}}</option>
+                        @endif
+                    </select>
+                </td>
+                <td>
+                    <input value="{{vendor?.bankAccount?.account_holder ? vendor?.bankAccount.account_holder : ""}}" name="account_holder" type="text" class="account_holder form-control" maxlength="50" onkeydown="return /[A-Za-z\.,]/i.test(event.key)" placeholder="Account Holder">
+                </td>
+                <td>
+                    <input value="{{vendor?.bankAccount?.no_rek ? vendor?.bankAccount?.no_rek : ""}}" name="no_rek" type="text" class="no_rek form-control" maxlength="30" onkeypress="return /[0-9]/i.test(event.key)" placeholder="Nomor Rekening">
+                </td>
+                <td>
+                    {{csrfField()}}
+                    <!--begin::Dropzone-->
+                    <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_example_3">
+                        <!--begin::Controls-->
+                        <div class="dropzone-panel mb-lg-0 mb-2">
+                            <a class="dropzone-select btn btn-sm btn-primary me-2">Attach files</a>
+                            <a class="dropzone-remove-all btn btn-sm btn-light-primary">Remove All</a>
+                        </div>
+                        <!--end::Controls-->
+
+                        <!--begin::Items-->
+                        <div class="dropzone-items wm-200px">
+                            <div class="dropzone-item" style="display:none">
+                                <!--begin::File-->
+                                <div class="dropzone-file">
+                                    <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                        <span data-dz-name>some_image_file_name.jpg</span>
+                                        <strong>(<span data-dz-size>340kb</span>)</strong>
+                                    </div>
+
+                                    <div class="dropzone-error" data-dz-errormessage></div>
+                                </div>
+                                <!--end::File-->
+
+                                <!--begin::Progress-->
+                                <div class="dropzone-progress">
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar bg-primary"
+                                            role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Progress-->
+
+                                <!--begin::Toolbar-->
+                                <div class="dropzone-toolbar">
+                                    <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                        </div>
+                        <!--end::Items-->
+                    </div>
+                    <!--end::Dropzone-->
+                    <div class="d-flex justify-content-star">
+                        <!--begin::Hint-->
+                        <span class="form-text text-muted">Max file size is 1MB and max number of files is 1.</span>
+                        <!--end::Hint-->                                                
+                    </div> 
+                    <input hidden name="saving_book" type="file" class="saving_book form-control" maxlength="50" placeholder="Email">
+                </td>
+                <td class="d-flex justify-content-center align-items-center">
+                    <a class="min_row"><img src="/media/peralatan/minus.svg" data-bs-toggle="tooltip" data-bs-title="delete"></a>
+                </td>
+            </tr>
         `;
         // $('#bank_table tbody').on( 'click', 'a.add_row', function () {
         //     table.row.add($(newRow)).draw(false);
         // } );
         $('#add_row').on( 'click' , function () {
-            table.row.add($(newRow)).draw(false);
-            // $('.nm_bank').select2({});
+            const row = table.row.add($(newRow)).draw(false);
+            const select2Element = row.node().querySelector('.nm_bank');
+            initSelect2Bank(select2Element);
         } );
 
         $('#bank_table tbody').on( 'click', 'a.min_row', function () {
@@ -256,6 +338,146 @@
                 .remove()
                 .draw(false);
         } );
+
+        // set the dropzone container id
+        const id = "#kt_dropzonejs_example_3";
+        const dropzone = document.querySelector(id);
+        const token = $('input[name=_csrf]').val();
+        // set the preview element template
+        var previewNode = dropzone.querySelector(".dropzone-item");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        var myDropzone = new Dropzone(id, { // Make the whole body a dropzone
+            url: "/master-vendor/upload", // Set the url for your upload script location
+            method: "post",
+            paramName: "file",
+            parallelUploads: 1,
+            uploadMultiple: false,
+            maxFiles:1,
+            acceptedFiles: "application/pdf,application/PDF",
+            maxFilesize: 2, // Max filesize in MB
+            previewTemplate: previewTemplate,
+            previewsContainer: id + " .dropzone-items", // Define the container to display the previews
+            clickable: id + " .dropzone-select", // Define the element that should be used as click trigger to select files.
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': token 
+            }
+        });
+
+        myDropzone.on("addedfile", function (file) {
+            // Hookup the start button
+            const dropzoneItems = dropzone.querySelectorAll('.dropzone-item');
+            dropzoneItems.forEach(dropzoneItem => {
+                dropzoneItem.style.display = '';
+            });
+        });
+
+        // Update the total progress bar
+        myDropzone.on("totaluploadprogress", function (progress) {
+            const progressBars = dropzone.querySelectorAll('.progress-bar');
+            progressBars.forEach(progressBar => {
+                progressBar.style.width = progress + "%";
+            });
+        });
+
+        myDropzone.on("sending", function (file) {
+            // Show the total progress bar when upload starts
+            const progressBars = dropzone.querySelectorAll('.progress-bar');
+            progressBars.forEach(progressBar => {
+                progressBar.style.opacity = "1";
+            });
+        });
+
+        myDropzone.on("complete", function (progress) {
+            const data = JSON.parse(progress.xhr.response);
+            const fileName = data.filename;
+            const urlData = data.url;
+
+            // Hide the total progress bar when nothing"s uploading anymore
+            const progressBars = dropzone.querySelectorAll('.dz-complete');
+            setTimeout(function () {
+                progressBars.forEach(progressBar => {
+                    progressBar.querySelector('.progress-bar').style.opacity = "0";
+                    progressBar.querySelector('.progress').style.opacity = "0";
+                });
+            }, 300);
+
+            // remove file after upload;
+            const deleteItems = dropzone.querySelectorAll('.dropzone-delete');
+            deleteItems.forEach(item => {
+                $(item).on('click', () => {
+                    Swal.fire({
+                        title: "<span style='color:#8CE02C;'>Dihapus</span>",
+                        html: '<strong>Apakah anda yakin ?</strong>', 
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: 'Iya', 
+                        confirmButtonColor: '#045299',
+                        reverseButtons: true,
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if(result.isConfirmed == true){
+                            $.ajax({
+                                url: `/master-vendor/delete-file`,
+                                type: 'delete',
+                                headers: {
+                                    'X-CSRF-TOKEN': token 
+                                },
+                                beforeSend: function() {
+                                    blockUI.block();
+                                },
+                                data: {
+                                    file: fileName
+                                },
+                                success: function(data) {
+                                    blockUI.release();
+                                    Swal.fire({
+                                        title: "<span style='color:#8CE02C;'>Sukses</span>", 
+                                        html: `<strong>File berhasil dihapus</strong>`, 
+                                        icon:'success',
+                                        confirmButtonText: "Lanjutkan",
+                                        confirmButtonColor: "#045299",
+                                        allowOutsideClick: false
+                                    })
+                                },
+                                error: function(data) {
+                                    console.log(data);
+                                    blockUI.release();
+                                    Swal.fire({
+                                        title: "<span style='color:#FF0000;'>Gagal</span>", 
+                                        html: `<strong>${data}</strong>`, 
+                                        icon: "error",
+                                        confirmButtonText: "Baik", 
+                                        confirmButtonColor: "#045299",
+                                        allowOutsideClick: false
+                                    })
+                                }
+                            })
+                        }
+                    })
+                })
+            });
+
+            // preview file 
+            const urlItems = dropzone.querySelectorAll('.dropzone-filename');
+            urlItems.forEach(url => {
+                $(url).on('click', () => {
+                    const newWindow = window.open(urlData,'_blank');
+                    if (newWindow) {
+                        //Browser has allowed it to be opened
+                        newWindow.focus();
+                    } else {
+                        //Browser has blocked it
+                        alert('Please allow popups for this website');
+                    }
+                });
+            })
+        });
+
         //get value city
         $('#id_postal_code').select2({
             placeholder: "Select a Kota",
@@ -286,32 +508,7 @@
         });
 
         // get value bank
-        $('.nm_bank').select2({
-            placeholder: "Select a bank",
-            allowClear: true,
-            ajax: {
-                url: "{{route('select2.bank')}}",
-                dataType: 'json',
-                type: "GET",
-                data: function (params) {
-                    var query = {
-                    search: params.term,
-                    }
-                    // Query parameters will be ?search=[term]&page=[page]
-                    return query;
-                },
-                processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                        text: item.name,
-                        id: item.name
-                        }
-                    })
-                };
-                }
-            }
-        });
+        initSelect2Bank('.nm_bank');
     })  
 </script>
 @end

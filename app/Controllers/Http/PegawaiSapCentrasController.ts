@@ -1912,7 +1912,7 @@ export default class PegawaiSapCentrasController {
             // cek apakah payload yang diterima sesuai dengan servisnya
             for(let i = 1; i < Object.keys(payload).length; i++) {
                 if(!PelaksanaHarian.$hasColumn(String(Object.keys(payload)[i]).toLowerCase())) {
-                    return "Data tidak valid";
+                    throw new Error("Data tidak valid");
                 }
             }
 

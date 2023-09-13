@@ -29,3 +29,20 @@ Route.group(() => {
     Route.get("/export", "MasterCustomerController.createExcelData").as("exportData");
     Route.post("/uploadFile", "MasterCustomerV2sController.uploadFile");
 }).prefix("/customer");
+
+
+//Master Customer
+  // Route.group(() => {
+  //   Route.get("master-customer/renewal/:id", "MasterCustomerController.getRenewal").as("renewal");
+  //   Route.get("master-customer/edit/:id", "MasterCustomerController.getEdit").as("edit");
+  //   Route.get("master-customer/view/:id", "MasterCustomerController.getView").as("view");
+  //   Route.get("master-customer/create", "MasterCustomerController.getCreate").as("create");
+  //   Route.post("master-customer/createData", "MasterCustomerController.storeData").as("storeData");
+  //   Route.post("master-customer/updateData/:id", "MasterCustomerController.updateData").as("updateData");
+  //   Route.get("master-customer", "MasterCustomerController.index").as("master-customer");
+  //   Route.get("/deleteCustomer/:id", "MasterCustomerController.destroy");
+  //   //request customer
+  //   Route.post("/request-customer/approve", "MasterCustomerController.aprovalCustomer").as("requestCustomer.approve");
+  //   Route.post("/request-customer/reject", "MasterCustomerController.rejectCustomer").as("requestCustomer.reject");
+  //   Route.get("/request-customer/:id/approvalHistoryNext", "MasterCustomerController.approvalHistoryNext").as("customer.approvalHistoryNext");
+  // }).middleware(["logR"]);

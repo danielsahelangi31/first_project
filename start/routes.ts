@@ -24,6 +24,7 @@ import './routes/asetRoutes';
 import './routes/barangRoutes';
 import './routes/dataSelectRoutes';
 import './routes/companyRoutes';
+import './routes/vendorRoutes';
 import './routes/vesselRoutes';
 import './routes/MasterPegawaiWebRoutes';
 import './routes/MasterPegawaiIntegrationRoutes';
@@ -69,21 +70,6 @@ Route.group(() => {
   Route.get("/deleteLocation/:id", "EntityLocationsController.destroy").as("deleteLocation");
   Route.get("/entity/paggination", "EntityLocationsController.index").as("paggination");
   Route.get("/entity-search/:id", "EntityLocationsController.entitySearch").as("searchEntity");
-  //Master Customer
-  // Route.group(() => {
-  //   Route.get("master-customer/renewal/:id", "MasterCustomerController.getRenewal").as("renewal");
-  //   Route.get("master-customer/edit/:id", "MasterCustomerController.getEdit").as("edit");
-  //   Route.get("master-customer/view/:id", "MasterCustomerController.getView").as("view");
-  //   Route.get("master-customer/create", "MasterCustomerController.getCreate").as("create");
-  //   Route.post("master-customer/createData", "MasterCustomerController.storeData").as("storeData");
-  //   Route.post("master-customer/updateData/:id", "MasterCustomerController.updateData").as("updateData");
-  //   Route.get("master-customer", "MasterCustomerController.index").as("master-customer");
-  //   Route.get("/deleteCustomer/:id", "MasterCustomerController.destroy");
-  //   //request customer
-  //   Route.post("/request-customer/approve", "MasterCustomerController.aprovalCustomer").as("requestCustomer.approve");
-  //   Route.post("/request-customer/reject", "MasterCustomerController.rejectCustomer").as("requestCustomer.reject");
-  //   Route.get("/request-customer/:id/approvalHistoryNext", "MasterCustomerController.approvalHistoryNext").as("customer.approvalHistoryNext");
-  // }).middleware(["logR"]);
 
   // Role
   Route.group(() => {
@@ -238,23 +224,7 @@ Route.group(() => {
 Route.get("/check-code-company", "MasterCompaniesController.findCodeCompany").as("findCode");
 Route.get("/check-duplicate-api", "ApiRequestController.findDuplicateData").as("checkDuplicate");
 Route.get("/check-job-position", "JobPositionsController.findJobPosition").as("checkJobPosition");
-// master vendor
-Route.group(()=> {
-  Route.get('/', 'MasterVendorsController.index');
-  Route.get('/add', 'MasterVendorsController.add');
-  Route.get('/edit/:id', 'MasterVendorsController.edit');
-  Route.get('/renewal/:id', 'MasterVendorsController.renewal');
-  Route.get('/view/:id', 'MasterVendorsController.view');
-  Route.get('/view-approved/:id', 'MasterVendorsController.viewApproved');
-  Route.post('/store', 'MasterVendorsController.store');
-  Route.put('/update/:id', 'MasterVendorsController.update')
-  Route.put('/update-status/:id', 'MasterVendorsController.updateStatus')
-  Route.post('/renewal-add/:id', 'MasterVendorsController.storeRenewal');
-  Route.delete("/delete/:id", "MasterVendorsController.destroy");
-  Route.post("/approval", "MasterVendorsController.approval");
-  Route.post("/reject", "MasterVendorsController.reject");
-  Route.get("/modal-data", "MasterVendorsController.modalData");
-}).prefix('/master-vendor').middleware("auth")
+
 
 // vendor integration
 Route.group(() => {

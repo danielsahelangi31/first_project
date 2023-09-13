@@ -363,15 +363,16 @@ export default class MasterPegawaisController {
         let header1: any, header2: any, header: any;
         
         if(company_id != '') {
+            console.log(org[0].group_company);
             node.id = 0;
             node.name = img_pelindo;
-            node.title = org[0].group_company;
+            node.title = org[0].group_company == 'Head Office' ? 'Non Cluster' : org[0].group_company;
             header = node.children;
         } else {
             
             if(filter.head_office == 'true' || no_filter) {
 
-                if((filter.regional == 'true' && filter.subholding == 'true') || no_filter) {
+                if((filter.regional == 'true' && filter.subholding == 'true' && filter.noncluster == 'true') || no_filter) {
                     node.children.push(
                         {
                             id: 1,
@@ -383,6 +384,12 @@ export default class MasterPegawaisController {
                             id: 2,
                             name : img_pelindo,
                             title : 'Subholding',
+                            children : []
+                        },
+                        {
+                            id: 3,
+                            name : `<a href="/master-pegawai/main/${org[0].id}"><img class="avatar" src="/media/pegawai/img/pelindo2.svg" crossorigin="anonymous" /></a>`,
+                            title : 'Non Cluster',
                             children : []
                         }
                     );
@@ -414,6 +421,17 @@ export default class MasterPegawaisController {
                         );
                         header2 = node.children[0].children;
                     }
+
+                    if(filter.noncluster == 'true' || no_filter) {
+                        node.children.push(
+                            {
+                                id: 3,
+                                name : `<a href="/master-pegawai/main/${org[0].id}"><img class="avatar" src="/media/pegawai/img/pelindo2.svg" crossorigin="anonymous" /></a>`,
+                                title : 'Non Cluster',
+                                children : [] 
+                            }
+                        );
+                    }
                 }
             }
         }
@@ -432,7 +450,7 @@ export default class MasterPegawaisController {
                 if(i == 0) {
                     if(filter.head_office == 'true' || no_filter) {
                         node.id = i;
-                        node.name = `<a href="/master-pegawai/main/${org[i].id}"><img class="avatar" src="/media/pegawai/img/pelindo2.svg" crossorigin="anonymous" /></a>`,
+                        node.name = img_pelindo,
                         node.title = org[i].name;
                     }
                 } else {

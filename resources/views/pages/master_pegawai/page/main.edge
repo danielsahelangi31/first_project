@@ -711,13 +711,13 @@ ol {
                     <div class="col">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="head-office" />
-                        <label class="form-check-label" for="check1">
+                        <label class="form-check-label" for="head-office">
                             Head Office
                         </label>
                       </div>
                       <div class="form-check" style="margin-top:20px;">
                         <input class="form-check-input" type="checkbox" value="" id="sub-holding" />
-                        <label class="form-check-label" for="check2">
+                        <label class="form-check-label" for="subholding">
                             Sub Holding
                         </label>
                       </div>
@@ -725,16 +725,16 @@ ol {
                     <div class="col">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="regional" />
-                        <label class="form-check-label" for="check3">
+                        <label class="form-check-label" for="regional">
                             Regional
                         </label>
                       </div>
-                      {{--  <div class="form-check" style="margin-top:20px;">
-                        <input class="form-check-input" type="checkbox" value="" id="cabang" />
-                        <label class="form-check-label" for="check4">
-                            Cabang
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="noncluster" />
+                        <label class="form-check-label" for="noncluster">
+                            Non Cluster
                         </label>
-                      </div>  --}}
+                      </div>
                     </div>
                   </div>
               </div>
@@ -811,8 +811,8 @@ ol {
           params.push('regional');
         }
         
-        if($("#cabang:checked").length == 1) {
-          params.push('cabang');
+        if($("#noncluster:checked").length == 1) {
+          params.push('noncluster');
         }
 
         if(params.length == 0) {
@@ -829,6 +829,7 @@ ol {
     }
 </script>
 
+<script type="text/javascript" src="/js/chart/jquery.orgchart.js"></script>
 
 <script defer type="text/javascript">
   (function($) {
@@ -841,7 +842,7 @@ ol {
     if(/headoffice/.test(url)) array_filter.push(true);
     if(/subholding/.test(url)) array_filter.push(true);
     if(/regional/.test(url)) array_filter.push(true);
-    if(/cabang/.test(url)) array_filter.push(true);
+    if(/noncluster/.test(url)) array_filter.push(true);
 
     if(array_filter.length == 0) {
       @if(company_id)
@@ -861,7 +862,7 @@ ol {
           head_office: /headoffice/.test(url), 
           subholding: /subholding/.test(url), 
           regional: /regional/.test(url), 
-          cabang: /cabang/.test(url), 
+          noncluster: /noncluster/.test(url), 
         },
         company_id: array_filter.length != 0 ? '' : window.location.search, 
       },

@@ -1,3 +1,5 @@
+import {isValid} from './validator.js';
+
 $(document).ready(()=> {
     //batal
     $('#batal').click(function() {
@@ -51,7 +53,9 @@ $(document).ready(()=> {
               allowOutsideClick: false
           }).then((result)=>{
               if(result.isConfirmed == true) {
-                postData("REQUEST");
+                if(isValid()){
+                  // postData("REQUEST");
+                }
               }
             });
     });
@@ -75,6 +79,9 @@ $(document).ready(()=> {
           });
     });
 });
+
+
+
 
 
 function bankAccount() {
@@ -161,3 +168,4 @@ function postData(status) {
         }
       })
 };
+

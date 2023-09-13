@@ -87,7 +87,6 @@ export default class LoginController {
         await createUser.save();
       }
       //END PORTAL SI
-    
 
       await auth.use("web").attempt(email, defaultPassword);
       // @ts-ignore

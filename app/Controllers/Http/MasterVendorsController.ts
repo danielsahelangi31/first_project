@@ -11,7 +11,9 @@ import Bank from 'App/Models/Bank';
 import JenisVendor from 'App/Models/JenisVendor';
 import ApprovalFunction from 'App/Services/Approval/Approval.function';
 import IntegrationVendorFunction from 'App/Services/MasterVendor/IntegrationVendor.function';
-
+import {S3Client,PutObjectCommand} from '@aws-sdk/client-s3';
+import fs from 'fs';
+import UploadS3 from 'App/Util/UploadS3';
 // import {v4 as uuidv4} from 'uuid'
 
 export default class MasterVendorsController {
@@ -619,6 +621,39 @@ export default class MasterVendorsController {
         }
     }
 
+    public async upload({request,response}:HttpContextContract){
+        let path = request.file('file',{
+            size: '2mb',
+            extnames: ['pdf','PDF'],
+                
+        });
+
+        let fileBuffer: string | Buffer = fs.readFileSync(path?.tmpPath!);
+        const fieldName = path?.clientName;
+        const nameFile = new Date().getTime().toString() + `-` + `${fieldName?.replace(/ /g,"-")}`
+        try {
+            const data = await UploadS3.uploadFile(fileBuffer,nameFile);
+            const result = {
+                url:`${data.endpoint}/${data.bucket}/${nameFile}`,
+                filename: nameFile
+            }
+            return response.status(200).send(result);
+        } catch (error) {
+            console.log(error)
+            return response.status(500).send(error);
+        }
+    }
+
+    public async deleteUpload({request,response}:HttpContextContract){
+        const fileName = request.input('file');
+        try {
+            const data = await UploadS3.deleteFile(fileName);
+            return response.status(200).send(data);
+        } catch (error) {
+            console.log(error)
+            return response.status(500).send(error);
+        }
+    }
     public async modalData({ request,response}: HttpContextContract){
         const noRequest:string = request.input('no_request') ? request.input('no_request') : "";
         try {

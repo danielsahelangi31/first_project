@@ -137,7 +137,57 @@
                             <input {{usable_account}} value="{{data.no_rek ? data.no_rek : ""}}" name="no_rek" type="text" class="no_rek form-control" maxlength="30" onkeypress="return /[0-9]/i.test(event.key)" placeholder="Nomor Rekening">
                         </td>
                         <td>
-                            <input {{usable_account}} name="saving_book" type="file" class="saving_book form-control" maxlength="50" placeholder="Email">
+                            {{csrfField()}}
+                            <!--begin::Dropzone-->
+                            <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_example_3">
+                                <!--begin::Controls-->
+                                <div class="dropzone-panel mb-lg-0 mb-2">
+                                    <a class="dropzone-select btn btn-sm btn-primary me-2">Attach files</a>
+                                    <a class="dropzone-remove-all btn btn-sm btn-light-primary">Remove All</a>
+                                </div>
+                                <!--end::Controls-->
+
+                                <!--begin::Items-->
+                                <div class="dropzone-items wm-200px">
+                                    <div class="dropzone-item" style="display:">
+                                        <!--begin::File-->
+                                        <div class="dropzone-file">
+                                            <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                                <span data-dz-name>{{data?.saving_bank ? data?.saving_bank : ""}}</span>
+                                                <strong>(<span data-dz-size>file has not been uploaded</span>)</strong>
+                                            </div>
+
+                                            <div class="dropzone-error" data-dz-errormessage></div>
+                                        </div>
+                                        <!--end::File-->
+
+                                        <!--begin::Progress-->
+                                        <div class="dropzone-progress">
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-primary"
+                                                    role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Progress-->
+
+                                        <!--begin::Toolbar-->
+                                        <div class="dropzone-toolbar">
+                                            <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                </div>
+                                <!--end::Items-->
+                            </div>
+                            <!--end::Dropzone-->
+                            <div class="d-flex justify-content-star">
+                                <!--begin::Hint-->
+                                <span class="form-text text-muted">Max file size is 1MB and max number of files is 1.</span>
+                                <!--end::Hint-->                                                
+                            </div> 
+                            <input hidden {{usable_account}} name="saving_book" type="input" class="saving_book form-control" maxlength="50" placeholder="Saving Book">
                         </td>
                         <td class="d-flex justify-content-center align-items-center">
                             {{--  <a {{usable_account}} class ="add_row"><img src="/media/peralatan/add.svg" data-bs-toggle="tooltip" data-bs-title="add"></a>  --}}
