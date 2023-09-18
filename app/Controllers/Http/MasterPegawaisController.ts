@@ -344,7 +344,7 @@ export default class MasterPegawaisController {
                             .join('master_companies', 'master_companies.company_group', '=', 'group_companies.id')
                             .select('group_companies.name as group_company', 'master_companies.company_name')
                             .whereRaw(`"group_companies"."id" = '${company_id}' AND "master_companies"."id_parent" != '1' OR "group_companies"."id" = '${company_id}' AND "master_companies"."id_parent" IS NULL`)
-                            .limit(4);
+                            .limit(9);
         } else {
             org = await GroupCompany.query().select("id", "name", "type", "level").orderBy("sort_no", "asc");
         }
@@ -363,7 +363,6 @@ export default class MasterPegawaisController {
         let header1: any, header2: any, header: any;
         
         if(company_id != '') {
-            console.log(org[0].group_company);
             node.id = 0;
             node.name = img_pelindo;
             node.title = org[0].group_company == 'Head Office' ? 'Non Cluster' : org[0].group_company;
@@ -441,7 +440,7 @@ export default class MasterPegawaisController {
                 const new_node = {
                     id : i,
                     name : img_pelindo,
-                    title : org[i].company_name,
+                    title : `<span style="max-width:800px;overflow:hidden;">${org[i].company_name}</span>`,
                     children : []
                 };
                 
